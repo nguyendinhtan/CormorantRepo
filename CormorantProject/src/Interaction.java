@@ -1,29 +1,41 @@
 import java.util.*;
 
 public class Interaction {
-	private List<Person> people;
+	private List<Person> people1;
+	private List<Person> people2;
 	private String location;
 	private Date date;
 	private List<String> interactionType;
 	private List<String> citation;
 	private String notes;
+	private boolean directed;
 
-	public Interaction(List<Person> people, String location, Date date, List<String> interactionType,
-			List<String> citation, String notes) {
-		this.people = people;
+	public Interaction(List<Person> people1, List<Person> people2, String location, Date date, List<String> interactionType,
+			List<String> citation, String notes, boolean directed) {
+		this.people1 = people1;
+		this.people2 = people2;
 		this.location = location;
 		this.date = date;
 		this.interactionType = interactionType;
 		this.citation = citation;
 		this.notes = notes;
+		this.directed = directed; 
 	}
 
-	public List<Person> getPeople() {
-		return people;
+	public List<Person> getPeople1() {
+		return people1;
+	}
+	
+	public List<Person> getPeople2() {
+		return people2;
 	}
 
-	public void setPeople(List<Person> people) {
-		this.people = people;
+	public void setPeople1(List<Person> people) {
+		this.people1 = people;
+	}
+	
+	public void setPeople2(List<Person> people) {
+		this.people2 = people;
 	}
 
 	public String getLocation() {
@@ -64,5 +76,9 @@ public class Interaction {
 
 	public void setNotes(String notes) {
 		this.notes = notes;
+	}
+	
+	public boolean isDirected(boolean directed){
+		return this.directed;
 	}
 }
