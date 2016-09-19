@@ -6,9 +6,13 @@ public class Person {
 	private List<String> culture;
 	private String occupation;
 	private String notes;
-	
-	public Person(){
-		
+
+	public Person(String name, String gender, List<String> culture, String occupation, String notes) {
+		this.name = name;
+		this.gender = gender;
+		this.culture = culture;
+		this.occupation = occupation;
+		this.notes = notes;
 	}
 
 	public String getName() {
@@ -50,7 +54,5 @@ public class Person {
 	public void setNotes(String notes) {
 		this.notes = notes;
 	}
-	
-	
-	
+
 }
