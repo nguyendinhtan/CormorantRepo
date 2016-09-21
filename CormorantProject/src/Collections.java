@@ -28,15 +28,9 @@ public class Collections {
 		interactionCollection.remove(interaction);
 	}
 	
-	public void editInteraction(Interaction interaction, List<Person> people1, List<Person> people2, String location, Date date, List<String> interactionType,
+	public void editInteraction(Interaction interaction, List<Person> people, String location, Date date, List<String> interactionType,
 			List<String> citation, String notes){
-		interaction.setPeople1(people1);
-		interaction.setPeople2(people2);
-		interaction.setDate(date);
-		interaction.setInteractionType(interactionType);
-		interaction.setLocation(location);
-		interaction.setCitation(citation);
-		interaction.setNotes(notes);
+		interaction = new Interaction(people, location, date, interactionType, citation, notes);
 	}
 	
 	//CSV Collection Methods
