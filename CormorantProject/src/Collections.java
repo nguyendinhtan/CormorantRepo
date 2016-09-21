@@ -28,9 +28,9 @@ public class Collections {
 		interactionCollection.remove(interaction);
 	}
 	
-	public void editInteraction(Interaction interaction, List<Person> people, String location, Date date, List<String> interactionType,
+	public void editInteraction(Interaction interaction, List<Person> people1, List<Person> people2, String location, Date date, List<String> interactionType,
 			List<String> citation, String notes){
-		interaction = new Interaction(people, location, date, interactionType, citation, notes);
+		interaction = new Interaction(people1, people2, location, date, interactionType, citation, notes, false);
 	}
 	
 	//CSV Collection Methods
