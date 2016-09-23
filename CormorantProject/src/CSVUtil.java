@@ -1,4 +1,3 @@
-import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -28,4 +27,5 @@ public class CSVUtil {
 		for (String[] row : myRows) {
 			addWatcher(new BirdWatcher(row));
 		}
+}
 }
