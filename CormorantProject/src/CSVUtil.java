@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
 import java.util.TreeMap;
 
 import com.opencsv.CSVReader;
@@ -21,11 +22,16 @@ public class CSVUtil {
 
 	public void loadWatchers(String fileName) throws IOException {
 		CSVReader reader = new CSVReader(new FileReader(fileName));
-
+		Scanner inputStream = new Scanner(fileName);
 		List<String[]> myRows = reader.readAll();
+		while (inputStream.hasNext())	{
+			String data=inputStream.next();
+		}
+		inputStream.close();
 		String[] headerRow = myRows.remove(0); // remove header row
-
+/*
 		for (String[] row : myRows) {
 			addWatcher(new BirdWatcher(row));
-		}
+		}*/
+	}
 }
