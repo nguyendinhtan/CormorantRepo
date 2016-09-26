@@ -1,28 +1,26 @@
 import java.util.List;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class Person.
  */
 public class Person {
+	/** The id of the person. */
+	private int id;
 	
-	/** The name. */
+	/** The name of the person. */
 	private String name;
 	
-	/** The gender. */
+	/** The gender of the person. */
 	private String gender;
 	
-	/** The culture. */
+	/** The culture of the person. */
 	private List<String> culture;
 	
-	/** The occupation. */
+	/** The occupation of the person. */
 	private String occupation;
 	
-	/** The notes. */
+	/** The notes of the person . */
 	private String notes;
-	
-	/** The id. */
-	private int id;
 
 	/**
 	 * Instantiates a new person.
@@ -41,6 +39,23 @@ public class Person {
 		this.culture = culture;
 		this.occupation = occupation;
 		this.notes = notes;
+	}
+	/**
+	 * Gets the id.
+	 *
+	 * @return the id
+	 */
+	public int getID()	{
+		return id;
+	}
+	
+	/**
+	 * Sets the id.
+	 *
+	 * @param id the new id
+	 */
+	public void setID(int id)	{
+		this.id=id;
 	}
 
 	/**
@@ -70,14 +85,6 @@ public class Person {
 		return gender;
 	}
 	
-	/**
-	 * Gets the id.
-	 *
-	 * @return the id
-	 */
-	public int getID()	{
-		return id;
-	}
 	
 	/**
 	 * Sets the gender.
@@ -142,13 +149,4 @@ public class Person {
 		this.notes = notes;
 	}
 	
-	/**
-	 * Sets the id.
-	 *
-	 * @param id the new id
-	 */
-	public void setID(int id)	{
-		this.id=id;
-	}
-
 }

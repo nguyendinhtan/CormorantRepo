@@ -1,10 +1,11 @@
 import java.util.*;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class Interaction.
  */
 public class Interaction {
+	
+	private int id;
 	
 	/** The people 1. */
 	private List<Person> people1;
@@ -42,8 +43,9 @@ public class Interaction {
 	 * @param notes the notes
 	 * @param directed the directed
 	 */
-	public Interaction(List<Person> people1, List<Person> people2, String location, Date date, List<String> interactionType,
+	public Interaction(int id, List<Person> people1, List<Person> people2, String location, Date date, List<String> interactionType,
 			List<String> citation, String notes, boolean directed) {
+		this.id = id;
 		this.people1 = people1;
 		this.people2 = people2;
 		this.location = location;
@@ -53,7 +55,25 @@ public class Interaction {
 		this.notes = notes;
 		this.directed = directed; 
 	}
-
+	
+	/**
+	 * Gets the id.
+	 *
+	 * @return the id
+	 */
+	public int getID()	{
+		return id;
+	}
+	
+	/**
+	 * Sets the id.
+	 *
+	 * @param id the new id
+	 */
+	public void setID(int id)	{
+		this.id=id;
+	}
+	
 	/**
 	 * Gets the people 1.
 	 *
