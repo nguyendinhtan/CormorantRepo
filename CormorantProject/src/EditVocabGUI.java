@@ -20,7 +20,7 @@ public class EditVocabGUI extends Application {
 
 	}
 	public void start(Stage primaryStage) {
-		primaryStage.setTitle("Edit Controable Vocabulary");
+		primaryStage.setTitle("Edit Controlled Vocabulary");
 		GridPane grid = new GridPane();
 		grid.setAlignment(Pos.CENTER);
 		grid.setHgap(10);

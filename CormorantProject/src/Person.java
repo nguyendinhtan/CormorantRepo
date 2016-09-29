@@ -14,7 +14,7 @@ public class Person {
 	private String gender;
 	
 	/** The culture of the person. */
-	private List<String> culture;
+	private String culture;
 	
 	/** The occupation of the person. */
 	private String occupation;
@@ -32,7 +32,7 @@ public class Person {
 	 * @param occupation the occupation
 	 * @param notes the notes
 	 */
-	public Person(int id, String name, String gender, List<String> culture, String occupation, String notes) {
+	public Person(int id, String name, String gender, String culture, String occupation, String notes) {
 		this.id=id;
 		this.name = name;
 		this.gender = gender;
@@ -100,7 +100,7 @@ public class Person {
 	 *
 	 * @return the culture
 	 */
-	public List<String> getCulture() {
+	public String getCulture() {
 		return culture;
 	}
 
@@ -109,7 +109,7 @@ public class Person {
 	 *
 	 * @param culture the new culture
 	 */
-	public void setCulture(List<String> culture) {
+	public void setCulture(String culture) {
 		this.culture = culture;
 	}
 
@@ -148,5 +148,34 @@ public class Person {
 	public void setNotes(String notes) {
 		this.notes = notes;
 	}
-	
+	//ToString method for testing
+	public String toString(){
+		return name+" "+gender+" "+culture+" "+occupation+" "+notes;
+	}
+	//Checks if invalid chars are entered and returns -1 if there are and 0 if there aren't
+	public int checkForUnallowedInput(String name, String culture, String occupation){
+		String unallowedChars="1234567890!@#$%^&*()-+=[]{}?<>";
+		
+		for (int i=0; i<unallowedChars.length();i++){
+			for(int j=0; j<name.length(); j++){
+				if (name.charAt(j)==((unallowedChars.charAt(i)))){
+					return -1;
+					
+				}
+			}
+			for(int j=0; j<culture.length(); j++){
+				if (culture.charAt(j)==((unallowedChars.charAt(i)))){
+					return -1;
+				}
+			}
+			for(int j=0; j<occupation.length(); j++){
+				if (occupation.charAt(j)==((unallowedChars.charAt(i)))){
+					return -1;
+				}
+			}
+			
+		}
+		return 0;
+		
+	}
 }

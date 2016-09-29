@@ -1,4 +1,4 @@
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -6,11 +6,24 @@ import java.util.List;
  */
 public class Collections {
 	
+	public List<Person> getPersonCollection() {
+		return personCollection;
+	}
+
+	public List<Interaction> getInteractionCollection() {
+		return interactionCollection;
+	}
+
 	/** The person collection. */
 	private List<Person> personCollection;
 	
 	/** The interaction collection. */
 	private List<Interaction> interactionCollection;
+	
+	public Collections(){
+		personCollection= new ArrayList<>();
+		interactionCollection=new ArrayList<>();
+	}
 		
 	/**
 	 * Adds a person to the personCollection list.
@@ -41,7 +54,7 @@ public class Collections {
 	 * @param occupation the occupation
 	 * @param notes the notes
 	 */
-	public void editPerson(int id, Person person, String name, String gender, List<String> culture, String occupation, String notes){
+	public void editPerson(int id, Person person, String name, String gender, String culture, String occupation, String notes){
 		person = new Person(id, name, gender, culture, occupation, notes);
 	}
 	
@@ -75,11 +88,19 @@ public class Collections {
 	 * @param citation the citation
 	 * @param notes the notes
 	 */
-	public void editInteraction(int id, Interaction interaction, List<Person> people1, List<Person> people2, String location, Date date, List<String> interactionType,
-			List<String> citation, String notes){
+	public void editInteraction(int id, Interaction interaction, List<Person> people1, List<Person> people2, String location, String date, String interactionType,
+			String citation, String notes){
 		interaction = new Interaction(id, people1, people2, location, date, interactionType, citation, notes, false);
 	}
-	
+	//checks for duplicates in person list and returns the id of the person if there is a duplicate and -1 if there isn't
+	public int checkForPersonDuplicates(Person person){
+		for (int i=0; i<personCollection.size(); i++){
+			if (person.getName().toLowerCase().equals(personCollection.get(i).getName().toLowerCase())&& person.getCulture().toLowerCase().equals(personCollection.get(i).getCulture().toLowerCase())&&person.getOccupation().toLowerCase().equals(personCollection.get(i).getOccupation().toLowerCase())){
+				return personCollection.get(i).getID();
+			}
+		}
+		return -1;
+	}
 	/**
 	 * CSV Collection Methods
 	 * Loads the data for each person.

@@ -17,13 +17,13 @@ public class Interaction {
 	private String location;
 	
 	/** The date. */
-	private Date date;
+	private String date;
 	
 	/** The interaction type. */
-	private List<String> interactionType;
+	private String interactionType;
 	
 	/** The citation. */
-	private List<String> citation;
+	private String citation;
 	
 	/** The notes. */
 	private String notes;
@@ -43,8 +43,8 @@ public class Interaction {
 	 * @param notes the notes
 	 * @param directed the directed
 	 */
-	public Interaction(int id, List<Person> people1, List<Person> people2, String location, Date date, List<String> interactionType,
-			List<String> citation, String notes, boolean directed) {
+	public Interaction(int id, List<Person> people1, List<Person> people2, String location, String date, String interactionType,
+			String citation, String notes, boolean directed) {
 		this.id = id;
 		this.people1 = people1;
 		this.people2 = people2;
@@ -133,7 +133,7 @@ public class Interaction {
 	 *
 	 * @return the date
 	 */
-	public Date getDate() {
+	public String getDate() {
 		return date;
 	}
 
@@ -142,7 +142,7 @@ public class Interaction {
 	 *
 	 * @param date the new date
 	 */
-	public void setDate(Date date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 
@@ -151,7 +151,7 @@ public class Interaction {
 	 *
 	 * @return the interaction type
 	 */
-	public List<String> getInteractionType() {
+	public String getInteractionType() {
 		return interactionType;
 	}
 
@@ -160,7 +160,7 @@ public class Interaction {
 	 *
 	 * @param interactionType the new interaction type
 	 */
-	public void setInteractionType(List<String> interactionType) {
+	public void setInteractionType(String interactionType) {
 		this.interactionType = interactionType;
 	}
 
@@ -169,7 +169,7 @@ public class Interaction {
 	 *
 	 * @return the citation
 	 */
-	public List<String> getCitation() {
+	public String getCitation() {
 		return citation;
 	}
 
@@ -178,7 +178,7 @@ public class Interaction {
 	 *
 	 * @param citation the new citation
 	 */
-	public void setCitation(List<String> citation) {
+	public void setCitation(String citation) {
 		this.citation = citation;
 	}
 
