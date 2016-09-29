@@ -1,7 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
-	<classpathentry kind="lib" path="src/opencsv-3.8.jar"/>s
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8">
+		<accessrules>
+			<accessrule kind="accessible" pattern="javafx/scene/**"/>
+			<accessrule kind="accessible" pattern="javafx/application/**"/>
+			<accessrule kind="accessible" pattern="javafx/geometry/**"/>
+			<accessrule kind="accessible" pattern="javafx/stage/**"/>
+			<accessrule kind="accessible" pattern="javafx/collections/**"/>
+			<accessrule kind="accessible" pattern="javafx/event/**"/>
+		</accessrules>
+	</classpathentry>
+	<classpathentry kind="lib" path="src/opencsv-3.8.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

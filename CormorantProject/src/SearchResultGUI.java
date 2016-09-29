@@ -46,7 +46,14 @@ public class SearchResultGUI extends Application {
 		btnBack.setStyle("-fx-base: #FF0000");
 		hbBtn.getChildren().add(btnBack);
 		grid.add(hbBtn, 1, 4);
-
+		btnBack.setOnAction(new EventHandler<ActionEvent>() {
+	       	 
+            @Override
+            public void handle(ActionEvent e) {
+            	HomeGUI Homegui=new HomeGUI();
+            	Homegui.start(primaryStage);
+            }
+        });
 		Scene scene = new Scene(grid, 1000, 1000);
 		primaryStage.setScene(scene);
 		primaryStage.show();
