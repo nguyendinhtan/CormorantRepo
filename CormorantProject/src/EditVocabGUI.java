@@ -19,7 +19,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 /**
- * The edit vocabulary GUI view class.
+ * Edit vocabulary GUI view class.
  *
  */
 public class EditVocabGUI extends Application {
@@ -40,13 +40,13 @@ public class EditVocabGUI extends Application {
 
 		//GUI Variables
 		GridPane grid = new GridPane();
-		HBox queryGroup = new HBox();
-		HBox controlledVocabGroup = new HBox();
+		Scene scene = new Scene(grid, 600, 400);
+		HBox queryBox = new HBox();
+		HBox controlledVocabBox = new HBox();
 		HBox buttonGroup = new HBox(175);
 		Label queryLabel = new Label("Query:");
 		Label vocabLabel = new Label("Controlled Vocabulary Type:");
 	    Label vocabListLabel=new Label("Vocabulary List:");
-		Scene scene = new Scene(grid, 600, 400);
 		ComboBox<String> vocabDropDown = new ComboBox<String>();
 		TextField addVocabTextField = new TextField();
 		Button addButton = new Button("Add");
@@ -62,11 +62,11 @@ public class EditVocabGUI extends Application {
 		grid.add(vocabLabel, 0, 0);
 		grid.add(vocabDropDown, 1, 0);
 	    grid.add(addVocabTextField, 1, 1);
-		grid.add(queryGroup, 0, 1);
+		grid.add(queryBox, 0, 1);
 		grid.add(listView, 1, 2);
 	    grid.add(vocabListLabel, 0, 2);
 		grid.add(addButton, 0, 4);
-		grid.add(controlledVocabGroup, 1, 4);
+		grid.add(controlledVocabBox, 1, 4);
 		grid.add(buttonGroup, 1, 4);
 
 		//Vocab Drop Down Methods
@@ -94,12 +94,12 @@ public class EditVocabGUI extends Application {
         });
 		
 		//Query Group Methods
-		queryGroup.getChildren().add(queryLabel);
-		queryGroup.setAlignment(Pos.CENTER_RIGHT);
+		queryBox.getChildren().add(queryLabel);
+		queryBox.setAlignment(Pos.CENTER_RIGHT);
 				
 		//Controlled Vocab Group Methods
-		controlledVocabGroup.setAlignment(Pos.CENTER_RIGHT);
-		controlledVocabGroup.getChildren().add(backButton);
+		controlledVocabBox.setAlignment(Pos.CENTER_RIGHT);
+		controlledVocabBox.getChildren().add(backButton);
 		
 		//Add Button Methods
 		addButton.setTextFill(Color.BLACK);
