@@ -12,6 +12,10 @@ import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
+/**
+ * 
+ * Home GUI view class.
+ */
 public class HomeGUI extends Application{
 	
 	public static void main(String[] args){

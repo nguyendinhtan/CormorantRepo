@@ -16,6 +16,11 @@ import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
+/**
+ * 
+ * Add Person GUI view class.
+ */
+
 public class AddPersonGUI extends Application {
 
 	Collections personList;

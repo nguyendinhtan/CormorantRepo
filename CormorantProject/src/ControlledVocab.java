@@ -1,6 +1,10 @@
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 
+ * The Controlled Vocab class.
+ */
 public class ControlledVocab {
 private List<String> locationVocab;
 	
