@@ -38,6 +38,33 @@ public class Person {
 		this.occupation = occupation;
 		this.notes = notes;
 	}
+	
+	/**
+	 * TODO: Comment here.
+	 * @param csvRowData
+	 */
+	public Person(String[] csvRowData) {
+		this.id = Integer.parseInt(csvRowData[0]);
+		this.name = csvRowData[1];
+		this.gender = csvRowData[2];
+		this.culture = csvRowData[3];
+		this.occupation = csvRowData[4];
+		this.notes = csvRowData[5];
+	}
+
+	/*
+	 * Comments: This is the method modified from DataStorage
+	@Override
+	public String toString() {
+		return "Person {id=" +id + " name=" + name + " gender="+gender + " culture="+culture + " occupation="+occupation + " notes="+notes +"}";
+	}
+	*/
+	
+	public String[] toCSVRowArray() {
+		return new String[] { Integer.toString(id) , name, gender, culture, notes };
+	}
+	
+	
 	/**
 	 * Gets the id.
 	 *

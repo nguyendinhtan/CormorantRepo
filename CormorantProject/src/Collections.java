@@ -88,9 +88,9 @@ public class Collections {
 	 * @param citation the citation
 	 * @param notes the notes
 	 */
-	public void editInteraction(int id, Interaction interaction, List<Person> people1, List<Person> people2, String location, String date, String interactionType,
+	public void editInteraction(Interaction interaction, List<Person> people1, List<Person> people2, String location, String date, String interactionType,
 			String citation, String notes){
-		interaction = new Interaction(id, people1, people2, location, date, interactionType, citation, notes, false);
+		interaction = new Interaction(people1, people2, location, date, interactionType, citation, notes, false);
 	}
 	//checks for duplicates in person list and returns the id of the person if there is a duplicate and -1 if there isn't
 	public int checkForPersonDuplicates(Person person){
