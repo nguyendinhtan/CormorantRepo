@@ -30,6 +30,9 @@ public class Interaction {
 	
 	/** The directed. */
 	private boolean directed;
+	
+
+	
 
 	/**
 	 * Instantiates a new interaction.
@@ -53,7 +56,8 @@ public class Interaction {
 		this.interactionType = interactionType;
 		this.citation = citation;
 		this.notes = notes;
-		this.directed = directed; 
+		this.directed = directed;
+		
 	}
 	
 	/**
@@ -209,4 +213,6 @@ public class Interaction {
 	public boolean isDirected(boolean directed){
 		return this.directed;
 	}
+	
+	
 }

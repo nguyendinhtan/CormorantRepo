@@ -129,6 +129,7 @@ public class AddPersonGUI extends Application {
 				}
 			}
 		});
+		
 		Button btnBack = new Button("Back");
 		btnBack.setTextFill(Color.WHITE);
 		btnBack.setStyle("-fx-base: #FF0000");
