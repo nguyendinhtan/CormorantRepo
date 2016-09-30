@@ -1,84 +1,114 @@
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
-import javafx.scene.Group;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import javafx.collections.*;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 
+/**
+ * Edit vocabulary GUI view class.
+ *
+ */
 public class EditVocabGUI extends Application {
+
 	ControlledVocab vocabLists;
 	ObservableList<String> observableListVocab;
+	
 	public EditVocabGUI(){
-		vocabLists=new ControlledVocab();
+		vocabLists = new ControlledVocab();
 	}
+	
 	public static void main(String[] args) {
 		launch(args);
-
 	}
+	
 	public void start(Stage primaryStage) {
-		primaryStage.setTitle("Edit Controlled Vocabulary");
+		System.setProperty("glass.accessible.force", "false"); //Fixes bug of crashing ComboBox
+
+		//GUI Variables
 		GridPane grid = new GridPane();
+		Scene scene = new Scene(grid, 600, 400);
+		HBox queryBox = new HBox();
+		HBox controlledVocabBox = new HBox();
+		HBox buttonGroup = new HBox(175);
+		Label queryLabel = new Label("Query:");
+		Label vocabLabel = new Label("Controlled Vocabulary Type:");
+	    Label vocabListLabel=new Label("Vocabulary List:");
+		ComboBox<String> vocabDropDown = new ComboBox<String>();
+		TextField addVocabTextField = new TextField();
+		Button addButton = new Button("Add");
+		Button backButton = new Button("Back");
+		Button removeButton = new Button("Remove");
+		ListView<String> listView = new ListView<String>();
+
+		//Grid Methods
 		grid.setAlignment(Pos.CENTER);
 		grid.setHgap(10);
 		grid.setVgap(10);
 		grid.setPadding(new Insets(25, 25, 25, 25));
-		Label vocabLb=new Label("Controlled Vocabulary Type:");
-		grid.add(vocabLb, 0, 0);
-		ComboBox<String> vocabType = new ComboBox<String>(); 
-		vocabType.getItems().addAll(
+		grid.add(vocabLabel, 0, 0);
+		grid.add(vocabDropDown, 1, 0);
+	    grid.add(addVocabTextField, 1, 1);
+		grid.add(queryBox, 0, 1);
+		grid.add(listView, 1, 2);
+	    grid.add(vocabListLabel, 0, 2);
+		grid.add(addButton, 0, 4);
+		grid.add(controlledVocabBox, 1, 4);
+		grid.add(buttonGroup, 1, 4);
+
+		//Vocab Drop Down Methods
+		vocabDropDown.setMinSize(300, 30);
+		vocabDropDown.getItems().addAll(
 				"Location",
 				"Interaction Type",
 				"Bibliographical Citation"
 		);
-		vocabType.setMinSize(300, 30);
-		System.setProperty("glass.accessible.force", "false");//Fixes bug of crashing combobox
-		grid.add(vocabType, 1, 0);
-		ListView<String> listView=new ListView<String>();
-		
-		listView.setMinSize(100, 100);
-		grid.add(listView, 1, 2);
-		vocabType.setOnAction(new EventHandler<ActionEvent>() {
-	       	 
+		vocabDropDown.setOnAction(new EventHandler<ActionEvent>() { 
             @Override
             public void handle(ActionEvent e) {
-            	if (vocabType.getValue().equals("Location")){
+            	if (vocabDropDown.getValue().equals("Location")){
             		observableListVocab=FXCollections.observableArrayList(vocabLists.getLocationVocab());
             		
-            	}else if (vocabType.getValue().equals("Interaction Type")){
+            	}else if (vocabDropDown.getValue().equals("Interaction Type")){
             		observableListVocab=FXCollections.observableArrayList(vocabLists.getInteractionTypeVocab());
             	
-            	}else if (vocabType.getValue().equals("Bibliographical Citation")){
+            	}else if (vocabDropDown.getValue().equals("Bibliographical Citation")){
             		observableListVocab=FXCollections.observableArrayList(vocabLists.getCitationVocab());
             		
-            	}
-            	
+            	}    	
             	listView.setItems(observableListVocab);
             }
         });
-		Label queryLb=new Label("Query:");
-		grid.add(queryLb, 0, 1);
-		TextField addVocabTextField = new TextField();
-	    grid.add(addVocabTextField, 1, 1);
-	    Label listLb=new Label("Vocabulary List:");
-	    grid.add(listLb, 0, 2);
-	    Button btnAdd = new Button("Add");
-		btnAdd.setTextFill(Color.BLACK);
-		btnAdd.setTextFill(Color.WHITE);
-		btnAdd.setStyle("-fx-base: #FF0000");
-		grid.add(btnAdd, 0, 4);
-		btnAdd.setOnAction(new EventHandler<ActionEvent>() {
-	       	 
+		
+		//Query Group Methods
+		queryBox.getChildren().add(queryLabel);
+		queryBox.setAlignment(Pos.CENTER_RIGHT);
+				
+		//Controlled Vocab Group Methods
+		controlledVocabBox.setAlignment(Pos.CENTER_RIGHT);
+		controlledVocabBox.getChildren().add(backButton);
+		
+		//Add Button Methods
+		addButton.setTextFill(Color.BLACK);
+		addButton.setTextFill(Color.WHITE);
+		addButton.setStyle("-fx-base: #FF0000");
+		addButton.setOnAction(new EventHandler<ActionEvent>() {	 
             @Override
             public void handle(ActionEvent e) {
-            	if (vocabType.getValue()==null || addVocabTextField.getText().isEmpty()){
+            	if (vocabDropDown.getValue()==null || addVocabTextField.getText().isEmpty()){
             		Alert alert = new Alert(AlertType.INFORMATION);
 					alert.setTitle("Error");
 					alert.setHeaderText("No data entered.");
@@ -94,13 +124,13 @@ public class EditVocabGUI extends Application {
 								"Make sure no numbers or special characters are entered");
 						alert.showAndWait();
             	}else{
-            		if (vocabLists.checkForDuplicates(vocab, vocabType.getValue())>=0){
+            		if (vocabLists.checkForDuplicates(vocab, vocabDropDown.getValue())>=0){
             			Alert alert = new Alert(AlertType.INFORMATION);
 						alert.setTitle("Error");
 						alert.setHeaderText("List already contains that vocabulary.");
 						alert.showAndWait();
             		}else{
-            		if (vocabType.getValue().equals("Location")){
+            		if (vocabDropDown.getValue().equals("Location")){
             			Alert alert = new Alert(AlertType.INFORMATION);
 						alert.setTitle("Vocabulary Added");
 						alert.setHeaderText("Vocabulary added to location.");
@@ -112,7 +142,7 @@ public class EditVocabGUI extends Application {
 						for (int i = 0; i < vocabLists.getLocationVocab().size(); i++) {
 							System.out.println(vocabLists.getLocationVocab().get(i));
 						}
-                	}else if (vocabType.getValue().equals("Interaction Type")){
+                	}else if (vocabDropDown.getValue().equals("Interaction Type")){
                 		Alert alert = new Alert(AlertType.INFORMATION);
 						alert.setTitle("Vocabulary Added");
 						alert.setHeaderText("Vocabulary added to interaction type.");
@@ -123,7 +153,7 @@ public class EditVocabGUI extends Application {
 						for (int i = 0; i < vocabLists.getInteractionTypeVocab().size(); i++) {
 							System.out.println(vocabLists.getInteractionTypeVocab().get(i));
 						}
-                	}else if (vocabType.getValue().equals("Bibliographical Citation")){
+                	}else if (vocabDropDown.getValue().equals("Bibliographical Citation")){
                 		Alert alert = new Alert(AlertType.INFORMATION);
 						alert.setTitle("Vocabulary Added");
 						alert.setHeaderText("Vocabulary added to bibliographical citation.");
@@ -133,23 +163,20 @@ public class EditVocabGUI extends Application {
                 		//For Testing
 						for (int i = 0; i < vocabLists.getCitationVocab().size(); i++) {
 							System.out.println(vocabLists.getCitationVocab().get(i));
+						}
 					}
-						
-                	}
-            	}
+            		}
             	}
             	}
             	listView.setItems(observableListVocab);
             	addVocabTextField.clear();
             }
         });
-		HBox hbBtn=new HBox(175);
-		Button btnRemove=new Button("Remove");
-		btnRemove.setTextFill(Color.WHITE);
-		btnRemove.setStyle("-fx-base: #FF0000");
-		hbBtn.getChildren().add(btnRemove);
-		btnRemove.setOnAction(new EventHandler<ActionEvent>() {
-	       	 
+		
+		//Remove Button Methods
+		removeButton.setTextFill(Color.WHITE);
+		removeButton.setStyle("-fx-base: #FF0000");
+		removeButton.setOnAction(new EventHandler<ActionEvent>() {   	 
             @Override
             public void handle(ActionEvent e) {
             	if (listView.getSelectionModel().getSelectedItem()==null){
@@ -157,27 +184,34 @@ public class EditVocabGUI extends Application {
             	}else{
             	int deletedIndex=listView.getSelectionModel().getSelectedIndex();
             	observableListVocab.remove(deletedIndex);
-            	vocabLists.remove(deletedIndex, vocabType.getValue());
+            	vocabLists.remove(deletedIndex, vocabDropDown.getValue());
             	listView.setItems(observableListVocab);
             	}
             		
             }
-        });
-		Button btnBack = new Button("Back");
-		btnBack.setTextFill(Color.WHITE);
-		btnBack.setStyle("-fx-base: #FF0000");
-		hbBtn.getChildren().add(btnBack);
-		grid.add(hbBtn, 1, 4);
-		btnBack.setOnAction(new EventHandler<ActionEvent>() {
-	       	 
-            @Override
+        });	  
+		
+		//Back Button Methods
+		backButton.setTextFill(Color.WHITE);
+		backButton.setStyle("-fx-base: #FF0000");
+		backButton.setOnAction(new EventHandler<ActionEvent>() { 
+	        @Override
             public void handle(ActionEvent e) {
             	HomeGUI Homegui=new HomeGUI();
             	Homegui.start(primaryStage);
             }
         });
 		
-		Scene scene = new Scene(grid, 600, 400);
+		//Button Group Methods
+		buttonGroup.getChildren().add(removeButton);
+		buttonGroup.getChildren().add(backButton);
+
+
+		//List View Methods
+		listView.setMinSize(100, 100);		   
+		
+		//Primary Stage Methods
+		primaryStage.setTitle("Edit Controlled Vocabulary");
 		primaryStage.setScene(scene);
 		primaryStage.show();
 	}

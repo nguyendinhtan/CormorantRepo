@@ -1,5 +1,3 @@
-import java.util.List;
-
 /**
  * The Class Person.
  */
@@ -40,6 +38,33 @@ public class Person {
 		this.occupation = occupation;
 		this.notes = notes;
 	}
+	
+	/**
+	 * TODO: Comment here.
+	 * @param csvRowData
+	 */
+	public Person(String[] csvRowData) {
+		this.id = Integer.parseInt(csvRowData[0]);
+		this.name = csvRowData[1];
+		this.gender = csvRowData[2];
+		this.culture = csvRowData[3];
+		this.occupation = csvRowData[4];
+		this.notes = csvRowData[5];
+	}
+
+	/*
+	 * Comments: This is the method modified from DataStorage
+	@Override
+	public String toString() {
+		return "Person {id=" +id + " name=" + name + " gender="+gender + " culture="+culture + " occupation="+occupation + " notes="+notes +"}";
+	}
+	*/
+	
+	public String[] toCSVRowArray() {
+		return new String[] { Integer.toString(id) , name, gender, culture, notes };
+	}
+	
+	
 	/**
 	 * Gets the id.
 	 *
@@ -149,9 +174,11 @@ public class Person {
 		this.notes = notes;
 	}
 	//ToString method for testing
+	@Override
 	public String toString(){
 		return name+", "+gender+", "+culture+", "+occupation+", "+notes;
 	}
+	
 	//Checks if invalid chars are entered and returns -1 if there are and 0 if there aren't
 	public int checkForUnallowedInput(String name, String culture, String occupation){
 		String unallowedChars="1234567890!@#$%^&*()-+=[]{}?<>;";
