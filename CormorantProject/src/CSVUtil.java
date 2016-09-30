@@ -1,20 +1,22 @@
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
-
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
 
+/**
+ * The CSVUtil class loads and saves data to and from the CSV file.
+ *
+ */
 public class CSVUtil{
 	
 	private Map<Integer, Person> personMap;
 	private List<Interaction> interactions;
+	private CSVReader reader;
 
 	public CSVUtil() {
 		personMap = new TreeMap<>();
@@ -22,19 +24,21 @@ public class CSVUtil{
 	}
 
 	public void loadPerson(String fileName) throws IOException {
-		CSVReader reader = new CSVReader(new FileReader(fileName));
+		reader = new CSVReader(new FileReader(fileName));
 
 		List<String[]> myRows = reader.readAll();
-		String[] headerRow = myRows.remove(0); // remove header row
+		myRows.remove(0); //Remove header row.
 
 		for (String[] row : myRows) {
 			addPerson(new Person(row));
 		}
-// TODO: Delete DEBUG CODE later 
-//		for (Integer key : watcherMap.keySet()) {
-//			System.out.println("key: " + key + " value: " + watcherMap.get(key));
-//		}
+
+		// TODO: Delete DEBUG CODE later 
+		//		for (Integer key : watcherMap.keySet()) {
+		//			System.out.println("key: " + key + " value: " + watcherMap.get(key));
+		//		}
 	}
+	
 	public void addPerson(Person person) {
 		personMap.put(person.getID(), person);
 	}
@@ -48,7 +52,7 @@ public class CSVUtil{
 	}
 
 	public void loadInteractions(String fileName) throws IOException {		
-		CSVReader reader = new CSVReader(new FileReader(fileName));		
+		reader = new CSVReader(new FileReader(fileName));		
 		List<String[]> myRows = reader.readAll();
 
 		// 0:1, 2:3,Old Main, 09/30/2016,Invite to Party, Citation from Augustana, No one comes
