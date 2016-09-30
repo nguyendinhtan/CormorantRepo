@@ -22,7 +22,6 @@ public class AddPersonGUI extends Application {
 
 	public static void main(String[] args) {
 		launch(args);
-
 	}
 
 	public AddPersonGUI() {
@@ -30,56 +29,62 @@ public class AddPersonGUI extends Application {
 	}
 
 	public void start(Stage primaryStage) {
-		primaryStage.setTitle("Insert Person");
+		System.setProperty("glass.accessible.force", "false"); // Fixes bug of combobox crashing when running on certain computers
+
+		// GUI Variables
 		GridPane grid = new GridPane();
+		Scene scene = new Scene(grid, 500, 400);
+		Label nameLabel = new Label("Name:");
+		Label genderLabel = new Label("Gender:");
+		Label cultureLabel = new Label("Culture Identity:");
+		Label occupationLabel = new Label("Occupation:");
+		Label notesLabel = new Label("Notes:");
+		TextField nameTextField = new TextField();
+		TextField cultureTextField = new TextField();
+		TextArea notesTextArea = new TextArea();
+		TextField occupationTextField = new TextField();
+		ComboBox<String> genderDropDown = new ComboBox<String>();
+		Button addPersonButton = new Button("Add Person");
+		Button backButton = new Button("Back");
+		HBox notesLabelBox = new HBox();
+		HBox buttonBox = new HBox();
+
+		// Grid Methods
 		grid.setAlignment(Pos.CENTER);
 		grid.setHgap(10);
 		grid.setVgap(10);
 		grid.setPadding(new Insets(25, 25, 25, 25));
-		Label nameLabel = new Label("Name:");
 		grid.add(nameLabel, 0, 0);
-		TextField nameTextField = new TextField();
 		grid.add(nameTextField, 1, 0);
-		Label genderLabel = new Label("Gender:");
 		grid.add(genderLabel, 0, 1);
-		ComboBox<String> gender = new ComboBox<String>();
-		gender.getItems().addAll("Male", "Female", "Unknown");
-		gender.setMinSize(300, 10);
-		System.setProperty("glass.accessible.force", "false");// Fixes bug of
-																// combobox
-																// crashing when
-																// running on
-																// certain
-																// computers
-		grid.add(gender, 1, 1);
-		Label cultureLabel = new Label("Culture Identity:");
+		grid.add(genderDropDown, 1, 1);
 		grid.add(cultureLabel, 0, 2);
-		TextField cultureTextField = new TextField();
 		grid.add(cultureTextField, 1, 2);
-		Label occupationLabel = new Label("Occupation:");
 		grid.add(occupationLabel, 0, 3);
-		TextField occupationTextField = new TextField();
 		grid.add(occupationTextField, 1, 3);
-		HBox hbNotesLb = new HBox();
-		Label notesLabel = new Label("Notes:");
-		hbNotesLb.getChildren().add(notesLabel);
-		hbNotesLb.setAlignment(Pos.TOP_LEFT);
-		grid.add(hbNotesLb, 0, 4);
-		TextArea notesTextArea = new TextArea();
-		notesTextArea.setMaxSize(300, 100);
+		grid.add(notesLabelBox, 0, 4);
 		grid.add(notesTextArea, 1, 4);
-		Button btnAddPerson = new Button("Add Person");
-		btnAddPerson.setTextFill(Color.BLACK);
-		btnAddPerson.setTextFill(Color.WHITE);
-		btnAddPerson.setStyle("-fx-base: #FF0000");
-		grid.add(btnAddPerson, 0, 6);
-		btnAddPerson.setOnAction(new EventHandler<ActionEvent>() {
+		grid.add(addPersonButton, 0, 6);
+		grid.add(buttonBox, 1, 6);
 
+		//Gender Methods
+		genderDropDown.getItems().addAll("Male", "Female", "Unknown");
+		genderDropDown.setMinSize(300, 10);
+
+		//Notes Label Box
+		notesLabelBox.getChildren().add(notesLabel);
+		notesLabelBox.setAlignment(Pos.TOP_LEFT);
+		notesTextArea.setMaxSize(300, 100);
+		
+		//Add Person Buttons
+		addPersonButton.setTextFill(Color.BLACK);
+		addPersonButton.setTextFill(Color.WHITE);
+		addPersonButton.setStyle("-fx-base: #FF0000");
+		addPersonButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
-
 				int id = personList.getPersonCollection().size() + 1;
-				if (nameTextField.getText().isEmpty() && gender.getValue() == null
+				if (nameTextField.getText().isEmpty() && genderDropDown.getValue() == null
 						&& cultureTextField.getText().isEmpty() && occupationTextField.getText().isEmpty()
 						&& notesTextArea.getText().isEmpty()) {
 					Alert alert = new Alert(AlertType.INFORMATION);
@@ -92,11 +97,11 @@ public class AddPersonGUI extends Application {
 
 						nameTextField.setText("Anonymous");
 					}
-					if (gender.getValue() == null) {
-						gender.setValue("Unknown");
+					if (genderDropDown.getValue() == null) {
+						genderDropDown.setValue("Unknown");
 					}
 
-					Person person = new Person(id, nameTextField.getText(), gender.getValue(),
+					Person person = new Person(id, nameTextField.getText(), genderDropDown.getValue(),
 							cultureTextField.getText(), occupationTextField.getText(), notesTextArea.getText());
 					if (person.checkForUnallowedInput(person.getName(), person.getCulture(), person.getCulture()) < 0) {
 						Alert alert = new Alert(AlertType.INFORMATION);
@@ -124,7 +129,7 @@ public class AddPersonGUI extends Application {
 						alert.showAndWait();
 
 						nameTextField.clear();
-						gender.setValue(null);
+						genderDropDown.setValue(null);
 						cultureTextField.clear();
 						occupationTextField.clear();
 						notesTextArea.clear();
@@ -132,26 +137,27 @@ public class AddPersonGUI extends Application {
 				}
 			}
 		});
-		
-		Button btnBack = new Button("Back");
-		btnBack.setTextFill(Color.WHITE);
-		btnBack.setStyle("-fx-base: #FF0000");
-		HBox hbBtn = new HBox();
-		hbBtn.getChildren().add(btnBack);
-		hbBtn.setAlignment(Pos.CENTER_RIGHT);
-		grid.add(hbBtn, 1, 6);
-		btnBack.setOnAction(new EventHandler<ActionEvent>() {
 
+		//Back Button Methods
+		backButton.setTextFill(Color.WHITE);
+		backButton.setStyle("-fx-base: #FF0000");
+		backButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
 				HomeGUI Homegui = new HomeGUI();
 				Homegui.start(primaryStage);
 			}
 		});
-		Scene scene = new Scene(grid, 500, 400);
+		
+		//Button Box
+		buttonBox.getChildren().add(backButton);
+		buttonBox.setAlignment(Pos.CENTER_RIGHT);
+
+
+		// Primary Stage Methods
+		primaryStage.setTitle("Insert Person");
 		primaryStage.setScene(scene);
 		primaryStage.show();
 	}
-	
 
 }
