@@ -46,42 +46,42 @@ public class CSVUtil{
 		}
 		 writer.close();	   
 	}
-/*
+
 	public void loadInteractions(String fileName) throws IOException {		
 		CSVReader reader = new CSVReader(new FileReader(fileName));		
 		List<String[]> myRows = reader.readAll();
 
-		// ,Old Main,0:3:7,Pelican=3:Green Heron=1
+		// 0:1, 2:3,Old Main, 09/30/2016,Invite to Party, Citation from Augustana, No one comes
 		for (String[] row : myRows) {
-			String date = row[0];
-			String location= row[1];
-			String idListText=row[2];
-			String obsListText=row[3];
-			String[] idArray = idListText.split(":");
-			List<BirdWatcher> watchersThisTrip = new ArrayList<BirdWatcher>();
-
-			for (String idStr : idArray) {
+			String idListTextPerson1 = row[0];
+			String idListTextPerson2 = row[1];
+			String location= row[2];
+			String date = row[3];
+			String interactionType = row[4];
+			String citation = row[5];
+			String notes = row[6];
+			String[] idArrayPerson1 = idListTextPerson1.split(":");
+			String[] idArrayPerson2 = idListTextPerson2.split(":");			
+			List<Person> personList1 = new ArrayList<Person>();
+			List<Person> personList2 = new ArrayList<Person>();
+			for (String idStr : idArrayPerson1) {
 				int id = Integer.parseInt(idStr);
-				BirdWatcher watcher = watcherMap.get(id);
-				watchersThisTrip.add(watcher); 
+				Person person1 = personMap.get(id);
+				personList1.add(person1); 
 			}
-			
-			List<BirdObservation> birdObsThisTrip = new ArrayList<>(); 
-			String[] obsListArray = obsListText.split(":");
-			for (String obsText : obsListArray) {
-				String[] pair = obsText.split("=");
-				String birdName = pair[0];
-				int birdCount = Integer.parseInt(pair[1]);
-				birdObsThisTrip.add(new BirdObservation(birdName, birdCount));
+			for (String idStr : idArrayPerson2) {
+				int id = Integer.parseInt(idStr);
+				Person person2 = personMap.get(id);
+				personList2.add(person2); 
 			}
-			BirdingTrip trip = new BirdingTrip(location, watchersThisTrip, date, birdObsThisTrip);
-			trips.add(trip);
+			Interaction interaction = new Interaction(personList1, personList2, location, date, interactionType, citation, notes, true);
+			interactions.add(interaction);
 			
 		}		
 	}
 
-	public void saveTrips(String fileName) {
+	public void saveInteractions(String fileName) {
 		
 	}
-*/
+
 }
