@@ -25,10 +25,7 @@ private List<String> locationVocab;
 		return citationVocab;
 	}
 	
-	public void addLocationVocab(String location){
-		locationVocab.add(location);
-		locationVocab.sort(null);
-	}
+	
 	public void remove(int vocabIndex, String listType){
 		if (listType=="Location"){
 		locationVocab.remove(vocabIndex);
@@ -39,7 +36,10 @@ private List<String> locationVocab;
 		}
 	}
 	
-	
+	public void addLocationVocab(String location){
+		locationVocab.add(location);
+		locationVocab.sort(null);
+	}
 	public void addInteractionTypeVocab(String interactionType){
 		interactionTypeVocab.add(interactionType);
 		interactionTypeVocab.sort(null);
