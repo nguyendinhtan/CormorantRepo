@@ -1,5 +1,3 @@
-import java.util.List;
-
 /**
  * The Class Person.
  */
@@ -149,9 +147,11 @@ public class Person {
 		this.notes = notes;
 	}
 	//ToString method for testing
+	@Override
 	public String toString(){
 		return name+" "+gender+" "+culture+" "+occupation+" "+notes;
 	}
+	
 	//Checks if invalid chars are entered and returns -1 if there are and 0 if there aren't
 	public int checkForUnallowedInput(String name, String culture, String occupation){
 		String unallowedChars="1234567890!@#$%^&*()-+=[]{}?<>";
