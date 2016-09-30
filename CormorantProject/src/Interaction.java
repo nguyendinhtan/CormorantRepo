@@ -213,6 +213,15 @@ public class Interaction {
 	public boolean isDirected(boolean directed){
 		return this.directed;
 	}
+	public String getNamesOfGroup(List<Person> peopleList){
+		String peopleGroup=peopleList.get(0).getName();
+		for (int i=1; i<people1.size();i++){
+			peopleGroup+=", "+people1.get(i).getName();
+		}
+		return peopleGroup;
+	}
 	
-	
+	public String toString(){
+		return "("+getNamesOfGroup(people1)+") interacted with ("+getNamesOfGroup(people2)+"), "+ location+", "+date+", "+interactionType+", "+citation+", "+notes;
+	}
 }

@@ -150,7 +150,7 @@ public class Person {
 	}
 	//ToString method for testing
 	public String toString(){
-		return name+" "+gender+" "+culture+" "+occupation+" "+notes;
+		return name+", "+gender+", "+culture+", "+occupation+", "+notes;
 	}
 	//Checks if invalid chars are entered and returns -1 if there are and 0 if there aren't
 	public int checkForUnallowedInput(String name, String culture, String occupation){

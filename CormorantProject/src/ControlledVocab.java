@@ -49,7 +49,7 @@ private List<String> locationVocab;
 		citationVocab.sort(null); 
 	}
 	public int checkForUnallowedInput(String vocab){
-		String unallowedChars="1234567890!@#$%^&*()-+=[]{}?<>;";
+		String unallowedChars="@#^-+=[]{}";
 		
 		for (int i=0; i<unallowedChars.length();i++){
 			for(int j=0; j<vocab.length(); j++){

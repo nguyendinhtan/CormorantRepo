@@ -26,13 +26,14 @@ public class SearchResultGUI extends Application {
 		grid.setHgap(10);
 		grid.setVgap(10);
 		grid.setPadding(new Insets(25, 25, 25, 25));
-
+		ListView<String> searchResultsView=new ListView<String>();
+		searchResultsView.setMinSize(400, 300);
+		grid.add(searchResultsView, 1, 0);
+		HBox hbBtn=new HBox(120);
 		Button btnEdit = new Button("Edit");
 		btnEdit.setTextFill(Color.BLACK);
 		btnEdit.setTextFill(Color.WHITE);
 		btnEdit.setStyle("-fx-base: #FF0000");
-		HBox hbBtn = new HBox(10);
-		hbBtn.setAlignment(Pos.CENTER_RIGHT);
 		hbBtn.getChildren().add(btnEdit);
 
 		Button btnDelete = new Button("Delete");
@@ -45,7 +46,7 @@ public class SearchResultGUI extends Application {
 		btnBack.setTextFill(Color.WHITE);
 		btnBack.setStyle("-fx-base: #FF0000");
 		hbBtn.getChildren().add(btnBack);
-		grid.add(hbBtn, 1, 4);
+		grid.add(hbBtn, 1,1);
 		btnBack.setOnAction(new EventHandler<ActionEvent>() {
 	       	 
             @Override
@@ -54,7 +55,7 @@ public class SearchResultGUI extends Application {
             	Homegui.start(primaryStage);
             }
         });
-		Scene scene = new Scene(grid, 1000, 1000);
+		Scene scene = new Scene(grid, 600, 400);
 		primaryStage.setScene(scene);
 		primaryStage.show();
 	}

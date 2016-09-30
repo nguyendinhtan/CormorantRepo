@@ -4,6 +4,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.*;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -25,11 +26,17 @@ public class HomeGUI extends Application{
         grid.setHgap(10);
         grid.setVgap(10);
         grid.setPadding(new Insets(25, 25, 25, 25));
-
-        TextField searchTextField = new TextField();
-        searchTextField.setMinSize(400, 10);
         HBox hbTopRow = new HBox();
-        hbTopRow.setAlignment(Pos.CENTER_RIGHT);
+        ComboBox<String> searchType=new ComboBox<String>();
+        searchType.getItems().addAll(
+				"Person",
+				"Interaction"
+		);
+		System.setProperty("glass.accessible.force", "false");//Fixes bug of crashing combobox
+		hbTopRow.getChildren().add(searchType);
+        
+        TextField searchTextField = new TextField();
+        searchTextField.setMinSize(275, 10);
         hbTopRow.getChildren().add(searchTextField);
 
         Button btnSearch = new Button("Search");
@@ -37,12 +44,19 @@ public class HomeGUI extends Application{
         btnSearch.setStyle("-fx-base: #FF0000"); 
         hbTopRow.getChildren().add(btnSearch);
         grid.add(hbTopRow, 1, 0);
-        
+        btnSearch.setOnAction(new EventHandler<ActionEvent>() {
+	       	 
+            @Override
+            public void handle(ActionEvent e) {
+            	SearchResultGUI searchGUI=new SearchResultGUI();
+            	searchGUI.start(primaryStage);
+            }
+        });
         
         
         Button btnInsertPerson = new Button("Insert Person");
         btnInsertPerson.setTextFill(Color.BLACK); 
-        HBox hbBtnBottomRow = new HBox(10);
+        HBox hbBtnBottomRow = new HBox(15);
         hbBtnBottomRow.getChildren().add(btnInsertPerson);
         btnInsertPerson.setOnAction(new EventHandler<ActionEvent>() {
        	 
