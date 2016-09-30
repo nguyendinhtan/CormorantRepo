@@ -6,8 +6,6 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -42,9 +40,10 @@ public class HomeGUI extends Application{
         //DropDown list for choosing search type
         searchType.getItems().addAll(
 				"Person",
-				"Interaction"
+				"Interaction",
+				"No Search Filter"
 		);
-		System.setProperty("glass.accessible.force", "false");//Fixes bug of crashing combobox
+		System.setProperty("glass.accessible.force", "false");//Fixes bug of crashing ComboBox
 		       
         //Search Text Field Methods
         searchTextField.setMinSize(275, 10);
