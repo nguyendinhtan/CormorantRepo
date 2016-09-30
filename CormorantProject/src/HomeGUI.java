@@ -54,7 +54,7 @@ public class HomeGUI extends Application{
         insertPersonButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-            	AddPersonGUI gui=new AddPersonGUI();
+            	AddPersonGUI gui = new AddPersonGUI();
             	gui.start(primaryStage);
             }
         });
@@ -63,7 +63,7 @@ public class HomeGUI extends Application{
         insertInteractionButton.setOnAction(new EventHandler<ActionEvent>() {  	 
             @Override
             public void handle(ActionEvent e) {
-            	AddInteractionGUI gui=new AddInteractionGUI();
+            	AddInteractionGUI gui = new AddInteractionGUI();
             	gui.start(primaryStage);
             }
         });
@@ -73,7 +73,7 @@ public class HomeGUI extends Application{
         editVocabButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-            	EditVocabGUI gui=new EditVocabGUI();
+            	EditVocabGUI gui = new EditVocabGUI();
             	gui.start(primaryStage);
             }
         });
