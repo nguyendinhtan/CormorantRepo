@@ -18,17 +18,27 @@ import javafx.stage.Stage;
 
 public class AddPersonGUI extends Application {
 
-	Collections personList;
+	DataCollections personList;
 
 	public static void main(String[] args) {
+	
 		launch(args);
 	}
 
 	public AddPersonGUI() {
-		personList = new Collections();
+		personList = new DataCollections();
 	}
 
 	public void start(Stage primaryStage) {
+		//Dummy data for testing
+		Person jared=new Person(1, "Jared", "Male", "American", "Student", "CSC Major");
+		Person juan=new Person(2, "Juan", "Male", "Spanish","Teacher", "test person" );
+		Person anaon=new Person(3, "Anonymous","Unknown", "Unknown", "Unknown", " ");
+		DataCollections personList=new DataCollections();
+		personList.addPerson(jared);
+		personList.addPerson(juan);
+		personList.addPerson(anaon);
+		
 		System.setProperty("glass.accessible.force", "false"); // Fixes bug of combobox crashing when running on certain computers
 
 		// GUI Variables
@@ -87,11 +97,7 @@ public class AddPersonGUI extends Application {
 				if (nameTextField.getText().isEmpty() && genderDropDown.getValue() == null
 						&& cultureTextField.getText().isEmpty() && occupationTextField.getText().isEmpty()
 						&& notesTextArea.getText().isEmpty()) {
-					Alert alert = new Alert(AlertType.INFORMATION);
-					alert.setTitle("Error");
-					alert.setHeaderText("No data entered.");
-					alert.setContentText("Please enter data first.");
-					alert.showAndWait();
+					
 				} else {
 					if (nameTextField.getText().isEmpty()) {
 

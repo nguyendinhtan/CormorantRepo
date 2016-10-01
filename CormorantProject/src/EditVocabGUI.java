@@ -32,10 +32,21 @@ public class EditVocabGUI extends Application {
 	}
 	
 	public static void main(String[] args) {
+		
 		launch(args);
 	}
 	
 	public void start(Stage primaryStage) {
+		//Dummy data for testing
+		vocabLists.addLocationVocab("Rock Island");
+		vocabLists.addLocationVocab("Moline");
+		vocabLists.addLocationVocab("Davenport");
+		vocabLists.addInteractionTypeVocab("Journal");
+		vocabLists.addInteractionTypeVocab("Party");
+		vocabLists.addInteractionTypeVocab("Letter");
+		vocabLists.addCitationVocab("test");
+		vocabLists.addCitationVocab("test2");
+		
 		System.setProperty("glass.accessible.force", "false"); //Fixes bug of crashing ComboBox
 
 		//GUI Variables

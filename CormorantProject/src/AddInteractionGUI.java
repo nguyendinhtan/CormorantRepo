@@ -1,3 +1,5 @@
+import java.util.Collections;
+
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -24,25 +26,44 @@ import javafx.stage.Stage;
  *
  */
 public class AddInteractionGUI extends Application {
-	Collections lists;
+	
+	DataCollections lists;
 	ControlledVocab vocabList;
 	ObservableList<String> oListLocation;
 	ObservableList<String> oListCitation;
 	ObservableList<String> oListInteractionType;
-	ObservableList<Person> oListPerson1;
-	ObservableList<Person> oListPerson2;
+	ObservableList<Person> oListPersonDropDown;
+	ObservableList<Person> oListPerson1Selected;
+	ObservableList<Person> oListPerson2Selected;
 	
 	public static void main(String[] args) {
 		launch(args);
 	}
 	
 	public AddInteractionGUI(){
-		lists=new Collections();
+		lists=new DataCollections();
 		vocabList=new ControlledVocab();	
 	}
 	
 	public void start(Stage primaryStage) {
-		
+		//Dummy data for testing
+				Person jared=new Person(1, "Jared", "Male", "American", "Student", "CSC Major");
+				Person juan=new Person(2, "Juan", "Male", "Spanish","Teacher", "test person" );
+				Person anaon=new Person(3, "Anonymous","Unknown", "Unknown", "Unknown", " ");
+				vocabList.addLocationVocab("Rock Island");
+				vocabList.addLocationVocab("Moline");
+				vocabList.addLocationVocab("Davenport");
+				vocabList.addInteractionTypeVocab("Journal");
+				vocabList.addInteractionTypeVocab("Party");
+				vocabList.addInteractionTypeVocab("Letter");
+				vocabList.addCitationVocab("test");
+				vocabList.addCitationVocab("test2");
+				lists.addPerson(jared);
+				lists.addPerson(juan);
+				lists.addPerson(anaon);
+				
+		System.setProperty("glass.accessible.force", "false"); // Fixes bug of combobox crashing when running on certain computers
+
 		//GUI Variables
 		GridPane grid = new GridPane();
 		Scene scene = new Scene(grid, 700, 700);
@@ -76,12 +97,12 @@ public class AddInteractionGUI extends Application {
 	    ListView<Person> person2List = new ListView<Person>();
 	    TextArea notesTextArea = new TextArea();
 	    TextField dateTextField = new TextField();
-	    oListPerson1 = FXCollections.observableArrayList(lists.getPersonCollection());
-	    oListPerson2 = FXCollections.observableArrayList(lists.getPersonCollection());
+	    oListPersonDropDown = FXCollections.observableArrayList(lists.getPersonCollection());
 		oListLocation = FXCollections.observableArrayList(vocabList.getLocationVocab());
 		oListInteractionType = FXCollections.observableArrayList(vocabList.getInteractionTypeVocab());
 		oListCitation = FXCollections.observableArrayList(vocabList.getCitationVocab());
-		
+		oListPerson1Selected=FXCollections.observableArrayList();
+		oListPerson2Selected=FXCollections.observableArrayList();
 		
 	    //Grid Methods
 		grid.setAlignment(Pos.CENTER);
@@ -112,11 +133,13 @@ public class AddInteractionGUI extends Application {
 	    
 	    //Person 1 Drop Down Methods
 	    person1DropDown.setMinSize(150, 20);
-	    person1DropDown.setItems(oListPerson1);
+	    person1DropDown.setMaxSize(150, 50);
+	    person1DropDown.setItems(oListPersonDropDown);
 	    
 	    //Person 2 Drop Down Methods
 	    person2DropDown.setMinSize(150, 20);
-	    person2DropDown.setItems(oListPerson2);
+	    person2DropDown.setMaxSize(150, 50);
+	    person2DropDown.setItems(oListPersonDropDown);
 		
 	    //Person 1 List Methods
 	    person1List.setMaxSize(200, 100);
@@ -135,21 +158,72 @@ public class AddInteractionGUI extends Application {
 	    //Add Person 1 Button Methods
 	    addPerson1Button.setTextFill(Color.WHITE);
 		addPerson1Button.setStyle("-fx-base: #FF0000");
+		addPerson1Button.setOnAction(new EventHandler<ActionEvent>() {
+	        @Override
+            public void handle(ActionEvent e) {
+            	if (person1DropDown.getValue()==null){
+            		
+            	}else{
+            		oListPerson1Selected.add(person1DropDown.getValue());
+            		Collections.sort(oListPerson1Selected, Person.personNameComparator);
+            		person1List.setItems(oListPerson1Selected);
+            		oListPersonDropDown.remove(person1DropDown.getValue());
+            	}
+            }
+        });
 		
 		//Add Person 2 Button Methods
 		addPerson2Button.setTextFill(Color.WHITE);
 		addPerson2Button.setStyle("-fx-base: #FF0000");
+		addPerson2Button.setOnAction(new EventHandler<ActionEvent>() {
+	        @Override
+            public void handle(ActionEvent e) {
+	        	if (person2DropDown.getValue()==null){
+            		
+            	}else{
+            		oListPerson2Selected.add(person2DropDown.getValue());
+            		Collections.sort(oListPerson2Selected, Person.personNameComparator);
+            		person2List.setItems(oListPerson2Selected);
+            		oListPersonDropDown.remove(person2DropDown.getValue());
+            	}
+            }
+        });
 		
 		//Remove Person 1 Button Methods
 		removePerson1Button.setTextFill(Color.WHITE);
 		removePerson1Button.setStyle("-fx-base: #FF0000");
 		removePerson1Button.setMinSize(200, 20);
+		removePerson1Button.setOnAction(new EventHandler<ActionEvent>() {
+	        @Override
+            public void handle(ActionEvent e) {
+            	if (person1List.getSelectionModel().getSelectedIndex()<0){
+            		
+            	}else{
+            		oListPersonDropDown.add(person1List.getSelectionModel().getSelectedItem());
+            		Collections.sort(oListPersonDropDown, Person.personNameComparator);
+            		oListPerson1Selected.remove(person1List.getSelectionModel().getSelectedIndex());
+            		
+            	}
+            }
+        });
 		
 		//Remove Person 2 Button Methods
 		removePerson2Button.setTextFill(Color.WHITE);
 		removePerson2Button.setStyle("-fx-base: #FF0000");
 		removePerson2Button.setMinSize(200, 20);
-		
+		removePerson2Button.setOnAction(new EventHandler<ActionEvent>() {
+	        @Override
+            public void handle(ActionEvent e) {
+            	if (person2List.getSelectionModel().getSelectedIndex()<0){
+            		
+            	}else{
+            		oListPersonDropDown.add(person2List.getSelectionModel().getSelectedItem());
+            		Collections.sort(oListPersonDropDown, Person.personNameComparator);
+            		oListPerson2Selected.remove(person2List.getSelectionModel().getSelectedIndex());
+            		
+            	}
+            }
+        });
 		//Person List Box Methods
 		personListsBox.getChildren().add(buttonList1Box);
 		personListsBox.getChildren().add(buttonList2Box);
@@ -157,6 +231,9 @@ public class AddInteractionGUI extends Application {
 		//Person Area Box Methods
 		personAreaBox.getChildren().add(person1List);
 	    personAreaBox.getChildren().add(person2List);
+	    
+	    //Date Text Field Methods
+	    dateTextField.setMaxSize(450, 20);
 	    
 	    //Remove Buttons Box Methods
 	    removeButtonsBox.getChildren().add(removePerson1Button);
@@ -217,5 +294,7 @@ public class AddInteractionGUI extends Application {
 		primaryStage.setScene(scene);
 		primaryStage.show();
 	}
+	
+ 
 
 }

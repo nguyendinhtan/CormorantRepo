@@ -54,7 +54,6 @@ public class Interaction {
 		this.citation = citation;
 		this.notes = notes;
 		this.directed = directed;
-		
 	}
 	
 	/**

@@ -1,3 +1,5 @@
+import java.util.Comparator;
+
 /**
  * The Class Person.
  */
@@ -52,13 +54,13 @@ public class Person {
 		this.notes = csvRowData[5];
 	}
 
-	/*
-	 * Comments: This is the method modified from DataStorage
+	
+	 
 	@Override
 	public String toString() {
-		return "Person {id=" +id + " name=" + name + " gender="+gender + " culture="+culture + " occupation="+occupation + " notes="+notes +"}";
+		return name+" {id=" +id + " gender="+gender + " culture="+culture + " occupation="+occupation + " notes="+notes +"}";
 	}
-	*/
+	
 	
 	public String[] toCSVRowArray() {
 		return new String[] { Integer.toString(id) , name, gender, culture, notes };
@@ -173,11 +175,6 @@ public class Person {
 	public void setNotes(String notes) {
 		this.notes = notes;
 	}
-	//ToString method for testing
-	@Override
-	public String toString(){
-		return name+", "+gender+", "+culture+", "+occupation+", "+notes;
-	}
 	
 	//Checks if invalid chars are entered and returns -1 if there are and 0 if there aren't
 	public int checkForUnallowedInput(String name, String culture, String occupation){
@@ -205,4 +202,17 @@ public class Person {
 		return 0;
 		
 	}
+	
+	
+	public static Comparator<Person> personNameComparator=new Comparator<Person>(){
+
+		@Override
+		public int compare(Person p1, Person p2) {
+			String name1=p1.getName().toLowerCase();
+			String name2=p2.getName().toLowerCase();
+			return name1.compareTo(name2);
+			
+		}
+		
+	};
 }
