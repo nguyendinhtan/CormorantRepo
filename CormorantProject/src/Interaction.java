@@ -61,7 +61,19 @@ public class Interaction {
 		this.directed = directed;
 
 	}
-
+	public String[] toCSVRowArray() {
+		String idString1 = toIdString(people1);
+		String idString2 = toIdString(people2);
+		return new String[] { idString1, idString2, location, date, interactionType, citation, notes };
+	}
+	
+	public String toIdString(List<Person> people){
+		String idString = Integer.toString(people.get(0).getID());
+		for( int i = 1; i<people.size(); i++){
+			idString = idString + ":" + Integer.toString(people.get(i).getID());
+		}
+		return idString;
+	}
 	/**
 	 * Gets the people 1.
 	 *

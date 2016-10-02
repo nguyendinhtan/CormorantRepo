@@ -17,7 +17,7 @@ public class CSVUtil {
 	private Map<Integer, Person> personMap;
 	private List<Interaction> interactions;
 	private CSVReader reader;
-
+	private CSVWriter writer;
 	public CSVUtil() {
 		personMap = new TreeMap<>();
 		interactions = new ArrayList<>();
@@ -34,7 +34,6 @@ public class CSVUtil {
 		reader = new CSVReader(new FileReader(fileName));
 
 		List<String[]> myRows = reader.readAll();
-		myRows.remove(0); // Remove header row.
 
 		for (String[] row : myRows) {
 			addPerson(new Person(row));
@@ -64,7 +63,7 @@ public class CSVUtil {
 	 * @throws IOException
 	 */
 	public void savePerson(String fileName) throws IOException {
-		CSVWriter writer = new CSVWriter(new FileWriter(fileName));
+		writer = new CSVWriter(new FileWriter(fileName));
 		for (Person person : personMap.values()) {
 			writer.writeNext(person.toCSVRowArray());
 		}
@@ -123,8 +122,12 @@ public class CSVUtil {
 		}
 	}
 
-	public void saveInteractions(String fileName) {
-
+	public void saveInteractions(String fileName) throws IOException{
+		writer = new CSVWriter(new FileWriter(fileName));
+		for (Interaction interaction : interactions) {
+			writer.writeNext(interaction.toCSVRowArray());
+		}
+		writer.close();
 	}
 
 }
