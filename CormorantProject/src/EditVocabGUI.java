@@ -26,7 +26,7 @@ public class EditVocabGUI extends Application {
 
 	ControlledVocab vocabLists;
 	ObservableList<String> observableListVocab;
-	
+	DataCollections list;
 	public EditVocabGUI(){
 		vocabLists = new ControlledVocab();
 	}
@@ -209,7 +209,7 @@ public class EditVocabGUI extends Application {
 	        @Override
             public void handle(ActionEvent e) {
             	HomeGUI Homegui=new HomeGUI();
-            	Homegui.start(primaryStage);
+            	Homegui.start(primaryStage, list);
             }
         });
 		

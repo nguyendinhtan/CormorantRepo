@@ -30,7 +30,6 @@ import javafx.stage.Stage;
  */
 public class AddInteractionGUI extends Application {
 	CSVUtil csv;
-	DataCollections lists;
 	ControlledVocab vocabList;
 	ObservableList<String> oListLocation;
 	ObservableList<String> oListCitation;
@@ -45,11 +44,10 @@ public class AddInteractionGUI extends Application {
 	
 	public AddInteractionGUI(){
 		csv=new CSVUtil();
-		lists=new DataCollections();
 		vocabList=new ControlledVocab();
 	}
 	
-	public void start(Stage primaryStage) {
+	public void start(Stage primaryStage, DataCollections list) {
 		//Dummy data for testing
 				Person jared=new Person(1, "Jared", "Male", "American", "Student", "CSC Major");
 				Person juan=new Person(2, "Juan", "Male", "Spanish","Teacher", "test person" );
@@ -62,9 +60,7 @@ public class AddInteractionGUI extends Application {
 				vocabList.addInteractionTypeVocab("Letter");
 				vocabList.addCitationVocab("test");
 				vocabList.addCitationVocab("test2");
-				lists.addPerson(jared);
-				lists.addPerson(juan);
-				lists.addPerson(anaon);
+				
 				
 		System.setProperty("glass.accessible.force", "false"); // Fixes bug of combobox crashing when running on certain computers
 
@@ -101,7 +97,7 @@ public class AddInteractionGUI extends Application {
 	    ListView<Person> person2List = new ListView<Person>();
 	    TextArea notesTextArea = new TextArea();
 	    TextField dateTextField = new TextField();
-	    oListPersonDropDown = FXCollections.observableArrayList(lists.getPersonCollection());
+	    oListPersonDropDown = FXCollections.observableArrayList(list.getPersonCollection());
 		oListLocation = FXCollections.observableArrayList(vocabList.getLocationVocab());
 		oListInteractionType = FXCollections.observableArrayList(vocabList.getInteractionTypeVocab());
 		oListCitation = FXCollections.observableArrayList(vocabList.getCitationVocab());
@@ -275,14 +271,14 @@ public class AddInteractionGUI extends Application {
             		
             	}else{
             		Interaction interaction=new Interaction(oListPerson1Selected, oListPerson2Selected,locationDropDown.getValue(),dateTextField.getText(),interactionTypeDropDown.getValue(),citationDropDown.getValue(),notesTextArea.getText(),false);
-            		if (lists.checkForInteractionDuplicates(interaction)>=0){
+            		if (list.checkForInteractionDuplicates(interaction)>=0){
             			Alert alert = new Alert(AlertType.INFORMATION);
 						alert.setTitle("Error");
 						alert.setHeaderText("That interaction has already been entered.");
 						alert.setContentText("Interaction already exists.");
 						alert.showAndWait();
             		}else{
-            			lists.addInteraction(interaction);
+            			list.addInteraction(interaction);
             			Alert alert = new Alert(AlertType.INFORMATION);
 						alert.setTitle("Interaction Added");
 						alert.setHeaderText("Interaction was added to list");
@@ -296,13 +292,13 @@ public class AddInteractionGUI extends Application {
 						notesTextArea.clear();
 						person1DropDown.setValue(null);
 						person2DropDown.setValue(null);
-						oListPersonDropDown=FXCollections.observableArrayList(lists.getPersonCollection());
+						oListPersonDropDown=FXCollections.observableArrayList(list.getPersonCollection());
 						person1DropDown.setItems(oListPersonDropDown);
 						person2DropDown.setItems(oListPersonDropDown);
 						
 						//Testing
-						for (int i=0; i<lists.getInteractionCollection().size(); i++){
-							System.out.println(lists.getInteractionCollection().get(i).toString());
+						for (int i=0; i<list.getInteractionCollection().size(); i++){
+							System.out.println(list.getInteractionCollection().get(i).toString());
 						}
             		}
             	}
@@ -316,7 +312,7 @@ public class AddInteractionGUI extends Application {
 	        @Override
             public void handle(ActionEvent e) {
             	HomeGUI Homegui=new HomeGUI();
-            	Homegui.start(primaryStage);
+            	Homegui.start(primaryStage, list);
             }
         });
 
@@ -328,6 +324,12 @@ public class AddInteractionGUI extends Application {
 		primaryStage.setTitle("Insert Interaction");
 		primaryStage.setScene(scene);
 		primaryStage.show();
+	}
+
+	@Override
+	public void start(Stage primaryStage) throws Exception {
+		// TODO Auto-generated method stub
+		
 	}
 	
  

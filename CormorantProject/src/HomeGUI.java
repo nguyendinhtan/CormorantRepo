@@ -15,12 +15,14 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class HomeGUI extends Application{
-	
+	DataCollections list;
 	public static void main(String[] args){
 		launch(args);
 	}
-	
-    public void start(Stage primaryStage) {
+	public HomeGUI(){
+		list=new DataCollections();
+	}
+    public void start(Stage primaryStage, DataCollections list) {
         //GUI Variables
         GridPane grid = new GridPane();
         Scene scene = new Scene(grid, 700, 300);
@@ -78,7 +80,7 @@ public class HomeGUI extends Application{
             @Override
             public void handle(ActionEvent e) {
             	AddPersonGUI gui = new AddPersonGUI();
-            	gui.start(primaryStage);
+            	gui.start(primaryStage, list);
             }
         });
         
@@ -87,7 +89,7 @@ public class HomeGUI extends Application{
             @Override
             public void handle(ActionEvent e) {
             	AddInteractionGUI gui = new AddInteractionGUI();
-            	gui.start(primaryStage);
+            	gui.start(primaryStage, list);
             }
         });
               
@@ -115,6 +117,11 @@ public class HomeGUI extends Application{
         primaryStage.setScene(scene);	
         primaryStage.show();
     }
+
+	public void start(Stage primaryStage) throws Exception {
+		
+		
+	}
     
 }
 	

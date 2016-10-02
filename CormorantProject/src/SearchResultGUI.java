@@ -69,7 +69,7 @@ public class SearchResultGUI extends Application {
             @Override
             public void handle(ActionEvent e) {
             	HomeGUI Homegui=new HomeGUI();
-            	Homegui.start(primaryStage);
+            	Homegui.start(primaryStage, personList);
             }
         });
 		
