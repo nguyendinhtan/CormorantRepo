@@ -23,6 +23,13 @@ public class CSVUtil {
 		interactions = new ArrayList<>();
 	}
 
+	/**
+	 * This reads people data from a CSV file and puts into an person object.
+	 * 
+	 * @param fileName
+	 *            the CSV source file
+	 * @throws IOException
+	 */
 	public void loadPerson(String fileName) throws IOException {
 		reader = new CSVReader(new FileReader(fileName));
 
@@ -39,10 +46,23 @@ public class CSVUtil {
 		// }
 	}
 
+	/**
+	 * This adds a person to a person map.
+	 * 
+	 * @param person
+	 *            the person
+	 */
 	public void addPerson(Person person) {
 		personMap.put(person.getID(), person);
 	}
 
+	/**
+	 * This saves people data to a CSV file from a person map..
+	 * 
+	 * @param fileName
+	 *            the CSV source file
+	 * @throws IOException
+	 */
 	public void savePerson(String fileName) throws IOException {
 		CSVWriter writer = new CSVWriter(new FileWriter(fileName));
 		for (Person person : personMap.values()) {
@@ -51,6 +71,14 @@ public class CSVUtil {
 		writer.close();
 	}
 
+	/**
+	 * This reads interaction data from a CSV file and puts into an interactions
+	 * object.
+	 * 
+	 * @param fileName
+	 *            the CSV source file
+	 * @throws IOException
+	 */
 	public void loadInteractions(String fileName) throws IOException {
 		reader = new CSVReader(new FileReader(fileName));
 		List<String[]> myRows = reader.readAll();
@@ -69,20 +97,29 @@ public class CSVUtil {
 			String[] idArrayPerson2 = idListTextPerson2.split(":");
 			List<Person> personList1 = new ArrayList<Person>();
 			List<Person> personList2 = new ArrayList<Person>();
-			for (String idStr : idArrayPerson1) {
-				int id = Integer.parseInt(idStr);
-				Person person1 = personMap.get(id);
-				personList1.add(person1);
-			}
-			for (String idStr : idArrayPerson2) {
-				int id = Integer.parseInt(idStr);
-				Person person2 = personMap.get(id);
-				personList2.add(person2);
-			}
+
+			convertPersonArrayToList(idArrayPerson1, personList1);
+			convertPersonArrayToList(idArrayPerson2, personList2);
+
 			Interaction interaction = new Interaction(personList1, personList2, location, date, interactionType,
 					citation, notes, true);
 			interactions.add(interaction);
+		}
+	}
 
+	/**
+	 * Goes through an array and adds all the people to a person list.
+	 * 
+	 * @param personArray
+	 *            the source person array
+	 * @param personList
+	 *            the designated person list
+	 */
+	public void convertPersonArrayToList(String[] personArray, List<Person> personList) {
+		for (String idStr : personArray) {
+			int id = Integer.parseInt(idStr);
+			Person person = personMap.get(id);
+			personList.add(person);
 		}
 	}
 

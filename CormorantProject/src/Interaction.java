@@ -214,6 +214,7 @@ public class Interaction {
 		return peopleGroup;
 	}
 
+	@Override
 	public String toString() {
 		return "(" + getNamesOfGroup(people1) + ") interacted with (" + getNamesOfGroup(people2) + "), " + location
 				+ ", " + date + ", " + interactionType + ", " + citation + ", " + notes;
