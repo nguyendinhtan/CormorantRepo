@@ -7,9 +7,7 @@ import java.util.List;
  */
 public class ControlledVocab {
 	private List<String> locationVocab;
-
 	private List<String> interactionTypeVocab;
-
 	private List<String> citationVocab;
 
 	public ControlledVocab() {
@@ -73,7 +71,6 @@ public class ControlledVocab {
 
 	public int checkForDuplicates(String vocab, String list) {
 		if (list == "Location") {
-
 			for (int i = 0; i < locationVocab.size(); i++) {
 				if (vocab.toLowerCase().equals(locationVocab.get(i).toLowerCase())) {
 					return i;
