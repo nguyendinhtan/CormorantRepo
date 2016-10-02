@@ -18,23 +18,7 @@ import javafx.stage.Stage;
 
 public class AddPersonGUI extends Application {
 
-	CSVUtil csv;
-	public static void main(String[] args) {
-	
-		launch(args);
-	}
-
-	public AddPersonGUI() {
-		csv=new CSVUtil();
-		
-	}
-
-	public void start(Stage primaryStage, DataCollections list) {
-		//Dummy data for testing
-		Person jared=new Person(1, "Jared", "Male", "American", "Student", "CSC Major");
-		Person juan=new Person(2, "Juan", "Male", "Spanish","Teacher", "test person" );
-		Person anaon=new Person(3, "Anonymous","Unknown", "Unknown", "Unknown", " ");
-		
+	public void start(Stage primaryStage, DataCollections personList) {
 		System.setProperty("glass.accessible.force", "false"); // Fixes bug of combobox crashing when running on certain computers
 
 		// GUI Variables
@@ -89,7 +73,7 @@ public class AddPersonGUI extends Application {
 		addPersonButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
-				int id = list.getPersonCollection().size() + 1;
+				int id = personList.getPersonCollection().size() + 1;
 				if (nameTextField.getText().isEmpty() && genderDropDown.getValue() == null
 						&& cultureTextField.getText().isEmpty() && occupationTextField.getText().isEmpty()
 						&& notesTextArea.getText().isEmpty()) {
@@ -112,18 +96,18 @@ public class AddPersonGUI extends Application {
 						alert.setContentText(
 								"Make sure no numbers or special characters are entered in the Name, Culture or Occupation fields");
 						alert.showAndWait();
-					} else if (list.checkForPersonDuplicates(person) > 0) {
+					} else if (personList.checkForPersonDuplicates(person) > 0) {
 						Alert alert = new Alert(AlertType.INFORMATION);
 						alert.setTitle("Error");
 						alert.setHeaderText("That person has already been entered.");
 						alert.setContentText("Person already exists. (ID number:"
-								+ list.checkForPersonDuplicates(person) + ")");
+								+ personList.checkForPersonDuplicates(person) + ")");
 						alert.showAndWait();
 					} else {
-						list.addPerson(person);
+						personList.addPerson(person);
 						// Testing method to check list
-						for (int i = 0; i < list.getPersonCollection().size(); i++) {
-							System.out.println(list.getPersonCollection().get(i).toString());
+						for (int i = 0; i < personList.getPersonCollection().size(); i++) {
+							System.out.println(personList.getPersonCollection().get(i).toString());
 						}
 						Alert alert = new Alert(AlertType.INFORMATION);
 						alert.setTitle("Person Added");
@@ -134,7 +118,6 @@ public class AddPersonGUI extends Application {
 						cultureTextField.clear();
 						occupationTextField.clear();
 						notesTextArea.clear();
-						csv.addPerson(person);
 						
 					}
 				}
@@ -148,7 +131,7 @@ public class AddPersonGUI extends Application {
 			@Override
 			public void handle(ActionEvent e) {
 				HomeGUI Homegui = new HomeGUI();
-				Homegui.start(primaryStage, list);
+				Homegui.start(primaryStage, personList);
 			}
 		});
 		

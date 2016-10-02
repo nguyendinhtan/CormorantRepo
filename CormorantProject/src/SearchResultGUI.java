@@ -14,29 +14,17 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class SearchResultGUI extends Application {
-	ObservableList<Person> oListResults;
-	public static void main(String[] args) {
-		launch(args);
-	}
-	public SearchResultGUI(){
-		
-		
-	}
+	ObservableList<Person> oListPersonResults;
+	ObservableList<Interaction> oListInteractionResults;
+	
 	//@override
-	public void start(Stage primaryStage, String type) {
-		//Dummy Data for testing
-		Person jared=new Person(1, "Jared", "Male", "American", "Student", "CSC Major");
-		Person juan=new Person(2, "Juan", "Male", "Spanish","Teacher", "test person" );
-		Person anaon=new Person(3, "Anonymous","Unknown", "Unknown", "Unknown", " ");
-		DataCollections personList=new DataCollections();
-		personList.addPerson(jared);
-		personList.addPerson(juan);
-		personList.addPerson(anaon);
+	public void start(Stage primaryStage, String type, DataCollections list) {
 		
 		//GUI Variables
 		GridPane grid = new GridPane();
 		Scene scene = new Scene(grid, 600, 400);
-		ListView<Person> searchResultsView=new ListView<Person>();
+		ListView<Person> personResultsView=new ListView<Person>();
+		ListView<Interaction> interactionResultsView=new ListView<Interaction>();
 		Button btnEdit = new Button("Edit");
 		Button btnDelete = new Button("Delete");
 		Button btnBack = new Button("Back");
@@ -48,8 +36,7 @@ public class SearchResultGUI extends Application {
 		grid.setVgap(10);
 		grid.setPadding(new Insets(25, 25, 25, 25));
 		
-		//sets size of list view
-		searchResultsView.setMinSize(400, 300);
+		
 		
 		//Styling of Buttons
 		btnEdit.setTextFill(Color.BLACK);
@@ -69,7 +56,7 @@ public class SearchResultGUI extends Application {
             @Override
             public void handle(ActionEvent e) {
             	HomeGUI Homegui=new HomeGUI();
-            	Homegui.start(primaryStage, personList);
+            	Homegui.start(primaryStage, list);
             }
         });
 		
@@ -79,19 +66,47 @@ public class SearchResultGUI extends Application {
 		hbBtn.getChildren().add(btnBack);
 		
 		//adds box and list view to grid for display
-		grid.add(searchResultsView, 1, 0);
+		
 		grid.add(hbBtn, 1,1);
 		
 		
 		if (type.equals("Person")){
-			oListResults=FXCollections.observableArrayList(personList.getPersonCollection());
-			searchResultsView.setItems(oListResults);
+			//sets size of list view
+			personResultsView.setMinSize(400, 300);
+			personResultsView.setMaxSize(400, 300);
+			grid.add(personResultsView, 1, 0);
+			oListPersonResults=FXCollections.observableList(list.getPersonCollection());
+			personResultsView.setItems(oListPersonResults);
+			btnDelete.setOnAction(new EventHandler<ActionEvent>() {
+	            @Override
+	            public void handle(ActionEvent e) {
+	            	int selectedIndex=personResultsView.getSelectionModel().getSelectedIndex();
+	            	if (selectedIndex>=0)
+	            	oListPersonResults.remove(selectedIndex);
+	            }
+	        });
+		}
+		if (type.equals("Interaction")){
+			interactionResultsView.setMinSize(400, 300);
+			interactionResultsView.setMaxSize(400, 300);
+			grid.add(interactionResultsView, 1, 0);
+			oListInteractionResults=FXCollections.observableList(list.getInteractionCollection());
+			interactionResultsView.setItems(oListInteractionResults);
+			btnDelete.setOnAction(new EventHandler<ActionEvent>() {
+	            @Override
+	            public void handle(ActionEvent e) {
+	            	int selectedIndex=interactionResultsView.getSelectionModel().getSelectedIndex();
+	            	if (selectedIndex>=0)
+	            	oListInteractionResults.remove(selectedIndex);
+	            }
+	        });
 		}
 		//primaryStage methods
 		primaryStage.setTitle("Search Results");
 		primaryStage.setScene(scene);
 		primaryStage.show();
 	}
+	
 	@Override
 	public void start(Stage arg0) throws Exception {
 		// TODO Auto-generated method stub

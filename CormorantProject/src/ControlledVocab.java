@@ -1,11 +1,11 @@
 import java.util.ArrayList;
 import java.util.List;
-
+//Unimplemented class
+//The methods and fields of this class are currently in the DataCollections class
 public class ControlledVocab {
-private List<String> locationVocab;
 	
+	private List<String> locationVocab;
 	private List<String> interactionTypeVocab;
-	
 	private List<String> citationVocab;
 	
 	public ControlledVocab(){

@@ -24,28 +24,10 @@ import javafx.stage.Stage;
  */
 public class EditVocabGUI extends Application {
 
-	ControlledVocab vocabLists;
 	ObservableList<String> observableListVocab;
-	DataCollections list;
-	public EditVocabGUI(){
-		vocabLists = new ControlledVocab();
-	}
+
+	public void start(Stage primaryStage, DataCollections vocabList) {
 	
-	public static void main(String[] args) {
-		
-		launch(args);
-	}
-	
-	public void start(Stage primaryStage) {
-		//Dummy data for testing
-		vocabLists.addLocationVocab("Rock Island");
-		vocabLists.addLocationVocab("Moline");
-		vocabLists.addLocationVocab("Davenport");
-		vocabLists.addInteractionTypeVocab("Journal");
-		vocabLists.addInteractionTypeVocab("Party");
-		vocabLists.addInteractionTypeVocab("Letter");
-		vocabLists.addCitationVocab("test");
-		vocabLists.addCitationVocab("test2");
 		
 		System.setProperty("glass.accessible.force", "false"); //Fixes bug of crashing ComboBox
 
@@ -91,13 +73,13 @@ public class EditVocabGUI extends Application {
             @Override
             public void handle(ActionEvent e) {
             	if (vocabDropDown.getValue().equals("Location")){
-            		observableListVocab=FXCollections.observableArrayList(vocabLists.getLocationVocab());
+            		observableListVocab=FXCollections.observableArrayList(vocabList.getLocationVocab());
             		
             	}else if (vocabDropDown.getValue().equals("Interaction Type")){
-            		observableListVocab=FXCollections.observableArrayList(vocabLists.getInteractionTypeVocab());
+            		observableListVocab=FXCollections.observableArrayList(vocabList.getInteractionTypeVocab());
             	
             	}else if (vocabDropDown.getValue().equals("Bibliographical Citation")){
-            		observableListVocab=FXCollections.observableArrayList(vocabLists.getCitationVocab());
+            		observableListVocab=FXCollections.observableArrayList(vocabList.getCitationVocab());
             		
             	}    	
             	listView.setItems(observableListVocab);
@@ -127,7 +109,7 @@ public class EditVocabGUI extends Application {
 					alert.showAndWait();
             	}else{
             	String vocab=addVocabTextField.getText();
-            	if (vocabLists.checkForUnallowedInput(vocab)<0){
+            	if (vocabList.checkForUnallowedInput(vocab)<0){
             			Alert alert = new Alert(AlertType.INFORMATION);
 						alert.setTitle("Error");
 						alert.setHeaderText("Invalid characters entered.");
@@ -135,7 +117,7 @@ public class EditVocabGUI extends Application {
 								"Make sure no numbers or special characters are entered");
 						alert.showAndWait();
             	}else{
-            		if (vocabLists.checkForDuplicates(vocab, vocabDropDown.getValue())>=0){
+            		if (vocabList.checkForVocabDuplicates(vocab, vocabDropDown.getValue())>=0){
             			Alert alert = new Alert(AlertType.INFORMATION);
 						alert.setTitle("Error");
 						alert.setHeaderText("List already contains that vocabulary.");
@@ -146,34 +128,34 @@ public class EditVocabGUI extends Application {
 						alert.setTitle("Vocabulary Added");
 						alert.setHeaderText("Vocabulary added to location.");
 						alert.showAndWait();
-						vocabLists.addLocationVocab(vocab);
-            			observableListVocab=FXCollections.observableArrayList(vocabLists.getLocationVocab());
+						vocabList.addLocationVocab(vocab);
+            			observableListVocab=FXCollections.observableArrayList(vocabList.getLocationVocab());
             			
 						//For Testing
-						for (int i = 0; i < vocabLists.getLocationVocab().size(); i++) {
-							System.out.println(vocabLists.getLocationVocab().get(i));
+						for (int i = 0; i < vocabList.getLocationVocab().size(); i++) {
+							System.out.println(vocabList.getLocationVocab().get(i));
 						}
                 	}else if (vocabDropDown.getValue().equals("Interaction Type")){
                 		Alert alert = new Alert(AlertType.INFORMATION);
 						alert.setTitle("Vocabulary Added");
 						alert.setHeaderText("Vocabulary added to interaction type.");
 						alert.showAndWait();
-                		vocabLists.addInteractionTypeVocab(vocab);
-                		observableListVocab=FXCollections.observableArrayList(vocabLists.getInteractionTypeVocab());
+                		vocabList.addInteractionTypeVocab(vocab);
+                		observableListVocab=FXCollections.observableArrayList(vocabList.getInteractionTypeVocab());
                 		//For Testing
-						for (int i = 0; i < vocabLists.getInteractionTypeVocab().size(); i++) {
-							System.out.println(vocabLists.getInteractionTypeVocab().get(i));
+						for (int i = 0; i < vocabList.getInteractionTypeVocab().size(); i++) {
+							System.out.println(vocabList.getInteractionTypeVocab().get(i));
 						}
                 	}else if (vocabDropDown.getValue().equals("Bibliographical Citation")){
                 		Alert alert = new Alert(AlertType.INFORMATION);
 						alert.setTitle("Vocabulary Added");
 						alert.setHeaderText("Vocabulary added to bibliographical citation.");
 						alert.showAndWait();
-                		vocabLists.addCitationVocab(vocab);
-                		observableListVocab=FXCollections.observableArrayList(vocabLists.getCitationVocab());
+                		vocabList.addCitationVocab(vocab);
+                		observableListVocab=FXCollections.observableArrayList(vocabList.getCitationVocab());
                 		//For Testing
-						for (int i = 0; i < vocabLists.getCitationVocab().size(); i++) {
-							System.out.println(vocabLists.getCitationVocab().get(i));
+						for (int i = 0; i < vocabList.getCitationVocab().size(); i++) {
+							System.out.println(vocabList.getCitationVocab().get(i));
 						}
 					}
             		}
@@ -195,7 +177,7 @@ public class EditVocabGUI extends Application {
             	}else{
             	int deletedIndex=listView.getSelectionModel().getSelectedIndex();
             	observableListVocab.remove(deletedIndex);
-            	vocabLists.remove(deletedIndex, vocabDropDown.getValue());
+            	vocabList.remove(deletedIndex, vocabDropDown.getValue());
             	listView.setItems(observableListVocab);
             	}
             		
@@ -209,7 +191,7 @@ public class EditVocabGUI extends Application {
 	        @Override
             public void handle(ActionEvent e) {
             	HomeGUI Homegui=new HomeGUI();
-            	Homegui.start(primaryStage, list);
+            	Homegui.start(primaryStage, vocabList);
             }
         });
 		
@@ -225,6 +207,13 @@ public class EditVocabGUI extends Application {
 		primaryStage.setTitle("Edit Controlled Vocabulary");
 		primaryStage.setScene(scene);
 		primaryStage.show();
+	}
+
+
+	@Override
+	public void start(Stage primaryStage) throws Exception {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

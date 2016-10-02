@@ -29,37 +29,15 @@ import javafx.stage.Stage;
  *
  */
 public class AddInteractionGUI extends Application {
-	CSVUtil csv;
-	ControlledVocab vocabList;
 	ObservableList<String> oListLocation;
 	ObservableList<String> oListCitation;
 	ObservableList<String> oListInteractionType;
 	ObservableList<Person> oListPersonDropDown;
 	ObservableList<Person> oListPerson1Selected;
 	ObservableList<Person> oListPerson2Selected;
-	
-	public static void main(String[] args) {
-		launch(args);
-	}
-	
-	public AddInteractionGUI(){
-		csv=new CSVUtil();
-		vocabList=new ControlledVocab();
-	}
-	
-	public void start(Stage primaryStage, DataCollections list) {
-		//Dummy data for testing
-				Person jared=new Person(1, "Jared", "Male", "American", "Student", "CSC Major");
-				Person juan=new Person(2, "Juan", "Male", "Spanish","Teacher", "test person" );
-				Person anaon=new Person(3, "Anonymous","Unknown", "Unknown", "Unknown", " ");
-				vocabList.addLocationVocab("Rock Island");
-				vocabList.addLocationVocab("Moline");
-				vocabList.addLocationVocab("Davenport");
-				vocabList.addInteractionTypeVocab("Journal");
-				vocabList.addInteractionTypeVocab("Party");
-				vocabList.addInteractionTypeVocab("Letter");
-				vocabList.addCitationVocab("test");
-				vocabList.addCitationVocab("test2");
+
+	public void start(Stage primaryStage, DataCollections interactionList) {
+			
 				
 				
 		System.setProperty("glass.accessible.force", "false"); // Fixes bug of combobox crashing when running on certain computers
@@ -97,10 +75,10 @@ public class AddInteractionGUI extends Application {
 	    ListView<Person> person2List = new ListView<Person>();
 	    TextArea notesTextArea = new TextArea();
 	    TextField dateTextField = new TextField();
-	    oListPersonDropDown = FXCollections.observableArrayList(list.getPersonCollection());
-		oListLocation = FXCollections.observableArrayList(vocabList.getLocationVocab());
-		oListInteractionType = FXCollections.observableArrayList(vocabList.getInteractionTypeVocab());
-		oListCitation = FXCollections.observableArrayList(vocabList.getCitationVocab());
+	    oListPersonDropDown = FXCollections.observableArrayList(interactionList.getPersonCollection());
+		oListLocation = FXCollections.observableArrayList(interactionList.getLocationVocab());
+		oListInteractionType = FXCollections.observableArrayList(interactionList.getInteractionTypeVocab());
+		oListCitation = FXCollections.observableArrayList(interactionList.getCitationVocab());
 		oListPerson1Selected=FXCollections.observableArrayList();
 		oListPerson2Selected=FXCollections.observableArrayList();
 		
@@ -271,14 +249,14 @@ public class AddInteractionGUI extends Application {
             		
             	}else{
             		Interaction interaction=new Interaction(oListPerson1Selected, oListPerson2Selected,locationDropDown.getValue(),dateTextField.getText(),interactionTypeDropDown.getValue(),citationDropDown.getValue(),notesTextArea.getText(),false);
-            		if (list.checkForInteractionDuplicates(interaction)>=0){
+            		if (interactionList.checkForInteractionDuplicates(interaction)>=0){
             			Alert alert = new Alert(AlertType.INFORMATION);
 						alert.setTitle("Error");
 						alert.setHeaderText("That interaction has already been entered.");
 						alert.setContentText("Interaction already exists.");
 						alert.showAndWait();
             		}else{
-            			list.addInteraction(interaction);
+            			interactionList.addInteraction(interaction);
             			Alert alert = new Alert(AlertType.INFORMATION);
 						alert.setTitle("Interaction Added");
 						alert.setHeaderText("Interaction was added to list");
@@ -292,13 +270,13 @@ public class AddInteractionGUI extends Application {
 						notesTextArea.clear();
 						person1DropDown.setValue(null);
 						person2DropDown.setValue(null);
-						oListPersonDropDown=FXCollections.observableArrayList(list.getPersonCollection());
+						oListPersonDropDown=FXCollections.observableArrayList(interactionList.getPersonCollection());
 						person1DropDown.setItems(oListPersonDropDown);
 						person2DropDown.setItems(oListPersonDropDown);
 						
 						//Testing
-						for (int i=0; i<list.getInteractionCollection().size(); i++){
-							System.out.println(list.getInteractionCollection().get(i).toString());
+						for (int i=0; i<interactionList.getInteractionCollection().size(); i++){
+							System.out.println(interactionList.getInteractionCollection().get(i).toString());
 						}
             		}
             	}
@@ -312,7 +290,7 @@ public class AddInteractionGUI extends Application {
 	        @Override
             public void handle(ActionEvent e) {
             	HomeGUI Homegui=new HomeGUI();
-            	Homegui.start(primaryStage, list);
+            	Homegui.start(primaryStage, interactionList);
             }
         });
 

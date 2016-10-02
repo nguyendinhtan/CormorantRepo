@@ -16,6 +16,7 @@ import javafx.stage.Stage;
 
 public class HomeGUI extends Application{
 	DataCollections list;
+	
 	public static void main(String[] args){
 		launch(args);
 	}
@@ -23,7 +24,23 @@ public class HomeGUI extends Application{
 		list=new DataCollections();
 	}
     public void start(Stage primaryStage, DataCollections list) {
-        //GUI Variables
+    	//Dummy Data for testing
+		Person jared=new Person(1, "Jared", "Male", "American", "Student", "CSC Major");
+		Person juan=new Person(2, "Juan", "Male", "Spanish","Teacher", "test person" );
+		Person anaon=new Person(3, "Anonymous","Unknown", "Unknown", "Unknown", " ");
+		list.addPerson(jared);
+		list.addPerson(juan);
+		list.addPerson(anaon);
+		list.addLocationVocab("Rock Island");
+		list.addLocationVocab("Moline");
+		list.addLocationVocab("Davenport");
+		list.addInteractionTypeVocab("Journal");
+		list.addInteractionTypeVocab("Party");
+		list.addInteractionTypeVocab("Letter");
+		list.addCitationVocab("test");
+		list.addCitationVocab("test2");
+		
+    	//GUI Variables
         GridPane grid = new GridPane();
         Scene scene = new Scene(grid, 700, 300);
         ComboBox<String> searchType=new ComboBox<String>();
@@ -60,7 +77,7 @@ public class HomeGUI extends Application{
             public void handle(ActionEvent e) {
             	if (searchType.getValue()!=null){
             	SearchResultGUI searchGUI=new SearchResultGUI();
-            	searchGUI.start(primaryStage, searchType.getValue());
+            	searchGUI.start(primaryStage, searchType.getValue(), list);
             	}else{
             		
             	}
@@ -99,7 +116,7 @@ public class HomeGUI extends Application{
             @Override
             public void handle(ActionEvent e) {
             	EditVocabGUI gui = new EditVocabGUI();
-            	gui.start(primaryStage);
+            	gui.start(primaryStage, list);
             }
         });
         
@@ -117,11 +134,14 @@ public class HomeGUI extends Application{
         primaryStage.setScene(scene);	
         primaryStage.show();
     }
-
+    //Unimplemented method required for application class overloaded by start class which passes Datacollection object as parameter
+	@Override
 	public void start(Stage primaryStage) throws Exception {
-		
+		// TODO Auto-generated method stub
 		
 	}
+	
+   
     
 }
 	
