@@ -206,6 +206,6 @@ public class Interaction {
 	}
 	
 	public String toString(){
-		return "Group 1=("+getNamesOfGroup(people1)+") interacted with Group 2=("+getNamesOfGroup(people2)+") {Location="+ location+", Date="+date+", Interaction Type="+interactionType+", Bibliographical Citation="+citation+", Notes="+notes;
+		return "Group 1=("+getNamesOfGroup(people1)+") interacted with Group 2=("+getNamesOfGroup(people2)+") {Location="+ location+", Date="+date+", Interaction Type="+interactionType+", Bibliographical Citation="+citation+", Notes="+notes+"}";
 	}
 }

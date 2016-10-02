@@ -24,23 +24,8 @@ public class HomeGUI extends Application{
 		list=new DataCollections();
 	}
     public void start(Stage primaryStage, DataCollections list) {
-    	//Dummy Data for testing
-		Person jared=new Person(1, "Jared", "Male", "American", "Student", "CSC Major");
-		Person juan=new Person(2, "Juan", "Male", "Spanish","Teacher", "test person" );
-		Person anaon=new Person(3, "Anonymous","Unknown", "Unknown", "Unknown", " ");
-		list.addPerson(jared);
-		list.addPerson(juan);
-		list.addPerson(anaon);
-		list.addLocationVocab("Rock Island");
-		list.addLocationVocab("Moline");
-		list.addLocationVocab("Davenport");
-		list.addInteractionTypeVocab("Journal");
-		list.addInteractionTypeVocab("Party");
-		list.addInteractionTypeVocab("Letter");
-		list.addCitationVocab("test");
-		list.addCitationVocab("test2");
-		
-    	//GUI Variables
+    	
+   		//GUI Variables
         GridPane grid = new GridPane();
         Scene scene = new Scene(grid, 700, 300);
         ComboBox<String> searchType=new ComboBox<String>();
@@ -63,10 +48,11 @@ public class HomeGUI extends Application{
 				"Person",
 				"Interaction"
 		);
-		System.setProperty("glass.accessible.force", "false");//Fixes bug of crashing combobox
-		       
-        //Search Text Field Methods
+		System.setProperty("glass.accessible.force", "false");//Fixes bug of crashing combobox    
+        
+		//Search Text Field Methods
         searchTextField.setMinSize(275, 10);
+        searchTextField.setMaxSize(275, 50);
         
         //Search Button Methods
         searchButton.setTextFill(Color.WHITE);

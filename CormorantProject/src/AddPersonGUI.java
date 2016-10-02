@@ -38,7 +38,9 @@ public class AddPersonGUI extends Application {
 		Button backButton = new Button("Back");
 		HBox notesLabelBox = new HBox();
 		HBox buttonBox = new HBox();
-
+		
+		
+		 
 		// Grid Methods
 		grid.setAlignment(Pos.CENTER);
 		grid.setHgap(10);
@@ -79,16 +81,27 @@ public class AddPersonGUI extends Application {
 						&& notesTextArea.getText().isEmpty()) {
 					
 				} else {
-					if (nameTextField.getText().isEmpty()) {
-
-						nameTextField.setText("Anonymous");
+					String name=nameTextField.getText();
+					String gender=genderDropDown.getValue();
+					String culture=cultureTextField.getText();
+					String occupation=occupationTextField.getText();
+					String notes=notesTextArea.getText();
+					if (name.isEmpty()) {
+						name="Anonymous";
 					}
-					if (genderDropDown.getValue() == null) {
-						genderDropDown.setValue("Unknown");
+					if (gender == null) {
+						gender="Unknown";
 					}
-
-					Person person = new Person(id, nameTextField.getText(), genderDropDown.getValue(),
-							cultureTextField.getText(), occupationTextField.getText(), notesTextArea.getText());
+					if (culture.isEmpty()){
+						culture="Unknown";
+					}
+					if (occupation.isEmpty()){
+						occupation="Unknown";
+					}
+					if (notes.isEmpty()){
+						notes="none";
+					}
+					Person person = new Person(id, name, gender, culture, occupation, notes);
 					if (person.checkForUnallowedInput(person.getName(), person.getCulture(), person.getCulture()) < 0) {
 						Alert alert = new Alert(AlertType.INFORMATION);
 						alert.setTitle("Error");
@@ -106,9 +119,9 @@ public class AddPersonGUI extends Application {
 					} else {
 						personList.addPerson(person);
 						// Testing method to check list
-						for (int i = 0; i < personList.getPersonCollection().size(); i++) {
+						/*for (int i = 0; i < personList.getPersonCollection().size(); i++) {
 							System.out.println(personList.getPersonCollection().get(i).toString());
-						}
+						}*/
 						Alert alert = new Alert(AlertType.INFORMATION);
 						alert.setTitle("Person Added");
 						alert.setHeaderText("Person was added to list");

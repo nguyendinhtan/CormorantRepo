@@ -104,6 +104,7 @@ public class AddInteractionGUI extends Application {
 	    grid.add(addInteractionButton,0,9);
 	    grid.add(buttonBox, 1, 9);
 	    
+	   
 	    
 		//Person Label Box Methods
 	    personLabelBox.getChildren().add(person1Label);
@@ -248,7 +249,28 @@ public class AddInteractionGUI extends Application {
             	if (oListPerson1Selected.isEmpty()&&oListPerson2Selected.isEmpty()){
             		
             	}else{
-            		Interaction interaction=new Interaction(oListPerson1Selected, oListPerson2Selected,locationDropDown.getValue(),dateTextField.getText(),interactionTypeDropDown.getValue(),citationDropDown.getValue(),notesTextArea.getText(),false);
+            		String location=locationDropDown.getValue();
+            		String date=dateTextField.getText();
+            		String citation=citationDropDown.getValue();
+            		String interactionType=interactionTypeDropDown.getValue();
+            		String notes=notesTextArea.getText();
+            		if (location.isEmpty()){
+            			location="Unknown";
+            		}
+            		if (date.isEmpty()){
+            			date="Unknown";
+            		}
+            		if (citation.isEmpty()){
+            			citation="none";
+            		}
+            		if (interactionType.isEmpty()){
+            			interactionType="Unknown";
+            		}
+            		if (notes.isEmpty()){
+            			notes="none";
+            		}
+            		
+            		Interaction interaction=new Interaction(oListPerson1Selected, oListPerson2Selected,location,date,interactionType,citation,notes,false);
             		if (interactionList.checkForInteractionDuplicates(interaction)>=0){
             			Alert alert = new Alert(AlertType.INFORMATION);
 						alert.setTitle("Error");
@@ -275,9 +297,9 @@ public class AddInteractionGUI extends Application {
 						person2DropDown.setItems(oListPersonDropDown);
 						
 						//Testing
-						for (int i=0; i<interactionList.getInteractionCollection().size(); i++){
+						/*for (int i=0; i<interactionList.getInteractionCollection().size(); i++){
 							System.out.println(interactionList.getInteractionCollection().get(i).toString());
-						}
+						}*/
             		}
             	}
             }
@@ -303,6 +325,7 @@ public class AddInteractionGUI extends Application {
 		primaryStage.setScene(scene);
 		primaryStage.show();
 	}
+
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {

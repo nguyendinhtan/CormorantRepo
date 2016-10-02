@@ -81,8 +81,20 @@ public class SearchResultGUI extends Application {
 	            @Override
 	            public void handle(ActionEvent e) {
 	            	int selectedIndex=personResultsView.getSelectionModel().getSelectedIndex();
-	            	if (selectedIndex>=0)
+	            	if (selectedIndex>=0){
 	            	oListPersonResults.remove(selectedIndex);
+	            	}
+	            }
+	        });
+			btnEdit.setOnAction(new EventHandler<ActionEvent>() {
+	            @Override
+	            public void handle(ActionEvent e) {
+	            	int selectedIndex=personResultsView.getSelectionModel().getSelectedIndex();
+	            	if (selectedIndex>=0){
+	            		AddPersonGUI editPerson=new AddPersonGUI();
+	            		editPerson.start(primaryStage, list);
+	            	}
+	            	
 	            }
 	        });
 		}
@@ -96,8 +108,20 @@ public class SearchResultGUI extends Application {
 	            @Override
 	            public void handle(ActionEvent e) {
 	            	int selectedIndex=interactionResultsView.getSelectionModel().getSelectedIndex();
-	            	if (selectedIndex>=0)
+	            	if (selectedIndex>=0){
 	            	oListInteractionResults.remove(selectedIndex);
+	            	}
+	            }
+	        });
+			btnEdit.setOnAction(new EventHandler<ActionEvent>() {
+	            @Override
+	            public void handle(ActionEvent e) {
+	            	int selectedIndex=interactionResultsView.getSelectionModel().getSelectedIndex();
+	            	if (selectedIndex>=0){
+	            		AddInteractionGUI interactionEdit=new AddInteractionGUI();
+	            		interactionEdit.start(primaryStage, list);
+	            	}
+	            	
 	            }
 	        });
 		}
