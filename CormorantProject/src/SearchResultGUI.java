@@ -1,4 +1,6 @@
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -12,15 +14,29 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class SearchResultGUI extends Application {
+	ObservableList<Person> oListResults;
 	public static void main(String[] args) {
 		launch(args);
 	}
-
-	public void start(Stage primaryStage) {
+	public SearchResultGUI(){
+		
+		
+	}
+	//@override
+	public void start(Stage primaryStage, String type) {
+		//Dummy Data for testing
+		Person jared=new Person(1, "Jared", "Male", "American", "Student", "CSC Major");
+		Person juan=new Person(2, "Juan", "Male", "Spanish","Teacher", "test person" );
+		Person anaon=new Person(3, "Anonymous","Unknown", "Unknown", "Unknown", " ");
+		DataCollections personList=new DataCollections();
+		personList.addPerson(jared);
+		personList.addPerson(juan);
+		personList.addPerson(anaon);
+		
 		//GUI Variables
 		GridPane grid = new GridPane();
 		Scene scene = new Scene(grid, 600, 400);
-		ListView<String> searchResultsView=new ListView<String>();
+		ListView<Person> searchResultsView=new ListView<Person>();
 		Button btnEdit = new Button("Edit");
 		Button btnDelete = new Button("Delete");
 		Button btnBack = new Button("Back");
@@ -66,9 +82,21 @@ public class SearchResultGUI extends Application {
 		grid.add(searchResultsView, 1, 0);
 		grid.add(hbBtn, 1,1);
 		
+		
+		if (type.equals("Person")){
+			oListResults=FXCollections.observableArrayList(personList.getPersonCollection());
+			searchResultsView.setItems(oListResults);
+		}
 		//primaryStage methods
 		primaryStage.setTitle("Search Results");
 		primaryStage.setScene(scene);
 		primaryStage.show();
 	}
+	@Override
+	public void start(Stage arg0) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
+
 }

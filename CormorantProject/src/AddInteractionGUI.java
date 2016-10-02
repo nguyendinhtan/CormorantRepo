@@ -1,4 +1,7 @@
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 
 import javafx.application.Application;
 import javafx.collections.FXCollections;
@@ -26,7 +29,7 @@ import javafx.stage.Stage;
  *
  */
 public class AddInteractionGUI extends Application {
-	
+	CSVUtil csv;
 	DataCollections lists;
 	ControlledVocab vocabList;
 	ObservableList<String> oListLocation;
@@ -41,8 +44,9 @@ public class AddInteractionGUI extends Application {
 	}
 	
 	public AddInteractionGUI(){
+		csv=new CSVUtil();
 		lists=new DataCollections();
-		vocabList=new ControlledVocab();	
+		vocabList=new ControlledVocab();
 	}
 	
 	public void start(Stage primaryStage) {
@@ -168,6 +172,8 @@ public class AddInteractionGUI extends Application {
             		Collections.sort(oListPerson1Selected, Person.personNameComparator);
             		person1List.setItems(oListPerson1Selected);
             		oListPersonDropDown.remove(person1DropDown.getValue());
+            		person1DropDown.setValue(null);
+            		
             	}
             }
         });
@@ -185,6 +191,7 @@ public class AddInteractionGUI extends Application {
             		Collections.sort(oListPerson2Selected, Person.personNameComparator);
             		person2List.setItems(oListPerson2Selected);
             		oListPersonDropDown.remove(person2DropDown.getValue());
+            		person2DropDown.setValue(null);
             	}
             }
         });
@@ -264,13 +271,41 @@ public class AddInteractionGUI extends Application {
 		addInteractionButton.setOnAction(new EventHandler<ActionEvent>() {  	 
             @Override
             public void handle(ActionEvent e) {
-            	//if (){
-            		Alert alert = new Alert(AlertType.INFORMATION);
-					alert.setTitle("Error");
-					alert.setHeaderText("No data entered.");
-					alert.setContentText("Please enter persons.");
-					alert.showAndWait();
-            	//}
+            	if (oListPerson1Selected.isEmpty()&&oListPerson2Selected.isEmpty()){
+            		
+            	}else{
+            		Interaction interaction=new Interaction(oListPerson1Selected, oListPerson2Selected,locationDropDown.getValue(),dateTextField.getText(),interactionTypeDropDown.getValue(),citationDropDown.getValue(),notesTextArea.getText(),false);
+            		if (lists.checkForInteractionDuplicates(interaction)>=0){
+            			Alert alert = new Alert(AlertType.INFORMATION);
+						alert.setTitle("Error");
+						alert.setHeaderText("That interaction has already been entered.");
+						alert.setContentText("Interaction already exists.");
+						alert.showAndWait();
+            		}else{
+            			lists.addInteraction(interaction);
+            			Alert alert = new Alert(AlertType.INFORMATION);
+						alert.setTitle("Interaction Added");
+						alert.setHeaderText("Interaction was added to list");
+						alert.showAndWait();
+						oListPerson1Selected.clear();
+						oListPerson2Selected.clear();
+						locationDropDown.setValue(null);
+						dateTextField.clear();
+						interactionTypeDropDown.setValue(null);
+						citationDropDown.setValue(null);
+						notesTextArea.clear();
+						person1DropDown.setValue(null);
+						person2DropDown.setValue(null);
+						oListPersonDropDown=FXCollections.observableArrayList(lists.getPersonCollection());
+						person1DropDown.setItems(oListPersonDropDown);
+						person2DropDown.setItems(oListPersonDropDown);
+						
+						//Testing
+						for (int i=0; i<lists.getInteractionCollection().size(); i++){
+							System.out.println(lists.getInteractionCollection().get(i).toString());
+						}
+            		}
+            	}
             }
         });
 		

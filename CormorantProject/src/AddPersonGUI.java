@@ -19,13 +19,14 @@ import javafx.stage.Stage;
 public class AddPersonGUI extends Application {
 
 	DataCollections personList;
-
+	CSVUtil csv;
 	public static void main(String[] args) {
 	
 		launch(args);
 	}
 
 	public AddPersonGUI() {
+		csv=new CSVUtil();
 		personList = new DataCollections();
 	}
 
@@ -133,12 +134,13 @@ public class AddPersonGUI extends Application {
 						alert.setTitle("Person Added");
 						alert.setHeaderText("Person was added to list");
 						alert.showAndWait();
-
 						nameTextField.clear();
 						genderDropDown.setValue(null);
 						cultureTextField.clear();
 						occupationTextField.clear();
 						notesTextArea.clear();
+						csv.addPerson(person);
+						
 					}
 				}
 			}

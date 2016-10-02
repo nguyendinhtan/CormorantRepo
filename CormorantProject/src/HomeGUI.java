@@ -56,8 +56,12 @@ public class HomeGUI extends Application{
 	       	 
             @Override
             public void handle(ActionEvent e) {
+            	if (searchType.getValue()!=null){
             	SearchResultGUI searchGUI=new SearchResultGUI();
-            	searchGUI.start(primaryStage);
+            	searchGUI.start(primaryStage, searchType.getValue());
+            	}else{
+            		
+            	}
             }
         });
         

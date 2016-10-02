@@ -7,13 +7,7 @@ import java.util.List;
  */
 public class DataCollections {
 	
-	public List<Person> getPersonCollection() {
-		return personCollection;
-	}
-
-	public List<Interaction> getInteractionCollection() {
-		return interactionCollection;
-	}
+	
 
 	/** The person collection. */
 	private List<Person> personCollection;
@@ -25,7 +19,13 @@ public class DataCollections {
 		personCollection= new ArrayList<>();
 		interactionCollection=new ArrayList<>();
 	}
-		
+	public List<Person> getPersonCollection() {
+		return personCollection;
+	}
+
+	public List<Interaction> getInteractionCollection() {
+		return interactionCollection;
+	}
 	/**
 	 * Adds a person to the personCollection list.
 	 *
@@ -98,16 +98,19 @@ public class DataCollections {
 	//checks for duplicates in person list and returns the id of the person if there is a duplicate and -1 if there isn't
 	public int checkForPersonDuplicates(Person person){
 		for (int i=0; i<personCollection.size(); i++){
-			if (person.getName().toLowerCase().equals(personCollection.get(i).getName().toLowerCase())&& person.getCulture().toLowerCase().equals(personCollection.get(i).getCulture().toLowerCase())&&person.getOccupation().toLowerCase().equals(personCollection.get(i).getOccupation().toLowerCase())){
-				return personCollection.get(i).getID();
-			}
+
+				if (person.getName().toLowerCase().equals(personCollection.get(i).getName().toLowerCase())&& person.getCulture().toLowerCase().equals(personCollection.get(i).getCulture().toLowerCase())&&person.getOccupation().toLowerCase().equals(personCollection.get(i).getOccupation().toLowerCase())){
+					return personCollection.get(i).getID();
+				}
 		}
 		return -1;
 	}
 	
 	public int checkForInteractionDuplicates(Interaction interaction){
 		for (int i=0; i<interactionCollection.size(); i++){
-			
+				if (interactionCollection.get(i).getPeople1().equals(interaction.getPeople1())&&interactionCollection.get(i).getPeople2().equals(interaction.getPeople2()) &&interactionCollection.get(i).getLocation().equals(interaction.getLocation())&& interactionCollection.get(i).getDate().equals(interaction.getDate())&&interactionCollection.get(i).getInteractionType().equals(interaction.getInteractionType())){
+					return i;
+				}
 		}
 		return -1;
 	}
