@@ -21,56 +21,56 @@ public class SearchResultGUI extends Application {
 	}
 
 	public void start(Stage primaryStage) {
-		//GUI Variables
+		// GUI Variables
 		GridPane grid = new GridPane();
 		Scene scene = new Scene(grid, 600, 400);
-		ListView<String> searchResultsView=new ListView<String>();
+		ListView<String> searchResultsView = new ListView<String>();
 		Button btnEdit = new Button("Edit");
 		Button btnDelete = new Button("Delete");
 		Button btnBack = new Button("Back");
-		HBox hbBtn=new HBox(120);
-		
-		//Grid Methods
+		HBox hbBtn = new HBox(120);
+
+		// Grid Methods
 		grid.setAlignment(Pos.CENTER);
 		grid.setHgap(10);
 		grid.setVgap(10);
 		grid.setPadding(new Insets(25, 25, 25, 25));
-		
-		//sets size of list view
+
+		// sets size of list view
 		searchResultsView.setMinSize(400, 300);
-		
-		//Styling of Buttons
+
+		// Styling of Buttons
 		btnEdit.setTextFill(Color.BLACK);
 		btnEdit.setTextFill(Color.WHITE);
 		btnEdit.setStyle("-fx-base: #FF0000");
-		
+
 		btnDelete.setTextFill(Color.WHITE);
 		btnDelete.setStyle("-fx-base: #FF0000");
 		btnDelete.setTextFill(Color.WHITE);
-		
+
 		btnBack.setTextFill(Color.WHITE);
 		btnBack.setStyle("-fx-base: #FF0000");
-		
-		//Action for back button to return program to the home screen
+
+		// Action for back button to return program to the home screen
 		btnBack.setOnAction(new EventHandler<ActionEvent>() {
-	       	 
-            @Override
-            public void handle(ActionEvent e) {
-            	HomeGUI Homegui=new HomeGUI();
-            	Homegui.start(primaryStage);
-            }
-        });
-		
-		//adds buttons to box
+
+			@Override
+			public void handle(ActionEvent e) {
+				HomeGUI Homegui = new HomeGUI();
+				Homegui.start(primaryStage);
+			}
+		});
+
+		// adds buttons to box
 		hbBtn.getChildren().add(btnEdit);
 		hbBtn.getChildren().add(btnDelete);
 		hbBtn.getChildren().add(btnBack);
-		
-		//adds box and list view to grid for display
+
+		// adds box and list view to grid for display
 		grid.add(searchResultsView, 1, 0);
-		grid.add(hbBtn, 1,1);
-		
-		//primaryStage methods
+		grid.add(hbBtn, 1, 1);
+
+		// primaryStage methods
 		primaryStage.setTitle("Search Results");
 		primaryStage.setScene(scene);
 		primaryStage.show();

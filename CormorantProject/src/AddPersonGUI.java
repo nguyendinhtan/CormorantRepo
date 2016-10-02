@@ -34,7 +34,12 @@ public class AddPersonGUI extends Application {
 	}
 
 	public void start(Stage primaryStage) {
-		System.setProperty("glass.accessible.force", "false"); // Fixes bug of combobox crashing when running on certain computers
+		System.setProperty("glass.accessible.force", "false"); // Fixes bug of
+																// combobox
+																// crashing when
+																// running on
+																// certain
+																// computers
 
 		// GUI Variables
 		GridPane grid = new GridPane();
@@ -72,16 +77,16 @@ public class AddPersonGUI extends Application {
 		grid.add(addPersonButton, 0, 6);
 		grid.add(buttonBox, 1, 6);
 
-		//Gender Methods
+		// Gender Methods
 		genderDropDown.getItems().addAll("Male", "Female", "Unknown");
 		genderDropDown.setMinSize(300, 10);
 
-		//Notes Label Box
+		// Notes Label Box
 		notesLabelBox.getChildren().add(notesLabel);
 		notesLabelBox.setAlignment(Pos.TOP_LEFT);
 		notesTextArea.setMaxSize(300, 100);
-		
-		//Add Person Buttons
+
+		// Add Person Buttons
 		addPersonButton.setTextFill(Color.BLACK);
 		addPersonButton.setTextFill(Color.WHITE);
 		addPersonButton.setStyle("-fx-base: #FF0000");
@@ -143,7 +148,7 @@ public class AddPersonGUI extends Application {
 			}
 		});
 
-		//Back Button Methods
+		// Back Button Methods
 		backButton.setTextFill(Color.WHITE);
 		backButton.setStyle("-fx-base: #FF0000");
 		backButton.setOnAction(new EventHandler<ActionEvent>() {
@@ -153,11 +158,10 @@ public class AddPersonGUI extends Application {
 				Homegui.start(primaryStage);
 			}
 		});
-		
-		//Button Box
+
+		// Button Box
 		buttonBox.getChildren().add(backButton);
 		buttonBox.setAlignment(Pos.CENTER_RIGHT);
-
 
 		// Primary Stage Methods
 		primaryStage.setTitle("Insert Person");
