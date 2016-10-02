@@ -114,14 +114,14 @@ public class AddPersonGUI extends Application {
 					Person person = new Person(id, nameTextField.getText(), genderDropDown.getValue(),
 							cultureTextField.getText(), occupationTextField.getText(), notesTextArea.getText());
 					if (person.checkForUnallowedInput(person.getName(), person.getCulture(), person.getCulture()) < 0) {
-						Alert alert = new Alert(AlertType.INFORMATION);
+						Alert alert = new Alert(AlertType.ERROR);
 						alert.setTitle("Error");
 						alert.setHeaderText("Invalid characters entered.");
 						alert.setContentText(
 								"Make sure no numbers or special characters are entered in the Name, Culture or Occupation fields");
 						alert.showAndWait();
 					} else if (personList.checkForPersonDuplicates(person) > 0) {
-						Alert alert = new Alert(AlertType.INFORMATION);
+						Alert alert = new Alert(AlertType.ERROR);
 						alert.setTitle("Error");
 						alert.setHeaderText("That person has already been entered.");
 						alert.setContentText("Person already exists. (ID number:"
