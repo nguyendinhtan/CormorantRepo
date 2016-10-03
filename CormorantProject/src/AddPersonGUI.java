@@ -128,7 +128,7 @@ public class AddPersonGUI extends Application {
 						alert.showAndWait();
 					} else {
 
-						dataList.addPerson(person);
+						//dataList.addPerson(person);
 						CSVUtil.addPerson(person);
 
 						try {

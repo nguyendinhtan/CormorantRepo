@@ -25,7 +25,7 @@ public class Main extends Application {
    		list.addPerson(jared);
  		list.addPerson(juan);
    		list.addPerson(anon);*/
-		//storage.loadPerson("data/People.csv");
+		storage.loadPerson("data/People.csv");
 
 		System.out.println(dataList.getPersonCollection().size());
 		dataList.addLocationVocab("Rock Island");
