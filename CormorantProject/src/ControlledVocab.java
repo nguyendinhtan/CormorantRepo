@@ -4,7 +4,6 @@ import java.util.List;
 //Unimplemented class
 //The methods and fields of this class are currently in the DataCollections class
 
-
 /**
  * 
  * The Controlled Vocab class.

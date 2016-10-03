@@ -17,10 +17,15 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class EditPersonGUI extends Application {
-	
+
 	public void start(Stage primaryStage, DataCollections personList, Person editPerson) {
-		System.setProperty("glass.accessible.force", "false"); // Fixes bug of combobox crashing when running on certain computers
-		//Removes person from list
+		System.setProperty("glass.accessible.force", "false"); // Fixes bug of
+																// combobox
+																// crashing when
+																// running on
+																// certain
+																// computers
+		// Removes person from list
 		personList.getPersonCollection().remove(editPerson);
 		// GUI Variables
 		GridPane grid = new GridPane();
@@ -39,13 +44,13 @@ public class EditPersonGUI extends Application {
 		Button backButton = new Button("Back");
 		HBox notesLabelBox = new HBox();
 		HBox buttonBox = new HBox();
-		
+
 		nameTextField.setText(editPerson.getName());
 		genderDropDown.setValue(editPerson.getGender());
 		cultureTextField.setText(editPerson.getCulture());
 		occupationTextField.setText(editPerson.getOccupation());
 		notesTextArea.setText(editPerson.getNotes());
-		 
+
 		// Grid Methods
 		grid.setAlignment(Pos.CENTER);
 		grid.setHgap(10);
@@ -64,16 +69,16 @@ public class EditPersonGUI extends Application {
 		grid.add(addPersonButton, 0, 6);
 		grid.add(buttonBox, 1, 6);
 
-		//Gender Methods
+		// Gender Methods
 		genderDropDown.getItems().addAll("Male", "Female", "Unknown");
 		genderDropDown.setMinSize(300, 10);
 
-		//Notes Label Box
+		// Notes Label Box
 		notesLabelBox.getChildren().add(notesLabel);
 		notesLabelBox.setAlignment(Pos.TOP_LEFT);
 		notesTextArea.setMaxSize(300, 100);
-		
-		//Add Person Buttons
+
+		// Add Person Buttons
 		addPersonButton.setTextFill(Color.BLACK);
 		addPersonButton.setTextFill(Color.WHITE);
 		addPersonButton.setStyle("-fx-base: #FF0000");
@@ -81,15 +86,15 @@ public class EditPersonGUI extends Application {
 			@Override
 			public void handle(ActionEvent e) {
 				int id = editPerson.getID();
-				String name=nameTextField.getText();
-				String gender=genderDropDown.getValue();
-				String culture=cultureTextField.getText();
-				String occupation=occupationTextField.getText();
-				String notes=notesTextArea.getText();
-				if (name.isEmpty() && gender == null && culture.isEmpty() && occupation.isEmpty()&& notes.isEmpty()) {
-					
+				String name = nameTextField.getText();
+				String gender = genderDropDown.getValue();
+				String culture = cultureTextField.getText();
+				String occupation = occupationTextField.getText();
+				String notes = notesTextArea.getText();
+				if (name.isEmpty() && gender == null && culture.isEmpty() && occupation.isEmpty() && notes.isEmpty()) {
+
 				} else {
-					
+
 					Person person = new Person(id, name, gender, culture, occupation, notes);
 					if (person.checkForUnallowedInput(person.getName(), person.getCulture(), person.getCulture()) < 0) {
 						Alert alert = new Alert(AlertType.INFORMATION);
@@ -107,41 +112,44 @@ public class EditPersonGUI extends Application {
 						alert.showAndWait();
 					} else {
 						personList.addPerson(person);
-						for (int i=0; i<personList.getInteractionCollection().size(); i++){
-							for (int j=0; j<personList.getInteractionCollection().get(i).getPeople1().size();j++){
-								if(personList.getInteractionCollection().get(i).getPeople1().get(j).equals(editPerson)){
-									personList.getInteractionCollection().get(i).getPeople1().get(j).replacePerson(person);
+						for (int i = 0; i < personList.getInteractionCollection().size(); i++) {
+							for (int j = 0; j < personList.getInteractionCollection().get(i).getPeople1().size(); j++) {
+								if (personList.getInteractionCollection().get(i).getPeople1().get(j)
+										.equals(editPerson)) {
+									personList.getInteractionCollection().get(i).getPeople1().get(j)
+											.replacePerson(person);
 								}
 							}
-								for (int j=0; j<personList.getInteractionCollection().get(i).getPeople2().size();j++){
-									if(personList.getInteractionCollection().get(i).getPeople2().get(j).equals(editPerson)){
-										personList.getInteractionCollection().get(i).getPeople2().get(j).replacePerson(person);
-									}
+							for (int j = 0; j < personList.getInteractionCollection().get(i).getPeople2().size(); j++) {
+								if (personList.getInteractionCollection().get(i).getPeople2().get(j)
+										.equals(editPerson)) {
+									personList.getInteractionCollection().get(i).getPeople2().get(j)
+											.replacePerson(person);
 								}
+							}
 						}
-						SearchResultGUI searchGUI=new SearchResultGUI();
+						SearchResultGUI searchGUI = new SearchResultGUI();
 						searchGUI.start(primaryStage, "Person", personList);
 					}
 				}
 			}
 		});
 
-		//Back Button Methods
+		// Back Button Methods
 		backButton.setTextFill(Color.WHITE);
 		backButton.setStyle("-fx-base: #FF0000");
 		backButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
 				personList.addPerson(editPerson);
-				SearchResultGUI searchGUI=new SearchResultGUI();
+				SearchResultGUI searchGUI = new SearchResultGUI();
 				searchGUI.start(primaryStage, "Person", personList);
 			}
 		});
-		
-		//Button Box
+
+		// Button Box
 		buttonBox.getChildren().add(backButton);
 		buttonBox.setAlignment(Pos.CENTER_RIGHT);
-
 
 		// Primary Stage Methods
 		primaryStage.setTitle("Edit Person");
@@ -152,6 +160,6 @@ public class EditPersonGUI extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		// TODO Auto-generated method stub
-		
+
 	}
 }
