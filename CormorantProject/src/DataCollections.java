@@ -215,8 +215,7 @@ public class DataCollections {
 		
 	}
 	public int checkForVocabDuplicates(String vocab, String list){
-		if (list=="Location"){
-			
+		if (list=="Location"){	
 			for (int i=0; i<locationVocab.size(); i++){
 				if (vocab.toLowerCase().equals(locationVocab.get(i).toLowerCase())){
 				return i;

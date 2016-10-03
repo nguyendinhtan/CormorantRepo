@@ -32,6 +32,7 @@ public class AddInteractionGUI extends Application {
 	ObservableList<Person> oListPerson1Selected;
 	ObservableList<Person> oListPerson2Selected;
 
+
 	public void start(Stage primaryStage, DataCollections interactionList) {		
 	System.setProperty("glass.accessible.force", "false"); // Fixes bug of combobox crashing when running on certain computers
 		
@@ -65,17 +66,16 @@ public class AddInteractionGUI extends Application {
 		ComboBox<String> locationDropDown = new ComboBox<String>();
 		ComboBox<String> citationDropDown = new ComboBox<String>();
 		ListView<Person> person1List = new ListView<Person>();
-
-	    ListView<Person> person2List = new ListView<Person>();
-	    TextArea notesTextArea = new TextArea();
-	    TextField dateTextField = new TextField();
-	    oListPersonDropDown = FXCollections.observableArrayList(interactionList.getPersonCollection());
+		ListView<Person> person2List = new ListView<Person>();
+		TextArea notesTextArea = new TextArea();
+		TextField dateTextField = new TextField();
+		oListPersonDropDown = FXCollections.observableArrayList(interactionList.getPersonCollection());
 		oListLocation = FXCollections.observableArrayList(interactionList.getLocationVocab());
 		oListInteractionType = FXCollections.observableArrayList(interactionList.getInteractionTypeVocab());
 		oListCitation = FXCollections.observableArrayList(interactionList.getCitationVocab());
-		oListPerson1Selected=FXCollections.observableArrayList();
-		oListPerson2Selected=FXCollections.observableArrayList();
-		
+		oListPerson1Selected = FXCollections.observableArrayList();
+		oListPerson2Selected = FXCollections.observableArrayList();
+
 		// Grid Methods
 		grid.setAlignment(Pos.CENTER);
 		grid.setHgap(10);
@@ -89,139 +89,136 @@ public class AddInteractionGUI extends Application {
 		grid.add(locationDropDown, 1, 4);
 		grid.add(dateLabel, 0, 5);
 		grid.add(dateTextField, 1, 5);
+		grid.add(interactionTypeLabel, 0, 6);
+		grid.add(interactionTypeDropDown, 1, 6);
+		grid.add(citationLabel, 0, 7);
+		grid.add(citationDropDown, 1, 7);
+		grid.add(notesLabelBox, 0, 8);
+		grid.add(notesTextArea, 1, 8);
+		grid.add(addInteractionButton, 0, 9);
+		grid.add(buttonBox, 1, 9);
 
-	    grid.add(interactionTypeLabel, 0, 6);
-	    grid.add(interactionTypeDropDown, 1,6);
-	    grid.add(citationLabel, 0, 7);
-	    grid.add(citationDropDown, 1, 7);
-	    grid.add(notesLabelBox, 0, 8);
-	    grid.add(notesTextArea, 1, 8);
-	    grid.add(addInteractionButton,0,9);
-	    grid.add(buttonBox, 1, 9);
-	    
-	   
-	    
-		//Person Label Box Methods
-	    personLabelBox.getChildren().add(person1Label);
-	    personLabelBox.getChildren().add(person2Label);
-	    
-	    //Person 1 Drop Down Methods
-	    person1DropDown.setMinSize(150, 20);
-	    person1DropDown.setMaxSize(150, 50);
-	    person1DropDown.setItems(oListPersonDropDown);
-	    
-	    //Person 2 Drop Down Methods
-	    person2DropDown.setMinSize(150, 20);
-	    person2DropDown.setMaxSize(150, 50);
-	    person2DropDown.setItems(oListPersonDropDown);
-		
-	    //Person 1 List Methods
-	    person1List.setMaxSize(200, 100);
-	    
-	    //Person 2 List Methods
-	    person2List.setMaxSize(200, 100);
-	    
-	    //Button List 1 Box Method
-	    buttonList1Box.getChildren().add(person1DropDown);
-	    buttonList1Box.getChildren().add(addPerson1Button);
-	    
-	    //Button List 2 Box Methods
-	    buttonList2Box.getChildren().add(person2DropDown);
-	    buttonList2Box.getChildren().add(addPerson2Button);
-	    
-	    //Add Person 1 Button Methods
-	    addPerson1Button.setTextFill(Color.WHITE);
+		// Person Label Box Methods
+		personLabelBox.getChildren().add(person1Label);
+		personLabelBox.getChildren().add(person2Label);
+
+		// Person 1 Drop Down Methods
+		person1DropDown.setMinSize(150, 20);
+		person1DropDown.setMaxSize(150, 50);
+		person1DropDown.setItems(oListPersonDropDown);
+
+		// Person 2 Drop Down Methods
+		person2DropDown.setMinSize(150, 20);
+		person2DropDown.setMaxSize(150, 50);
+		person2DropDown.setItems(oListPersonDropDown);
+
+		// Person 1 List Methods
+		person1List.setMaxSize(200, 100);
+
+		// Person 2 List Methods
+		person2List.setMaxSize(200, 100);
+
+		// Button List 1 Box Method
+		buttonList1Box.getChildren().add(person1DropDown);
+		buttonList1Box.getChildren().add(addPerson1Button);
+
+		// Button List 2 Box Methods
+		buttonList2Box.getChildren().add(person2DropDown);
+		buttonList2Box.getChildren().add(addPerson2Button);
+
+		// Add Person 1 Button Methods
+		addPerson1Button.setTextFill(Color.WHITE);
 
 		addPerson1Button.setStyle("-fx-base: #FF0000");
 
 		addPerson1Button.setOnAction(new EventHandler<ActionEvent>() {
-	        @Override
-            public void handle(ActionEvent e) {
-            	if (person1DropDown.getValue()==null){
-            		
-            	}else{
-            		oListPerson1Selected.add(person1DropDown.getValue());
-            		Collections.sort(oListPerson1Selected, Person.personNameComparator);
-            		person1List.setItems(oListPerson1Selected);
-            		oListPersonDropDown.remove(person1DropDown.getValue());
-            		person1DropDown.setValue(null);
-            		
-            	}
-            }
-        });
-		
-		//Add Person 2 Button Methods
+			@Override
+			public void handle(ActionEvent e) {
+				if (person1DropDown.getValue() == null) {
+
+				} else {
+					oListPerson1Selected.add(person1DropDown.getValue());
+					Collections.sort(oListPerson1Selected, Person.personNameComparator);
+					person1List.setItems(oListPerson1Selected);
+					oListPersonDropDown.remove(person1DropDown.getValue());
+					person1DropDown.setValue(null);
+
+				}
+			}
+		});
+
+		// Add Person 2 Button Methods
 
 		addPerson2Button.setTextFill(Color.WHITE);
 		addPerson2Button.setStyle("-fx-base: #FF0000");
 
 		addPerson2Button.setOnAction(new EventHandler<ActionEvent>() {
-	        @Override
-            public void handle(ActionEvent e) {
-	        	if (person2DropDown.getValue()==null){
-            		
-            	}else{
-            		oListPerson2Selected.add(person2DropDown.getValue());
-            		Collections.sort(oListPerson2Selected, Person.personNameComparator);
-            		person2List.setItems(oListPerson2Selected);
-            		oListPersonDropDown.remove(person2DropDown.getValue());
-            		person2DropDown.setValue(null);
-            	}
-            }
-        });
-		
-		//Remove Person 1 Button Methods
+			@Override
+			public void handle(ActionEvent e) {
+				if (person2DropDown.getValue() == null) {
+
+				} else {
+					oListPerson2Selected.add(person2DropDown.getValue());
+					Collections.sort(oListPerson2Selected, Person.personNameComparator);
+					person2List.setItems(oListPerson2Selected);
+					oListPersonDropDown.remove(person2DropDown.getValue());
+					person2DropDown.setValue(null);
+				}
+			}
+		});
+
+		// Remove Person 1 Button Methods
 		removePerson1Button.setTextFill(Color.WHITE);
 		removePerson1Button.setStyle("-fx-base: #FF0000");
 		removePerson1Button.setMinSize(200, 20);
 		removePerson1Button.setOnAction(new EventHandler<ActionEvent>() {
-	        @Override
-            public void handle(ActionEvent e) {
-            	if (person1List.getSelectionModel().getSelectedIndex()<0){
-            		
-            	}else{
-            		oListPersonDropDown.add(person1List.getSelectionModel().getSelectedItem());
-            		Collections.sort(oListPersonDropDown, Person.personNameComparator);
-            		oListPerson1Selected.remove(person1List.getSelectionModel().getSelectedIndex());
-            		
-            	}
-            }
-        });
-		
-		//Remove Person 2 Button Methods
+			@Override
+			public void handle(ActionEvent e) {
+				if (person1List.getSelectionModel().getSelectedIndex() < 0) {
+
+				} else {
+					oListPersonDropDown.add(person1List.getSelectionModel().getSelectedItem());
+					Collections.sort(oListPersonDropDown, Person.personNameComparator);
+					oListPerson1Selected.remove(person1List.getSelectionModel().getSelectedIndex());
+
+				}
+			}
+		});
+
+		// Remove Person 2 Button Methods
 		removePerson2Button.setTextFill(Color.WHITE);
 		removePerson2Button.setStyle("-fx-base: #FF0000");
 		removePerson2Button.setMinSize(200, 20);
 		removePerson2Button.setOnAction(new EventHandler<ActionEvent>() {
-	        @Override
-            public void handle(ActionEvent e) {
-            	if (person2List.getSelectionModel().getSelectedIndex()<0){
-            		
-            	}else{
-            		oListPersonDropDown.add(person2List.getSelectionModel().getSelectedItem());
-            		Collections.sort(oListPersonDropDown, Person.personNameComparator);
-            		oListPerson2Selected.remove(person2List.getSelectionModel().getSelectedIndex());
-            		
-            	}
-            }
-        });
-		//Person List Box Methods
+			@Override
+			public void handle(ActionEvent e) {
+				if (person2List.getSelectionModel().getSelectedIndex() < 0) {
+
+				} else {
+					oListPersonDropDown.add(person2List.getSelectionModel().getSelectedItem());
+					Collections.sort(oListPersonDropDown, Person.personNameComparator);
+					oListPerson2Selected.remove(person2List.getSelectionModel().getSelectedIndex());
+
+				}
+			}
+		});
+		// Person List Box Methods
 		personListsBox.getChildren().add(buttonList1Box);
 		personListsBox.getChildren().add(buttonList2Box);
 
 		// Person Area Box Methods
 		personAreaBox.getChildren().add(person1List);
-	    personAreaBox.getChildren().add(person2List);
-	    
-	    //Date Text Field Methods
-	    dateTextField.setMaxSize(450, 20);
-	    
-	    //Remove Buttons Box Methods
-	    removeButtonsBox.getChildren().add(removePerson1Button);
-	    removeButtonsBox.getChildren().add(removePerson2Button);
-		
-	    //Location Drop Down Methods
-	    locationDropDown.setItems(oListLocation);
+		personAreaBox.getChildren().add(person2List);
+
+		// Date Text Field Methods
+		dateTextField.setMaxSize(450, 20);
+
+		// Remove Buttons Box Methods
+		removeButtonsBox.getChildren().add(removePerson1Button);
+		removeButtonsBox.getChildren().add(removePerson2Button);
+
+		// Location Drop Down Methods
+		locationDropDown.setItems(oListLocation);
 		locationDropDown.setMinSize(450, 10);
 
 		// Interaction Type Drop Down Methods
@@ -242,28 +239,29 @@ public class AddInteractionGUI extends Application {
 		// Add Interaction Button Methods
 		addInteractionButton.setTextFill(Color.WHITE);
 		addInteractionButton.setStyle("-fx-base: #FF0000");
-		addInteractionButton.setOnAction(new EventHandler<ActionEvent>() {  	 
-            @Override
-            public void handle(ActionEvent e) {
-            	if (oListPerson1Selected.isEmpty()&&oListPerson2Selected.isEmpty()){
-            		
-            	}else{
-            		String location=locationDropDown.getValue();
-            		String date=dateTextField.getText();
-            		String citation=citationDropDown.getValue();
-            		String interactionType=interactionTypeDropDown.getValue();
-            		String notes=notesTextArea.getText();
-            		
-            		Interaction interaction=new Interaction(oListPerson1Selected, oListPerson2Selected,location,date,interactionType,citation,notes,false);
-            		if (interactionList.checkForInteractionDuplicates(interaction)>=0){
-            			Alert alert = new Alert(AlertType.INFORMATION);
+		addInteractionButton.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent e) {
+				if (oListPerson1Selected.isEmpty() && oListPerson2Selected.isEmpty()) {
+
+				} else {
+					String location = locationDropDown.getValue();
+					String date = dateTextField.getText();
+					String citation = citationDropDown.getValue();
+					String interactionType = interactionTypeDropDown.getValue();
+					String notes = notesTextArea.getText();
+
+					Interaction interaction = new Interaction(oListPerson1Selected, oListPerson2Selected, location,
+							date, interactionType, citation, notes, false);
+					if (interactionList.checkForInteractionDuplicates(interaction) >= 0) {
+						Alert alert = new Alert(AlertType.INFORMATION);
 						alert.setTitle("Error");
 						alert.setHeaderText("That interaction has already been entered.");
 						alert.setContentText("Interaction already exists.");
 						alert.showAndWait();
-            		}else{
-            			interactionList.addInteraction(interaction);
-            			Alert alert = new Alert(AlertType.INFORMATION);
+					} else {
+						interactionList.addInteraction(interaction);
+						Alert alert = new Alert(AlertType.INFORMATION);
 						alert.setTitle("Interaction Added");
 						alert.setHeaderText("Interaction was added to list");
 						alert.showAndWait();
@@ -276,32 +274,34 @@ public class AddInteractionGUI extends Application {
 						notesTextArea.clear();
 						person1DropDown.setValue(null);
 						person2DropDown.setValue(null);
-						oListPersonDropDown=FXCollections.observableArrayList(interactionList.getPersonCollection());
+						oListPersonDropDown = FXCollections.observableArrayList(interactionList.getPersonCollection());
 						person1DropDown.setItems(oListPersonDropDown);
 						person2DropDown.setItems(oListPersonDropDown);
-						
-						//Testing
-						/*for (int i=0; i<interactionList.getInteractionCollection().size(); i++){
-							System.out.println(interactionList.getInteractionCollection().get(i).toString());
-						}*/
-            		}
-            	}
-            }
-        });
-		
-		//Back Button Methods
+
+						// Testing
+						/*
+						 * for (int i=0;
+						 * i<interactionList.getInteractionCollection().size();
+						 * i++){ System.out.println(interactionList.
+						 * getInteractionCollection().get(i).toString()); }
+						 */
+					}
+				}
+			}
+		});
+
+		// Back Button Methods
 
 		backButton.setTextFill(Color.WHITE);
 		backButton.setStyle("-fx-base: #FF0000");
 		backButton.setOnAction(new EventHandler<ActionEvent>() {
 
-	        @Override
-            public void handle(ActionEvent e) {
-            	HomeGUI Homegui=new HomeGUI();
-            	Homegui.start(primaryStage, interactionList);
-            }
-        });
-
+			@Override
+			public void handle(ActionEvent e) {
+				HomeGUI Homegui = new HomeGUI();
+				Homegui.start(primaryStage, interactionList);
+			}
+		});
 
 		// Button Box Methods
 		buttonBox.getChildren().add(backButton);
@@ -313,13 +313,10 @@ public class AddInteractionGUI extends Application {
 		primaryStage.show();
 	}
 
-
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		// TODO Auto-generated method stub
-		
+
 	}
-	
- 
 
 }
