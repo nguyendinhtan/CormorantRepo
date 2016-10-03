@@ -89,8 +89,17 @@ public class EditInteractionGUI extends Application {
 		person2List.setItems(oListPerson2Selected);
 		dateTextField.setText(editInteraction.getDate());
 		notesTextArea.setText(editInteraction.getNotes());
+		if (editInteraction.getLocation().equals("Unknown")){
+			locationDropDown.setValue(null);
+		}
 		locationDropDown.setValue(editInteraction.getLocation());
+		if (editInteraction.getCitation().equals("none")){
+			citationDropDown.setValue(null);
+		}
 		citationDropDown.setValue(editInteraction.getCitation());
+		if (editInteraction.getInteractionType().equals("Unknown")){
+			interactionTypeDropDown.setValue(null);
+		}
 		interactionTypeDropDown.setValue(editInteraction.getInteractionType());
 
 		// Grid Methods

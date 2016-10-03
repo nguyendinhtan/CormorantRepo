@@ -93,8 +93,23 @@ public class AddPersonGUI extends Application {
 				if (name.isEmpty() && gender == null && culture.isEmpty() && occupation.isEmpty() && notes.isEmpty()) {
 
 				} else {
+					if (name.isEmpty()){
+						name="Anonymous";
+					}
+					if (gender==null){
+						gender="Unknown";
+					}
+					if (culture.isEmpty()){
+						culture="Unknown";
+					}
+					if (occupation.isEmpty()){
+						occupation="Unknown";
+					}
+					if (notes.isEmpty()){
+						notes="none";
+					}
 					Person person = new Person(id, name, gender, culture, occupation, notes);
-					if (person.checkForUnallowedInput(person.getName(), person.getCulture(), person.getCulture()) < 0) {
+					if (person.checkForUnallowedInput(person.getName(), person.getCulture(), person.getOccupation()) < 0) {
 						Alert alert = new Alert(AlertType.ERROR);
 						alert.setTitle("Error");
 						alert.setHeaderText("Invalid characters entered.");

@@ -243,15 +243,30 @@ public class AddInteractionGUI extends Application {
 		addInteractionButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
+				String location = locationDropDown.getValue();
+				String date = dateTextField.getText();
+				String citation = citationDropDown.getValue();
+				String interactionType = interactionTypeDropDown.getValue();
+				String notes = notesTextArea.getText();
 				if (oListPerson1Selected.isEmpty() && oListPerson2Selected.isEmpty()) {
 
 				} else {
-					String location = locationDropDown.getValue();
-					String date = dateTextField.getText();
-					String citation = citationDropDown.getValue();
-					String interactionType = interactionTypeDropDown.getValue();
-					String notes = notesTextArea.getText();
-
+					
+					if (location==null){
+						location="Unknown";
+					}
+					if (date.isEmpty()){
+						date="Unknown";
+					}
+					if (citation==null){
+						citation="none";
+					}
+					if (interactionType==null){
+						interactionType="Unknown";
+					}
+					if (notes.isEmpty()){
+						notes="none";
+					}
 					Interaction interaction = new Interaction(oListPerson1Selected, oListPerson2Selected, location,
 							date, interactionType, citation, notes, false);
 					if (interactionList.checkForInteractionDuplicates(interaction) >= 0) {

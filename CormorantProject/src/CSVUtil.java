@@ -19,16 +19,16 @@ public class CSVUtil{
 	private List<Interaction> interactions;
 	private CSVReader reader;
 	private static CSVWriter writer;
+	
 	public CSVUtil() {
 		personMap = new TreeMap<>();
 		interactions =  new ArrayList<>();
 	}
 
 	public void loadPerson(String fileName) throws IOException {
-		CSVReader reader = new CSVReader(new FileReader(fileName));
+		reader = new CSVReader(new FileReader(fileName));
 
 		List<String[]> myRows = reader.readAll();
-		String[] headerRow = myRows.remove(0); // remove header row
 
 		for (String[] row : myRows) {
 			addPerson(new Person(row));
@@ -37,6 +37,7 @@ public class CSVUtil{
 //		for (Integer key : watcherMap.keySet()) {
 //			System.out.println("key: " + key + " value: " + watcherMap.get(key));
 //		}
+		
 	}
 
 
@@ -48,6 +49,13 @@ public class CSVUtil{
 	 */
 	public static void addPerson(Person person) {
 		personMap.put(person.getID(), person);
+	}
+	
+	public void addPersonList(List<Person> persons){
+		for (int i=0; i<persons.size(); i++){
+			personMap.put(persons.get(i).getID(), persons.get(i));
+			dataList.addPerson(persons.get(i));
+		}
 	}
 
 	/**

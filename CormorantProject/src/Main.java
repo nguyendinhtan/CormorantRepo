@@ -5,8 +5,10 @@ import javafx.stage.Stage;
 
 public class Main extends Application{
 	static DataCollections dataList;
+	CSVUtil storage;
 	public Main(){
 		dataList = new DataCollections();
+		storage=new CSVUtil();
 	}
 
 	public static void main(String[] args) {
@@ -21,8 +23,8 @@ public class Main extends Application{
    		list.addPerson(jared);
  		list.addPerson(juan);
    		list.addPerson(anon);*/
-		CSVUtil storage = new CSVUtil();
-		//storage.loadPerson("data/People.csv");
+		storage.loadPerson("data/People.csv");
+		System.out.println(dataList.getPersonCollection().size());
   		dataList.addLocationVocab("Rock Island");
    		dataList.addLocationVocab("Moline");
    		dataList.addLocationVocab("Davenport");
