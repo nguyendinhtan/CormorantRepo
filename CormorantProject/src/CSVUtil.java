@@ -13,9 +13,12 @@ import com.opencsv.CSVWriter;
 
 public class CSVUtil{
 	
-	private Map<Integer, Person> personMap;
-	private List<Interaction> interactions;
 
+	private static DataCollections dataList;
+	private static Map<Integer, Person> personMap;
+	private List<Interaction> interactions;
+	private CSVReader reader;
+	private static CSVWriter writer;
 	public CSVUtil() {
 		personMap = new TreeMap<>();
 		interactions =  new ArrayList<>();
@@ -35,12 +38,27 @@ public class CSVUtil{
 //			System.out.println("key: " + key + " value: " + watcherMap.get(key));
 //		}
 	}
-	public void addPerson(Person person) {
+
+
+	/**
+	 * This adds a person to a person map.
+	 * 
+	 * @param person
+	 *            the person
+	 */
+	public static void addPerson(Person person) {
 		personMap.put(person.getID(), person);
 	}
 
-	public void savePerson(String fileName) throws IOException {
-		CSVWriter writer = new CSVWriter(new FileWriter(fileName));
+	/**
+	 * This saves people data to a CSV file from a person map..
+	 * 
+	 * @param fileName
+	 *            the CSV source file
+	 * @throws IOException
+	 */
+	public static void savePerson(String fileName) throws IOException {
+		writer = new CSVWriter(new FileWriter(fileName));
 		for (Person person : personMap.values()) {
 		     writer.writeNext(person.toCSVRowArray());		     
 		}
