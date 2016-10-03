@@ -14,11 +14,11 @@ import com.opencsv.CSVWriter;
  */
 public class CSVUtil {
 	
-	private DataCollections dataList;
-	private Map<Integer, Person> personMap;
+	private static DataCollections dataList;
+	private static Map<Integer, Person> personMap;
 	private List<Interaction> interactions;
 	private CSVReader reader;
-	private CSVWriter writer;
+	private static CSVWriter writer;
 	public CSVUtil() {
 		personMap = new TreeMap<>();
 		interactions = new ArrayList<>();
@@ -53,7 +53,7 @@ public class CSVUtil {
 	 * @param person
 	 *            the person
 	 */
-	public void addPerson(Person person) {
+	public static void addPerson(Person person) {
 		personMap.put(person.getID(), person);
 		dataList.addPerson(person);
 	}
@@ -65,7 +65,7 @@ public class CSVUtil {
 	 *            the CSV source file
 	 * @throws IOException
 	 */
-	public void savePerson(String fileName) throws IOException {
+	public static void savePerson(String fileName) throws IOException {
 		writer = new CSVWriter(new FileWriter(fileName));
 		for (Person person : personMap.values()) {
 			writer.writeNext(person.toCSVRowArray());
