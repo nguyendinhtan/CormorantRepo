@@ -60,7 +60,7 @@ public class EditInteractionGUI extends Application {
 	    Button addPerson2Button = new Button("Add");
 	    Button removePerson1Button = new Button("Remove");
 		Button removePerson2Button = new Button("Remove");
-		Button addInteractionButton = new Button("Add Interation");
+		Button addInteractionButton = new Button("Done");
 		Button backButton = new Button("Back");
 		ComboBox<Person> person1DropDown = new ComboBox<Person>();
 	    ComboBox<Person> person2DropDown = new ComboBox<Person>();
