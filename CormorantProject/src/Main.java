@@ -22,7 +22,7 @@ public class Main extends Application{
  		list.addPerson(juan);
    		list.addPerson(anon);*/
 		CSVUtil storage = new CSVUtil();
-		storage.loadPerson("data/People.csv");
+		//storage.loadPerson("data/People.csv");
   		dataList.addLocationVocab("Rock Island");
    		dataList.addLocationVocab("Moline");
    		dataList.addLocationVocab("Davenport");

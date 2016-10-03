@@ -253,4 +253,16 @@ public class Person {
 		}
 		
 	};
+	public void replacePerson(Person person){
+		this.name=person.getName();
+		this.gender=person.getGender();
+		this.culture=person.getCulture();
+		this.occupation=person.getOccupation();
+		this.notes=person.getNotes();
+	}
+	//public int checkEquality(Person person){
+		//if (this.name.equals(person.getName())&&this.gender.equals(person.getGender())&&this.culture.equals(person.getCulture())&&this.occupation.equals(person.oc)){
+			
+		//}
+	//}
 }

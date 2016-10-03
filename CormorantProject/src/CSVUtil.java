@@ -94,8 +94,28 @@ public class CSVUtil{
 			}
 			Interaction interaction = new Interaction(personList1, personList2, location, date, interactionType, citation, notes, true);
 			interactions.add(interaction);
-			
-		}		
+
+		}
+	}
+	
+	public void addInteraction(Interaction interaction) {
+		interactions.add(interaction);
+	}
+	/**
+	 * Goes through an array and adds all the people to a person list.
+	 * 
+	 * @param personArray
+	 *            the source person array
+	 * @param personList
+	 *            the designated person list
+	 */
+	public void convertPersonArrayToList(String[] personArray, List<Person> personList) {
+		for (String idStr : personArray) {
+			int id = Integer.parseInt(idStr);
+			Person person = personMap.get(id);
+			personList.add(person);
+		}
+
 	}
 
 	public void saveInteractions(String fileName) {

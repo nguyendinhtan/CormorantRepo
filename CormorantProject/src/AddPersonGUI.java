@@ -1,5 +1,4 @@
 import java.io.IOException;
-
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -110,6 +109,7 @@ public class AddPersonGUI extends Application {
 								+ personList.checkForPersonDuplicates(person) + ")");
 						alert.showAndWait();
 					} else {
+						personList.addPerson(person);
 						CSVUtil.addPerson(person);
 						try {
 							CSVUtil.savePerson("data/People.csv");

@@ -107,6 +107,19 @@ public class EditPersonGUI extends Application {
 						alert.showAndWait();
 					} else {
 						personList.addPerson(person);
+						for (int i=0; i<personList.getInteractionCollection().size(); i++){
+							for (int j=0; j<personList.getInteractionCollection().get(i).getPeople1().size();j++){
+								System.out.println(personList.getInteractionCollection().get(i).getPeople1().get(j).toString());
+								if(personList.getInteractionCollection().get(i).getPeople1().get(j).equals(editPerson)){
+									personList.getInteractionCollection().get(i).getPeople1().get(j).replacePerson(person);
+								}
+							}
+								for (int j=0; j<personList.getInteractionCollection().get(i).getPeople2().size();j++){
+									if(personList.getInteractionCollection().get(i).getPeople2().get(j).equals(editPerson)){
+										personList.getInteractionCollection().get(i).getPeople2().get(j).replacePerson(person);
+									}
+								}
+						}
 						SearchResultGUI searchGUI=new SearchResultGUI();
 						searchGUI.start(primaryStage, "Person", personList);
 					}
