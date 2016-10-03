@@ -81,7 +81,8 @@ public class Person {
 		if (notes.isEmpty()){
 			notes="none";
 		}
-		return name+" {id=" +id + " gender="+gender + " culture="+culture + " occupation="+occupation + " notes="+notes +"}";
+		return name+" {id=" +id + " gender="+gender + " culture="+culture + " occupation="+occupation + 
+				" notes="+notes +"}";
 	}
 	
 	
@@ -249,7 +250,6 @@ public class Person {
 			String name1=p1.getName().toLowerCase();
 			String name2=p2.getName().toLowerCase();
 			return name1.compareTo(name2);
-			
 		}
 		
 	};

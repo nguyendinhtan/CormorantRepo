@@ -58,7 +58,9 @@ public class CSVUtil{
 	 * @throws IOException
 	 */
 	public static void savePerson(String fileName) throws IOException {
-		writer = new CSVWriter(new FileWriter(fileName));
+
+		writer = new CSVWriter(new FileWriter(fileName), ',', CSVWriter.NO_QUOTE_CHARACTER);
+
 		for (Person person : personMap.values()) {
 		     writer.writeNext(person.toCSVRowArray());		     
 		}
@@ -100,6 +102,7 @@ public class CSVUtil{
 	
 	public void addInteraction(Interaction interaction) {
 		interactions.add(interaction);
+		dataList.addInteraction(interaction);
 	}
 	/**
 	 * Goes through an array and adds all the people to a person list.
@@ -118,8 +121,14 @@ public class CSVUtil{
 
 	}
 
-	public void saveInteractions(String fileName) {
-		
+
+	public void saveInteractions(String fileName) throws IOException{
+		writer = new CSVWriter(new FileWriter(fileName), ',', CSVWriter.NO_QUOTE_CHARACTER);
+		for (Interaction interaction : interactions) {
+			writer.writeNext(interaction.toCSVRowArray());
+		}
+		writer.close();
+
 	}
 
 }
