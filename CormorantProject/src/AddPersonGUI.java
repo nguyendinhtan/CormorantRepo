@@ -1,3 +1,5 @@
+import java.io.IOException;
+
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -24,7 +26,12 @@ import javafx.stage.Stage;
 public class AddPersonGUI extends Application {
 
 	public void start(Stage primaryStage, DataCollections personList) {
-		System.setProperty("glass.accessible.force", "false"); // Fixes bug of combobox crashing when running on certain computers
+		System.setProperty("glass.accessible.force", "false"); // Fixes bug of
+																// combobox
+																// crashing when
+																// running on
+																// certain
+																// computers
 
 		// GUI Variables
 		GridPane grid = new GridPane();
@@ -43,9 +50,7 @@ public class AddPersonGUI extends Application {
 		Button backButton = new Button("Back");
 		HBox notesLabelBox = new HBox();
 		HBox buttonBox = new HBox();
-		
-		
-		 
+
 		// Grid Methods
 		grid.setAlignment(Pos.CENTER);
 		grid.setHgap(10);
@@ -81,13 +86,13 @@ public class AddPersonGUI extends Application {
 			@Override
 			public void handle(ActionEvent e) {
 				int id = personList.getPersonCollection().size() + 1;
-				String name=nameTextField.getText();
-				String gender=genderDropDown.getValue();
-				String culture=cultureTextField.getText();
-				String occupation=occupationTextField.getText();
-				String notes=notesTextArea.getText();
-				if (name.isEmpty() && gender == null&& culture.isEmpty() && occupation.isEmpty()&& notes.isEmpty()) {
-					
+				String name = nameTextField.getText();
+				String gender = genderDropDown.getValue();
+				String culture = cultureTextField.getText();
+				String occupation = occupationTextField.getText();
+				String notes = notesTextArea.getText();
+				if (name.isEmpty() && gender == null && culture.isEmpty() && occupation.isEmpty() && notes.isEmpty()) {
+
 				} else {
 					Person person = new Person(id, name, gender, culture, occupation, notes);
 					if (person.checkForUnallowedInput(person.getName(), person.getCulture(), person.getCulture()) < 0) {
@@ -105,11 +110,22 @@ public class AddPersonGUI extends Application {
 								+ personList.checkForPersonDuplicates(person) + ")");
 						alert.showAndWait();
 					} else {
-						personList.addPerson(person);
+						CSVUtil.addPerson(person);
+						try {
+							CSVUtil.savePerson("data/People.csv");
+						} catch (IOException e1) {
+							Alert alert = new Alert(AlertType.ERROR);
+							alert.setTitle("Error");
+							alert.setHeaderText("Invalid characters entered.");
+							alert.setContentText(e1.toString());
+						}
 						// Testing method to check list
-						/*for (int i = 0; i < personList.getPersonCollection().size(); i++) {
-							System.out.println(personList.getPersonCollection().get(i).toString());
-						}*/
+						/*
+						 * for (int i = 0; i <
+						 * personList.getPersonCollection().size(); i++) {
+						 * System.out.println(personList.getPersonCollection().
+						 * get(i).toString()); }
+						 */
 						Alert alert = new Alert(AlertType.INFORMATION);
 						alert.setTitle("Person Added");
 						alert.setHeaderText("Person was added to list");
@@ -119,7 +135,7 @@ public class AddPersonGUI extends Application {
 						cultureTextField.clear();
 						occupationTextField.clear();
 						notesTextArea.clear();
-						
+
 					}
 				}
 			}
@@ -149,7 +165,7 @@ public class AddPersonGUI extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

@@ -22,9 +22,9 @@ public class HomeGUI extends Application{
 
 	public HomeGUI(){
 		list=new DataCollections();
+		
 	}
     public void start(Stage primaryStage, DataCollections list) {
-    	
    		//GUI Variables
         GridPane grid = new GridPane();
         Scene scene = new Scene(grid, 700, 300);
