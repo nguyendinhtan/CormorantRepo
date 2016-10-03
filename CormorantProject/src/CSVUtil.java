@@ -14,7 +14,7 @@ import com.opencsv.CSVWriter;
  */
 public class CSVUtil {
 	
-	private static DataCollections dataList;
+	//private static DataCollections dataList;
 	private static Map<Integer, Person> personMap;
 	private List<Interaction> interactions;
 	private CSVReader reader;
@@ -22,7 +22,7 @@ public class CSVUtil {
 	public CSVUtil() {
 		personMap = new TreeMap<>();
 		interactions = new ArrayList<>();
-		dataList = Main.dataList;
+		//dataList = Main.dataList;
 	}
 
 	/**
@@ -55,7 +55,7 @@ public class CSVUtil {
 	 */
 	public static void addPerson(Person person) {
 		personMap.put(person.getID(), person);
-		dataList.addPerson(person);
+		//dataList.addPerson(person);
 	}
 
 	/**
@@ -66,7 +66,7 @@ public class CSVUtil {
 	 * @throws IOException
 	 */
 	public static void savePerson(String fileName) throws IOException {
-		writer = new CSVWriter(new FileWriter(fileName));
+		writer = new CSVWriter(new FileWriter(fileName), ',', CSVWriter.NO_QUOTE_CHARACTER);
 		for (Person person : personMap.values()) {
 			writer.writeNext(person.toCSVRowArray());
 		}
@@ -129,7 +129,7 @@ public class CSVUtil {
 	}
 
 	public void saveInteractions(String fileName) throws IOException{
-		writer = new CSVWriter(new FileWriter(fileName));
+		writer = new CSVWriter(new FileWriter(fileName), ',', CSVWriter.NO_QUOTE_CHARACTER);
 		for (Interaction interaction : interactions) {
 			writer.writeNext(interaction.toCSVRowArray());
 		}
