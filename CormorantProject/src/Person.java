@@ -58,19 +58,14 @@ public class Person {
 		this.gender = csvRowData[2];
 		this.culture = csvRowData[3];
 		this.occupation = csvRowData[4];
-		this.notes = csvRowData[5];
+		// this.notes = csvRowData[5];
 	}
 
-
-	
-	 
 	@Override
 	public String toString() {
-		return name+" {id=" +id + " gender="+gender + " culture="+culture + " occupation="+occupation + 
-				" notes="+notes +"}";
+		return name + " {id=" + id + " gender=" + gender + " culture=" + culture + " occupation=" + occupation
+				+ " notes=" + notes + "}";
 	}
-	
-	
 
 	/*
 	 * Comments: This is the method modified from DataStorage
@@ -198,14 +193,14 @@ public class Person {
 		this.notes = notes;
 	}
 
-	
-	//Checks if invalid chars are entered and returns -1 if there are and 0 if there aren't
-	public int checkForUnallowedInput(String name, String culture, String occupation){
-		String unallowedChars="1234567890!@#$%^&*()-+=[]{}?<>;";
-		
-		for (int i=0; i<unallowedChars.length();i++){
-			for(int j=0; j<name.length(); j++){
-				if (name.charAt(j)==((unallowedChars.charAt(i)))){
+	// Checks if invalid chars are entered and returns -1 if there are and 0 if
+	// there aren't
+	public int checkForUnallowedInput(String name, String culture, String occupation) {
+		String unallowedChars = "1234567890!@#$%^&*()-+=[]{}?<>;";
+
+		for (int i = 0; i < unallowedChars.length(); i++) {
+			for (int j = 0; j < name.length(); j++) {
+				if (name.charAt(j) == ((unallowedChars.charAt(i)))) {
 
 					return -1;
 
@@ -226,28 +221,29 @@ public class Person {
 		return 0;
 
 	}
-	
-	
-	public static Comparator<Person> personNameComparator=new Comparator<Person>(){
+
+	public static Comparator<Person> personNameComparator = new Comparator<Person>() {
 
 		@Override
 		public int compare(Person p1, Person p2) {
-			String name1=p1.getName().toLowerCase();
-			String name2=p2.getName().toLowerCase();
+			String name1 = p1.getName().toLowerCase();
+			String name2 = p2.getName().toLowerCase();
 			return name1.compareTo(name2);
 		}
-		
+
 	};
-	public void replacePerson(Person person){
-		this.name=person.getName();
-		this.gender=person.getGender();
-		this.culture=person.getCulture();
-		this.occupation=person.getOccupation();
-		this.notes=person.getNotes();
+
+	public void replacePerson(Person person) {
+		this.name = person.getName();
+		this.gender = person.getGender();
+		this.culture = person.getCulture();
+		this.occupation = person.getOccupation();
+		this.notes = person.getNotes();
 	}
-	//public int checkEquality(Person person){
-		//if (this.name.equals(person.getName())&&this.gender.equals(person.getGender())&&this.culture.equals(person.getCulture())&&this.occupation.equals(person.oc)){
-			
-		//}
-	//}
+	// public int checkEquality(Person person){
+	// if
+	// (this.name.equals(person.getName())&&this.gender.equals(person.getGender())&&this.culture.equals(person.getCulture())&&this.occupation.equals(person.oc)){
+
+	// }
+	// }
 }

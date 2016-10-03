@@ -49,10 +49,10 @@ public class Interaction {
 	 * @param directed
 	 *            the directed
 	 */
-	public Interaction(List<Person> persons1, List<Person> persons2, String location, String date, String interactionType,
-			String citation, String notes, boolean directed) {
-		people1=new ArrayList<Person>();
-		people2=new ArrayList<Person>();
+	public Interaction(List<Person> persons1, List<Person> persons2, String location, String date,
+			String interactionType, String citation, String notes, boolean directed) {
+		people1 = new ArrayList<Person>();
+		people2 = new ArrayList<Person>();
 		this.people1.addAll(persons1);
 		this.people2.addAll(persons2);
 		this.location = location;
@@ -62,22 +62,22 @@ public class Interaction {
 		this.notes = notes;
 		this.directed = directed;
 
-
-
 	}
+
 	public String[] toCSVRowArray() {
 		String idString1 = toIdString(people1);
 		String idString2 = toIdString(people2);
 		return new String[] { idString1, idString2, location, date, interactionType, citation, notes };
 	}
-	
-	public String toIdString(List<Person> people){
+
+	public String toIdString(List<Person> people) {
 		String idString = Integer.toString(people.get(0).getID());
-		for( int i = 1; i<people.size(); i++){
+		for (int i = 1; i < people.size(); i++) {
 			idString = idString + ":" + Integer.toString(people.get(i).getID());
 		}
 		return idString;
 	}
+
 	/**
 	 * Gets the people 1.
 	 *
@@ -222,20 +222,21 @@ public class Interaction {
 		return this.directed;
 	}
 
-	public String getNamesOfGroup(List<Person> peopleList){
-		if (peopleList.size()>0){
-			String peopleGroup=peopleList.get(0).getName();
-			for (int i=1; i<peopleList.size();i++){
-			peopleGroup+=", "+peopleList.get(i).getName();
-		}
-		
-		return peopleGroup;
+	public String getNamesOfGroup(List<Person> peopleList) {
+		if (peopleList.size() > 0) {
+			String peopleGroup = peopleList.get(0).getName();
+			for (int i = 1; i < peopleList.size(); i++) {
+				peopleGroup += ", " + peopleList.get(i).getName();
+			}
+
+			return peopleGroup;
 		}
 		return " ";
 	}
 
-	
-	public String toString(){
-		return "Group 1=("+getNamesOfGroup(people1)+") interacted with Group 2=("+getNamesOfGroup(people2)+") {Location="+ location+", Date="+date+", Interaction Type="+interactionType+", Bibliographical Citation="+citation+", Notes="+notes+"}";
+	public String toString() {
+		return "Group 1=(" + getNamesOfGroup(people1) + ") interacted with Group 2=(" + getNamesOfGroup(people2)
+				+ ") {Location=" + location + ", Date=" + date + ", Interaction Type=" + interactionType
+				+ ", Bibliographical Citation=" + citation + ", Notes=" + notes + "}";
 	}
 }

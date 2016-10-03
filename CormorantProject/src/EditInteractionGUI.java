@@ -30,9 +30,11 @@ public class EditInteractionGUI extends Application {
 	ObservableList<Person> oListPerson1Selected;
 	ObservableList<Person> oListPerson2Selected;
 	List<Person> editedPersonDropDown;
-	public EditInteractionGUI(){
-		editedPersonDropDown=new ArrayList<Person>();
+
+	public EditInteractionGUI() {
+		editedPersonDropDown = new ArrayList<Person>();
 	}
+
 	public void start(Stage primaryStage, DataCollections interactionList, Interaction editInteraction) {
 
 		System.setProperty("glass.accessible.force", "false"); // Fixes bug of
@@ -73,31 +75,31 @@ public class EditInteractionGUI extends Application {
 		ComboBox<String> citationDropDown = new ComboBox<String>();
 		ListView<Person> person1List = new ListView<Person>();
 
-	    ListView<Person> person2List = new ListView<Person>();
-	    TextArea notesTextArea = new TextArea();
-	    TextField dateTextField = new TextField();
-	    editedPersonDropDown.addAll(interactionList.getPersonCollection());
-	    editedPersonDropDown.removeAll(editInteraction.getPeople1());
-	    editedPersonDropDown.removeAll(editInteraction.getPeople2());
-	    oListPersonDropDown = FXCollections.observableArrayList(editedPersonDropDown);
+		ListView<Person> person2List = new ListView<Person>();
+		TextArea notesTextArea = new TextArea();
+		TextField dateTextField = new TextField();
+		editedPersonDropDown.addAll(interactionList.getPersonCollection());
+		editedPersonDropDown.removeAll(editInteraction.getPeople1());
+		editedPersonDropDown.removeAll(editInteraction.getPeople2());
+		oListPersonDropDown = FXCollections.observableArrayList(editedPersonDropDown);
 		oListLocation = FXCollections.observableArrayList(interactionList.getLocationVocab());
 		oListInteractionType = FXCollections.observableArrayList(interactionList.getInteractionTypeVocab());
 		oListCitation = FXCollections.observableArrayList(interactionList.getCitationVocab());
-		oListPerson1Selected=FXCollections.observableArrayList(editInteraction.getPeople1());
-		oListPerson2Selected=FXCollections.observableArrayList(editInteraction.getPeople2());
+		oListPerson1Selected = FXCollections.observableArrayList(editInteraction.getPeople1());
+		oListPerson2Selected = FXCollections.observableArrayList(editInteraction.getPeople2());
 		person1List.setItems(oListPerson1Selected);
 		person2List.setItems(oListPerson2Selected);
 		dateTextField.setText(editInteraction.getDate());
 		notesTextArea.setText(editInteraction.getNotes());
-		if (editInteraction.getLocation().equals("Unknown")){
+		if (editInteraction.getLocation().equals("Unknown")) {
 			locationDropDown.setValue(null);
 		}
 		locationDropDown.setValue(editInteraction.getLocation());
-		if (editInteraction.getCitation().equals("none")){
+		if (editInteraction.getCitation().equals("none")) {
 			citationDropDown.setValue(null);
 		}
 		citationDropDown.setValue(editInteraction.getCitation());
-		if (editInteraction.getInteractionType().equals("Unknown")){
+		if (editInteraction.getInteractionType().equals("Unknown")) {
 			interactionTypeDropDown.setValue(null);
 		}
 		interactionTypeDropDown.setValue(editInteraction.getInteractionType());

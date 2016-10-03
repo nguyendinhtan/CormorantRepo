@@ -31,12 +31,18 @@ public class AddInteractionGUI extends Application {
 	ObservableList<Person> oListPersonDropDown;
 	ObservableList<Person> oListPerson1Selected;
 	ObservableList<Person> oListPerson2Selected;
+	DataCollections dataList;
 
+	public void start(Stage primaryStage) throws Exception {
+		System.setProperty("glass.accessible.force", "false"); // Fixes bug of
+																// combobox
+																// crashing when
+																// running on
+																// certain
+																// computers
 
-	public void start(Stage primaryStage, DataCollections interactionList) {		
-	System.setProperty("glass.accessible.force", "false"); // Fixes bug of combobox crashing when running on certain computers
-		
-	// GUI Variables
+		dataList = Main.dataList;
+		// GUI Variables
 		GridPane grid = new GridPane();
 		Scene scene = new Scene(grid, 700, 700);
 		HBox personLabelBox = new HBox(185);
@@ -69,10 +75,10 @@ public class AddInteractionGUI extends Application {
 		ListView<Person> person2List = new ListView<Person>();
 		TextArea notesTextArea = new TextArea();
 		TextField dateTextField = new TextField();
-		oListPersonDropDown = FXCollections.observableArrayList(interactionList.getPersonCollection());
-		oListLocation = FXCollections.observableArrayList(interactionList.getLocationVocab());
-		oListInteractionType = FXCollections.observableArrayList(interactionList.getInteractionTypeVocab());
-		oListCitation = FXCollections.observableArrayList(interactionList.getCitationVocab());
+		oListPersonDropDown = FXCollections.observableArrayList(dataList.getPersonCollection());
+		oListLocation = FXCollections.observableArrayList(dataList.getLocationVocab());
+		oListInteractionType = FXCollections.observableArrayList(dataList.getInteractionTypeVocab());
+		oListCitation = FXCollections.observableArrayList(dataList.getCitationVocab());
 		oListPerson1Selected = FXCollections.observableArrayList();
 		oListPerson2Selected = FXCollections.observableArrayList();
 
@@ -117,7 +123,6 @@ public class AddInteractionGUI extends Application {
 
 		// Person 2 List Methods
 		person2List.setMaxSize(200, 100);
-		
 
 		// Button List 1 Box Method
 		buttonList1Box.getChildren().add(person1DropDown);
@@ -251,32 +256,32 @@ public class AddInteractionGUI extends Application {
 				if (oListPerson1Selected.isEmpty() && oListPerson2Selected.isEmpty()) {
 
 				} else {
-					
-					if (location==null){
-						location="Unknown";
+
+					if (location == null) {
+						location = "Unknown";
 					}
-					if (date.isEmpty()){
-						date="Unknown";
+					if (date.isEmpty()) {
+						date = "Unknown";
 					}
-					if (citation==null){
-						citation="none";
+					if (citation == null) {
+						citation = "none";
 					}
-					if (interactionType==null){
-						interactionType="Unknown";
+					if (interactionType == null) {
+						interactionType = "Unknown";
 					}
-					if (notes.isEmpty()){
-						notes="none";
+					if (notes.isEmpty()) {
+						notes = "none";
 					}
 					Interaction interaction = new Interaction(oListPerson1Selected, oListPerson2Selected, location,
 							date, interactionType, citation, notes, false);
-					if (interactionList.checkForInteractionDuplicates(interaction) >= 0) {
+					if (dataList.checkForInteractionDuplicates(interaction) >= 0) {
 						Alert alert = new Alert(AlertType.INFORMATION);
 						alert.setTitle("Error");
 						alert.setHeaderText("That interaction has already been entered.");
 						alert.setContentText("Interaction already exists.");
 						alert.showAndWait();
 					} else {
-						interactionList.addInteraction(interaction);
+						dataList.addInteraction(interaction);
 						Alert alert = new Alert(AlertType.INFORMATION);
 						alert.setTitle("Interaction Added");
 						alert.setHeaderText("Interaction was added to list");
@@ -290,7 +295,7 @@ public class AddInteractionGUI extends Application {
 						notesTextArea.clear();
 						person1DropDown.setValue(null);
 						person2DropDown.setValue(null);
-						oListPersonDropDown = FXCollections.observableArrayList(interactionList.getPersonCollection());
+						oListPersonDropDown = FXCollections.observableArrayList(dataList.getPersonCollection());
 						person1DropDown.setItems(oListPersonDropDown);
 						person2DropDown.setItems(oListPersonDropDown);
 
@@ -311,11 +316,15 @@ public class AddInteractionGUI extends Application {
 		backButton.setTextFill(Color.WHITE);
 		backButton.setStyle("-fx-base: #FF0000");
 		backButton.setOnAction(new EventHandler<ActionEvent>() {
-
 			@Override
 			public void handle(ActionEvent e) {
 				HomeGUI Homegui = new HomeGUI();
-				Homegui.start(primaryStage, interactionList);
+				try {
+					Homegui.start(primaryStage);
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
 
@@ -327,12 +336,6 @@ public class AddInteractionGUI extends Application {
 		primaryStage.setTitle("Insert Interaction");
 		primaryStage.setScene(scene);
 		primaryStage.show();
-	}
-
-	@Override
-	public void start(Stage primaryStage) throws Exception {
-		// TODO Auto-generated method stub
-
 	}
 
 }
