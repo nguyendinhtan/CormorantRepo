@@ -125,7 +125,7 @@ public class AddPersonGUI extends Application {
 						alert.showAndWait();
 					} else {
 						personList.addPerson(person);
-						CSVUtil.addPerson(person);
+						//CSVUtil.addPerson(person);
 						try {
 							CSVUtil.savePerson("data/People.csv");
 						} catch (IOException e1) {

@@ -87,8 +87,21 @@ public class SearchResultGUI extends Application {
 	            public void handle(ActionEvent e) {
 	            	int selectedIndex=personResultsView.getSelectionModel().getSelectedIndex();
 	            	if (selectedIndex>=0){
+	            	for (int i=0; i<list.getInteractionCollection().size(); i++){
+						for (int j=0; j<list.getInteractionCollection().get(i).getPeople1().size();j++){
+							if(list.getInteractionCollection().get(i).getPeople1().get(j).equals(personResultsView.getSelectionModel().getSelectedItem())){
+								list.getInteractionCollection().get(i).getPeople1().remove(j);
+							}
+						}
+							for (int j=0; j<list.getInteractionCollection().get(i).getPeople2().size();j++){
+								if(list.getInteractionCollection().get(i).getPeople2().get(j).equals(personResultsView.getSelectionModel().getSelectedItem())){
+									list.getInteractionCollection().get(i).getPeople2().remove(j);
+								}
+							}
+					}
 	            	oListPersonResults.remove(selectedIndex);
 	            	}
+	            	
 	            }
 	        });
 			btnEdit.setOnAction(new EventHandler<ActionEvent>() {

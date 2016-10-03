@@ -49,6 +49,7 @@ public class CSVUtil{
 	 */
 	public static void addPerson(Person person) {
 		personMap.put(person.getID(), person);
+		dataList.getPersonCollection().add(person);
 	}
 	
 	public void addPersonList(List<Person> persons){
