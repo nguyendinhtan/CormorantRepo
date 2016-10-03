@@ -109,7 +109,6 @@ public class EditPersonGUI extends Application {
 						personList.addPerson(person);
 						for (int i=0; i<personList.getInteractionCollection().size(); i++){
 							for (int j=0; j<personList.getInteractionCollection().get(i).getPeople1().size();j++){
-								System.out.println(personList.getInteractionCollection().get(i).getPeople1().get(j).toString());
 								if(personList.getInteractionCollection().get(i).getPeople1().get(j).equals(editPerson)){
 									personList.getInteractionCollection().get(i).getPeople1().get(j).replacePerson(person);
 								}
