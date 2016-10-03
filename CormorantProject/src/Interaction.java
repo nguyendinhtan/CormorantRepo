@@ -5,10 +5,10 @@ import java.util.*;
  */
 public class Interaction {
 
-	/** The people 1. */
+	/** The first list of people. */
 	private List<Person> people1;
 
-	/** The people 2. */
+	/** The second list of people. */
 	private List<Person> people2;
 
 	/** The location. */
@@ -26,7 +26,7 @@ public class Interaction {
 	/** The notes. */
 	private String notes;
 
-	/** The directed. */
+	/** The interaction is directed or indirected. */
 	private boolean directed;
 
 	/**
