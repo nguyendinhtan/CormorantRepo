@@ -105,7 +105,10 @@ public class CSVUtil {
 			interactions.add(interaction);
 		}
 	}
-
+	
+	public void addInteraction(Interaction interaction) {
+		interactions.add(interaction);
+	}
 	/**
 	 * Goes through an array and adds all the people to a person list.
 	 * 
