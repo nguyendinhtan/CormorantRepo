@@ -19,12 +19,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-
-/**
- * Add interaction GUI view class.
- *
- */
-public class AddInteractionGUI extends Application {
+public class EditInteractionGUI extends Application {
 	ObservableList<String> oListLocation;
 	ObservableList<String> oListCitation;
 	ObservableList<String> oListInteractionType;
@@ -32,69 +27,67 @@ public class AddInteractionGUI extends Application {
 	ObservableList<Person> oListPerson1Selected;
 	ObservableList<Person> oListPerson2Selected;
 
-	public void start(Stage primaryStage, DataCollections interactionList) {		
-	System.setProperty("glass.accessible.force", "false"); // Fixes bug of combobox crashing when running on certain computers
-
+	public void start(Stage primaryStage, DataCollections interactionList, Interaction editInteraction) {
+					
+		System.setProperty("glass.accessible.force", "false"); // Fixes bug of combobox crashing when running on certain computers
+		interactionList.getInteractionCollection().remove(editInteraction);
 		//GUI Variables
-	ObservableList<Person> oListPerson1;
-	ObservableList<Person> oListPerson2;
-
-		// GUI Variables
-
 		GridPane grid = new GridPane();
 		Scene scene = new Scene(grid, 700, 700);
 		HBox personLabelBox = new HBox(185);
-		HBox buttonList1Box = new HBox();
-		HBox buttonList2Box = new HBox();
-		HBox removeButtonsBox = new HBox(50);
+	    HBox buttonList1Box = new HBox();
+	    HBox buttonList2Box = new HBox();
+	    HBox removeButtonsBox = new HBox(50);
 		HBox personAreaBox = new HBox(50);
 		HBox personListsBox = new HBox(50);
 		HBox notesLabelBox = new HBox();
 		HBox buttonBox = new HBox(10);
 		Label person1Label = new Label("Person(s):");
-		Label person2Label = new Label("Person(s) Interacted With:");
+	    Label person2Label = new Label("Person(s) Interacted With:");
 		Label locactionLabel = new Label("Location:");
 		Label dateLabel = new Label("Date:");
 		Label interactionTypeLabel = new Label("Interaction Type:");
 		Label citationLabel = new Label("Bibliographical Citation:");
-		Label notesLabel = new Label("Notes:");
+		Label notesLabel=new Label("Notes:");
 		Button addPerson1Button = new Button("Add");
-		Button addPerson2Button = new Button("Add");
-		Button removePerson1Button = new Button("Remove");
+	    Button addPerson2Button = new Button("Add");
+	    Button removePerson1Button = new Button("Remove");
 		Button removePerson2Button = new Button("Remove");
 		Button addInteractionButton = new Button("Add Interation");
 		Button backButton = new Button("Back");
 		ComboBox<Person> person1DropDown = new ComboBox<Person>();
-		ComboBox<Person> person2DropDown = new ComboBox<Person>();
-		ComboBox<String> interactionTypeDropDown = new ComboBox<String>();
-		ComboBox<String> locationDropDown = new ComboBox<String>();
-		ComboBox<String> citationDropDown = new ComboBox<String>();
+	    ComboBox<Person> person2DropDown = new ComboBox<Person>();
+	    ComboBox<String> interactionTypeDropDown = new ComboBox<String>(); 
+		ComboBox<String> locationDropDown = new ComboBox<String>(); 
+		ComboBox<String> citationDropDown = new ComboBox<String>(); 
 		ListView<Person> person1List = new ListView<Person>();
-
 	    ListView<Person> person2List = new ListView<Person>();
 	    TextArea notesTextArea = new TextArea();
 	    TextField dateTextField = new TextField();
-	    oListPersonDropDown = FXCollections.observableArrayList(interactionList.getPersonCollection());
+	    oListPersonDropDown = FXCollections.observableArrayList();
 		oListLocation = FXCollections.observableArrayList(interactionList.getLocationVocab());
 		oListInteractionType = FXCollections.observableArrayList(interactionList.getInteractionTypeVocab());
 		oListCitation = FXCollections.observableArrayList(interactionList.getCitationVocab());
-		oListPerson1Selected=FXCollections.observableArrayList();
-		oListPerson2Selected=FXCollections.observableArrayList();
-		
-		// Grid Methods
+		oListPerson1Selected=FXCollections.observableArrayList(editInteraction.getPeople1());
+		oListPerson2Selected=FXCollections.observableArrayList(editInteraction.getPeople2());
+		dateTextField.setText(editInteraction.getDate());
+		notesTextArea.setText(editInteraction.getNotes());
+		locationDropDown.setValue(editInteraction.getLocation());
+		citationDropDown.setValue(editInteraction.getCitation());
+		interactionTypeDropDown.setValue(editInteraction.getInteractionType());
+	    //Grid Methods
 		grid.setAlignment(Pos.CENTER);
 		grid.setHgap(10);
 		grid.setVgap(10);
 		grid.setPadding(new Insets(25, 25, 25, 25));
 		grid.add(personLabelBox, 1, 0);
-		grid.add(personListsBox, 1, 1);
-		grid.add(personAreaBox, 1, 2);
+	    grid.add(personListsBox, 1, 1);
+	    grid.add(personAreaBox, 1, 2);
 		grid.add(removeButtonsBox, 1, 3);
 		grid.add(locactionLabel, 0, 4);
 		grid.add(locationDropDown, 1, 4);
 		grid.add(dateLabel, 0, 5);
 		grid.add(dateTextField, 1, 5);
-
 	    grid.add(interactionTypeLabel, 0, 6);
 	    grid.add(interactionTypeDropDown, 1,6);
 	    grid.add(citationLabel, 0, 7);
@@ -136,9 +129,7 @@ public class AddInteractionGUI extends Application {
 	    
 	    //Add Person 1 Button Methods
 	    addPerson1Button.setTextFill(Color.WHITE);
-
 		addPerson1Button.setStyle("-fx-base: #FF0000");
-
 		addPerson1Button.setOnAction(new EventHandler<ActionEvent>() {
 	        @Override
             public void handle(ActionEvent e) {
@@ -156,10 +147,8 @@ public class AddInteractionGUI extends Application {
         });
 		
 		//Add Person 2 Button Methods
-
 		addPerson2Button.setTextFill(Color.WHITE);
 		addPerson2Button.setStyle("-fx-base: #FF0000");
-
 		addPerson2Button.setOnAction(new EventHandler<ActionEvent>() {
 	        @Override
             public void handle(ActionEvent e) {
@@ -214,7 +203,7 @@ public class AddInteractionGUI extends Application {
 		personListsBox.getChildren().add(buttonList1Box);
 		personListsBox.getChildren().add(buttonList2Box);
 
-		// Person Area Box Methods
+		//Person Area Box Methods
 		personAreaBox.getChildren().add(person1List);
 	    personAreaBox.getChildren().add(person2List);
 	    
@@ -228,23 +217,23 @@ public class AddInteractionGUI extends Application {
 	    //Location Drop Down Methods
 	    locationDropDown.setItems(oListLocation);
 		locationDropDown.setMinSize(450, 10);
-
-		// Interaction Type Drop Down Methods
+		
+		//Interaction Type Drop Down Methods
 		interactionTypeDropDown.setItems(oListInteractionType);
 		interactionTypeDropDown.setMinSize(450, 10);
-
-		// Citation Drop Down Methods
+		
+		//Citation Drop Down Methods
 		citationDropDown.setItems(oListCitation);
 		citationDropDown.setMinSize(450, 10);
-
-		// Notes Label Box Methods
+		
+		//Notes Label Box Methods
 		notesLabelBox.getChildren().add(notesLabel);
 		notesLabelBox.setAlignment(Pos.TOP_LEFT);
-
-		// Notes Text Area Methods
+		
+		//Notes Text Area Methods
 		notesTextArea.setMaxSize(450, 100);
-
-		// Add Interaction Button Methods
+		
+		//Add Interaction Button Methods
 		addInteractionButton.setTextFill(Color.WHITE);
 		addInteractionButton.setStyle("-fx-base: #FF0000");
 		addInteractionButton.setOnAction(new EventHandler<ActionEvent>() {  	 
@@ -268,52 +257,31 @@ public class AddInteractionGUI extends Application {
 						alert.showAndWait();
             		}else{
             			interactionList.addInteraction(interaction);
-            			Alert alert = new Alert(AlertType.INFORMATION);
-						alert.setTitle("Interaction Added");
-						alert.setHeaderText("Interaction was added to list");
-						alert.showAndWait();
-						oListPerson1Selected.clear();
-						oListPerson2Selected.clear();
-						locationDropDown.setValue(null);
-						dateTextField.clear();
-						interactionTypeDropDown.setValue(null);
-						citationDropDown.setValue(null);
-						notesTextArea.clear();
-						person1DropDown.setValue(null);
-						person2DropDown.setValue(null);
-						oListPersonDropDown=FXCollections.observableArrayList(interactionList.getPersonCollection());
-						person1DropDown.setItems(oListPersonDropDown);
-						person2DropDown.setItems(oListPersonDropDown);
-						
-						//Testing
-						/*for (int i=0; i<interactionList.getInteractionCollection().size(); i++){
-							System.out.println(interactionList.getInteractionCollection().get(i).toString());
-						}*/
+            			SearchResultGUI searchGUI=new SearchResultGUI();
+        				searchGUI.start(primaryStage, "Interaction", interactionList);
             		}
             	}
             }
         });
 		
 		//Back Button Methods
-
 		backButton.setTextFill(Color.WHITE);
 		backButton.setStyle("-fx-base: #FF0000");
 		backButton.setOnAction(new EventHandler<ActionEvent>() {
-
 	        @Override
             public void handle(ActionEvent e) {
-            	HomeGUI Homegui=new HomeGUI();
-            	Homegui.start(primaryStage, interactionList);
+	        	interactionList.addInteraction(editInteraction);
+	        	SearchResultGUI searchGUI=new SearchResultGUI();
+				searchGUI.start(primaryStage, "Interaction", interactionList);
             }
         });
 
-
-		// Button Box Methods
+		//Button Box Methods
 		buttonBox.getChildren().add(backButton);
 		buttonBox.setAlignment(Pos.CENTER_RIGHT);
-
-		// Primary Stage Methods
-		primaryStage.setTitle("Insert Interaction");
+				
+		//Primary Stage Methods
+		primaryStage.setTitle("Edit Interaction");
 		primaryStage.setScene(scene);
 		primaryStage.show();
 	}
@@ -322,9 +290,5 @@ public class AddInteractionGUI extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		// TODO Auto-generated method stub
-		
 	}
-	
- 
-
 }

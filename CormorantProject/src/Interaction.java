@@ -49,16 +49,20 @@ public class Interaction {
 	 * @param directed
 	 *            the directed
 	 */
-	public Interaction(List<Person> people1, List<Person> people2, String location, String date, String interactionType,
+	public Interaction(List<Person> persons1, List<Person> persons2, String location, String date, String interactionType,
 			String citation, String notes, boolean directed) {
-		this.people1 = people1;
-		this.people2 = people2;
+		people1=new ArrayList<Person>();
+		people2=new ArrayList<Person>();
+		this.people1.addAll(persons1);
+		this.people2.addAll(persons2);
 		this.location = location;
 		this.date = date;
 		this.interactionType = interactionType;
 		this.citation = citation;
 		this.notes = notes;
 		this.directed = directed;
+
+
 
 	}
 	public String[] toCSVRowArray() {
@@ -98,8 +102,8 @@ public class Interaction {
 	 * @param people
 	 *            the new people 1
 	 */
-	public void setPeople1(List<Person> people) {
-		this.people1 = people;
+	public void addPeople1(Person person) {
+		people1.add(person);
 	}
 
 	/**
@@ -108,8 +112,8 @@ public class Interaction {
 	 * @param people
 	 *            the new people 2
 	 */
-	public void setPeople2(List<Person> people) {
-		this.people2 = people;
+	public void addPeople2(Person person) {
+		people2.add(person);
 	}
 
 	/**
@@ -218,17 +222,35 @@ public class Interaction {
 		return this.directed;
 	}
 
-	public String getNamesOfGroup(List<Person> peopleList) {
-		String peopleGroup = peopleList.get(0).getName();
-		for (int i = 1; i < people1.size(); i++) {
-			peopleGroup += ", " + people1.get(i).getName();
+	public String getNamesOfGroup(List<Person> peopleList){
+		if (peopleList.size()>=0){
+			String peopleGroup=peopleList.get(0).getName();
+			for (int i=1; i<peopleList.size();i++){
+			peopleGroup+=", "+peopleList.get(i).getName();
 		}
+		
 		return peopleGroup;
+		}
+		return " ";
 	}
 
-	@Override
-	public String toString() {
-		return "(" + getNamesOfGroup(people1) + ") interacted with (" + getNamesOfGroup(people2) + "), " + location
-				+ ", " + date + ", " + interactionType + ", " + citation + ", " + notes;
+	
+	public String toString(){
+		if (location==null){
+			location="Unknown";
+		}
+		if (date.isEmpty()){
+			date="Unknown";
+		}
+		if (citation==null){
+			citation="none";
+		}
+		if (interactionType==null){
+			interactionType="Unknown";
+		}
+		if (notes.isEmpty()){
+			notes="none";
+		}
+		return "Group 1=("+getNamesOfGroup(people1)+") interacted with Group 2=("+getNamesOfGroup(people2)+") {Location="+ location+", Date="+date+", Interaction Type="+interactionType+", Bibliographical Citation="+citation+", Notes="+notes+"}";
 	}
 }
