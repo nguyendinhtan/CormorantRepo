@@ -123,8 +123,8 @@ public class SearchResultGUI extends Application {
 	            public void handle(ActionEvent e) {
 	            	int selectedIndex=interactionResultsView.getSelectionModel().getSelectedIndex();
 	            	if (selectedIndex>=0){
-	            		AddInteractionGUI interactionEdit=new AddInteractionGUI();
-	            		interactionEdit.start(primaryStage, list);
+	            		EditInteractionGUI interactionEdit=new EditInteractionGUI();
+	            		interactionEdit.start(primaryStage, list, interactionResultsView.getSelectionModel().getSelectedItem());
 	            	}
 	            	
 	            }

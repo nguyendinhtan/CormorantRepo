@@ -113,9 +113,14 @@ public class DataCollections {
 	
 	public int checkForInteractionDuplicates(Interaction interaction){
 		for (int i=0; i<interactionCollection.size(); i++){
-				if (interactionCollection.get(i).getPeople1().equals(interaction.getPeople1())&&interactionCollection.get(i).getPeople2().equals(interaction.getPeople2()) &&interactionCollection.get(i).getLocation().equals(interaction.getLocation())&& interactionCollection.get(i).getDate().equals(interaction.getDate())&&interactionCollection.get(i).getInteractionType().equals(interaction.getInteractionType())){
+			//Checks for nullpointerexception when comparing null values with equals from duplicates
+			try{
+			if (interactionCollection.get(i).getPeople1().equals(interaction.getPeople1())&&interactionCollection.get(i).getPeople2().equals(interaction.getPeople2()) &&interactionCollection.get(i).getLocation().equals(interaction.getLocation())&& interactionCollection.get(i).getDate().equals(interaction.getDate())&&interactionCollection.get(i).getInteractionType().equals(interaction.getInteractionType())){
 					return i;
 				}
+			}catch(NullPointerException e){
+				return 1;
+			}
 		}
 		return -1;
 	}

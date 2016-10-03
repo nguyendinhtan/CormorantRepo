@@ -32,19 +32,11 @@ public class AddInteractionGUI extends Application {
 	ObservableList<Person> oListPerson1Selected;
 	ObservableList<Person> oListPerson2Selected;
 
-	public void start(Stage primaryStage, DataCollections interactionList) {
-		System.setProperty("glass.accessible.force", "false"); // Fixes bug of
-																// combobox
-																// crashing when
-																// running on
-																// certain
-																// computers
 
-		// GUI Variables
-		ObservableList<Person> oListPerson1;
-		ObservableList<Person> oListPerson2;
-
-		// GUI Variables
+	public void start(Stage primaryStage, DataCollections interactionList) {		
+	System.setProperty("glass.accessible.force", "false"); // Fixes bug of combobox crashing when running on certain computers
+		
+	// GUI Variables
 		GridPane grid = new GridPane();
 		Scene scene = new Scene(grid, 700, 700);
 		HBox personLabelBox = new HBox(185);

@@ -223,7 +223,7 @@ public class Interaction {
 	}
 
 	public String getNamesOfGroup(List<Person> peopleList){
-		if (peopleList.size()>=0){
+		if (peopleList.size()>0){
 			String peopleGroup=peopleList.get(0).getName();
 			for (int i=1; i<peopleList.size();i++){
 			peopleGroup+=", "+peopleList.get(i).getName();
