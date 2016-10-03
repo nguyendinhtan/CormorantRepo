@@ -58,6 +58,21 @@ public class Person {
 	 
 	@Override
 	public String toString() {
+		if (name.isEmpty()) {
+			name="Anonymous";
+		}
+		if (gender == null) {
+			gender="Unknown";
+		}
+		if (culture.isEmpty()){
+			culture="Unknown";
+		}
+		if (occupation.isEmpty()){
+			occupation="Unknown";
+		}
+		if (notes.isEmpty()){
+			notes="none";
+		}
 		return name+" {id=" +id + " gender="+gender + " culture="+culture + " occupation="+occupation + " notes="+notes +"}";
 	}
 	

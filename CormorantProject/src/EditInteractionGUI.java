@@ -19,12 +19,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-
-/**
- * Add interaction GUI view class.
- *
- */
-public class AddInteractionGUI extends Application {
+public class EditInteractionGUI extends Application {
 	ObservableList<String> oListLocation;
 	ObservableList<String> oListCitation;
 	ObservableList<String> oListInteractionType;
@@ -32,12 +27,10 @@ public class AddInteractionGUI extends Application {
 	ObservableList<Person> oListPerson1Selected;
 	ObservableList<Person> oListPerson2Selected;
 
-	public void start(Stage primaryStage, DataCollections interactionList) {
-			
-				
-				
+	public void start(Stage primaryStage, DataCollections interactionList, Interaction editInteraction) {
+					
 		System.setProperty("glass.accessible.force", "false"); // Fixes bug of combobox crashing when running on certain computers
-
+		interactionList.getInteractionCollection().remove(editInteraction);
 		//GUI Variables
 		GridPane grid = new GridPane();
 		Scene scene = new Scene(grid, 700, 700);
@@ -71,13 +64,17 @@ public class AddInteractionGUI extends Application {
 	    ListView<Person> person2List = new ListView<Person>();
 	    TextArea notesTextArea = new TextArea();
 	    TextField dateTextField = new TextField();
-	    oListPersonDropDown = FXCollections.observableArrayList(interactionList.getPersonCollection());
+	    oListPersonDropDown = FXCollections.observableArrayList();
 		oListLocation = FXCollections.observableArrayList(interactionList.getLocationVocab());
 		oListInteractionType = FXCollections.observableArrayList(interactionList.getInteractionTypeVocab());
 		oListCitation = FXCollections.observableArrayList(interactionList.getCitationVocab());
-		oListPerson1Selected=FXCollections.observableArrayList();
-		oListPerson2Selected=FXCollections.observableArrayList();
-		
+		oListPerson1Selected=FXCollections.observableArrayList(editInteraction.getPeople1());
+		oListPerson2Selected=FXCollections.observableArrayList(editInteraction.getPeople2());
+		dateTextField.setText(editInteraction.getDate());
+		notesTextArea.setText(editInteraction.getNotes());
+		locationDropDown.setValue(editInteraction.getLocation());
+		citationDropDown.setValue(editInteraction.getCitation());
+		interactionTypeDropDown.setValue(editInteraction.getInteractionType());
 	    //Grid Methods
 		grid.setAlignment(Pos.CENTER);
 		grid.setHgap(10);
@@ -260,27 +257,8 @@ public class AddInteractionGUI extends Application {
 						alert.showAndWait();
             		}else{
             			interactionList.addInteraction(interaction);
-            			Alert alert = new Alert(AlertType.INFORMATION);
-						alert.setTitle("Interaction Added");
-						alert.setHeaderText("Interaction was added to list");
-						alert.showAndWait();
-						oListPerson1Selected.clear();
-						oListPerson2Selected.clear();
-						locationDropDown.setValue(null);
-						dateTextField.clear();
-						interactionTypeDropDown.setValue(null);
-						citationDropDown.setValue(null);
-						notesTextArea.clear();
-						person1DropDown.setValue(null);
-						person2DropDown.setValue(null);
-						oListPersonDropDown=FXCollections.observableArrayList(interactionList.getPersonCollection());
-						person1DropDown.setItems(oListPersonDropDown);
-						person2DropDown.setItems(oListPersonDropDown);
-						
-						//Testing
-						/*for (int i=0; i<interactionList.getInteractionCollection().size(); i++){
-							System.out.println(interactionList.getInteractionCollection().get(i).toString());
-						}*/
+            			SearchResultGUI searchGUI=new SearchResultGUI();
+        				searchGUI.start(primaryStage, "Interaction", interactionList);
             		}
             	}
             }
@@ -292,8 +270,9 @@ public class AddInteractionGUI extends Application {
 		backButton.setOnAction(new EventHandler<ActionEvent>() {
 	        @Override
             public void handle(ActionEvent e) {
-            	HomeGUI Homegui=new HomeGUI();
-            	Homegui.start(primaryStage, interactionList);
+	        	interactionList.addInteraction(editInteraction);
+	        	SearchResultGUI searchGUI=new SearchResultGUI();
+				searchGUI.start(primaryStage, "Interaction", interactionList);
             }
         });
 
@@ -302,7 +281,7 @@ public class AddInteractionGUI extends Application {
 		buttonBox.setAlignment(Pos.CENTER_RIGHT);
 				
 		//Primary Stage Methods
-		primaryStage.setTitle("Insert Interaction");
+		primaryStage.setTitle("Edit Interaction");
 		primaryStage.setScene(scene);
 		primaryStage.show();
 	}
@@ -311,9 +290,5 @@ public class AddInteractionGUI extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		// TODO Auto-generated method stub
-		
 	}
-	
- 
-
 }

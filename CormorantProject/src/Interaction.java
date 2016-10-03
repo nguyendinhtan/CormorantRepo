@@ -206,6 +206,21 @@ public class Interaction {
 	}
 	
 	public String toString(){
+		if (location==null){
+			location="Unknown";
+		}
+		if (date.isEmpty()){
+			date="Unknown";
+		}
+		if (citation==null){
+			citation="none";
+		}
+		if (interactionType==null){
+			interactionType="Unknown";
+		}
+		if (notes.isEmpty()){
+			notes="none";
+		}
 		return "Group 1=("+getNamesOfGroup(people1)+") interacted with Group 2=("+getNamesOfGroup(people2)+") {Location="+ location+", Date="+date+", Interaction Type="+interactionType+", Bibliographical Citation="+citation+", Notes="+notes+"}";
 	}
 }

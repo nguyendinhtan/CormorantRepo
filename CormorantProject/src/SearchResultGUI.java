@@ -91,8 +91,8 @@ public class SearchResultGUI extends Application {
 	            public void handle(ActionEvent e) {
 	            	int selectedIndex=personResultsView.getSelectionModel().getSelectedIndex();
 	            	if (selectedIndex>=0){
-	            		AddPersonGUI editPerson=new AddPersonGUI();
-	            		editPerson.start(primaryStage, list);
+	            		EditPersonGUI editPerson=new EditPersonGUI();
+	            		editPerson.start(primaryStage, list, personResultsView.getSelectionModel().getSelectedItem());
 	            	}
 	            	
 	            }
