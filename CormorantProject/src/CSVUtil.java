@@ -14,7 +14,7 @@ import com.opencsv.CSVWriter;
  */
 public class CSVUtil {
 	
-	//private static DataCollections dataList;
+	private static DataCollections dataList;
 	private static Map<Integer, Person> personMap;
 	private List<Interaction> interactions;
 	private CSVReader reader;
@@ -22,7 +22,7 @@ public class CSVUtil {
 	public CSVUtil() {
 		personMap = new TreeMap<>();
 		interactions = new ArrayList<>();
-		//dataList = Main.dataList;
+		dataList = Main.dataList;
 	}
 
 	/**
@@ -55,7 +55,7 @@ public class CSVUtil {
 	 */
 	public static void addPerson(Person person) {
 		personMap.put(person.getID(), person);
-		//dataList.addPerson(person);
+		dataList.addPerson(person);
 	}
 
 	/**
@@ -111,6 +111,7 @@ public class CSVUtil {
 	
 	public void addInteraction(Interaction interaction) {
 		interactions.add(interaction);
+		dataList.addInteraction(interaction);
 	}
 	/**
 	 * Goes through an array and adds all the people to a person list.
