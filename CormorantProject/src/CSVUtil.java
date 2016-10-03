@@ -20,6 +20,7 @@ public class CSVUtil {
 	public CSVUtil() {
 		personMap = new TreeMap<>();
 		interactions = new ArrayList<>();
+		dataList = Main.dataList;
 	}
 
 	public void loadPerson(String fileName) throws IOException {
@@ -45,14 +46,14 @@ public class CSVUtil {
 	 */
 	public static void addPerson(Person person) {
 		personMap.put(person.getID(), person);
-		dataList.getPersonCollection().add(person);
+
+		dataList.addPerson(person);
+
 	}
 
 	public void addPersonList(List<Person> persons) {
 		for (int i = 0; i < persons.size(); i++) {
-			personMap.put(persons.get(i).getID(), persons.get(i));
-			dataList.addPerson(persons.get(i));
-		}
+			personMap.put(persons.get(i).getID(), persons.get(i));		}
 	}
 
 	/**
