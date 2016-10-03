@@ -6,8 +6,10 @@ public class Main extends Application{
 	public Main(){
 		list=new DataCollections();
 	}
+
 	public static void main(String[] args) {
 		launch(args);
+
     }
 	
     public void start(Stage primaryStage) {
@@ -29,4 +31,5 @@ public class Main extends Application{
     	HomeGUI homeGUI = new HomeGUI();
     	homeGUI.start(primaryStage,list);	
     }
+
 }

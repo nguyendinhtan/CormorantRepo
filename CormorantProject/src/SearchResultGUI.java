@@ -13,7 +13,12 @@ import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
+/**
+ * 
+ * Search Result GUI view class.
+ */
 public class SearchResultGUI extends Application {
+
 	ObservableList<Person> oListPersonResults;
 	ObservableList<Interaction> oListInteractionResults;
 	
@@ -28,30 +33,29 @@ public class SearchResultGUI extends Application {
 		Button btnEdit = new Button("Edit");
 		Button btnDelete = new Button("Delete");
 		Button btnBack = new Button("Back");
-		HBox hbBtn=new HBox(120);
-		
-		//Grid Methods
+		HBox hbBtn = new HBox(120);
+
+		// Grid Methods
 		grid.setAlignment(Pos.CENTER);
 		grid.setHgap(10);
 		grid.setVgap(10);
 		grid.setPadding(new Insets(25, 25, 25, 25));
 		
-		
-		
 		//Styling of Buttons
 		btnEdit.setTextFill(Color.BLACK);
 		btnEdit.setTextFill(Color.WHITE);
 		btnEdit.setStyle("-fx-base: #FF0000");
-		
+
 		btnDelete.setTextFill(Color.WHITE);
 		btnDelete.setStyle("-fx-base: #FF0000");
 		btnDelete.setTextFill(Color.WHITE);
-		
+
 		btnBack.setTextFill(Color.WHITE);
 		btnBack.setStyle("-fx-base: #FF0000");
-		
-		//Action for back button to return program to the home screen
+
+		// Action for back button to return program to the home screen
 		btnBack.setOnAction(new EventHandler<ActionEvent>() {
+
 	       	 
             @Override
             public void handle(ActionEvent e) {
@@ -61,6 +65,7 @@ public class SearchResultGUI extends Application {
         });
 		
 		//adds buttons to box
+
 		hbBtn.getChildren().add(btnEdit);
 		hbBtn.getChildren().add(btnDelete);
 		hbBtn.getChildren().add(btnBack);
@@ -126,6 +131,7 @@ public class SearchResultGUI extends Application {
 	        });
 		}
 		//primaryStage methods
+
 		primaryStage.setTitle("Search Results");
 		primaryStage.setScene(scene);
 		primaryStage.show();

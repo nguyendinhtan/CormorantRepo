@@ -16,6 +16,11 @@ import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
+/**
+ * 
+ * Add Person GUI view class.
+ */
+
 public class AddPersonGUI extends Application {
 
 	public void start(Stage primaryStage, DataCollections personList) {
@@ -59,16 +64,16 @@ public class AddPersonGUI extends Application {
 		grid.add(addPersonButton, 0, 6);
 		grid.add(buttonBox, 1, 6);
 
-		//Gender Methods
+		// Gender Methods
 		genderDropDown.getItems().addAll("Male", "Female", "Unknown");
 		genderDropDown.setMinSize(300, 10);
 
-		//Notes Label Box
+		// Notes Label Box
 		notesLabelBox.getChildren().add(notesLabel);
 		notesLabelBox.setAlignment(Pos.TOP_LEFT);
 		notesTextArea.setMaxSize(300, 100);
-		
-		//Add Person Buttons
+
+		// Add Person Buttons
 		addPersonButton.setTextFill(Color.BLACK);
 		addPersonButton.setTextFill(Color.WHITE);
 		addPersonButton.setStyle("-fx-base: #FF0000");
@@ -86,14 +91,14 @@ public class AddPersonGUI extends Application {
 				} else {
 					Person person = new Person(id, name, gender, culture, occupation, notes);
 					if (person.checkForUnallowedInput(person.getName(), person.getCulture(), person.getCulture()) < 0) {
-						Alert alert = new Alert(AlertType.INFORMATION);
+						Alert alert = new Alert(AlertType.ERROR);
 						alert.setTitle("Error");
 						alert.setHeaderText("Invalid characters entered.");
 						alert.setContentText(
 								"Make sure no numbers or special characters are entered in the Name, Culture or Occupation fields");
 						alert.showAndWait();
 					} else if (personList.checkForPersonDuplicates(person) > 0) {
-						Alert alert = new Alert(AlertType.INFORMATION);
+						Alert alert = new Alert(AlertType.ERROR);
 						alert.setTitle("Error");
 						alert.setHeaderText("That person has already been entered.");
 						alert.setContentText("Person already exists. (ID number:"
@@ -120,7 +125,7 @@ public class AddPersonGUI extends Application {
 			}
 		});
 
-		//Back Button Methods
+		// Back Button Methods
 		backButton.setTextFill(Color.WHITE);
 		backButton.setStyle("-fx-base: #FF0000");
 		backButton.setOnAction(new EventHandler<ActionEvent>() {
@@ -130,11 +135,10 @@ public class AddPersonGUI extends Application {
 				Homegui.start(primaryStage, personList);
 			}
 		});
-		
-		//Button Box
+
+		// Button Box
 		buttonBox.getChildren().add(backButton);
 		buttonBox.setAlignment(Pos.CENTER_RIGHT);
-
 
 		// Primary Stage Methods
 		primaryStage.setTitle("Insert Person");

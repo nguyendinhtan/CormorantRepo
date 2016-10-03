@@ -12,12 +12,14 @@ import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
+
 public class HomeGUI extends Application{
 	DataCollections list;
 	
 	public static void main(String[] args){
 		launch(args);
 	}
+
 	public HomeGUI(){
 		list=new DataCollections();
 	}
@@ -124,8 +126,4 @@ public class HomeGUI extends Application{
 		// TODO Auto-generated method stub
 		
 	}
-	
-   
-    
 }
-	
