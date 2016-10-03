@@ -117,6 +117,7 @@ public class AddInteractionGUI extends Application {
 
 		// Person 2 List Methods
 		person2List.setMaxSize(200, 100);
+		
 
 		// Button List 1 Box Method
 		buttonList1Box.getChildren().add(person1DropDown);

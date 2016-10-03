@@ -1,3 +1,4 @@
+import java.io.IOException;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -26,7 +27,8 @@ public class HomeGUI extends Application{
 	}
     public void start(Stage primaryStage, DataCollections list) {
    		//GUI Variables
-        GridPane grid = new GridPane();
+        
+    	GridPane grid = new GridPane();
         Scene scene = new Scene(grid, 700, 300);
         ComboBox<String> searchType=new ComboBox<String>();
         TextField searchTextField = new TextField();
@@ -35,7 +37,7 @@ public class HomeGUI extends Application{
         Button insertInteractionButton = new Button("Insert Interaction");
         Button editVocabButton = new Button("Edit Controlled Vocabulary");
         HBox topRowBox = new HBox();
-        HBox bottomButtonRowBox = new HBox(10);
+        HBox bottomButtonRowBox = new HBox(12);
         
         //Grid Methods
         grid.setAlignment(Pos.CENTER);

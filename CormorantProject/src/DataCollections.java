@@ -113,7 +113,7 @@ public class DataCollections {
 	
 	public int checkForInteractionDuplicates(Interaction interaction){
 		for (int i=0; i<interactionCollection.size(); i++){
-			//Checks for nullpointerexception when comparing null values with equals from duplicates
+			//Checks for NullPointerException when comparing null values with equals from duplicates
 			try{
 			if (interactionCollection.get(i).getPeople1().equals(interaction.getPeople1())&&interactionCollection.get(i).getPeople2().equals(interaction.getPeople2()) &&interactionCollection.get(i).getLocation().equals(interaction.getLocation())&& interactionCollection.get(i).getDate().equals(interaction.getDate())&&interactionCollection.get(i).getInteractionType().equals(interaction.getInteractionType())){
 					return i;
@@ -215,7 +215,8 @@ public class DataCollections {
 		
 	}
 	public int checkForVocabDuplicates(String vocab, String list){
-		if (list=="Location"){	
+		if (list=="Location"){
+			
 			for (int i=0; i<locationVocab.size(); i++){
 				if (vocab.toLowerCase().equals(locationVocab.get(i).toLowerCase())){
 				return i;
