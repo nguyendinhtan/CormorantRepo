@@ -240,10 +240,15 @@ public class Person {
 		this.occupation = person.getOccupation();
 		this.notes = person.getNotes();
 	}
-	// public int checkEquality(Person person){
-	// if
-	// (this.name.equals(person.getName())&&this.gender.equals(person.getGender())&&this.culture.equals(person.getCulture())&&this.occupation.equals(person.oc)){
-
-	// }
-	// }
+	//For searching
+	public int contains(String search){
+		String searchLower=search.toLowerCase();
+		if (searchLower.equals(id)||name.toLowerCase().contains(searchLower)||culture.toLowerCase().contains(searchLower)||occupation.toLowerCase().contains(searchLower)){
+			return 1;
+		//}else if (gender.toLowerCase().contains(searchLower)||notes.contains(searchLower)){
+			//return 2;
+		}
+		return -1;
+	}
+	
 }

@@ -31,7 +31,6 @@ public class AddInteractionGUI extends Application {
 	ObservableList<Person> oListPersonDropDown;
 	ObservableList<Person> oListPerson1Selected;
 	ObservableList<Person> oListPerson2Selected;
-	DataCollections dataList;
 
 	public void start(Stage primaryStage) throws Exception {
 		System.setProperty("glass.accessible.force", "false"); // Fixes bug of
@@ -40,8 +39,6 @@ public class AddInteractionGUI extends Application {
 																// running on
 																// certain
 																// computers
-
-		dataList = Main.dataList;
 		// GUI Variables
 		GridPane grid = new GridPane();
 		Scene scene = new Scene(grid, 700, 700);
@@ -75,10 +72,10 @@ public class AddInteractionGUI extends Application {
 		ListView<Person> person2List = new ListView<Person>();
 		TextArea notesTextArea = new TextArea();
 		TextField dateTextField = new TextField();
-		oListPersonDropDown = FXCollections.observableArrayList(dataList.getPersonCollection());
-		oListLocation = FXCollections.observableArrayList(dataList.getLocationVocab());
-		oListInteractionType = FXCollections.observableArrayList(dataList.getInteractionTypeVocab());
-		oListCitation = FXCollections.observableArrayList(dataList.getCitationVocab());
+		oListPersonDropDown = FXCollections.observableArrayList(DataCollections.getPersonCollection());
+		oListLocation = FXCollections.observableArrayList(ControlledVocab.getLocationVocab());
+		oListInteractionType = FXCollections.observableArrayList(ControlledVocab.getInteractionTypeVocab());
+		oListCitation = FXCollections.observableArrayList(ControlledVocab.getCitationVocab());
 		oListPerson1Selected = FXCollections.observableArrayList();
 		oListPerson2Selected = FXCollections.observableArrayList();
 
@@ -274,14 +271,14 @@ public class AddInteractionGUI extends Application {
 					}
 					Interaction interaction = new Interaction(oListPerson1Selected, oListPerson2Selected, location,
 							date, interactionType, citation, notes, false);
-					if (dataList.checkForInteractionDuplicates(interaction) >= 0) {
+					if (DataCollections.checkForInteractionDuplicates(interaction) >= 0) {
 						Alert alert = new Alert(AlertType.INFORMATION);
 						alert.setTitle("Error");
 						alert.setHeaderText("That interaction has already been entered.");
 						alert.setContentText("Interaction already exists.");
 						alert.showAndWait();
 					} else {
-						dataList.addInteraction(interaction);
+						DataCollections.addInteraction(interaction);
 						Alert alert = new Alert(AlertType.INFORMATION);
 						alert.setTitle("Interaction Added");
 						alert.setHeaderText("Interaction was added to list");
@@ -295,7 +292,7 @@ public class AddInteractionGUI extends Application {
 						notesTextArea.clear();
 						person1DropDown.setValue(null);
 						person2DropDown.setValue(null);
-						oListPersonDropDown = FXCollections.observableArrayList(dataList.getPersonCollection());
+						oListPersonDropDown = FXCollections.observableArrayList(DataCollections.getPersonCollection());
 						person1DropDown.setItems(oListPersonDropDown);
 						person2DropDown.setItems(oListPersonDropDown);
 

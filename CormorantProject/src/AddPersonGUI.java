@@ -23,7 +23,6 @@ import javafx.stage.Stage;
  */
 
 public class AddPersonGUI extends Application {
-	DataCollections dataList;
 
 	public void start(Stage primaryStage) throws Exception{
 		System.setProperty("glass.accessible.force", "false"); // Fixes bug of
@@ -32,7 +31,6 @@ public class AddPersonGUI extends Application {
 																// running on
 																// certain
 																// computers
-		dataList = Main.dataList;
 
 		// GUI Variables
 		GridPane grid = new GridPane();
@@ -86,7 +84,7 @@ public class AddPersonGUI extends Application {
 		addPersonButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
-				int id = dataList.getPersonCollection().size() + 1;
+				int id = DataCollections.getPersonCollection().size() + 1;
 				String name = nameTextField.getText();
 				String gender = genderDropDown.getValue();
 				String culture = cultureTextField.getText();
@@ -119,16 +117,16 @@ public class AddPersonGUI extends Application {
 						alert.setContentText(
 								"Make sure no numbers or special characters are entered in the Name, Culture or Occupation fields");
 						alert.showAndWait();
-					} else if (dataList.checkForPersonDuplicates(person) > 0) {
+					} else if (DataCollections.checkForPersonDuplicates(person) > 0) {
 						Alert alert = new Alert(AlertType.ERROR);
 						alert.setTitle("Error");
 						alert.setHeaderText("That person has already been entered.");
 						alert.setContentText(
-								"Person already exists. (ID number:" + dataList.checkForPersonDuplicates(person) + ")");
+								"Person already exists. (ID number:" + DataCollections.checkForPersonDuplicates(person) + ")");
 						alert.showAndWait();
 					} else {
 
-						//dataList.addPerson(person);
+						//DataCollections.addPerson(person);
 						CSVUtil.addPerson(person);
 
 						try {

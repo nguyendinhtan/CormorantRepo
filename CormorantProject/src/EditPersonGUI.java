@@ -18,7 +18,7 @@ import javafx.stage.Stage;
 
 public class EditPersonGUI extends Application {
 
-	public void start(Stage primaryStage, DataCollections personList, Person editPerson) {
+	public void start(Stage primaryStage, Person editPerson, String query) {
 		System.setProperty("glass.accessible.force", "false"); // Fixes bug of
 																// combobox
 																// crashing when
@@ -26,7 +26,7 @@ public class EditPersonGUI extends Application {
 																// certain
 																// computers
 		// Removes person from list
-		personList.getPersonCollection().remove(editPerson);
+		DataCollections.getPersonCollection().remove(editPerson);
 		// GUI Variables
 		GridPane grid = new GridPane();
 		Scene scene = new Scene(grid, 500, 400);
@@ -103,33 +103,33 @@ public class EditPersonGUI extends Application {
 						alert.setContentText(
 								"Make sure no numbers or special characters are entered in the Name, Culture or Occupation fields");
 						alert.showAndWait();
-					} else if (personList.checkForPersonDuplicates(person) > 0) {
+					} else if (DataCollections.checkForPersonDuplicates(person) > 0) {
 						Alert alert = new Alert(AlertType.INFORMATION);
 						alert.setTitle("Error");
 						alert.setHeaderText("That person has already been entered.");
 						alert.setContentText("Person already exists. (ID number:"
-								+ personList.checkForPersonDuplicates(person) + ")");
+								+ DataCollections.checkForPersonDuplicates(person) + ")");
 						alert.showAndWait();
 					} else {
-						personList.addPerson(person);
-						for (int i = 0; i < personList.getInteractionCollection().size(); i++) {
-							for (int j = 0; j < personList.getInteractionCollection().get(i).getPeople1().size(); j++) {
-								if (personList.getInteractionCollection().get(i).getPeople1().get(j)
+						DataCollections.addPerson(person);
+						for (int i = 0; i < DataCollections.getInteractionCollection().size(); i++) {
+							for (int j = 0; j < DataCollections.getInteractionCollection().get(i).getPeople1().size(); j++) {
+								if (DataCollections.getInteractionCollection().get(i).getPeople1().get(j)
 										.equals(editPerson)) {
-									personList.getInteractionCollection().get(i).getPeople1().get(j)
+									DataCollections.getInteractionCollection().get(i).getPeople1().get(j)
 											.replacePerson(person);
 								}
 							}
-							for (int j = 0; j < personList.getInteractionCollection().get(i).getPeople2().size(); j++) {
-								if (personList.getInteractionCollection().get(i).getPeople2().get(j)
+							for (int j = 0; j < DataCollections.getInteractionCollection().get(i).getPeople2().size(); j++) {
+								if (DataCollections.getInteractionCollection().get(i).getPeople2().get(j)
 										.equals(editPerson)) {
-									personList.getInteractionCollection().get(i).getPeople2().get(j)
+									DataCollections.getInteractionCollection().get(i).getPeople2().get(j)
 											.replacePerson(person);
 								}
 							}
 						}
 						SearchResultGUI searchGUI = new SearchResultGUI();
-						searchGUI.start(primaryStage, "Person", personList);
+						searchGUI.start(primaryStage, "Person", query);
 					}
 				}
 			}
@@ -141,9 +141,9 @@ public class EditPersonGUI extends Application {
 		backButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
-				personList.addPerson(editPerson);
+				DataCollections.addPerson(editPerson);
 				SearchResultGUI searchGUI = new SearchResultGUI();
-				searchGUI.start(primaryStage, "Person", personList);
+				searchGUI.start(primaryStage, "Person", query);
 			}
 		});
 

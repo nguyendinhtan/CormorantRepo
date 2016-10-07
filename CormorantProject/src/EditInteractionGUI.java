@@ -35,7 +35,7 @@ public class EditInteractionGUI extends Application {
 		editedPersonDropDown = new ArrayList<Person>();
 	}
 
-	public void start(Stage primaryStage, DataCollections interactionList, Interaction editInteraction) {
+	public void start(Stage primaryStage, Interaction editInteraction, String query) {
 
 		System.setProperty("glass.accessible.force", "false"); // Fixes bug of
 																// combobox
@@ -43,7 +43,7 @@ public class EditInteractionGUI extends Application {
 																// running on
 																// certain
 																// computers
-		interactionList.getInteractionCollection().remove(editInteraction);
+		DataCollections.getInteractionCollection().remove(editInteraction);
 		// GUI Variables
 		GridPane grid = new GridPane();
 		Scene scene = new Scene(grid, 700, 700);
@@ -78,13 +78,13 @@ public class EditInteractionGUI extends Application {
 		ListView<Person> person2List = new ListView<Person>();
 		TextArea notesTextArea = new TextArea();
 		TextField dateTextField = new TextField();
-		editedPersonDropDown.addAll(interactionList.getPersonCollection());
+		editedPersonDropDown.addAll(DataCollections.getPersonCollection());
 		editedPersonDropDown.removeAll(editInteraction.getPeople1());
 		editedPersonDropDown.removeAll(editInteraction.getPeople2());
 		oListPersonDropDown = FXCollections.observableArrayList(editedPersonDropDown);
-		oListLocation = FXCollections.observableArrayList(interactionList.getLocationVocab());
-		oListInteractionType = FXCollections.observableArrayList(interactionList.getInteractionTypeVocab());
-		oListCitation = FXCollections.observableArrayList(interactionList.getCitationVocab());
+		oListLocation = FXCollections.observableArrayList(ControlledVocab.getLocationVocab());
+		oListInteractionType = FXCollections.observableArrayList(ControlledVocab.getInteractionTypeVocab());
+		oListCitation = FXCollections.observableArrayList(ControlledVocab.getCitationVocab());
 		oListPerson1Selected = FXCollections.observableArrayList(editInteraction.getPeople1());
 		oListPerson2Selected = FXCollections.observableArrayList(editInteraction.getPeople2());
 		person1List.setItems(oListPerson1Selected);
@@ -276,16 +276,16 @@ public class EditInteractionGUI extends Application {
 
 					Interaction interaction = new Interaction(oListPerson1Selected, oListPerson2Selected, location,
 							date, interactionType, citation, notes, false);
-					if (interactionList.checkForInteractionDuplicates(interaction) >= 0) {
+					if (DataCollections.checkForInteractionDuplicates(interaction) >= 0) {
 						Alert alert = new Alert(AlertType.INFORMATION);
 						alert.setTitle("Error");
 						alert.setHeaderText("That interaction has already been entered.");
 						alert.setContentText("Interaction already exists.");
 						alert.showAndWait();
 					} else {
-						interactionList.addInteraction(interaction);
+						DataCollections.addInteraction(interaction);
 						SearchResultGUI searchGUI = new SearchResultGUI();
-						searchGUI.start(primaryStage, "Interaction", interactionList);
+						searchGUI.start(primaryStage, "Interaction", query);
 					}
 				}
 			}
@@ -297,9 +297,9 @@ public class EditInteractionGUI extends Application {
 		backButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
-				interactionList.addInteraction(editInteraction);
+				DataCollections.addInteraction(editInteraction);
 				SearchResultGUI searchGUI = new SearchResultGUI();
-				searchGUI.start(primaryStage, "Interaction", interactionList);
+				searchGUI.start(primaryStage, "Interaction", query);
 			}
 		});
 

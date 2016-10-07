@@ -18,12 +18,12 @@ import javafx.stage.Stage;
  * Search Result GUI view class.
  */
 public class SearchResultGUI extends Application {
-
+	SearchUtil search=new SearchUtil();
 	ObservableList<Person> oListPersonResults;
 	ObservableList<Interaction> oListInteractionResults;
 
 	// @override
-	public void start(Stage primaryStage, String type, DataCollections list) {
+	public void start(Stage primaryStage, String type, String query) {
 
 		// GUI Variables
 		GridPane grid = new GridPane();
@@ -83,7 +83,11 @@ public class SearchResultGUI extends Application {
 			personResultsView.setMinSize(400, 300);
 			personResultsView.setMaxSize(400, 300);
 			grid.add(personResultsView, 1, 0);
-			oListPersonResults = FXCollections.observableList(list.getPersonCollection());
+			if (query.isEmpty()||query.equals(" ")){
+				oListPersonResults = FXCollections.observableList(DataCollections.getPersonCollection());
+			}else{
+				oListPersonResults=FXCollections.observableArrayList(search.searchPeople(query));
+			}
 			personResultsView.setItems(oListPersonResults);
 			btnDelete.setOnAction(new EventHandler<ActionEvent>() {
 
@@ -91,15 +95,15 @@ public class SearchResultGUI extends Application {
 	            public void handle(ActionEvent e) {
 	            	int selectedIndex=personResultsView.getSelectionModel().getSelectedIndex();
 	            	if (selectedIndex>=0){
-	            	for (int i=0; i<list.getInteractionCollection().size(); i++){
-						for (int j=0; j<list.getInteractionCollection().get(i).getPeople1().size();j++){
-							if(list.getInteractionCollection().get(i).getPeople1().get(j).equals(personResultsView.getSelectionModel().getSelectedItem())){
-								list.getInteractionCollection().get(i).getPeople1().remove(j);
+	            	for (int i=0; i<DataCollections.getInteractionCollection().size(); i++){
+						for (int j=0; j<DataCollections.getInteractionCollection().get(i).getPeople1().size();j++){
+							if(DataCollections.getInteractionCollection().get(i).getPeople1().get(j).equals(personResultsView.getSelectionModel().getSelectedItem())){
+								DataCollections.getInteractionCollection().get(i).getPeople1().remove(j);
 							}
 						}
-							for (int j=0; j<list.getInteractionCollection().get(i).getPeople2().size();j++){
-								if(list.getInteractionCollection().get(i).getPeople2().get(j).equals(personResultsView.getSelectionModel().getSelectedItem())){
-									list.getInteractionCollection().get(i).getPeople2().remove(j);
+							for (int j=0; j<DataCollections.getInteractionCollection().get(i).getPeople2().size();j++){
+								if(DataCollections.getInteractionCollection().get(i).getPeople2().get(j).equals(personResultsView.getSelectionModel().getSelectedItem())){
+									DataCollections.getInteractionCollection().get(i).getPeople2().remove(j);
 								}
 							}
 					}
@@ -115,7 +119,7 @@ public class SearchResultGUI extends Application {
 					int selectedIndex = personResultsView.getSelectionModel().getSelectedIndex();
 					if (selectedIndex >= 0) {
 						EditPersonGUI editPerson = new EditPersonGUI();
-						editPerson.start(primaryStage, list, personResultsView.getSelectionModel().getSelectedItem());
+						editPerson.start(primaryStage, personResultsView.getSelectionModel().getSelectedItem(), query);
 					}
 
 				}
@@ -125,7 +129,7 @@ public class SearchResultGUI extends Application {
 			interactionResultsView.setMinSize(400, 300);
 			interactionResultsView.setMaxSize(400, 300);
 			grid.add(interactionResultsView, 1, 0);
-			oListInteractionResults = FXCollections.observableList(list.getInteractionCollection());
+			oListInteractionResults = FXCollections.observableList(DataCollections.getInteractionCollection());
 			interactionResultsView.setItems(oListInteractionResults);
 			btnDelete.setOnAction(new EventHandler<ActionEvent>() {
 				@Override
@@ -142,8 +146,7 @@ public class SearchResultGUI extends Application {
 					int selectedIndex = interactionResultsView.getSelectionModel().getSelectedIndex();
 					if (selectedIndex >= 0) {
 						EditInteractionGUI interactionEdit = new EditInteractionGUI();
-						interactionEdit.start(primaryStage, list,
-								interactionResultsView.getSelectionModel().getSelectedItem());
+						interactionEdit.start(primaryStage,interactionResultsView.getSelectionModel().getSelectedItem(), query);
 					}
 
 				}

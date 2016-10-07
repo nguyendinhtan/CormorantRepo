@@ -4,16 +4,9 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 
 public class Main extends Application {
-	static DataCollections dataList;
-	CSVUtil storage;
 
-	public Main() {
-		dataList = new DataCollections();
-		storage = new CSVUtil();
-	}
 
 	public static void main(String[] args) {
-
 		launch(args);
     }
 	
@@ -25,17 +18,16 @@ public class Main extends Application {
    		list.addPerson(jared);
  		list.addPerson(juan);
    		list.addPerson(anon);*/
-		storage.loadPerson("data/People.csv");
+		CSVUtil.loadPerson("data/People.csv");
 
-		System.out.println(dataList.getPersonCollection().size());
-		dataList.addLocationVocab("Rock Island");
-		dataList.addLocationVocab("Moline");
-		dataList.addLocationVocab("Davenport");
-		dataList.addInteractionTypeVocab("Journal");
-		dataList.addInteractionTypeVocab("Party");
-		dataList.addInteractionTypeVocab("Letter");
-		dataList.addCitationVocab("test");
-		dataList.addCitationVocab("test2");
+		ControlledVocab.addLocationVocab("Rock Island");
+		ControlledVocab.addLocationVocab("Moline");
+		ControlledVocab.addLocationVocab("Davenport");
+		ControlledVocab.addInteractionTypeVocab("Journal");
+		ControlledVocab.addInteractionTypeVocab("Party");
+		ControlledVocab.addInteractionTypeVocab("Letter");
+		ControlledVocab.addCitationVocab("test");
+		ControlledVocab.addCitationVocab("test2");
 		HomeGUI homeGUI = new HomeGUI();
 		homeGUI.start(primaryStage);
 	}

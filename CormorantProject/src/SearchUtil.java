@@ -1,12 +1,12 @@
-import java.awt.List;
+import java.util.*;
 
 /**
  * This class contains all methods for searching through collections, persons,
  * and interactions.
  *
  */
-public class SearchUtil {
-
+public class SearchUtil{
+	
 	/**
 	 * 
 	 * @param query
@@ -38,8 +38,16 @@ public class SearchUtil {
 	 * @return searchPeopleResultsList the list of search people results
 	 */
 	public static List searchPeople(String query) {
-		List searchPeopleResultsList = null;
-		return searchPeopleResultsList;
+		List<Person> results=new ArrayList<>();
+		for (int i=0; i<DataCollections.getPersonCollection().size(); i++){
+			if (DataCollections.getPersonCollection().get(i).contains(query)==1){
+				results.add(0,DataCollections.getPersonCollection().get(i));
+			}else if(DataCollections.getPersonCollection().get(i).contains(query)==2){
+				results.add(DataCollections.getPersonCollection().get(i));
+			}
+			
+		}
+		return results;
 	}
 
 }

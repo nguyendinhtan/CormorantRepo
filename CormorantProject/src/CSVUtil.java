@@ -11,19 +11,12 @@ import com.opencsv.CSVWriter;
 
 public class CSVUtil {
 
-	private static DataCollections dataList;
-	private static Map<Integer, Person> personMap;
-	private List<Interaction> interactions;
-	private CSVReader reader;
+	private static Map<Integer, Person> personMap= new TreeMap<>();
+	private static List<Interaction> interactions= new ArrayList<>();
+	private static CSVReader reader;
 	private static CSVWriter writer;
 
-	public CSVUtil() {
-		personMap = new TreeMap<>();
-		interactions = new ArrayList<>();
-		dataList = Main.dataList;
-	}
-
-	public void loadPerson(String fileName) throws IOException {
+	public static void loadPerson(String fileName) throws IOException {
 		reader = new CSVReader(new FileReader(fileName));
 
 		List<String[]> myRows = reader.readAll();
@@ -46,12 +39,11 @@ public class CSVUtil {
 	 */
 	public static void addPerson(Person person) {
 		personMap.put(person.getID(), person);
-
-		dataList.addPerson(person);
+		DataCollections.addPerson(person);
 
 	}
 
-	public void addPersonList(List<Person> persons) {
+	public static void addPersonList(List<Person> persons) {
 		for (int i = 0; i < persons.size(); i++) {
 			personMap.put(persons.get(i).getID(), persons.get(i));		}
 	}
@@ -73,7 +65,7 @@ public class CSVUtil {
 		writer.close();
 	}
 
-	public void loadInteractions(String fileName) throws IOException {
+	public static void loadInteractions(String fileName) throws IOException {
 		reader = new CSVReader(new FileReader(fileName));
 		List<String[]> myRows = reader.readAll();
 
@@ -108,9 +100,9 @@ public class CSVUtil {
 		}
 	}
 
-	public void addInteraction(Interaction interaction) {
+	public static void addInteraction(Interaction interaction) {
 		interactions.add(interaction);
-		dataList.addInteraction(interaction);
+		DataCollections.addInteraction(interaction);
 	}
 
 	/**
@@ -121,7 +113,7 @@ public class CSVUtil {
 	 * @param personList
 	 *            the designated person list
 	 */
-	public void convertPersonArrayToList(String[] personArray, List<Person> personList) {
+	public static void convertPersonArrayToList(String[] personArray, List<Person> personList) {
 		for (String idStr : personArray) {
 			int id = Integer.parseInt(idStr);
 			Person person = personMap.get(id);
@@ -130,7 +122,7 @@ public class CSVUtil {
 
 	}
 
-	public void saveInteractions(String fileName) throws IOException {
+	public static void saveInteractions(String fileName) throws IOException {
 		writer = new CSVWriter(new FileWriter(fileName), ',', CSVWriter.NO_QUOTE_CHARACTER);
 		for (Interaction interaction : interactions) {
 			writer.writeNext(interaction.toCSVRowArray());

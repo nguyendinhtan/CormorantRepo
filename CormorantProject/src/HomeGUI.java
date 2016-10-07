@@ -13,15 +13,11 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class HomeGUI extends Application {
-	DataCollections list;
 
 	public static void main(String[] args) {
 		launch(args);
 	}
 
-	public HomeGUI() {
-		list = Main.dataList;
-	}
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
@@ -62,7 +58,7 @@ public class HomeGUI extends Application {
 			public void handle(ActionEvent e) {
 				if (searchType.getValue() != null) {
 					SearchResultGUI searchGUI = new SearchResultGUI();
-					searchGUI.start(primaryStage, searchType.getValue(), list);
+					searchGUI.start(primaryStage, searchType.getValue(), searchTextField.getText());
 				} else {
 
 				}
@@ -111,7 +107,7 @@ public class HomeGUI extends Application {
 			@Override
 			public void handle(ActionEvent e) {
 				EditVocabGUI gui = new EditVocabGUI();
-				gui.start(primaryStage, list);
+				gui.start(primaryStage);
 			}
 		});
 
