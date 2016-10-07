@@ -126,16 +126,6 @@ public class Interaction {
 	}
 
 	/**
-	 * Sets the location.
-	 *
-	 * @param location
-	 *            the new location
-	 */
-	public void setLocation(String location) {
-		this.location = location;
-	}
-
-	/**
 	 * Gets the date.
 	 *
 	 * @return the date
@@ -144,15 +134,6 @@ public class Interaction {
 		return date;
 	}
 
-	/**
-	 * Sets the date.
-	 *
-	 * @param date
-	 *            the new date
-	 */
-	public void setDate(String date) {
-		this.date = date;
-	}
 
 	/**
 	 * Gets the interaction type.
@@ -163,15 +144,6 @@ public class Interaction {
 		return interactionType;
 	}
 
-	/**
-	 * Sets the interaction type.
-	 *
-	 * @param interactionType
-	 *            the new interaction type
-	 */
-	public void setInteractionType(String interactionType) {
-		this.interactionType = interactionType;
-	}
 
 	/**
 	 * Gets the citation.
@@ -183,16 +155,6 @@ public class Interaction {
 	}
 
 	/**
-	 * Sets the citation.
-	 *
-	 * @param citation
-	 *            the new citation
-	 */
-	public void setCitation(String citation) {
-		this.citation = citation;
-	}
-
-	/**
 	 * Gets the notes.
 	 *
 	 * @return the notes
@@ -200,17 +162,6 @@ public class Interaction {
 	public String getNotes() {
 		return notes;
 	}
-
-	/**
-	 * Sets the notes.
-	 *
-	 * @param notes
-	 *            the new notes
-	 */
-	public void setNotes(String notes) {
-		this.notes = notes;
-	}
-
 	/**
 	 * Checks if is directed.
 	 *

@@ -89,16 +89,6 @@ public class Person {
 	}
 
 	/**
-	 * Sets the id.
-	 *
-	 * @param id
-	 *            the new id
-	 */
-	public void setID(int id) {
-		this.id = id;
-	}
-
-	/**
 	 * Gets the name.
 	 *
 	 * @return the name
@@ -107,15 +97,6 @@ public class Person {
 		return name;
 	}
 
-	/**
-	 * Sets the name.
-	 *
-	 * @param name
-	 *            the new name
-	 */
-	public void setName(String name) {
-		this.name = name;
-	}
 
 	/**
 	 * Gets the gender.
@@ -126,15 +107,6 @@ public class Person {
 		return gender;
 	}
 
-	/**
-	 * Sets the gender.
-	 *
-	 * @param gender
-	 *            the new gender
-	 */
-	public void setGender(String gender) {
-		this.gender = gender;
-	}
 
 	/**
 	 * Gets the culture.
@@ -145,15 +117,6 @@ public class Person {
 		return culture;
 	}
 
-	/**
-	 * Sets the culture.
-	 *
-	 * @param culture
-	 *            the new culture
-	 */
-	public void setCulture(String culture) {
-		this.culture = culture;
-	}
 
 	/**
 	 * Gets the occupation.
@@ -164,15 +127,6 @@ public class Person {
 		return occupation;
 	}
 
-	/**
-	 * Sets the occupation.
-	 *
-	 * @param occupation
-	 *            the new occupation
-	 */
-	public void setOccupation(String occupation) {
-		this.occupation = occupation;
-	}
 
 	/**
 	 * Gets the notes.
@@ -183,15 +137,6 @@ public class Person {
 		return notes;
 	}
 
-	/**
-	 * Sets the notes.
-	 *
-	 * @param notes
-	 *            the new notes
-	 */
-	public void setNotes(String notes) {
-		this.notes = notes;
-	}
 
 	// Checks if invalid chars are entered and returns -1 if there are and 0 if
 	// there aren't

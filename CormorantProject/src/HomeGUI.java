@@ -7,6 +7,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
@@ -26,12 +28,24 @@ public class HomeGUI extends Application {
 		Scene scene = new Scene(grid, 700, 300);
 		ComboBox<String> searchType = new ComboBox<String>();
 		TextField searchTextField = new TextField();
-		Button searchButton = new Button("Search");
-		Button insertPersonButton = new Button("Insert Person");
-		Button insertInteractionButton = new Button("Insert Interaction");
+		Image imageSearch=new Image(getClass().getResourceAsStream("search_icon.png"));
+		Image imagePerson=new Image(getClass().getResourceAsStream("person_icon.png"));
+		Image imageInteraction=new Image(getClass().getResourceAsStream("interaction_icon.png"));
+		ImageView imageSearchView=new ImageView(imageSearch);
+		ImageView imagePersonView=new ImageView(imagePerson);
+		ImageView imageInteractionView=new ImageView(imageInteraction);
+		Button searchButton = new Button("Search", imageSearchView);
+		imageSearchView.setFitHeight(15);
+		imageSearchView.setFitWidth(15);
+		Button insertPersonButton = new Button("Insert Person", imagePersonView);
+		imagePersonView.setFitHeight(20);
+		imagePersonView.setFitWidth(20);
+		Button insertInteractionButton = new Button("Insert Interaction", imageInteractionView);
+		imageInteractionView.setFitHeight(20);
+		imageInteractionView.setFitWidth(20);
 		Button editVocabButton = new Button("Edit Controlled Vocabulary");
 		HBox topRowBox = new HBox();
-		HBox bottomButtonRowBox = new HBox(12);
+		HBox bottomButtonRowBox = new HBox(10);
 
 		// Grid Methods
 		grid.setAlignment(Pos.CENTER);
@@ -46,8 +60,8 @@ public class HomeGUI extends Application {
 																// combobox
 
 		// Search Text Field Methods
-		searchTextField.setMinSize(275, 10);
-		searchTextField.setMaxSize(275, 50);
+		searchTextField.setMinSize(300, 10);
+		searchTextField.setMaxSize(300, 50);
 
 		// Search Button Methods
 		searchButton.setTextFill(Color.WHITE);
