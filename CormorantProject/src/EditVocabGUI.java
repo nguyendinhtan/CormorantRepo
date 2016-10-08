@@ -38,7 +38,7 @@ public class EditVocabGUI extends Application {
 		HBox queryBox = new HBox();
 		HBox controlledVocabBox = new HBox();
 		HBox buttonGroup = new HBox(175);
-		Label queryLabel = new Label("Query:");
+		Label queryLabel = new Label("New Option:");
 		Label vocabLabel = new Label("Controlled Vocabulary Type:");
 		Label vocabListLabel = new Label("Vocabulary List:");
 		ComboBox<String> vocabDropDown = new ComboBox<String>();

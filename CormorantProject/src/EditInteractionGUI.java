@@ -35,7 +35,7 @@ public class EditInteractionGUI extends Application {
 		editedPersonDropDown = new ArrayList<Person>();
 	}
 
-	public void start(Stage primaryStage, Interaction editInteraction, String query) {
+	public void start(Stage primaryStage) {
 
 		System.setProperty("glass.accessible.force", "false"); // Fixes bug of
 																// combobox
@@ -43,7 +43,7 @@ public class EditInteractionGUI extends Application {
 																// running on
 																// certain
 																// computers
-		DataCollections.getInteractionCollection().remove(editInteraction);
+		DataCollections.getInteractionCollection().remove(SearchResultGUI.getSelectedInteraction());
 		// GUI Variables
 		GridPane grid = new GridPane();
 		Scene scene = new Scene(grid, 700, 700);
@@ -79,30 +79,30 @@ public class EditInteractionGUI extends Application {
 		TextArea notesTextArea = new TextArea();
 		TextField dateTextField = new TextField();
 		editedPersonDropDown.addAll(DataCollections.getPersonCollection());
-		editedPersonDropDown.removeAll(editInteraction.getPeople1());
-		editedPersonDropDown.removeAll(editInteraction.getPeople2());
+		editedPersonDropDown.removeAll(SearchResultGUI.getSelectedInteraction().getPeople1());
+		editedPersonDropDown.removeAll(SearchResultGUI.getSelectedInteraction().getPeople2());
 		oListPersonDropDown = FXCollections.observableArrayList(editedPersonDropDown);
 		oListLocation = FXCollections.observableArrayList(ControlledVocab.getLocationVocab());
 		oListInteractionType = FXCollections.observableArrayList(ControlledVocab.getInteractionTypeVocab());
 		oListCitation = FXCollections.observableArrayList(ControlledVocab.getCitationVocab());
-		oListPerson1Selected = FXCollections.observableArrayList(editInteraction.getPeople1());
-		oListPerson2Selected = FXCollections.observableArrayList(editInteraction.getPeople2());
+		oListPerson1Selected = FXCollections.observableArrayList(SearchResultGUI.getSelectedInteraction().getPeople1());
+		oListPerson2Selected = FXCollections.observableArrayList(SearchResultGUI.getSelectedInteraction().getPeople2());
 		person1List.setItems(oListPerson1Selected);
 		person2List.setItems(oListPerson2Selected);
-		dateTextField.setText(editInteraction.getDate());
-		notesTextArea.setText(editInteraction.getNotes());
-		if (editInteraction.getLocation().equals("Unknown")) {
+		dateTextField.setText(SearchResultGUI.getSelectedInteraction().getDate());
+		notesTextArea.setText(SearchResultGUI.getSelectedInteraction().getNotes());
+		if (SearchResultGUI.getSelectedInteraction().getLocation().equals("Unknown")) {
 			locationDropDown.setValue(null);
 		}
-		locationDropDown.setValue(editInteraction.getLocation());
-		if (editInteraction.getCitation().equals("none")) {
+		locationDropDown.setValue(SearchResultGUI.getSelectedInteraction().getLocation());
+		if (SearchResultGUI.getSelectedInteraction().getCitation().equals("none")) {
 			citationDropDown.setValue(null);
 		}
-		citationDropDown.setValue(editInteraction.getCitation());
-		if (editInteraction.getInteractionType().equals("Unknown")) {
+		citationDropDown.setValue(SearchResultGUI.getSelectedInteraction().getCitation());
+		if (SearchResultGUI.getSelectedInteraction().getInteractionType().equals("Unknown")) {
 			interactionTypeDropDown.setValue(null);
 		}
-		interactionTypeDropDown.setValue(editInteraction.getInteractionType());
+		interactionTypeDropDown.setValue(SearchResultGUI.getSelectedInteraction().getInteractionType());
 
 		// Grid Methods
 		grid.setAlignment(Pos.CENTER);
@@ -285,7 +285,7 @@ public class EditInteractionGUI extends Application {
 					} else {
 						DataCollections.addInteraction(interaction);
 						SearchResultGUI searchGUI = new SearchResultGUI();
-						searchGUI.start(primaryStage, "Interaction", query);
+						searchGUI.start(primaryStage);
 					}
 				}
 			}
@@ -297,9 +297,9 @@ public class EditInteractionGUI extends Application {
 		backButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
-				DataCollections.addInteraction(editInteraction);
+				DataCollections.addInteraction(SearchResultGUI.getSelectedInteraction());
 				SearchResultGUI searchGUI = new SearchResultGUI();
-				searchGUI.start(primaryStage, "Interaction", query);
+				searchGUI.start(primaryStage);
 			}
 		});
 
@@ -311,10 +311,5 @@ public class EditInteractionGUI extends Application {
 		primaryStage.setTitle("Edit Interaction");
 		primaryStage.setScene(scene);
 		primaryStage.show();
-	}
-
-	@Override
-	public void start(Stage primaryStage) throws Exception {
-		// TODO Auto-generated method stub
 	}
 }

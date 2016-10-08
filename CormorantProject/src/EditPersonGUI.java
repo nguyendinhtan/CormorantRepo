@@ -18,7 +18,7 @@ import javafx.stage.Stage;
 
 public class EditPersonGUI extends Application {
 
-	public void start(Stage primaryStage, Person editPerson, String query) {
+	public void start(Stage primaryStage) {
 		System.setProperty("glass.accessible.force", "false"); // Fixes bug of
 																// combobox
 																// crashing when
@@ -26,7 +26,7 @@ public class EditPersonGUI extends Application {
 																// certain
 																// computers
 		// Removes person from list
-		DataCollections.getPersonCollection().remove(editPerson);
+		DataCollections.getPersonCollection().remove(SearchResultGUI.getSelectedPerson());
 		// GUI Variables
 		GridPane grid = new GridPane();
 		Scene scene = new Scene(grid, 500, 400);
@@ -45,11 +45,11 @@ public class EditPersonGUI extends Application {
 		HBox notesLabelBox = new HBox();
 		HBox buttonBox = new HBox();
 
-		nameTextField.setText(editPerson.getName());
-		genderDropDown.setValue(editPerson.getGender());
-		cultureTextField.setText(editPerson.getCulture());
-		occupationTextField.setText(editPerson.getOccupation());
-		notesTextArea.setText(editPerson.getNotes());
+		nameTextField.setText(SearchResultGUI.getSelectedPerson().getName());
+		genderDropDown.setValue(SearchResultGUI.getSelectedPerson().getGender());
+		cultureTextField.setText(SearchResultGUI.getSelectedPerson().getCulture());
+		occupationTextField.setText(SearchResultGUI.getSelectedPerson().getOccupation());
+		notesTextArea.setText(SearchResultGUI.getSelectedPerson().getNotes());
 
 		// Grid Methods
 		grid.setAlignment(Pos.CENTER);
@@ -85,7 +85,7 @@ public class EditPersonGUI extends Application {
 		addPersonButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
-				int id = editPerson.getID();
+				int id = SearchResultGUI.getSelectedPerson().getID();
 				String name = nameTextField.getText();
 				String gender = genderDropDown.getValue();
 				String culture = cultureTextField.getText();
@@ -113,23 +113,25 @@ public class EditPersonGUI extends Application {
 					} else {
 						DataCollections.addPerson(person);
 						for (int i = 0; i < DataCollections.getInteractionCollection().size(); i++) {
-							for (int j = 0; j < DataCollections.getInteractionCollection().get(i).getPeople1().size(); j++) {
+							for (int j = 0; j < DataCollections.getInteractionCollection().get(i).getPeople1()
+									.size(); j++) {
 								if (DataCollections.getInteractionCollection().get(i).getPeople1().get(j)
-										.equals(editPerson)) {
+										.equals(SearchResultGUI.getSelectedPerson())) {
 									DataCollections.getInteractionCollection().get(i).getPeople1().get(j)
 											.replacePerson(person);
 								}
 							}
-							for (int j = 0; j < DataCollections.getInteractionCollection().get(i).getPeople2().size(); j++) {
+							for (int j = 0; j < DataCollections.getInteractionCollection().get(i).getPeople2()
+									.size(); j++) {
 								if (DataCollections.getInteractionCollection().get(i).getPeople2().get(j)
-										.equals(editPerson)) {
+										.equals(SearchResultGUI.getSelectedPerson())) {
 									DataCollections.getInteractionCollection().get(i).getPeople2().get(j)
 											.replacePerson(person);
 								}
 							}
 						}
 						SearchResultGUI searchGUI = new SearchResultGUI();
-						searchGUI.start(primaryStage, "Person", query);
+						searchGUI.start(primaryStage);
 					}
 				}
 			}
@@ -141,9 +143,9 @@ public class EditPersonGUI extends Application {
 		backButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
-				DataCollections.addPerson(editPerson);
+				DataCollections.addPerson(SearchResultGUI.getSelectedPerson());
 				SearchResultGUI searchGUI = new SearchResultGUI();
-				searchGUI.start(primaryStage, "Person", query);
+				searchGUI.start(primaryStage);
 			}
 		});
 
@@ -157,9 +159,4 @@ public class EditPersonGUI extends Application {
 		primaryStage.show();
 	}
 
-	@Override
-	public void start(Stage primaryStage) throws Exception {
-		// TODO Auto-generated method stub
-
-	}
 }

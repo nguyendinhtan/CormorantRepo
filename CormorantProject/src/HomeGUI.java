@@ -15,7 +15,11 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class HomeGUI extends Application {
-
+	private ComboBox<String> searchType;
+	private TextField searchTextField;
+	private static String typeOfSearch;
+	private static String searchKey;
+	
 	public static void main(String[] args) {
 		launch(args);
 	}
@@ -26,7 +30,7 @@ public class HomeGUI extends Application {
 		// GUI Variables
 		GridPane grid = new GridPane();
 		Scene scene = new Scene(grid, 700, 300);
-		ComboBox<String> searchType = new ComboBox<String>();
+		searchType = new ComboBox<String>();
 		TextField searchTextField = new TextField();
 		Image imageSearch=new Image(getClass().getResourceAsStream("search_icon.png"));
 		Image imagePerson=new Image(getClass().getResourceAsStream("person_icon.png"));
@@ -46,7 +50,7 @@ public class HomeGUI extends Application {
 		Button editVocabButton = new Button("Edit Controlled Vocabulary");
 		HBox topRowBox = new HBox();
 		HBox bottomButtonRowBox = new HBox(10);
-
+		
 		// Grid Methods
 		grid.setAlignment(Pos.CENTER);
 		grid.setHgap(10);
@@ -72,9 +76,12 @@ public class HomeGUI extends Application {
 			public void handle(ActionEvent e) {
 				if (searchType.getValue() != null) {
 					SearchResultGUI searchGUI = new SearchResultGUI();
-					searchGUI.start(primaryStage, searchType.getValue(), searchTextField.getText());
+					typeOfSearch=searchType.getValue();
+					searchKey=searchTextField.getText();
+					searchGUI.start(primaryStage);
+				
 				} else {
-
+					
 				}
 			}
 		});
@@ -133,11 +140,20 @@ public class HomeGUI extends Application {
 		// Adds Boxes to grid for display
 		grid.add(topRowBox, 1, 0);
 		grid.add(bottomButtonRowBox, 1, 1);
+		
+		
 
 		// Primary Stage Methods
 		primaryStage.setTitle("Home Screen");
 		primaryStage.setScene(scene);
 		primaryStage.show();
+	}
+	public static String getType(){
+		return typeOfSearch;
+	}
+	
+	public static String getSearchKey(){
+		return searchKey;
 	}
 
 }

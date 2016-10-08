@@ -18,13 +18,14 @@ import javafx.stage.Stage;
  * Search Result GUI view class.
  */
 public class SearchResultGUI extends Application {
-	SearchUtil search=new SearchUtil();
-	ObservableList<Person> oListPersonResults;
-	ObservableList<Interaction> oListInteractionResults;
+	private ObservableList<Person> oListPersonResults;
+	private ObservableList<Interaction> oListInteractionResults;
+	private static Person selectedPerson;
+	private static Interaction selectedInteraction;
 
 	// @override
-	public void start(Stage primaryStage, String type, String query) {
-
+	public void start(Stage primaryStage) {
+		SearchUtil search=new SearchUtil();
 		// GUI Variables
 		GridPane grid = new GridPane();
 		Scene scene = new Scene(grid, 600, 400);
@@ -58,9 +59,9 @@ public class SearchResultGUI extends Application {
 
 			@Override
 			public void handle(ActionEvent e) {
-				HomeGUI Homegui = new HomeGUI();
+				HomeGUI homeGUI = new HomeGUI();
 				try {
-					Homegui.start(primaryStage);
+					homeGUI.start(primaryStage);
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -78,15 +79,15 @@ public class SearchResultGUI extends Application {
 
 		grid.add(hbBtn, 1, 1);
 
-		if (type.equals("Person")) {
+		if (HomeGUI.getType().equals("Person")) {
 			// sets size of list view
 			personResultsView.setMinSize(400, 300);
 			personResultsView.setMaxSize(400, 300);
 			grid.add(personResultsView, 1, 0);
-			if (query.isEmpty()||query.equals(" ")){
+			if (HomeGUI.getSearchKey().isEmpty()||HomeGUI.getSearchKey().equals(" ")){
 				oListPersonResults = FXCollections.observableList(DataCollections.getPersonCollection());
 			}else{
-				oListPersonResults=FXCollections.observableArrayList(search.searchPeople(query));
+				oListPersonResults=FXCollections.observableArrayList(search.searchPeople(HomeGUI.getSearchKey()));
 			}
 			personResultsView.setItems(oListPersonResults);
 			btnDelete.setOnAction(new EventHandler<ActionEvent>() {
@@ -118,14 +119,15 @@ public class SearchResultGUI extends Application {
 				public void handle(ActionEvent e) {
 					int selectedIndex = personResultsView.getSelectionModel().getSelectedIndex();
 					if (selectedIndex >= 0) {
+						selectedPerson=personResultsView.getSelectionModel().getSelectedItem();
 						EditPersonGUI editPerson = new EditPersonGUI();
-						editPerson.start(primaryStage, personResultsView.getSelectionModel().getSelectedItem(), query);
+						editPerson.start(primaryStage);
 					}
 
 				}
 			});
 		}
-		if (type.equals("Interaction")) {
+		if (HomeGUI.getType().equals("Interaction")) {
 			interactionResultsView.setMinSize(400, 300);
 			interactionResultsView.setMaxSize(400, 300);
 			grid.add(interactionResultsView, 1, 0);
@@ -145,8 +147,9 @@ public class SearchResultGUI extends Application {
 				public void handle(ActionEvent e) {
 					int selectedIndex = interactionResultsView.getSelectionModel().getSelectedIndex();
 					if (selectedIndex >= 0) {
+						selectedInteraction=interactionResultsView.getSelectionModel().getSelectedItem();
 						EditInteractionGUI interactionEdit = new EditInteractionGUI();
-						interactionEdit.start(primaryStage,interactionResultsView.getSelectionModel().getSelectedItem(), query);
+						interactionEdit.start(primaryStage);
 					}
 
 				}
@@ -158,11 +161,12 @@ public class SearchResultGUI extends Application {
 		primaryStage.setScene(scene);
 		primaryStage.show();
 	}
-
-	@Override
-	public void start(Stage arg0) throws Exception {
-		// TODO Auto-generated method stub
-
+	public static Person getSelectedPerson(){
+		return selectedPerson;
+	}
+	
+	public static Interaction getSelectedInteraction(){
+		return selectedInteraction;
 	}
 
 }
