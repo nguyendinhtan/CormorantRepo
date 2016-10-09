@@ -1,4 +1,6 @@
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -17,7 +19,8 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class EditPersonGUI extends Application {
-
+	private ObservableList<String> oListCulture;
+	private ObservableList<String> oListOccupation;
 	public void start(Stage primaryStage) {
 		System.setProperty("glass.accessible.force", "false"); // Fixes bug of
 																// combobox
@@ -36,19 +39,20 @@ public class EditPersonGUI extends Application {
 		Label occupationLabel = new Label("Occupation:");
 		Label notesLabel = new Label("Notes:");
 		TextField nameTextField = new TextField();
-		TextField cultureTextField = new TextField();
+		ComboBox<String> cultureDropDown = new ComboBox<String>();
 		TextArea notesTextArea = new TextArea();
-		TextField occupationTextField = new TextField();
+		ComboBox<String> occupationDropDown = new ComboBox<String>();
 		ComboBox<String> genderDropDown = new ComboBox<String>();
 		Button addPersonButton = new Button("Done");
 		Button backButton = new Button("Back");
 		HBox notesLabelBox = new HBox();
 		HBox buttonBox = new HBox();
-
+		oListCulture=FXCollections.observableArrayList(ControlledVocab.getCultureVocab());
+		oListOccupation=FXCollections.observableArrayList(ControlledVocab.getOccupationVocab());
 		nameTextField.setText(SearchResultGUI.getSelectedPerson().getName());
 		genderDropDown.setValue(SearchResultGUI.getSelectedPerson().getGender());
-		cultureTextField.setText(SearchResultGUI.getSelectedPerson().getCulture());
-		occupationTextField.setText(SearchResultGUI.getSelectedPerson().getOccupation());
+		cultureDropDown.setValue(SearchResultGUI.getSelectedPerson().getCulture());
+		occupationDropDown.setValue(SearchResultGUI.getSelectedPerson().getOccupation());
 		notesTextArea.setText(SearchResultGUI.getSelectedPerson().getNotes());
 
 		// Grid Methods
@@ -61,9 +65,9 @@ public class EditPersonGUI extends Application {
 		grid.add(genderLabel, 0, 1);
 		grid.add(genderDropDown, 1, 1);
 		grid.add(cultureLabel, 0, 2);
-		grid.add(cultureTextField, 1, 2);
+		grid.add(cultureDropDown, 1, 2);
 		grid.add(occupationLabel, 0, 3);
-		grid.add(occupationTextField, 1, 3);
+		grid.add(occupationDropDown, 1, 3);
 		grid.add(notesLabelBox, 0, 4);
 		grid.add(notesTextArea, 1, 4);
 		grid.add(addPersonButton, 0, 6);
@@ -72,7 +76,14 @@ public class EditPersonGUI extends Application {
 		// Gender Methods
 		genderDropDown.getItems().addAll("Male", "Female", "Unknown");
 		genderDropDown.setMinSize(300, 10);
-
+		
+		// Culture Methods
+		cultureDropDown.getItems().addAll(oListCulture);
+		cultureDropDown.setMinSize(300, 10);
+		// Occupation Methods
+		occupationDropDown.getItems().addAll(oListOccupation);
+		occupationDropDown.setMinSize(300, 10);
+		
 		// Notes Label Box
 		notesLabelBox.getChildren().add(notesLabel);
 		notesLabelBox.setAlignment(Pos.TOP_LEFT);
@@ -88,13 +99,27 @@ public class EditPersonGUI extends Application {
 				int id = SearchResultGUI.getSelectedPerson().getID();
 				String name = nameTextField.getText();
 				String gender = genderDropDown.getValue();
-				String culture = cultureTextField.getText();
-				String occupation = occupationTextField.getText();
+				String culture = cultureDropDown.getValue();
+				String occupation = occupationDropDown.getValue();
 				String notes = notesTextArea.getText();
 				if (name.isEmpty() && gender == null && culture.isEmpty() && occupation.isEmpty() && notes.isEmpty()) {
 
 				} else {
-
+					if (name.isEmpty()) {
+						name = "Anonymous";
+					}
+					if (gender == null) {
+						gender = "Unknown";
+					}
+					if (culture==null) {
+						culture = "Unknown";
+					}
+					if (occupation==null) {
+						occupation = "Unknown";
+					}
+					if (notes.isEmpty()) {
+						notes = "none";
+					}
 					Person person = new Person(id, name, gender, culture, occupation, notes);
 					if (person.checkForUnallowedInput(person.getName(), person.getCulture(), person.getCulture()) < 0) {
 						Alert alert = new Alert(AlertType.INFORMATION);

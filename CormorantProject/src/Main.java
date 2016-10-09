@@ -26,8 +26,10 @@ public class Main extends Application {
 		ControlledVocab.addInteractionTypeVocab("Journal");
 		ControlledVocab.addInteractionTypeVocab("Party");
 		ControlledVocab.addInteractionTypeVocab("Letter");
-		ControlledVocab.addCitationVocab("test");
-		ControlledVocab.addCitationVocab("test2");
+		ControlledVocab.addCultureVocab("American");
+		ControlledVocab.addCultureVocab("French");
+		ControlledVocab.addOccupationVocab("Painter");
+		ControlledVocab.addOccupationVocab("Sculptor");
 		HomeGUI homeGUI = new HomeGUI();
 		homeGUI.start(primaryStage);
 	}

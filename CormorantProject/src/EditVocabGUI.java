@@ -65,7 +65,7 @@ public class EditVocabGUI extends Application {
 
 		// Vocab Drop Down Methods
 		vocabDropDown.setMinSize(300, 30);
-		vocabDropDown.getItems().addAll("Location", "Interaction Type", "Bibliographical Citation");
+		vocabDropDown.getItems().addAll("Location", "Interaction Type", "Culture", "Occupation");
 		vocabDropDown.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
@@ -75,9 +75,11 @@ public class EditVocabGUI extends Application {
 				} else if (vocabDropDown.getValue().equals("Interaction Type")) {
 					observableListVocab = FXCollections.observableArrayList(ControlledVocab.getInteractionTypeVocab());
 
-				} else if (vocabDropDown.getValue().equals("Bibliographical Citation")) {
-					observableListVocab = FXCollections.observableArrayList(ControlledVocab.getCitationVocab());
+				} else if (vocabDropDown.getValue().equals("Culture")) {
+					observableListVocab = FXCollections.observableArrayList(ControlledVocab.getCultureVocab());
 
+				}else if (vocabDropDown.getValue().equals("Occupation")){
+					observableListVocab=FXCollections.observableArrayList(ControlledVocab.getOccupationVocab());
 				}
 				listView.setItems(observableListVocab);
 			}
@@ -143,17 +145,28 @@ public class EditVocabGUI extends Application {
 								for (int i = 0; i < ControlledVocab.getInteractionTypeVocab().size(); i++) {
 									System.out.println(ControlledVocab.getInteractionTypeVocab().get(i));
 								}
-							} else if (vocabDropDown.getValue().equals("Bibliographical Citation")) {
+							} else if (vocabDropDown.getValue().equals("Culture")) {
 								Alert alert = new Alert(AlertType.INFORMATION);
 								alert.setTitle("Vocabulary Added");
-								alert.setHeaderText("Vocabulary added to bibliographical citation.");
+								alert.setHeaderText("Vocabulary added to culture.");
 								alert.showAndWait();
-								ControlledVocab.addCitationVocab(vocab);
-								observableListVocab = FXCollections.observableArrayList(ControlledVocab.getCitationVocab());
+								ControlledVocab.addCultureVocab(vocab);
+								observableListVocab = FXCollections.observableArrayList(ControlledVocab.getCultureVocab());
 								// For Testing
-								for (int i = 0; i < ControlledVocab.getCitationVocab().size(); i++) {
-									System.out.println(ControlledVocab.getCitationVocab().get(i));
-								}
+								for (int i = 0; i < ControlledVocab.getCultureVocab().size(); i++) {
+									System.out.println(ControlledVocab.getCultureVocab().get(i));
+								} 
+							}else if(vocabDropDown.getValue().equals("Occupation")){
+								Alert alert = new Alert(AlertType.INFORMATION);
+								alert.setTitle("Vocabulary Added");
+								alert.setHeaderText("Vocabulary added to occupation.");
+								alert.showAndWait();
+								ControlledVocab.addOccupationVocab(vocab);
+								observableListVocab = FXCollections.observableArrayList(ControlledVocab.getOccupationVocab());
+								// For Testing
+								for (int i = 0; i < ControlledVocab.getCultureVocab().size(); i++) {
+									System.out.println(ControlledVocab.getCultureVocab().get(i));
+								} 
 							}
 						}
 					}

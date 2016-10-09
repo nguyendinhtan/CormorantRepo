@@ -1,5 +1,7 @@
 import java.io.IOException;
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -23,7 +25,8 @@ import javafx.stage.Stage;
  */
 
 public class AddPersonGUI extends Application {
-
+	private ObservableList<String> oListCulture;
+	private ObservableList<String> oListOccupation;
 	public void start(Stage primaryStage) throws Exception{
 		System.setProperty("glass.accessible.force", "false"); // Fixes bug of
 																// combobox
@@ -41,15 +44,16 @@ public class AddPersonGUI extends Application {
 		Label occupationLabel = new Label("Occupation:");
 		Label notesLabel = new Label("Notes:");
 		TextField nameTextField = new TextField();
-		TextField cultureTextField = new TextField();
+		ComboBox<String> cultureDropDown = new ComboBox<String>();
 		TextArea notesTextArea = new TextArea();
-		TextField occupationTextField = new TextField();
+		ComboBox<String> occupationDropDown = new ComboBox<String>();
 		ComboBox<String> genderDropDown = new ComboBox<String>();
 		Button addPersonButton = new Button("Add Person");
 		Button backButton = new Button("Back");
 		HBox notesLabelBox = new HBox();
 		HBox buttonBox = new HBox();
-
+		oListCulture=FXCollections.observableArrayList(ControlledVocab.getCultureVocab());
+		oListOccupation=FXCollections.observableArrayList(ControlledVocab.getOccupationVocab());
 		// Grid Methods
 		grid.setAlignment(Pos.CENTER);
 		grid.setHgap(10);
@@ -60,9 +64,9 @@ public class AddPersonGUI extends Application {
 		grid.add(genderLabel, 0, 1);
 		grid.add(genderDropDown, 1, 1);
 		grid.add(cultureLabel, 0, 2);
-		grid.add(cultureTextField, 1, 2);
+		grid.add(cultureDropDown, 1, 2);
 		grid.add(occupationLabel, 0, 3);
-		grid.add(occupationTextField, 1, 3);
+		grid.add(occupationDropDown, 1, 3);
 		grid.add(notesLabelBox, 0, 4);
 		grid.add(notesTextArea, 1, 4);
 		grid.add(addPersonButton, 0, 6);
@@ -71,6 +75,13 @@ public class AddPersonGUI extends Application {
 		// Gender Methods
 		genderDropDown.getItems().addAll("Male", "Female", "Unknown");
 		genderDropDown.setMinSize(300, 10);
+		
+		// Culture Methods
+		cultureDropDown.getItems().addAll(oListCulture);
+		cultureDropDown.setMinSize(300, 10);
+		// Occupation Methods
+		occupationDropDown.getItems().addAll(oListOccupation);
+		occupationDropDown.setMinSize(300, 10);
 
 		// Notes Label Box
 		notesLabelBox.getChildren().add(notesLabel);
@@ -87,8 +98,8 @@ public class AddPersonGUI extends Application {
 				int id = DataCollections.getPersonCollection().size() + 1;
 				String name = nameTextField.getText();
 				String gender = genderDropDown.getValue();
-				String culture = cultureTextField.getText();
-				String occupation = occupationTextField.getText();
+				String culture = cultureDropDown.getValue();
+				String occupation = occupationDropDown.getValue();
 				String notes = notesTextArea.getText();
 				if (name.isEmpty() && gender == null && culture.isEmpty() && occupation.isEmpty() && notes.isEmpty()) {
 
@@ -99,10 +110,10 @@ public class AddPersonGUI extends Application {
 					if (gender == null) {
 						gender = "Unknown";
 					}
-					if (culture.isEmpty()) {
+					if (culture==null) {
 						culture = "Unknown";
 					}
-					if (occupation.isEmpty()) {
+					if (occupation==null) {
 						occupation = "Unknown";
 					}
 					if (notes.isEmpty()) {
@@ -150,8 +161,8 @@ public class AddPersonGUI extends Application {
 						alert.showAndWait();
 						nameTextField.clear();
 						genderDropDown.setValue(null);
-						cultureTextField.clear();
-						occupationTextField.clear();
+						cultureDropDown.setValue(null);
+						occupationDropDown.setValue(null);
 						notesTextArea.clear();
 
 					}

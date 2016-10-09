@@ -23,13 +23,12 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class EditInteractionGUI extends Application {
-	ObservableList<String> oListLocation;
-	ObservableList<String> oListCitation;
-	ObservableList<String> oListInteractionType;
-	ObservableList<Person> oListPersonDropDown;
-	ObservableList<Person> oListPerson1Selected;
-	ObservableList<Person> oListPerson2Selected;
-	List<Person> editedPersonDropDown;
+	private ObservableList<String> oListLocation;
+	private ObservableList<String> oListInteractionType;
+	private ObservableList<Person> oListPersonDropDown;
+	private ObservableList<Person> oListPerson1Selected;
+	private ObservableList<Person> oListPerson2Selected;
+	private List<Person> editedPersonDropDown;
 
 	public EditInteractionGUI() {
 		editedPersonDropDown = new ArrayList<Person>();
@@ -72,7 +71,7 @@ public class EditInteractionGUI extends Application {
 		ComboBox<Person> person2DropDown = new ComboBox<Person>();
 		ComboBox<String> interactionTypeDropDown = new ComboBox<String>();
 		ComboBox<String> locationDropDown = new ComboBox<String>();
-		ComboBox<String> citationDropDown = new ComboBox<String>();
+		TextField citationTextField = new TextField();
 		ListView<Person> person1List = new ListView<Person>();
 
 		ListView<Person> person2List = new ListView<Person>();
@@ -84,7 +83,6 @@ public class EditInteractionGUI extends Application {
 		oListPersonDropDown = FXCollections.observableArrayList(editedPersonDropDown);
 		oListLocation = FXCollections.observableArrayList(ControlledVocab.getLocationVocab());
 		oListInteractionType = FXCollections.observableArrayList(ControlledVocab.getInteractionTypeVocab());
-		oListCitation = FXCollections.observableArrayList(ControlledVocab.getCitationVocab());
 		oListPerson1Selected = FXCollections.observableArrayList(SearchResultGUI.getSelectedInteraction().getPeople1());
 		oListPerson2Selected = FXCollections.observableArrayList(SearchResultGUI.getSelectedInteraction().getPeople2());
 		person1List.setItems(oListPerson1Selected);
@@ -95,10 +93,7 @@ public class EditInteractionGUI extends Application {
 			locationDropDown.setValue(null);
 		}
 		locationDropDown.setValue(SearchResultGUI.getSelectedInteraction().getLocation());
-		if (SearchResultGUI.getSelectedInteraction().getCitation().equals("none")) {
-			citationDropDown.setValue(null);
-		}
-		citationDropDown.setValue(SearchResultGUI.getSelectedInteraction().getCitation());
+		citationTextField.setText(SearchResultGUI.getSelectedInteraction().getCitation());
 		if (SearchResultGUI.getSelectedInteraction().getInteractionType().equals("Unknown")) {
 			interactionTypeDropDown.setValue(null);
 		}
@@ -120,7 +115,7 @@ public class EditInteractionGUI extends Application {
 		grid.add(interactionTypeLabel, 0, 6);
 		grid.add(interactionTypeDropDown, 1, 6);
 		grid.add(citationLabel, 0, 7);
-		grid.add(citationDropDown, 1, 7);
+		grid.add(citationTextField, 1, 7);
 		grid.add(notesLabelBox, 0, 8);
 		grid.add(notesTextArea, 1, 8);
 		grid.add(addInteractionButton, 0, 9);
@@ -251,8 +246,7 @@ public class EditInteractionGUI extends Application {
 		interactionTypeDropDown.setMinSize(450, 10);
 
 		// Citation Drop Down Methods
-		citationDropDown.setItems(oListCitation);
-		citationDropDown.setMinSize(450, 10);
+		citationTextField.setMinSize(450, 10);
 
 		// Notes Label Box Methods
 		notesLabelBox.getChildren().add(notesLabel);
@@ -270,7 +264,7 @@ public class EditInteractionGUI extends Application {
 				if (!(oListPerson1Selected.isEmpty() && oListPerson2Selected.isEmpty())) {
 					String location = locationDropDown.getValue();
 					String date = dateTextField.getText();
-					String citation = citationDropDown.getValue();
+					String citation = citationTextField.getText();
 					String interactionType = interactionTypeDropDown.getValue();
 					String notes = notesTextArea.getText();
 

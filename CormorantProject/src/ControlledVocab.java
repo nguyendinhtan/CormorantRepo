@@ -13,9 +13,8 @@ public class ControlledVocab {
 
 	private static List<String> locationVocab= new ArrayList<String>();
 	private static List<String> interactionTypeVocab= new ArrayList<String>();
-	private static List<String> citationVocab= new ArrayList<String>();
-
-
+	private static List<String> cultureVocab= new ArrayList<String>();
+	private static List<String> occupationVocab=new ArrayList<String>();
 	public static List<String> getLocationVocab() {
 		return locationVocab;
 	}
@@ -24,8 +23,12 @@ public class ControlledVocab {
 		return interactionTypeVocab;
 	}
 
-	public static List<String> getCitationVocab() {
-		return citationVocab;
+	public static List<String> getCultureVocab() {
+		return cultureVocab;
+	}
+	
+	public static List<String> getOccupationVocab(){
+		return occupationVocab;
 	}
 
 	public static void remove(int vocabIndex, String listType) {
@@ -33,8 +36,10 @@ public class ControlledVocab {
 			locationVocab.remove(vocabIndex);
 		} else if (listType == "Interaction Type") {
 			interactionTypeVocab.remove(vocabIndex);
+		}else if (listType=="Occupation"){
+			occupationVocab.remove(vocabIndex);
 		} else {
-			citationVocab.remove(vocabIndex);
+			cultureVocab.remove(vocabIndex);
 		}
 	}
 
@@ -48,9 +53,14 @@ public class ControlledVocab {
 		interactionTypeVocab.sort(null);
 	}
 
-	public static void addCitationVocab(String citation) {
-		citationVocab.add(citation);
-		citationVocab.sort(null);
+	public static void addCultureVocab(String culture) {
+		cultureVocab.add(culture);
+		cultureVocab.sort(null);
+	}
+	
+	public static void addOccupationVocab(String occupation){
+		occupationVocab.add(occupation);
+		occupationVocab.sort(null);	
 	}
 
 	public static int checkForUnallowedInput(String vocab) {
@@ -84,9 +94,9 @@ public class ControlledVocab {
 				}
 			}
 		}
-		if (list == "Bibliographical Citation") {
-			for (int i = 0; i < citationVocab.size(); i++) {
-				if (vocab.toLowerCase().equals(citationVocab.get(i).toLowerCase())) {
+		if (list == "Culture") {
+			for (int i = 0; i < cultureVocab.size(); i++) {
+				if (vocab.toLowerCase().equals(cultureVocab.get(i).toLowerCase())) {
 					return i;
 				}
 			}

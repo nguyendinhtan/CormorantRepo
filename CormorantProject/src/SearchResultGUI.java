@@ -8,6 +8,8 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
@@ -31,8 +33,16 @@ public class SearchResultGUI extends Application {
 		Scene scene = new Scene(grid, 600, 400);
 		ListView<Person> personResultsView = new ListView<Person>();
 		ListView<Interaction> interactionResultsView = new ListView<Interaction>();
-		Button btnEdit = new Button("Edit");
-		Button btnDelete = new Button("Delete");
+		Image imageEdit=new Image(getClass().getResourceAsStream("edit_icon.png"));
+		Image imageDelete=new Image(getClass().getResourceAsStream("delete_icon.png"));
+		ImageView imageEditView=new ImageView(imageEdit);
+		ImageView imageDeleteView=new ImageView(imageDelete);
+		Button btnEdit = new Button("Edit", imageEditView);
+		Button btnDelete = new Button("Delete", imageDeleteView);
+		imageEditView.setFitHeight(15);
+		imageEditView.setFitWidth(15);
+		imageDeleteView.setFitHeight(15);
+		imageDeleteView.setFitWidth(15);
 		Button btnBack = new Button("Back");
 		HBox hbBtn = new HBox(120);
 

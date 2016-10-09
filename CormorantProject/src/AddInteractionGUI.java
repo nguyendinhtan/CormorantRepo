@@ -26,7 +26,6 @@ import javafx.stage.Stage;
  */
 public class AddInteractionGUI extends Application {
 	ObservableList<String> oListLocation;
-	ObservableList<String> oListCitation;
 	ObservableList<String> oListInteractionType;
 	ObservableList<Person> oListPersonDropDown;
 	ObservableList<Person> oListPerson1Selected;
@@ -67,7 +66,7 @@ public class AddInteractionGUI extends Application {
 		ComboBox<Person> person2DropDown = new ComboBox<Person>();
 		ComboBox<String> interactionTypeDropDown = new ComboBox<String>();
 		ComboBox<String> locationDropDown = new ComboBox<String>();
-		ComboBox<String> citationDropDown = new ComboBox<String>();
+		TextField citationTextField = new TextField();
 		ListView<Person> person1List = new ListView<Person>();
 		ListView<Person> person2List = new ListView<Person>();
 		TextArea notesTextArea = new TextArea();
@@ -75,7 +74,6 @@ public class AddInteractionGUI extends Application {
 		oListPersonDropDown = FXCollections.observableArrayList(DataCollections.getPersonCollection());
 		oListLocation = FXCollections.observableArrayList(ControlledVocab.getLocationVocab());
 		oListInteractionType = FXCollections.observableArrayList(ControlledVocab.getInteractionTypeVocab());
-		oListCitation = FXCollections.observableArrayList(ControlledVocab.getCitationVocab());
 		oListPerson1Selected = FXCollections.observableArrayList();
 		oListPerson2Selected = FXCollections.observableArrayList();
 
@@ -95,7 +93,7 @@ public class AddInteractionGUI extends Application {
 		grid.add(interactionTypeLabel, 0, 6);
 		grid.add(interactionTypeDropDown, 1, 6);
 		grid.add(citationLabel, 0, 7);
-		grid.add(citationDropDown, 1, 7);
+		grid.add(citationTextField, 1, 7);
 		grid.add(notesLabelBox, 0, 8);
 		grid.add(notesTextArea, 1, 8);
 		grid.add(addInteractionButton, 0, 9);
@@ -229,8 +227,7 @@ public class AddInteractionGUI extends Application {
 		interactionTypeDropDown.setMinSize(450, 10);
 
 		// Citation Drop Down Methods
-		citationDropDown.setItems(oListCitation);
-		citationDropDown.setMinSize(450, 10);
+		citationTextField.setMinSize(450, 10);
 
 		// Notes Label Box Methods
 		notesLabelBox.getChildren().add(notesLabel);
@@ -247,7 +244,7 @@ public class AddInteractionGUI extends Application {
 			public void handle(ActionEvent e) {
 				String location = locationDropDown.getValue();
 				String date = dateTextField.getText();
-				String citation = citationDropDown.getValue();
+				String citation = citationTextField.getText();
 				String interactionType = interactionTypeDropDown.getValue();
 				String notes = notesTextArea.getText();
 				if (oListPerson1Selected.isEmpty() && oListPerson2Selected.isEmpty()) {
@@ -288,7 +285,7 @@ public class AddInteractionGUI extends Application {
 						locationDropDown.setValue(null);
 						dateTextField.clear();
 						interactionTypeDropDown.setValue(null);
-						citationDropDown.setValue(null);
+						citationTextField.clear();
 						notesTextArea.clear();
 						person1DropDown.setValue(null);
 						person2DropDown.setValue(null);
