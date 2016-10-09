@@ -79,7 +79,6 @@ public class HomeGUI extends Application {
 					typeOfSearch=searchType.getValue();
 					searchKey=searchTextField.getText();
 					searchGUI.start(primaryStage);
-				
 				} else {
 					
 				}

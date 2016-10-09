@@ -18,9 +18,7 @@ public class CSVUtil {
 
 	public static void loadPerson(String fileName) throws IOException {
 		reader = new CSVReader(new FileReader(fileName));
-
 		List<String[]> myRows = reader.readAll();
-
 		for (String[] row : myRows) {
 			addPerson(new Person(row));
 		}

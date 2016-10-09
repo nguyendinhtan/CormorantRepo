@@ -44,7 +44,7 @@ public class SearchResultGUI extends Application {
 		imageDeleteView.setFitHeight(15);
 		imageDeleteView.setFitWidth(15);
 		Button btnBack = new Button("Back");
-		HBox hbBtn = new HBox(120);
+		HBox hbBtn = new HBox(100);
 
 		// Grid Methods
 		grid.setAlignment(Pos.CENTER);

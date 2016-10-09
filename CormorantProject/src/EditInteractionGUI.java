@@ -271,7 +271,7 @@ public class EditInteractionGUI extends Application {
 					Interaction interaction = new Interaction(oListPerson1Selected, oListPerson2Selected, location,
 							date, interactionType, citation, notes, false);
 					if (DataCollections.checkForInteractionDuplicates(interaction) >= 0) {
-						Alert alert = new Alert(AlertType.INFORMATION);
+						Alert alert = new Alert(AlertType.ERROR);
 						alert.setTitle("Error");
 						alert.setHeaderText("That interaction has already been entered.");
 						alert.setContentText("Interaction already exists.");
