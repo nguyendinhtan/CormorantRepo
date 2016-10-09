@@ -59,7 +59,7 @@ public class EditVocabGUI extends Application {
 		grid.add(queryBox, 0, 1);
 		grid.add(listView, 1, 2);
 		grid.add(vocabListLabel, 0, 2);
-		grid.add(addButton, 0, 4);
+		grid.add(backButton, 0, 4);
 		grid.add(controlledVocabBox, 1, 4);
 		grid.add(buttonGroup, 1, 4);
 
@@ -91,12 +91,11 @@ public class EditVocabGUI extends Application {
 
 		// Controlled Vocab Group Methods
 		controlledVocabBox.setAlignment(Pos.CENTER_RIGHT);
-		controlledVocabBox.getChildren().add(backButton);
+		controlledVocabBox.getChildren().add(addButton);
 
 		// Add Button Methods
 		addButton.setTextFill(Color.BLACK);
-		addButton.setTextFill(Color.WHITE);
-		addButton.setStyle("-fx-base: #FF0000");
+		addButton.setStyle("-fx-base: #FFFFFF");
 		addButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
@@ -195,8 +194,8 @@ public class EditVocabGUI extends Application {
 		});
 
 		// Back Button Methods
-		backButton.setTextFill(Color.WHITE);
-		backButton.setStyle("-fx-base: #FF0000");
+		backButton.setTextFill(Color.BLACK);
+		backButton.setStyle("-fx-base: #FFFFFF");
 		backButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
@@ -212,7 +211,7 @@ public class EditVocabGUI extends Application {
 
 		// Button Group Methods
 		buttonGroup.getChildren().add(removeButton);
-		buttonGroup.getChildren().add(backButton);
+		buttonGroup.getChildren().add(addButton);
 
 		// List View Methods
 		listView.setMinSize(100, 100);
