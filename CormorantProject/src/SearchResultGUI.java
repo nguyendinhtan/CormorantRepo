@@ -54,15 +54,13 @@ public class SearchResultGUI extends Application {
 
 		// Styling of Buttons
 		btnEdit.setTextFill(Color.BLACK);
-		btnEdit.setTextFill(Color.WHITE);
-		btnEdit.setStyle("-fx-base: #FF0000");
+		btnEdit.setStyle("-fx-base: #FFFFFF");
 
-		btnDelete.setTextFill(Color.WHITE);
-		btnDelete.setStyle("-fx-base: #FF0000");
-		btnDelete.setTextFill(Color.WHITE);
+		btnDelete.setTextFill(Color.BLACK);
+		btnDelete.setStyle("-fx-base: #FFFFFF");
 
-		btnBack.setTextFill(Color.WHITE);
-		btnBack.setStyle("-fx-base: #FF0000");
+		btnBack.setTextFill(Color.BLACK);
+		btnBack.setStyle("-fx-base: #FFFFFF");
 
 		// Action for back button to return program to the home screen
 		btnBack.setOnAction(new EventHandler<ActionEvent>() {
@@ -81,9 +79,9 @@ public class SearchResultGUI extends Application {
 
 		// adds buttons to box
 
-		hbBtn.getChildren().add(btnEdit);
-		hbBtn.getChildren().add(btnDelete);
 		hbBtn.getChildren().add(btnBack);
+		hbBtn.getChildren().add(btnDelete);
+		hbBtn.getChildren().add(btnEdit);
 
 		// adds box and list view to grid for display
 

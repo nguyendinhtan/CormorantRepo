@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.Collections;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
@@ -96,7 +97,7 @@ public class AddInteractionGUI extends Application {
 		grid.add(citationTextField, 1, 7);
 		grid.add(notesLabelBox, 0, 8);
 		grid.add(notesTextArea, 1, 8);
-		grid.add(addInteractionButton, 0, 9);
+		grid.add(backButton, 0, 9);
 		grid.add(buttonBox, 1, 9);
 
 		// Person Label Box Methods
@@ -128,9 +129,9 @@ public class AddInteractionGUI extends Application {
 		buttonList2Box.getChildren().add(addPerson2Button);
 
 		// Add Person 1 Button Methods
-		addPerson1Button.setTextFill(Color.WHITE);
+		addPerson1Button.setTextFill(Color.BLACK);
 
-		addPerson1Button.setStyle("-fx-base: #FF0000");
+		addPerson1Button.setStyle("-fx-base: #FFFFFF");
 
 		addPerson1Button.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
@@ -150,8 +151,8 @@ public class AddInteractionGUI extends Application {
 
 		// Add Person 2 Button Methods
 
-		addPerson2Button.setTextFill(Color.WHITE);
-		addPerson2Button.setStyle("-fx-base: #FF0000");
+		addPerson2Button.setTextFill(Color.BLACK);
+		addPerson2Button.setStyle("-fx-base: #FFFFFF");
 
 		addPerson2Button.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
@@ -237,8 +238,8 @@ public class AddInteractionGUI extends Application {
 		notesTextArea.setMaxSize(450, 100);
 
 		// Add Interaction Button Methods
-		addInteractionButton.setTextFill(Color.WHITE);
-		addInteractionButton.setStyle("-fx-base: #FF0000");
+		addInteractionButton.setTextFill(Color.BLACK);
+		addInteractionButton.setStyle("-fx-base: #FFFFFF");
 		addInteractionButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
@@ -275,7 +276,15 @@ public class AddInteractionGUI extends Application {
 						alert.setContentText("Interaction already exists.");
 						alert.showAndWait();
 					} else {
-						DataCollections.addInteraction(interaction);
+						CSVUtil.addInteraction(interaction);
+						try {
+							CSVUtil.saveInteractions("data/Interaction.csv");
+						} catch (IOException e1) {
+							Alert alert = new Alert(AlertType.ERROR);
+							alert.setTitle("Error");
+							alert.setHeaderText("Invalid characters entered.");
+							alert.setContentText(e1.toString());
+						}
 						Alert alert = new Alert(AlertType.INFORMATION);
 						alert.setTitle("Interaction Added");
 						alert.setHeaderText("Interaction was added to list");
@@ -307,8 +316,8 @@ public class AddInteractionGUI extends Application {
 
 		// Back Button Methods
 
-		backButton.setTextFill(Color.WHITE);
-		backButton.setStyle("-fx-base: #FF0000");
+		backButton.setTextFill(Color.BLACK);
+		backButton.setStyle("-fx-base: #FFFFFF");
 		backButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
@@ -323,7 +332,7 @@ public class AddInteractionGUI extends Application {
 		});
 
 		// Button Box Methods
-		buttonBox.getChildren().add(backButton);
+		buttonBox.getChildren().add(addInteractionButton);
 		buttonBox.setAlignment(Pos.CENTER_RIGHT);
 
 		// Primary Stage Methods
