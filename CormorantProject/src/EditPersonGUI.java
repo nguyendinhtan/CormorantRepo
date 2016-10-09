@@ -70,7 +70,7 @@ public class EditPersonGUI extends Application {
 		grid.add(occupationDropDown, 1, 3);
 		grid.add(notesLabelBox, 0, 4);
 		grid.add(notesTextArea, 1, 4);
-		grid.add(addPersonButton, 0, 6);
+		grid.add(backButton, 0, 6);
 		grid.add(buttonBox, 1, 6);
 
 		// Gender Methods
@@ -91,8 +91,7 @@ public class EditPersonGUI extends Application {
 
 		// Add Person Buttons
 		addPersonButton.setTextFill(Color.BLACK);
-		addPersonButton.setTextFill(Color.WHITE);
-		addPersonButton.setStyle("-fx-base: #FF0000");
+		addPersonButton.setStyle("-fx-base: #FFFFFF");
 		addPersonButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
@@ -163,8 +162,8 @@ public class EditPersonGUI extends Application {
 		});
 
 		// Back Button Methods
-		backButton.setTextFill(Color.WHITE);
-		backButton.setStyle("-fx-base: #FF0000");
+		backButton.setTextFill(Color.BLACK);
+		backButton.setStyle("-fx-base: #FFFFFF");
 		backButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
@@ -175,7 +174,7 @@ public class EditPersonGUI extends Application {
 		});
 
 		// Button Box
-		buttonBox.getChildren().add(backButton);
+		buttonBox.getChildren().add(addPersonButton);
 		buttonBox.setAlignment(Pos.CENTER_RIGHT);
 
 		// Primary Stage Methods
