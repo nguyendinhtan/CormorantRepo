@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.Collections;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
@@ -275,7 +276,15 @@ public class AddInteractionGUI extends Application {
 						alert.setContentText("Interaction already exists.");
 						alert.showAndWait();
 					} else {
-						DataCollections.addInteraction(interaction);
+						CSVUtil.addInteraction(interaction);
+						try {
+							CSVUtil.saveInteractions("data/Interaction.csv");
+						} catch (IOException e1) {
+							Alert alert = new Alert(AlertType.ERROR);
+							alert.setTitle("Error");
+							alert.setHeaderText("Invalid characters entered.");
+							alert.setContentText(e1.toString());
+						}
 						Alert alert = new Alert(AlertType.INFORMATION);
 						alert.setTitle("Interaction Added");
 						alert.setHeaderText("Interaction was added to list");

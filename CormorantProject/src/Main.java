@@ -19,7 +19,7 @@ public class Main extends Application {
  		list.addPerson(juan);
    		list.addPerson(anon);*/
 		CSVUtil.loadPerson("data/People.csv");
-
+		CSVUtil.loadInteractions("data/Interaction.csv");
 		ControlledVocab.addLocationVocab("Rock Island");
 		ControlledVocab.addLocationVocab("Moline");
 		ControlledVocab.addLocationVocab("Davenport");
