@@ -1,4 +1,5 @@
 package edu.augustana.csc285.cormorant.ordertracker.gui;
+
 import java.io.IOException;
 
 import edu.augustana.csc285.cormorant.ordertracker.datamodel.CSVUtil;
@@ -13,8 +14,6 @@ import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -128,21 +127,27 @@ public class AddPersonGUI extends Application {
 					Person person = new Person(id, name, gender, culture, occupation, notes);
 					if (person.checkForUnallowedInput(person.getName(), person.getCulture(),
 							person.getOccupation()) < 0) {
-						ErrorGUI.showError("Invalid Characters Entered", "Make sure no numbers or special characters are entered in the Name, Culture or Occupation fields");
-						/*Alert alert = new Alert(AlertType.ERROR);
-						alert.setTitle("Error");
-						alert.setHeaderText("Invalid characters entered.");
-						alert.setContentText(
+						DialogGUI.showError("Invalid Characters Entered",
 								"Make sure no numbers or special characters are entered in the Name, Culture or Occupation fields");
-						alert.showAndWait();*/
+						/*
+						 * Alert alert = new Alert(AlertType.ERROR);
+						 * alert.setTitle("Error");
+						 * alert.setHeaderText("Invalid characters entered.");
+						 * alert.setContentText(
+						 * "Make sure no numbers or special characters are entered in the Name, Culture or Occupation fields"
+						 * ); alert.showAndWait();
+						 */
 					} else if (DataCollections.checkForPersonDuplicates(person) > 0) {
-						ErrorGUI.showError("Duplicate Person Entered", "Person already exists." + person.toString());
-						/*Alert alert = new Alert(AlertType.ERROR);
-						alert.setTitle("Error");
-						alert.setHeaderText("That person has already been entered.");
-						alert.setContentText("Person already exists. (ID number:"
-								+ DataCollections.checkForPersonDuplicates(person) + ")");
-						alert.showAndWait();*/
+						DialogGUI.showError("Duplicate Person Entered", "Person already exists." + person.toString());
+						/*
+						 * Alert alert = new Alert(AlertType.ERROR);
+						 * alert.setTitle("Error"); alert.
+						 * setHeaderText("That person has already been entered."
+						 * ); alert.
+						 * setContentText("Person already exists. (ID number:" +
+						 * DataCollections.checkForPersonDuplicates(person) +
+						 * ")"); alert.showAndWait();
+						 */
 					} else {
 						// DataCollections.addPerson(person);
 						CSVUtil.addPerson(person);
@@ -150,11 +155,13 @@ public class AddPersonGUI extends Application {
 						try {
 							CSVUtil.savePerson("data/People.csv");
 						} catch (IOException error) {
-							ErrorGUI.showError("Couldn't save Person object.", error.toString());
-							/*Alert alert = new Alert(AlertType.ERROR);
-							alert.setTitle("Error");
-							alert.setHeaderText("Invalid characters entered.");
-							alert.setContentText(error.toString());*/
+							DialogGUI.showError("Couldn't save Person object.", error.toString());
+							/*
+							 * Alert alert = new Alert(AlertType.ERROR);
+							 * alert.setTitle("Error");
+							 * alert.setHeaderText("Invalid characters entered."
+							 * ); alert.setContentText(error.toString());
+							 */
 						}
 						// Testing method to check list
 						/*
@@ -163,10 +170,11 @@ public class AddPersonGUI extends Application {
 						 * System.out.println(personList.getPersonCollection().
 						 * get(i).toString()); }
 						 */
-						Alert alert = new Alert(AlertType.INFORMATION);
+						DialogGUI.showInfo("Person Added", "Person was added to list.");
+						/*Alert alert = new Alert(AlertType.INFORMATION);
 						alert.setTitle("Person Added");
 						alert.setHeaderText("Person was added to list");
-						alert.showAndWait();
+						alert.showAndWait();*/
 						nameTextField.clear();
 						genderDropDown.setValue(null);
 						cultureDropDown.setValue(null);

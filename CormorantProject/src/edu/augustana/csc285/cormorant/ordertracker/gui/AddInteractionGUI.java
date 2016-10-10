@@ -15,8 +15,6 @@ import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -274,7 +272,7 @@ public class AddInteractionGUI extends Application {
 					Interaction interaction = new Interaction(oListPerson1Selected, oListPerson2Selected, location,
 							date, interactionType, citation, notes, false);
 					if (DataCollections.checkForInteractionDuplicates(interaction) >= 0) {
-						ErrorGUI.showError("Duplicate Interaction Entered", "Interaction already exists." + interaction.toString());
+						DialogGUI.showError("Duplicate Interaction Entered", "Interaction already exists." + interaction.toString());
 						/*Alert alert = new Alert(AlertType.ERROR);
 						alert.setTitle("Error");
 						alert.setHeaderText("That interaction has already been entered.");
@@ -285,16 +283,17 @@ public class AddInteractionGUI extends Application {
 						try {
 							CSVUtil.saveInteractions("data/Interaction.csv");
 						} catch (IOException error) {
-							ErrorGUI.showError("Couldn't Save Interaction to CSV", error.toString());
+							DialogGUI.showError("Couldn't Save Interaction to CSV", error.toString());
 							/*Alert alert = new Alert(AlertType.ERROR);
 							alert.setTitle("Error");
 							alert.setHeaderText("Invalid characters entered.");
 							alert.setContentText(e1.toString());*/
 						}
-						Alert alert = new Alert(AlertType.INFORMATION);
+						DialogGUI.showInfo("Interaction Added", "Interaction was added to list.");
+						/*Alert alert = new Alert(AlertType.INFORMATION);
 						alert.setTitle("Interaction Added");
 						alert.setHeaderText("Interaction was added to list");
-						alert.showAndWait();
+						alert.showAndWait();*/
 						
 						oListPerson1Selected.clear();
 						oListPerson2Selected.clear();
