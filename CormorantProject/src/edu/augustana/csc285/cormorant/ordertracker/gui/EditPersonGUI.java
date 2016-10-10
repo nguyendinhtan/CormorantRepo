@@ -1,4 +1,7 @@
-import java.io.IOException;
+package edu.augustana.csc285.cormorant.ordertracker.gui;
+import edu.augustana.csc285.cormorant.ordertracker.datamodel.ControlledVocab;
+import edu.augustana.csc285.cormorant.ordertracker.datamodel.DataCollections;
+import edu.augustana.csc285.cormorant.ordertracker.datamodel.Person;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -19,23 +22,18 @@ import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
-/**
- * 
- * Add Person GUI view class.
- */
-
-public class AddPersonGUI extends Application {
+public class EditPersonGUI extends Application {
 	private ObservableList<String> oListCulture;
 	private ObservableList<String> oListOccupation;
-
-	public void start(Stage primaryStage) throws Exception {
+	public void start(Stage primaryStage) {
 		System.setProperty("glass.accessible.force", "false"); // Fixes bug of
 																// combobox
 																// crashing when
 																// running on
 																// certain
 																// computers
-
+		// Removes person from list
+		DataCollections.getPersonCollection().remove(SearchResultGUI.getSelectedPerson());
 		// GUI Variables
 		GridPane grid = new GridPane();
 		Scene scene = new Scene(grid, 500, 400);
@@ -49,12 +47,18 @@ public class AddPersonGUI extends Application {
 		TextArea notesTextArea = new TextArea();
 		ComboBox<String> occupationDropDown = new ComboBox<String>();
 		ComboBox<String> genderDropDown = new ComboBox<String>();
-		Button addPersonButton = new Button("Add Person");
+		Button addPersonButton = new Button("Done");
 		Button backButton = new Button("Back");
 		HBox notesLabelBox = new HBox();
 		HBox buttonBox = new HBox();
-		oListCulture = FXCollections.observableArrayList(ControlledVocab.getCultureVocab());
-		oListOccupation = FXCollections.observableArrayList(ControlledVocab.getOccupationVocab());
+		oListCulture=FXCollections.observableArrayList(ControlledVocab.getCultureVocab());
+		oListOccupation=FXCollections.observableArrayList(ControlledVocab.getOccupationVocab());
+		nameTextField.setText(SearchResultGUI.getSelectedPerson().getName());
+		genderDropDown.setValue(SearchResultGUI.getSelectedPerson().getGender());
+		cultureDropDown.setValue(SearchResultGUI.getSelectedPerson().getCulture());
+		occupationDropDown.setValue(SearchResultGUI.getSelectedPerson().getOccupation());
+		notesTextArea.setText(SearchResultGUI.getSelectedPerson().getNotes());
+
 		// Grid Methods
 		grid.setAlignment(Pos.CENTER);
 		grid.setHgap(10);
@@ -76,97 +80,86 @@ public class AddPersonGUI extends Application {
 		// Gender Methods
 		genderDropDown.getItems().addAll("Male", "Female", "Unknown");
 		genderDropDown.setMinSize(300, 10);
-
+		
 		// Culture Methods
 		cultureDropDown.getItems().addAll(oListCulture);
 		cultureDropDown.setMinSize(300, 10);
 		// Occupation Methods
 		occupationDropDown.getItems().addAll(oListOccupation);
 		occupationDropDown.setMinSize(300, 10);
-
+		
 		// Notes Label Box
 		notesLabelBox.getChildren().add(notesLabel);
 		notesLabelBox.setAlignment(Pos.TOP_LEFT);
 		notesTextArea.setMaxSize(300, 100);
 
 		// Add Person Buttons
-		// addPersonButton.setTextFill(Color.BLACK);
 		addPersonButton.setTextFill(Color.BLACK);
 		addPersonButton.setStyle("-fx-base: #FFFFFF");
 		addPersonButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
-				int id = DataCollections.getPersonCollection().size() + 1;
+				int id = SearchResultGUI.getSelectedPerson().getID();
 				String name = nameTextField.getText();
 				String gender = genderDropDown.getValue();
 				String culture = cultureDropDown.getValue();
 				String occupation = occupationDropDown.getValue();
 				String notes = notesTextArea.getText();
-				if (!(name.isEmpty() && gender == null && culture.isEmpty() && occupation.isEmpty()
-						&& notes.isEmpty())) {
+				if (name.isEmpty() && gender == null && culture.isEmpty() && occupation.isEmpty() && notes.isEmpty()) {
+
+				} else {
 					if (name.isEmpty()) {
 						name = "Anonymous";
 					}
 					if (gender == null) {
 						gender = "Unknown";
 					}
-					if (culture == null) {
+					if (culture==null) {
 						culture = "Unknown";
 					}
-					if (occupation == null) {
+					if (occupation==null) {
 						occupation = "Unknown";
 					}
 					if (notes.isEmpty()) {
 						notes = "none";
 					}
 					Person person = new Person(id, name, gender, culture, occupation, notes);
-					if (person.checkForUnallowedInput(person.getName(), person.getCulture(),
-							person.getOccupation()) < 0) {
-						ErrorGUI.showError("Invalid Characters Entered", "Make sure no numbers or special characters are entered in the Name, Culture or Occupation fields");
-						/*Alert alert = new Alert(AlertType.ERROR);
+					if (person.checkForUnallowedInput(person.getName(), person.getCulture(), person.getCulture()) < 0) {
+						Alert alert = new Alert(AlertType.INFORMATION);
 						alert.setTitle("Error");
 						alert.setHeaderText("Invalid characters entered.");
 						alert.setContentText(
 								"Make sure no numbers or special characters are entered in the Name, Culture or Occupation fields");
-						alert.showAndWait();*/
+						alert.showAndWait();
 					} else if (DataCollections.checkForPersonDuplicates(person) > 0) {
-						ErrorGUI.showError("Duplicate Person Entered", "Person already exists." + person.toString());
-						/*Alert alert = new Alert(AlertType.ERROR);
+						Alert alert = new Alert(AlertType.INFORMATION);
 						alert.setTitle("Error");
 						alert.setHeaderText("That person has already been entered.");
 						alert.setContentText("Person already exists. (ID number:"
 								+ DataCollections.checkForPersonDuplicates(person) + ")");
-						alert.showAndWait();*/
-					} else {
-						// DataCollections.addPerson(person);
-						CSVUtil.addPerson(person);
-
-						try {
-							CSVUtil.savePerson("data/People.csv");
-						} catch (IOException error) {
-							ErrorGUI.showError("Couldn't save Person object.", error.toString());
-							/*Alert alert = new Alert(AlertType.ERROR);
-							alert.setTitle("Error");
-							alert.setHeaderText("Invalid characters entered.");
-							alert.setContentText(error.toString());*/
-						}
-						// Testing method to check list
-						/*
-						 * for (int i = 0; i <
-						 * personList.getPersonCollection().size(); i++) {
-						 * System.out.println(personList.getPersonCollection().
-						 * get(i).toString()); }
-						 */
-						Alert alert = new Alert(AlertType.INFORMATION);
-						alert.setTitle("Person Added");
-						alert.setHeaderText("Person was added to list");
 						alert.showAndWait();
-						nameTextField.clear();
-						genderDropDown.setValue(null);
-						cultureDropDown.setValue(null);
-						occupationDropDown.setValue(null);
-						notesTextArea.clear();
-
+					} else {
+						DataCollections.addPerson(person);
+						for (int i = 0; i < DataCollections.getInteractionCollection().size(); i++) {
+							for (int j = 0; j < DataCollections.getInteractionCollection().get(i).getPeople1()
+									.size(); j++) {
+								if (DataCollections.getInteractionCollection().get(i).getPeople1().get(j)
+										.equals(SearchResultGUI.getSelectedPerson())) {
+									DataCollections.getInteractionCollection().get(i).getPeople1().get(j)
+											.replacePerson(person);
+								}
+							}
+							for (int j = 0; j < DataCollections.getInteractionCollection().get(i).getPeople2()
+									.size(); j++) {
+								if (DataCollections.getInteractionCollection().get(i).getPeople2().get(j)
+										.equals(SearchResultGUI.getSelectedPerson())) {
+									DataCollections.getInteractionCollection().get(i).getPeople2().get(j)
+											.replacePerson(person);
+								}
+							}
+						}
+						SearchResultGUI searchGUI = new SearchResultGUI();
+						searchGUI.start(primaryStage);
 					}
 				}
 			}
@@ -178,13 +171,9 @@ public class AddPersonGUI extends Application {
 		backButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
-				HomeGUI Homegui = new HomeGUI();
-				try {
-					Homegui.start(primaryStage);
-				} catch (Exception e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+				DataCollections.addPerson(SearchResultGUI.getSelectedPerson());
+				SearchResultGUI searchGUI = new SearchResultGUI();
+				searchGUI.start(primaryStage);
 			}
 		});
 
@@ -193,7 +182,7 @@ public class AddPersonGUI extends Application {
 		buttonBox.setAlignment(Pos.CENTER_RIGHT);
 
 		// Primary Stage Methods
-		primaryStage.setTitle("Insert Person");
+		primaryStage.setTitle("Edit Person");
 		primaryStage.setScene(scene);
 		primaryStage.show();
 	}

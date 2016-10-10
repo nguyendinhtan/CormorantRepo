@@ -1,6 +1,12 @@
+package edu.augustana.csc285.cormorant.ordertracker.gui;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import edu.augustana.csc285.cormorant.ordertracker.datamodel.ControlledVocab;
+import edu.augustana.csc285.cormorant.ordertracker.datamodel.DataCollections;
+import edu.augustana.csc285.cormorant.ordertracker.datamodel.Interaction;
+import edu.augustana.csc285.cormorant.ordertracker.datamodel.Person;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

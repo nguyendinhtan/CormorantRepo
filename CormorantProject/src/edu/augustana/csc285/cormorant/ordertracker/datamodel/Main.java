@@ -1,3 +1,5 @@
+package edu.augustana.csc285.cormorant.ordertracker.datamodel;
+import edu.augustana.csc285.cormorant.ordertracker.gui.HomeGUI;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -16,8 +18,8 @@ public class Main extends Application {
    		list.addPerson(jared);
  		list.addPerson(juan);
    		list.addPerson(anon);*/
-		CSVUtil.loadPerson("data/People.csv");
-		CSVUtil.loadInteractions("data/Interaction.csv");
+		CSVUtil.loadPerson("../data/People.csv");
+		CSVUtil.loadInteractions("../data/Interaction.csv");
 		ControlledVocab.addLocationVocab("Rock Island");
 		ControlledVocab.addLocationVocab("Moline");
 		ControlledVocab.addLocationVocab("Davenport");

@@ -1,3 +1,5 @@
+package edu.augustana.csc285.cormorant.ordertracker.datamodel;
+
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -11,8 +13,8 @@ import com.opencsv.CSVWriter;
 
 public class CSVUtil {
 
-	private static Map<Integer, Person> personMap= new TreeMap<>();
-	private static List<Interaction> interactions= new ArrayList<>();
+	private static Map<Integer, Person> personMap = new TreeMap<>();
+	private static List<Interaction> interactions = new ArrayList<>();
 	private static CSVReader reader;
 	private static CSVWriter writer;
 
@@ -43,7 +45,8 @@ public class CSVUtil {
 
 	public static void addPersonList(List<Person> persons) {
 		for (int i = 0; i < persons.size(); i++) {
-			personMap.put(persons.get(i).getID(), persons.get(i));		}
+			personMap.put(persons.get(i).getID(), persons.get(i));
+		}
 	}
 
 	/**
