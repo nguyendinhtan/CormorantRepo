@@ -1,4 +1,5 @@
 package edu.augustana.csc285.cormorant.ordertracker.datamodel;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,10 +13,11 @@ import java.util.List;
 
 public class ControlledVocab {
 
-	private static List<String> locationVocab= new ArrayList<String>();
-	private static List<String> interactionTypeVocab= new ArrayList<String>();
-	private static List<String> cultureVocab= new ArrayList<String>();
-	private static List<String> occupationVocab=new ArrayList<String>();
+	private static List<String> locationVocab = new ArrayList<String>();
+	private static List<String> interactionTypeVocab = new ArrayList<String>();
+	private static List<String> cultureVocab = new ArrayList<String>();
+	private static List<String> occupationVocab = new ArrayList<String>();
+
 	public static List<String> getLocationVocab() {
 		return locationVocab;
 	}
@@ -27,8 +29,8 @@ public class ControlledVocab {
 	public static List<String> getCultureVocab() {
 		return cultureVocab;
 	}
-	
-	public static List<String> getOccupationVocab(){
+
+	public static List<String> getOccupationVocab() {
 		return occupationVocab;
 	}
 
@@ -37,7 +39,7 @@ public class ControlledVocab {
 			locationVocab.remove(vocabIndex);
 		} else if (listType == "Interaction Type") {
 			interactionTypeVocab.remove(vocabIndex);
-		}else if (listType=="Occupation"){
+		} else if (listType == "Occupation") {
 			occupationVocab.remove(vocabIndex);
 		} else {
 			cultureVocab.remove(vocabIndex);
@@ -58,10 +60,10 @@ public class ControlledVocab {
 		cultureVocab.add(culture);
 		cultureVocab.sort(null);
 	}
-	
-	public static void addOccupationVocab(String occupation){
+
+	public static void addOccupationVocab(String occupation) {
 		occupationVocab.add(occupation);
-		occupationVocab.sort(null);	
+		occupationVocab.sort(null);
 	}
 
 	public static int checkForUnallowedInput(String vocab) {

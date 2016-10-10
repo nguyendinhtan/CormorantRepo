@@ -1,4 +1,5 @@
 package edu.augustana.csc285.cormorant.ordertracker.datamodel;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -9,10 +10,9 @@ import java.util.List;
 public class DataCollections {
 
 	/** The person collection. */
-	private static List<Person> personCollection =new ArrayList<>();
+	private static List<Person> personCollection = new ArrayList<>();
 	/** The interaction collection. */
 	private static List<Interaction> interactionCollection = new ArrayList<>();
-
 
 	public static List<Person> getPersonCollection() {
 		return personCollection;
@@ -104,7 +104,6 @@ public class DataCollections {
 	 *            the notes
 	 */
 
-
 	// checks for duplicates in person list and returns the id of the person if
 	// there is a duplicate and -1 if there isn't
 	public static int checkForPersonDuplicates(Person person) {
@@ -140,5 +139,3 @@ public class DataCollections {
 	}
 
 }
-
-	

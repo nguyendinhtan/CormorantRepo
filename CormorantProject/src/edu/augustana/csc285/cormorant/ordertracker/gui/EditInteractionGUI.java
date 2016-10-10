@@ -1,4 +1,5 @@
 package edu.augustana.csc285.cormorant.ordertracker.gui;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;

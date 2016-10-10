@@ -1,4 +1,5 @@
 package edu.augustana.csc285.cormorant.ordertracker.gui;
+
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 
@@ -12,7 +13,7 @@ public class DialogGUI {
 		alert.showAndWait();
 	}
 
-	public static void showInfo(String headerText, String infoText){
+	public static void showInfo(String headerText, String infoText) {
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle(headerText);
 		alert.setHeaderText(infoText);

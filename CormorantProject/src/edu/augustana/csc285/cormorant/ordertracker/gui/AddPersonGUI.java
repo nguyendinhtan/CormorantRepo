@@ -171,10 +171,12 @@ public class AddPersonGUI extends Application {
 						 * get(i).toString()); }
 						 */
 						DialogGUI.showInfo("Person Added", "Person was added to list.");
-						/*Alert alert = new Alert(AlertType.INFORMATION);
-						alert.setTitle("Person Added");
-						alert.setHeaderText("Person was added to list");
-						alert.showAndWait();*/
+						/*
+						 * Alert alert = new Alert(AlertType.INFORMATION);
+						 * alert.setTitle("Person Added");
+						 * alert.setHeaderText("Person was added to list");
+						 * alert.showAndWait();
+						 */
 						nameTextField.clear();
 						genderDropDown.setValue(null);
 						cultureDropDown.setValue(null);
