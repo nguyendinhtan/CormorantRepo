@@ -27,7 +27,8 @@ import javafx.stage.Stage;
 public class AddPersonGUI extends Application {
 	private ObservableList<String> oListCulture;
 	private ObservableList<String> oListOccupation;
-	public void start(Stage primaryStage) throws Exception{
+
+	public void start(Stage primaryStage) throws Exception {
 		System.setProperty("glass.accessible.force", "false"); // Fixes bug of
 																// combobox
 																// crashing when
@@ -52,8 +53,8 @@ public class AddPersonGUI extends Application {
 		Button backButton = new Button("Back");
 		HBox notesLabelBox = new HBox();
 		HBox buttonBox = new HBox();
-		oListCulture=FXCollections.observableArrayList(ControlledVocab.getCultureVocab());
-		oListOccupation=FXCollections.observableArrayList(ControlledVocab.getOccupationVocab());
+		oListCulture = FXCollections.observableArrayList(ControlledVocab.getCultureVocab());
+		oListOccupation = FXCollections.observableArrayList(ControlledVocab.getOccupationVocab());
 		// Grid Methods
 		grid.setAlignment(Pos.CENTER);
 		grid.setHgap(10);
@@ -75,7 +76,7 @@ public class AddPersonGUI extends Application {
 		// Gender Methods
 		genderDropDown.getItems().addAll("Male", "Female", "Unknown");
 		genderDropDown.setMinSize(300, 10);
-		
+
 		// Culture Methods
 		cultureDropDown.getItems().addAll(oListCulture);
 		cultureDropDown.setMinSize(300, 10);
@@ -89,7 +90,7 @@ public class AddPersonGUI extends Application {
 		notesTextArea.setMaxSize(300, 100);
 
 		// Add Person Buttons
-		//addPersonButton.setTextFill(Color.BLACK);
+		// addPersonButton.setTextFill(Color.BLACK);
 		addPersonButton.setTextFill(Color.BLACK);
 		addPersonButton.setStyle("-fx-base: #FFFFFF");
 		addPersonButton.setOnAction(new EventHandler<ActionEvent>() {
@@ -101,19 +102,18 @@ public class AddPersonGUI extends Application {
 				String culture = cultureDropDown.getValue();
 				String occupation = occupationDropDown.getValue();
 				String notes = notesTextArea.getText();
-				if (name.isEmpty() && gender == null && culture.isEmpty() && occupation.isEmpty() && notes.isEmpty()) {
-
-				} else {
+				if (!(name.isEmpty() && gender == null && culture.isEmpty() && occupation.isEmpty()
+						&& notes.isEmpty())) {
 					if (name.isEmpty()) {
 						name = "Anonymous";
 					}
 					if (gender == null) {
 						gender = "Unknown";
 					}
-					if (culture==null) {
+					if (culture == null) {
 						culture = "Unknown";
 					}
-					if (occupation==null) {
+					if (occupation == null) {
 						occupation = "Unknown";
 					}
 					if (notes.isEmpty()) {
@@ -122,31 +122,33 @@ public class AddPersonGUI extends Application {
 					Person person = new Person(id, name, gender, culture, occupation, notes);
 					if (person.checkForUnallowedInput(person.getName(), person.getCulture(),
 							person.getOccupation()) < 0) {
-						Alert alert = new Alert(AlertType.ERROR);
+						ErrorGUI.showError("Invalid Characters Entered", "Make sure no numbers or special characters are entered in the Name, Culture or Occupation fields");
+						/*Alert alert = new Alert(AlertType.ERROR);
 						alert.setTitle("Error");
 						alert.setHeaderText("Invalid characters entered.");
 						alert.setContentText(
 								"Make sure no numbers or special characters are entered in the Name, Culture or Occupation fields");
-						alert.showAndWait();
+						alert.showAndWait();*/
 					} else if (DataCollections.checkForPersonDuplicates(person) > 0) {
-						Alert alert = new Alert(AlertType.ERROR);
+						ErrorGUI.showError("Duplicate Person Entered", "Person already exists." + person.toString());
+						/*Alert alert = new Alert(AlertType.ERROR);
 						alert.setTitle("Error");
 						alert.setHeaderText("That person has already been entered.");
-						alert.setContentText(
-								"Person already exists. (ID number:" + DataCollections.checkForPersonDuplicates(person) + ")");
-						alert.showAndWait();
+						alert.setContentText("Person already exists. (ID number:"
+								+ DataCollections.checkForPersonDuplicates(person) + ")");
+						alert.showAndWait();*/
 					} else {
-
-						//DataCollections.addPerson(person);
+						// DataCollections.addPerson(person);
 						CSVUtil.addPerson(person);
 
 						try {
 							CSVUtil.savePerson("data/People.csv");
-						} catch (IOException e1) {
-							Alert alert = new Alert(AlertType.ERROR);
+						} catch (IOException error) {
+							ErrorGUI.showError("Couldn't save Person object.", error.toString());
+							/*Alert alert = new Alert(AlertType.ERROR);
 							alert.setTitle("Error");
 							alert.setHeaderText("Invalid characters entered.");
-							alert.setContentText(e1.toString());
+							alert.setContentText(error.toString());*/
 						}
 						// Testing method to check list
 						/*
@@ -195,6 +197,5 @@ public class AddPersonGUI extends Application {
 		primaryStage.setScene(scene);
 		primaryStage.show();
 	}
-
 
 }
