@@ -1,4 +1,6 @@
 package edu.augustana.csc285.cormorant.ordertracker.gui;
+import java.io.File;
+
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -24,8 +26,6 @@ public class HomeGUI extends Application {
 	public static void main(String[] args) {
 		launch(args);
 	}
-
-
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		// GUI Variables
@@ -33,9 +33,9 @@ public class HomeGUI extends Application {
 		Scene scene = new Scene(grid, 700, 300);
 		searchType = new ComboBox<String>();
 		TextField searchTextField = new TextField();
-		Image imageSearch=new Image(getClass().getResourceAsStream("search_icon.png"));
-		Image imagePerson=new Image(getClass().getResourceAsStream("person_icon.png"));
-		Image imageInteraction=new Image(getClass().getResourceAsStream("interaction_icon.png"));
+		Image imageSearch=new Image("search_icon.png");
+		Image imagePerson=new Image("person_icon.png");
+		Image imageInteraction=new Image("interaction_icon.png");
 		ImageView imageSearchView=new ImageView(imageSearch);
 		ImageView imagePersonView=new ImageView(imagePerson);
 		ImageView imageInteractionView=new ImageView(imageInteraction);

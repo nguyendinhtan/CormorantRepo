@@ -38,8 +38,8 @@ public class SearchResultGUI extends Application {
 		Scene scene = new Scene(grid, 600, 400);
 		ListView<Person> personResultsView = new ListView<Person>();
 		ListView<Interaction> interactionResultsView = new ListView<Interaction>();
-		Image imageEdit=new Image(getClass().getResourceAsStream("edit_icon.png"));
-		Image imageDelete=new Image(getClass().getResourceAsStream("delete_icon.png"));
+		Image imageEdit=new Image("edit_icon.png");
+		Image imageDelete=new Image("delete_icon.png");
 		ImageView imageEditView=new ImageView(imageEdit);
 		ImageView imageDeleteView=new ImageView(imageDelete);
 		Button btnEdit = new Button("Edit", imageEditView);
