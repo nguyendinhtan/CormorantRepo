@@ -248,10 +248,7 @@ public class AddInteractionGUI extends Application {
 				String citation = citationTextField.getText();
 				String interactionType = interactionTypeDropDown.getValue();
 				String notes = notesTextArea.getText();
-				if (oListPerson1Selected.isEmpty() && oListPerson2Selected.isEmpty()) {
-
-				} else {
-
+				if (!(oListPerson1Selected.isEmpty() && oListPerson2Selected.isEmpty())) {
 					if (location == null) {
 						location = "Unknown";
 					}
@@ -270,25 +267,28 @@ public class AddInteractionGUI extends Application {
 					Interaction interaction = new Interaction(oListPerson1Selected, oListPerson2Selected, location,
 							date, interactionType, citation, notes, false);
 					if (DataCollections.checkForInteractionDuplicates(interaction) >= 0) {
-						Alert alert = new Alert(AlertType.ERROR);
+						ErrorGUI.showError("Duplicate Interaction Entered", "Interaction already exists." + interaction.toString());
+						/*Alert alert = new Alert(AlertType.ERROR);
 						alert.setTitle("Error");
 						alert.setHeaderText("That interaction has already been entered.");
 						alert.setContentText("Interaction already exists.");
-						alert.showAndWait();
+						alert.showAndWait();*/
 					} else {
 						CSVUtil.addInteraction(interaction);
 						try {
 							CSVUtil.saveInteractions("data/Interaction.csv");
-						} catch (IOException e1) {
-							Alert alert = new Alert(AlertType.ERROR);
+						} catch (IOException error) {
+							ErrorGUI.showError("Couldn't Save Interaction to CSV", error.toString());
+							/*Alert alert = new Alert(AlertType.ERROR);
 							alert.setTitle("Error");
 							alert.setHeaderText("Invalid characters entered.");
-							alert.setContentText(e1.toString());
+							alert.setContentText(e1.toString());*/
 						}
 						Alert alert = new Alert(AlertType.INFORMATION);
 						alert.setTitle("Interaction Added");
 						alert.setHeaderText("Interaction was added to list");
 						alert.showAndWait();
+						
 						oListPerson1Selected.clear();
 						oListPerson2Selected.clear();
 						locationDropDown.setValue(null);
