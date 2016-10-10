@@ -60,7 +60,7 @@ public class Person {
 		this.gender = csvRowData[2];
 		this.culture = csvRowData[3];
 		this.occupation = csvRowData[4];
-		// this.notes = csvRowData[5];
+		this.notes = csvRowData[5];
 	}
 
 	@Override
@@ -78,7 +78,7 @@ public class Person {
 	 */
 
 	public String[] toCSVRowArray() {
-		return new String[] { Integer.toString(id), name, gender, culture, notes };
+		return new String[] { Integer.toString(id), name, gender, culture, occupation, notes };
 	}
 
 	/**
