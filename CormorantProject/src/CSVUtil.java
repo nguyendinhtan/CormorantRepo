@@ -94,6 +94,7 @@ public class CSVUtil {
 			Interaction interaction = new Interaction(personList1, personList2, location, date, interactionType,
 					citation, notes, true);
 			interactions.add(interaction);
+			DataCollections.addInteraction(interaction);
 
 		}
 	}

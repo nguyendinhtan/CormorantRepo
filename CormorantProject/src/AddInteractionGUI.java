@@ -26,11 +26,11 @@ import javafx.stage.Stage;
  *
  */
 public class AddInteractionGUI extends Application {
-	ObservableList<String> oListLocation;
-	ObservableList<String> oListInteractionType;
-	ObservableList<Person> oListPersonDropDown;
-	ObservableList<Person> oListPerson1Selected;
-	ObservableList<Person> oListPerson2Selected;
+	private ObservableList<String> oListLocation;
+	private ObservableList<String> oListInteractionType;
+	private ObservableList<Person> oListPersonDropDown;
+	private ObservableList<Person> oListPerson1Selected;
+	private ObservableList<Person> oListPerson2Selected;
 
 	public void start(Stage primaryStage) throws Exception {
 		System.setProperty("glass.accessible.force", "false"); // Fixes bug of
@@ -258,7 +258,7 @@ public class AddInteractionGUI extends Application {
 					if (date.isEmpty()) {
 						date = "Unknown";
 					}
-					if (citation == null) {
+					if (citation.isEmpty()) {
 						citation = "none";
 					}
 					if (interactionType == null) {

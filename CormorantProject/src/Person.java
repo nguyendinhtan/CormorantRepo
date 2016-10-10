@@ -190,8 +190,12 @@ public class Person {
 		String searchLower=search.toLowerCase();
 		if (searchLower.equals(id)||name.toLowerCase().contains(searchLower)||culture.toLowerCase().contains(searchLower)||occupation.toLowerCase().contains(searchLower)){
 			return 1;
-		}else if (gender.toLowerCase().contains(searchLower)||notes.contains(searchLower)){
+		}else if (gender.toLowerCase().contains(searchLower)){
 			return 2;
+		}else if (notes!=null){
+			if (notes.contains(searchLower)){
+				return 2;
+			}
 		}
 		return -1;
 	}
