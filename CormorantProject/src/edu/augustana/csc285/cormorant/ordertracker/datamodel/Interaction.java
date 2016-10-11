@@ -1,4 +1,5 @@
 package edu.augustana.csc285.cormorant.ordertracker.datamodel;
+
 import java.util.*;
 
 /**
@@ -135,7 +136,6 @@ public class Interaction {
 		return date;
 	}
 
-
 	/**
 	 * Gets the interaction type.
 	 *
@@ -144,7 +144,6 @@ public class Interaction {
 	public String getInteractionType() {
 		return interactionType;
 	}
-
 
 	/**
 	 * Gets the citation.
@@ -163,6 +162,7 @@ public class Interaction {
 	public String getNotes() {
 		return notes;
 	}
+
 	/**
 	 * Checks if is directed.
 	 *

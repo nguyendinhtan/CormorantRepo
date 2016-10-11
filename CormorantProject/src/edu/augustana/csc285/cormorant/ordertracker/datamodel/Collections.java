@@ -1,4 +1,5 @@
 package edu.augustana.csc285.cormorant.ordertracker.datamodel;
+
 import java.util.ArrayList;
 import java.util.List;
 

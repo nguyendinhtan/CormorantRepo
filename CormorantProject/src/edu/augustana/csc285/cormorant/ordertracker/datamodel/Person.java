@@ -1,4 +1,5 @@
 package edu.augustana.csc285.cormorant.ordertracker.datamodel;
+
 import java.util.Comparator;
 
 /**
@@ -59,7 +60,7 @@ public class Person {
 		this.gender = csvRowData[2];
 		this.culture = csvRowData[3];
 		this.occupation = csvRowData[4];
-		// this.notes = csvRowData[5];
+		this.notes = csvRowData[5];
 	}
 
 	@Override
@@ -77,7 +78,7 @@ public class Person {
 	 */
 
 	public String[] toCSVRowArray() {
-		return new String[] { Integer.toString(id), name, gender, culture, notes };
+		return new String[] { Integer.toString(id), name, gender, culture, occupation, notes };
 	}
 
 	/**
@@ -98,7 +99,6 @@ public class Person {
 		return name;
 	}
 
-
 	/**
 	 * Gets the gender.
 	 *
@@ -107,7 +107,6 @@ public class Person {
 	public String getGender() {
 		return gender;
 	}
-
 
 	/**
 	 * Gets the culture.
@@ -118,7 +117,6 @@ public class Person {
 		return culture;
 	}
 
-
 	/**
 	 * Gets the occupation.
 	 *
@@ -128,7 +126,6 @@ public class Person {
 		return occupation;
 	}
 
-
 	/**
 	 * Gets the notes.
 	 *
@@ -137,7 +134,6 @@ public class Person {
 	public String getNotes() {
 		return notes;
 	}
-
 
 	// Checks if invalid chars are entered and returns -1 if there are and 0 if
 	// there aren't
@@ -169,7 +165,6 @@ public class Person {
 	}
 
 	public static Comparator<Person> personNameComparator = new Comparator<Person>() {
-
 		@Override
 		public int compare(Person p1, Person p2) {
 			String name1 = p1.getName().toLowerCase();
@@ -186,19 +181,21 @@ public class Person {
 		this.occupation = person.getOccupation();
 		this.notes = person.getNotes();
 	}
-	//For searching
-	public int contains(String search){
-		String searchLower=search.toLowerCase();
-		if (searchLower.equals(id)||name.toLowerCase().contains(searchLower)||culture.toLowerCase().contains(searchLower)||occupation.toLowerCase().contains(searchLower)){
+
+	// For searching
+	public int contains(String search) {
+		String searchLower = search.toLowerCase();
+		if (searchLower.equals(id) || name.toLowerCase().contains(searchLower)
+				|| culture.toLowerCase().contains(searchLower) || occupation.toLowerCase().contains(searchLower)) {
 			return 1;
-		}else if (gender.toLowerCase().contains(searchLower)){
+		} else if (gender.toLowerCase().contains(searchLower)) {
 			return 2;
-		}else if (notes!=null){
-			if (notes.contains(searchLower)){
+		} else if (notes != null) {
+			if (notes.contains(searchLower)) {
 				return 2;
 			}
 		}
 		return -1;
 	}
-	
+
 }

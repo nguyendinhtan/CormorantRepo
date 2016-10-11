@@ -1,4 +1,5 @@
 package edu.augustana.csc285.cormorant.ordertracker.gui;
+
 import edu.augustana.csc285.cormorant.ordertracker.datamodel.DataCollections;
 import edu.augustana.csc285.cormorant.ordertracker.datamodel.Interaction;
 import edu.augustana.csc285.cormorant.ordertracker.datamodel.Person;
@@ -32,15 +33,16 @@ public class SearchResultGUI extends Application {
 
 	// @override
 	public void start(Stage primaryStage) {
+
 		// GUI Variables
 		GridPane grid = new GridPane();
 		Scene scene = new Scene(grid, 600, 400);
 		ListView<Person> personResultsView = new ListView<Person>();
 		ListView<Interaction> interactionResultsView = new ListView<Interaction>();
-		Image imageEdit=new Image("edit_icon.png");
-		Image imageDelete=new Image("delete_icon.png");
-		ImageView imageEditView=new ImageView(imageEdit);
-		ImageView imageDeleteView=new ImageView(imageDelete);
+		Image imageEdit = new Image("edit_icon.png");
+		Image imageDelete = new Image("delete_icon.png");
+		ImageView imageEditView = new ImageView(imageEdit);
+		ImageView imageDeleteView = new ImageView(imageDelete);
 		Button btnEdit = new Button("Edit", imageEditView);
 		Button btnDelete = new Button("Delete", imageDeleteView);
 		imageEditView.setFitHeight(15);
@@ -96,42 +98,47 @@ public class SearchResultGUI extends Application {
 			personResultsView.setMinSize(400, 300);
 			personResultsView.setMaxSize(400, 300);
 			grid.add(personResultsView, 1, 0);
-			if (HomeGUI.getSearchKey().isEmpty()||HomeGUI.getSearchKey().equals(" ")){
+			if (HomeGUI.getSearchKey().isEmpty() || HomeGUI.getSearchKey().equals(" ")) {
 				oListPersonResults = FXCollections.observableList(DataCollections.getPersonCollection());
+
 			}else{
 				oListPersonResults=FXCollections.observableArrayList(SearchUtil.searchPeople(HomeGUI.getSearchKey()));
 			}
 			personResultsView.setItems(oListPersonResults);
 			btnDelete.setOnAction(new EventHandler<ActionEvent>() {
 
-	            @Override
-	            public void handle(ActionEvent e) {
-	            	int selectedIndex=personResultsView.getSelectionModel().getSelectedIndex();
-	            	if (selectedIndex>=0){
-	            	for (int i=0; i<DataCollections.getInteractionCollection().size(); i++){
-						for (int j=0; j<DataCollections.getInteractionCollection().get(i).getPeople1().size();j++){
-							if(DataCollections.getInteractionCollection().get(i).getPeople1().get(j).equals(personResultsView.getSelectionModel().getSelectedItem())){
-								DataCollections.getInteractionCollection().get(i).getPeople1().remove(j);
+				@Override
+				public void handle(ActionEvent e) {
+					int selectedIndex = personResultsView.getSelectionModel().getSelectedIndex();
+					if (selectedIndex >= 0) {
+						for (int i = 0; i < DataCollections.getInteractionCollection().size(); i++) {
+							for (int j = 0; j < DataCollections.getInteractionCollection().get(i).getPeople1()
+									.size(); j++) {
+								if (DataCollections.getInteractionCollection().get(i).getPeople1().get(j)
+										.equals(personResultsView.getSelectionModel().getSelectedItem())) {
+									DataCollections.getInteractionCollection().get(i).getPeople1().remove(j);
+								}
 							}
-						}
-							for (int j=0; j<DataCollections.getInteractionCollection().get(i).getPeople2().size();j++){
-								if(DataCollections.getInteractionCollection().get(i).getPeople2().get(j).equals(personResultsView.getSelectionModel().getSelectedItem())){
+							for (int j = 0; j < DataCollections.getInteractionCollection().get(i).getPeople2()
+									.size(); j++) {
+								if (DataCollections.getInteractionCollection().get(i).getPeople2().get(j)
+										.equals(personResultsView.getSelectionModel().getSelectedItem())) {
 									DataCollections.getInteractionCollection().get(i).getPeople2().remove(j);
 								}
 							}
+						}
+						oListPersonResults.remove(selectedIndex);
 					}
-	            	oListPersonResults.remove(selectedIndex);
-	            	}
-	            	
-	            }
-	        });
+
+				}
+			});
 
 			btnEdit.setOnAction(new EventHandler<ActionEvent>() {
 				@Override
 				public void handle(ActionEvent e) {
 					int selectedIndex = personResultsView.getSelectionModel().getSelectedIndex();
 					if (selectedIndex >= 0) {
-						selectedPerson=personResultsView.getSelectionModel().getSelectedItem();
+						selectedPerson = personResultsView.getSelectionModel().getSelectedItem();
 						EditPersonGUI editPerson = new EditPersonGUI();
 						editPerson.start(primaryStage);
 					}
@@ -164,7 +171,7 @@ public class SearchResultGUI extends Application {
 				public void handle(ActionEvent e) {
 					int selectedIndex = interactionResultsView.getSelectionModel().getSelectedIndex();
 					if (selectedIndex >= 0) {
-						selectedInteraction=interactionResultsView.getSelectionModel().getSelectedItem();
+						selectedInteraction = interactionResultsView.getSelectionModel().getSelectedItem();
 						EditInteractionGUI interactionEdit = new EditInteractionGUI();
 						interactionEdit.start(primaryStage);
 					}
@@ -178,11 +185,12 @@ public class SearchResultGUI extends Application {
 		primaryStage.setScene(scene);
 		primaryStage.show();
 	}
-	public static Person getSelectedPerson(){
+
+	public static Person getSelectedPerson() {
 		return selectedPerson;
 	}
-	
-	public static Interaction getSelectedInteraction(){
+
+	public static Interaction getSelectedInteraction() {
 		return selectedInteraction;
 	}
 

@@ -1,4 +1,5 @@
 package edu.augustana.csc285.cormorant.ordertracker.gui;
+
 import edu.augustana.csc285.cormorant.ordertracker.datamodel.ControlledVocab;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
@@ -80,8 +81,8 @@ public class EditVocabGUI extends Application {
 				} else if (vocabDropDown.getValue().equals("Culture")) {
 					observableListVocab = FXCollections.observableArrayList(ControlledVocab.getCultureVocab());
 
-				}else if (vocabDropDown.getValue().equals("Occupation")){
-					observableListVocab=FXCollections.observableArrayList(ControlledVocab.getOccupationVocab());
+				} else if (vocabDropDown.getValue().equals("Occupation")) {
+					observableListVocab = FXCollections.observableArrayList(ControlledVocab.getOccupationVocab());
 				}
 				listView.setItems(observableListVocab);
 			}
@@ -128,7 +129,8 @@ public class EditVocabGUI extends Application {
 								alert.setHeaderText("Vocabulary added to location.");
 								alert.showAndWait();
 								ControlledVocab.addLocationVocab(vocab);
-								observableListVocab = FXCollections.observableArrayList(ControlledVocab.getLocationVocab());
+								observableListVocab = FXCollections
+										.observableArrayList(ControlledVocab.getLocationVocab());
 
 								// For Testing
 								for (int i = 0; i < ControlledVocab.getLocationVocab().size(); i++) {
@@ -152,22 +154,24 @@ public class EditVocabGUI extends Application {
 								alert.setHeaderText("Vocabulary added to culture.");
 								alert.showAndWait();
 								ControlledVocab.addCultureVocab(vocab);
-								observableListVocab = FXCollections.observableArrayList(ControlledVocab.getCultureVocab());
+								observableListVocab = FXCollections
+										.observableArrayList(ControlledVocab.getCultureVocab());
 								// For Testing
 								for (int i = 0; i < ControlledVocab.getCultureVocab().size(); i++) {
 									System.out.println(ControlledVocab.getCultureVocab().get(i));
-								} 
-							}else if(vocabDropDown.getValue().equals("Occupation")){
+								}
+							} else if (vocabDropDown.getValue().equals("Occupation")) {
 								Alert alert = new Alert(AlertType.INFORMATION);
 								alert.setTitle("Vocabulary Added");
 								alert.setHeaderText("Vocabulary added to occupation.");
 								alert.showAndWait();
 								ControlledVocab.addOccupationVocab(vocab);
-								observableListVocab = FXCollections.observableArrayList(ControlledVocab.getOccupationVocab());
+								observableListVocab = FXCollections
+										.observableArrayList(ControlledVocab.getOccupationVocab());
 								// For Testing
 								for (int i = 0; i < ControlledVocab.getCultureVocab().size(); i++) {
 									System.out.println(ControlledVocab.getCultureVocab().get(i));
-								} 
+								}
 							}
 						}
 					}
@@ -223,6 +227,5 @@ public class EditVocabGUI extends Application {
 		primaryStage.setScene(scene);
 		primaryStage.show();
 	}
-
 
 }
