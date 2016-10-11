@@ -32,7 +32,6 @@ public class SearchResultGUI extends Application {
 
 	// @override
 	public void start(Stage primaryStage) {
-		SearchUtil search=new SearchUtil();
 		// GUI Variables
 		GridPane grid = new GridPane();
 		Scene scene = new Scene(grid, 600, 400);
@@ -100,7 +99,7 @@ public class SearchResultGUI extends Application {
 			if (HomeGUI.getSearchKey().isEmpty()||HomeGUI.getSearchKey().equals(" ")){
 				oListPersonResults = FXCollections.observableList(DataCollections.getPersonCollection());
 			}else{
-				oListPersonResults=FXCollections.observableArrayList(search.searchPeople(HomeGUI.getSearchKey()));
+				oListPersonResults=FXCollections.observableArrayList(SearchUtil.searchPeople(HomeGUI.getSearchKey()));
 			}
 			personResultsView.setItems(oListPersonResults);
 			btnDelete.setOnAction(new EventHandler<ActionEvent>() {
@@ -144,7 +143,12 @@ public class SearchResultGUI extends Application {
 			interactionResultsView.setMinSize(400, 300);
 			interactionResultsView.setMaxSize(400, 300);
 			grid.add(interactionResultsView, 1, 0);
-			oListInteractionResults = FXCollections.observableList(DataCollections.getInteractionCollection());
+			if (HomeGUI.getSearchKey().isEmpty()||HomeGUI.getSearchKey().equals(" ")){
+				oListInteractionResults = FXCollections.observableList(DataCollections.getInteractionCollection());
+			}else{
+				oListInteractionResults=FXCollections.observableArrayList(SearchUtil.searchInteractions(HomeGUI.getSearchKey()));
+			}
+			
 			interactionResultsView.setItems(oListInteractionResults);
 			btnDelete.setOnAction(new EventHandler<ActionEvent>() {
 				@Override

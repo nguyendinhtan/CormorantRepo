@@ -191,4 +191,27 @@ public class Interaction {
 				+ ") {Location=" + location + ", Date=" + date + ", Interaction Type=" + interactionType
 				+ ", Bibliographical Citation=" + citation + ", Notes=" + notes + "}";
 	}
+	
+	public int contains(String search){
+		String searchLower=search.toLowerCase();
+		for (int i=0; i<people1.size();i++){
+			if (people1.get(i).contains(searchLower)==1){
+				return 1;
+			}
+		}
+		for (int i=0; i<people2.size();i++){
+			if (people2.get(i).contains(searchLower)==1){
+				return 1;
+			}
+		}
+		if (location.contains(searchLower)||date.contains(searchLower)){
+			return 2;
+		}else if (notes!=null){
+			if (notes.contains(searchLower)||citation.contains(searchLower)){
+				return 2;
+			}
+		}
+		
+		return -1;
+	}
 }
