@@ -165,7 +165,6 @@ public class Person {
 	}
 
 	public static Comparator<Person> personNameComparator = new Comparator<Person>() {
-
 		@Override
 		public int compare(Person p1, Person p2) {
 			String name1 = p1.getName().toLowerCase();
