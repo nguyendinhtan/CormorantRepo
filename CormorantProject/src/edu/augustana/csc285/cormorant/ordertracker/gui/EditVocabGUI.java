@@ -1,5 +1,8 @@
 package edu.augustana.csc285.cormorant.ordertracker.gui;
 
+import java.io.IOException;
+
+import edu.augustana.csc285.cormorant.ordertracker.datamodel.CSVUtil;
 import edu.augustana.csc285.cormorant.ordertracker.datamodel.ControlledVocab;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
@@ -20,6 +23,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 /**
  * Edit vocabulary GUI view class.
@@ -223,6 +227,21 @@ public class EditVocabGUI extends Application {
 		listView.setMinSize(100, 100);
 
 		// Primary Stage Methods
+		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+		      public void handle(WindowEvent we) {
+		    	  try {
+						CSVUtil.savePerson("data/People.csv");
+					} catch (IOException error) {
+						DialogGUI.showError("Couldn't save Person object.", error.toString());
+					}
+		    	  try {
+		  			CSVUtil.saveInteractions("data/Interaction.csv");
+		  		} catch (IOException error) {
+		  			DialogGUI.showError("Couldn't Save Interaction to CSV", error.toString());
+		  			
+		  		}
+		      }
+		  }); 
 		primaryStage.setTitle("Edit Controlled Vocabulary");
 		primaryStage.setScene(scene);
 		primaryStage.show();

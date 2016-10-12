@@ -14,7 +14,7 @@ import com.opencsv.CSVWriter;
 public class CSVUtil {
 
 	private static Map<Integer, Person> personMap = new TreeMap<>();
-	private static List<Interaction> interactions = new ArrayList<>();
+	//private static List<Interaction> interactions = new ArrayList<>();
 	private static CSVReader reader;
 	private static CSVWriter writer;
 
@@ -40,7 +40,6 @@ public class CSVUtil {
 	public static void addPerson(Person person) {
 		personMap.put(person.getID(), person);
 		DataCollections.addPerson(person);
-
 	}
 
 	public static void addPersonList(List<Person> persons) {
@@ -57,9 +56,10 @@ public class CSVUtil {
 	 * @throws IOException
 	 */
 	public static void savePerson(String fileName) throws IOException {
-
 		writer = new CSVWriter(new FileWriter(fileName), ',', CSVWriter.NO_QUOTE_CHARACTER);
-
+		for (Person person: DataCollections.getPersonCollection()){
+			personMap.put(person.getID(), person);
+		}
 		for (Person person : personMap.values()) {
 			writer.writeNext(person.toCSVRowArray());
 		}
@@ -85,27 +85,31 @@ public class CSVUtil {
 			List<Person> personList1 = new ArrayList<Person>();
 			List<Person> personList2 = new ArrayList<Person>();
 			for (String idStr : idArrayPerson1) {
+				if (!idStr.isEmpty()){
 				int id = Integer.parseInt(idStr);
 				Person person1 = personMap.get(id);
 				personList1.add(person1);
+				}
 			}
 			for (String idStr : idArrayPerson2) {
+				if (!idStr.isEmpty()){
 				int id = Integer.parseInt(idStr);
 				Person person2 = personMap.get(id);
 				personList2.add(person2);
+				}
 			}
 			Interaction interaction = new Interaction(personList1, personList2, location, date, interactionType,
 					citation, notes, true);
-			interactions.add(interaction);
+			//interactions.add(interaction);
 			DataCollections.addInteraction(interaction);
 
 		}
 	}
 
-	public static void addInteraction(Interaction interaction) {
+	/*public static void addInteraction(Interaction interaction) {
 		interactions.add(interaction);
 		DataCollections.addInteraction(interaction);
-	}
+	}*/
 
 	/**
 	 * Goes through an array and adds all the people to a person list.
@@ -126,7 +130,7 @@ public class CSVUtil {
 
 	public static void saveInteractions(String fileName) throws IOException {
 		writer = new CSVWriter(new FileWriter(fileName), ',', CSVWriter.NO_QUOTE_CHARACTER);
-		for (Interaction interaction : interactions) {
+		for (Interaction interaction : DataCollections.getInteractionCollection()) {
 			writer.writeNext(interaction.toCSVRowArray());
 		}
 		writer.close();

@@ -23,6 +23,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 /**
  * 
@@ -149,34 +150,9 @@ public class AddPersonGUI extends Application {
 						 * ")"); alert.showAndWait();
 						 */
 					} else {
-						// DataCollections.addPerson(person);
-						CSVUtil.addPerson(person);
-
-						try {
-							CSVUtil.savePerson("data/People.csv");
-						} catch (IOException error) {
-							DialogGUI.showError("Couldn't save Person object.", error.toString());
-							/*
-							 * Alert alert = new Alert(AlertType.ERROR);
-							 * alert.setTitle("Error");
-							 * alert.setHeaderText("Invalid characters entered."
-							 * ); alert.setContentText(error.toString());
-							 */
-						}
-						// Testing method to check list
-						/*
-						 * for (int i = 0; i <
-						 * personList.getPersonCollection().size(); i++) {
-						 * System.out.println(personList.getPersonCollection().
-						 * get(i).toString()); }
-						 */
+						DataCollections.addPerson(person);
 						DialogGUI.showInfo("Person Added", "Person was added to list.");
-						/*
-						 * Alert alert = new Alert(AlertType.INFORMATION);
-						 * alert.setTitle("Person Added");
-						 * alert.setHeaderText("Person was added to list");
-						 * alert.showAndWait();
-						 */
+		
 						nameTextField.clear();
 						genderDropDown.setValue(null);
 						cultureDropDown.setValue(null);
@@ -209,6 +185,21 @@ public class AddPersonGUI extends Application {
 		buttonBox.setAlignment(Pos.CENTER_RIGHT);
 
 		// Primary Stage Methods
+		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+		      public void handle(WindowEvent we) {
+		    	  try {
+						CSVUtil.savePerson("data/People.csv");
+					} catch (IOException error) {
+						DialogGUI.showError("Couldn't save Person object.", error.toString());
+					}
+		    	  try {
+		  			CSVUtil.saveInteractions("data/Interaction.csv");
+		  		} catch (IOException error) {
+		  			DialogGUI.showError("Couldn't Save Interaction to CSV", error.toString());
+		  			
+		  		}
+		      }
+		  }); 
 		primaryStage.setTitle("Insert Person");
 		primaryStage.setScene(scene);
 		primaryStage.show();

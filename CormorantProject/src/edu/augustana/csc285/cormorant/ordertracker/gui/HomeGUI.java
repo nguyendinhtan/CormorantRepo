@@ -1,5 +1,8 @@
 package edu.augustana.csc285.cormorant.ordertracker.gui;
 
+import java.io.IOException;
+
+import edu.augustana.csc285.cormorant.ordertracker.datamodel.CSVUtil;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -15,6 +18,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 public class HomeGUI extends Application {
 	private ComboBox<String> searchType;
@@ -140,8 +144,23 @@ public class HomeGUI extends Application {
 		// Adds Boxes to grid for display
 		grid.add(topRowBox, 1, 0);
 		grid.add(bottomButtonRowBox, 1, 1);
-
+		
 		// Primary Stage Methods
+		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+		      public void handle(WindowEvent we) {
+		    	  try {
+						CSVUtil.savePerson("data/People.csv");
+					} catch (IOException error) {
+						DialogGUI.showError("Couldn't save Person object.", error.toString());
+					}
+		    	  try {
+		  			CSVUtil.saveInteractions("data/Interaction.csv");
+		  		} catch (IOException error) {
+		  			DialogGUI.showError("Couldn't Save Interaction to CSV", error.toString());
+		  			
+		  		}
+		      }
+		  }); 
 		primaryStage.setTitle("Home Screen");
 		primaryStage.setScene(scene);
 		primaryStage.show();

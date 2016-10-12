@@ -26,6 +26,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 /**
  * Add interaction GUI view class.
@@ -277,25 +278,14 @@ public class AddInteractionGUI extends Application {
 								"Interaction already exists." + interaction.toString());
 						/*
 						 * Alert alert = new Alert(AlertType.ERROR);
-						 * alert.setTitle("Error"); alert.
-						 * setHeaderText("That interaction has already been entered."
-						 * );
+						 * alert.setTitle("Error"); alert. setHeaderText(
+						 * "That interaction has already been entered." );
 						 * alert.setContentText("Interaction already exists.");
 						 * alert.showAndWait();
 						 */
 					} else {
-						CSVUtil.addInteraction(interaction);
-						try {
-							CSVUtil.saveInteractions("data/Interaction.csv");
-						} catch (IOException error) {
-							DialogGUI.showError("Couldn't Save Interaction to CSV", error.toString());
-							/*
-							 * Alert alert = new Alert(AlertType.ERROR);
-							 * alert.setTitle("Error");
-							 * alert.setHeaderText("Invalid characters entered."
-							 * ); alert.setContentText(e1.toString());
-							 */
-						}
+						DataCollections.addInteraction(interaction);
+						// CSVUtil.addInteraction(interaction);
 						DialogGUI.showInfo("Interaction Added", "Interaction was added to list.");
 						/*
 						 * Alert alert = new Alert(AlertType.INFORMATION);
@@ -351,6 +341,22 @@ public class AddInteractionGUI extends Application {
 		buttonBox.setAlignment(Pos.CENTER_RIGHT);
 
 		// Primary Stage Methods
+		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+		      public void handle(WindowEvent we) {
+		    	  try {
+						CSVUtil.savePerson("data/People.csv");
+					} catch (IOException error) {
+						DialogGUI.showError("Couldn't save Person object.", error.toString());
+					}
+		    	  try {
+		  			CSVUtil.saveInteractions("data/Interaction.csv");
+		  		} catch (IOException error) {
+		  			DialogGUI.showError("Couldn't Save Interaction to CSV", error.toString());
+		  			
+		  		}
+		      }
+		  }); 
+		
 		primaryStage.setTitle("Insert Interaction");
 		primaryStage.setScene(scene);
 		primaryStage.show();

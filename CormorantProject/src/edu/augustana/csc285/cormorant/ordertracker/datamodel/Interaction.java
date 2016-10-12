@@ -73,9 +73,12 @@ public class Interaction {
 	}
 
 	public String toIdString(List<Person> people) {
-		String idString = Integer.toString(people.get(0).getID());
+		String idString="";
+		if (!people.isEmpty()){
+		idString = Integer.toString(people.get(0).getID());
 		for (int i = 1; i < people.size(); i++) {
 			idString = idString + ":" + Integer.toString(people.get(i).getID());
+		}
 		}
 		return idString;
 	}

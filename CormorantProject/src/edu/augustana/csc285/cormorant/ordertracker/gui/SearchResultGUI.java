@@ -1,5 +1,8 @@
 package edu.augustana.csc285.cormorant.ordertracker.gui;
 
+import java.io.IOException;
+
+import edu.augustana.csc285.cormorant.ordertracker.datamodel.CSVUtil;
 import edu.augustana.csc285.cormorant.ordertracker.datamodel.DataCollections;
 import edu.augustana.csc285.cormorant.ordertracker.datamodel.Interaction;
 import edu.augustana.csc285.cormorant.ordertracker.datamodel.Person;
@@ -20,6 +23,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 /**
  * 
@@ -101,8 +105,8 @@ public class SearchResultGUI extends Application {
 			if (HomeGUI.getSearchKey().isEmpty() || HomeGUI.getSearchKey().equals(" ")) {
 				oListPersonResults = FXCollections.observableList(DataCollections.getPersonCollection());
 
-			}else{
-				oListPersonResults=FXCollections.observableArrayList(SearchUtil.searchPeople(HomeGUI.getSearchKey()));
+			} else {
+				oListPersonResults = FXCollections.observableArrayList(SearchUtil.searchPeople(HomeGUI.getSearchKey()));
 			}
 			personResultsView.setItems(oListPersonResults);
 			btnDelete.setOnAction(new EventHandler<ActionEvent>() {
@@ -150,12 +154,13 @@ public class SearchResultGUI extends Application {
 			interactionResultsView.setMinSize(400, 300);
 			interactionResultsView.setMaxSize(400, 300);
 			grid.add(interactionResultsView, 1, 0);
-			if (HomeGUI.getSearchKey().isEmpty()||HomeGUI.getSearchKey().equals(" ")){
+			if (HomeGUI.getSearchKey().isEmpty() || HomeGUI.getSearchKey().equals(" ")) {
 				oListInteractionResults = FXCollections.observableList(DataCollections.getInteractionCollection());
-			}else{
-				oListInteractionResults=FXCollections.observableArrayList(SearchUtil.searchInteractions(HomeGUI.getSearchKey()));
+			} else {
+				oListInteractionResults = FXCollections
+						.observableArrayList(SearchUtil.searchInteractions(HomeGUI.getSearchKey()));
 			}
-			
+
 			interactionResultsView.setItems(oListInteractionResults);
 			btnDelete.setOnAction(new EventHandler<ActionEvent>() {
 				@Override
@@ -180,7 +185,21 @@ public class SearchResultGUI extends Application {
 			});
 		}
 		// primaryStage methods
-
+		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+		      public void handle(WindowEvent we) {
+		    	  try {
+						CSVUtil.savePerson("data/People.csv");
+					} catch (IOException error) {
+						DialogGUI.showError("Couldn't save Person object.", error.toString());
+					}
+		    	  try {
+		  			CSVUtil.saveInteractions("data/Interaction.csv");
+		  		} catch (IOException error) {
+		  			DialogGUI.showError("Couldn't Save Interaction to CSV", error.toString());
+		  			
+		  		}
+		      }
+		  }); 
 		primaryStage.setTitle("Search Results");
 		primaryStage.setScene(scene);
 		primaryStage.show();
