@@ -12,6 +12,9 @@ public class Person {
 	/** The name of the person. */
 	private String name;
 
+	/** The short name of the person. */
+	private String nickname;
+	
 	/** The gender of the person. */
 	private String gender;
 
@@ -31,6 +34,8 @@ public class Person {
 	 *            the id
 	 * @param name
 	 *            the name
+	 * @param nickname
+	 * 			  the nickname
 	 * @param gender
 	 *            the gender
 	 * @param culture
@@ -40,9 +45,10 @@ public class Person {
 	 * @param notes
 	 *            the notes
 	 */
-	public Person(int id, String name, String gender, String culture, String occupation, String notes) {
+	public Person(int id, String name, String nickname, String gender, String culture, String occupation, String notes) {
 		this.id = id;
 		this.name = name;
+		this.nickname = nickname;
 		this.gender = gender;
 		this.culture = culture;
 		this.occupation = occupation;
@@ -55,19 +61,18 @@ public class Person {
 	 * @param csvRowData
 	 */
 	public Person(String[] csvRowData) {
-		if (!csvRowData[0].equals("")){
 		this.id = Integer.parseInt(csvRowData[0]);
 		this.name = csvRowData[1];
-		this.gender = csvRowData[2];
-		this.culture = csvRowData[3];
-		this.occupation = csvRowData[4];
-		this.notes = csvRowData[5];
-		}
+		this.nickname = csvRowData[2];
+		this.gender = csvRowData[3];
+		this.culture = csvRowData[4];
+		this.occupation = csvRowData[5];
+		this.notes = csvRowData[6];
 	}
 
 	@Override
 	public String toString() {
-		return name + " {id=" + id + " gender=" + gender + " culture=" + culture + " occupation=" + occupation
+		return name + " {id=" + id  + " nickname=" + nickname +  " gender=" + gender + " culture=" + culture + " occupation=" + occupation
 				+ " notes=" + notes + "}";
 	}
 
@@ -80,7 +85,7 @@ public class Person {
 	 */
 
 	public String[] toCSVRowArray() {
-		return new String[] { Integer.toString(id), name, gender, culture, occupation, notes };
+		return new String[] { Integer.toString(id), name, nickname, gender, culture, occupation, notes };
 	}
 
 	/**
@@ -100,7 +105,14 @@ public class Person {
 	public String getName() {
 		return name;
 	}
-
+	/**
+	 * Gets the nickname.
+	 *
+	 * @return the nickname
+	 */
+	public String getNickname() {
+		return nickname;
+	}
 	/**
 	 * Gets the gender.
 	 *
@@ -139,7 +151,7 @@ public class Person {
 
 	// Checks if invalid chars are entered and returns -1 if there are and 0 if
 	// there aren't
-	public int checkForUnallowedInput(String name, String culture, String occupation) {
+	public int checkForUnallowedInput(String name, String nickname, String culture, String occupation) {
 		String unallowedChars = "1234567890!@#$%^&*()-+=[]{}?<>;";
 
 		for (int i = 0; i < unallowedChars.length(); i++) {
@@ -178,6 +190,7 @@ public class Person {
 
 	public void replacePerson(Person person) {
 		this.name = person.getName();
+		this.nickname = person.getNickname();
 		this.gender = person.getGender();
 		this.culture = person.getCulture();
 		this.occupation = person.getOccupation();
@@ -187,7 +200,7 @@ public class Person {
 	// For searching
 	public int contains(String search) {
 		String searchLower = search.toLowerCase();
-		if (searchLower.equals(id) || name.toLowerCase().contains(searchLower)
+		if (searchLower.equals(id) || name.toLowerCase().contains(searchLower) || nickname.toLowerCase().contains(searchLower)
 				|| culture.toLowerCase().contains(searchLower) || occupation.toLowerCase().contains(searchLower)) {
 			return 1;
 		} else if (gender.toLowerCase().contains(searchLower)) {

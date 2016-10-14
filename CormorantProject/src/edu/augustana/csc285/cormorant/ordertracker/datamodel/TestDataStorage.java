@@ -7,10 +7,10 @@ public class TestDataStorage {
 	public static void main(String[] args) throws IOException {
 		CSVUtil.loadPerson("data/People.csv");
 		DataCollections
-				.addPerson(new Person(17, "FreddyTheTelescopeMan", "Male", "Italian", "Telescope Man", "Good man"));
-		CSVUtil.savePerson("data/People2.csv");
+				.addPerson(new Person(17, "FreddyTheTelescopeMan","Freddy", "Male", "Italian", "Telescope Man", "Good man"));
+		CSVUtil.savePerson("data/People.csv");
 		CSVUtil.loadInteractions("data/Interaction.csv");
-		CSVUtil.saveInteractions("data/Interaction2.csv");
+		CSVUtil.saveInteractions("data/Interaction.csv");
 
 	}
 
