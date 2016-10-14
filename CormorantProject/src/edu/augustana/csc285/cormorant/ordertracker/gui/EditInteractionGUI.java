@@ -18,8 +18,6 @@ import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
@@ -184,9 +182,7 @@ public class EditInteractionGUI extends Application {
 		addPerson2Button.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
-				if (person2DropDown.getValue() == null) {
-
-				} else {
+				if (!(person2DropDown.getValue() == null)) {
 					oListPerson2Selected.add(person2DropDown.getValue());
 					Collections.sort(oListPerson2Selected, Person.personNameComparator);
 					person2List.setItems(oListPerson2Selected);
@@ -281,11 +277,7 @@ public class EditInteractionGUI extends Application {
 					Interaction interaction = new Interaction(oListPerson1Selected, oListPerson2Selected, location,
 							date, interactionType, citation, notes, false);
 					if (DataCollections.checkForInteractionDuplicates(interaction) >= 0) {
-						Alert alert = new Alert(AlertType.ERROR);
-						alert.setTitle("Error");
-						alert.setHeaderText("That interaction has already been entered.");
-						alert.setContentText("Interaction already exists.");
-						alert.showAndWait();
+						DialogGUI.showError("That interaction has already been entered.", "Interaction already exists");
 					} else {
 						DataCollections.addInteraction(interaction);
 						SearchResultGUI searchGUI = new SearchResultGUI();

@@ -73,12 +73,12 @@ public class Interaction {
 	}
 
 	public String toIdString(List<Person> people) {
-		String idString="";
-		if (!people.isEmpty()){
-		idString = Integer.toString(people.get(0).getID());
-		for (int i = 1; i < people.size(); i++) {
-			idString = idString + ":" + Integer.toString(people.get(i).getID());
-		}
+		String idString = "";
+		if (!people.isEmpty()) {
+			idString = Integer.toString(people.get(0).getID());
+			for (int i = 1; i < people.size(); i++) {
+				idString = idString + ":" + Integer.toString(people.get(i).getID());
+			}
 		}
 		return idString;
 	}
@@ -194,27 +194,27 @@ public class Interaction {
 				+ ") {Location=" + location + ", Date=" + date + ", Interaction Type=" + interactionType
 				+ ", Bibliographical Citation=" + citation + ", Notes=" + notes + "}";
 	}
-	
-	public int contains(String search){
-		String searchLower=search.toLowerCase();
-		for (int i=0; i<people1.size();i++){
-			if (people1.get(i).contains(searchLower)==1){
+
+	public int contains(String search) {
+		String searchLower = search.toLowerCase();
+		for (int i = 0; i < people1.size(); i++) {
+			if (people1.get(i).contains(searchLower) == 1) {
 				return 1;
 			}
 		}
-		for (int i=0; i<people2.size();i++){
-			if (people2.get(i).contains(searchLower)==1){
+		for (int i = 0; i < people2.size(); i++) {
+			if (people2.get(i).contains(searchLower) == 1) {
 				return 1;
 			}
 		}
-		if (location.contains(searchLower)||date.contains(searchLower)){
+		if (location.contains(searchLower) || date.contains(searchLower)) {
 			return 2;
-		}else if (notes!=null){
-			if (notes.contains(searchLower)||citation.contains(searchLower)){
+		} else if (notes != null) {
+			if (notes.contains(searchLower) || citation.contains(searchLower)) {
 				return 2;
 			}
 		}
-		
+
 		return -1;
 	}
 }
