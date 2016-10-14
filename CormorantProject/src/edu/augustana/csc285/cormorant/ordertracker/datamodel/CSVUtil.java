@@ -128,6 +128,29 @@ public class CSVUtil {
 		writer.writeNext(interactionTypeArray);
 		writer.close();
 	}
+	
+	public static void loadCultureVocab(String fileName) throws IOException {
+		reader = new CSVReader(new FileReader(fileName));
+		String[] myRows = reader.readNext();
+		for (String row : myRows) {
+			ControlledVocab.addCultureVocab(row);
+		}
+		// TODO: Delete DEBUG CODE later
+		// for (Integer key : watcherMap.keySet()) {
+		// System.out.println("key: " + key + " value: " + watcherMap.get(key));
+		// }
+
+	}
+	public static void saveCultureVocab(String fileName) throws IOException {
+		writer = new CSVWriter(new FileWriter(fileName), ',', CSVWriter.NO_QUOTE_CHARACTER);
+		int sizeList = ControlledVocab.getCultureVocab().size();
+		String[] cultureVocabArray = new String[sizeList];
+		for (int i = 0; i< sizeList; i++){
+			cultureVocabArray[i] = ControlledVocab.getCultureVocab().get(i);
+		}
+		writer.writeNext(cultureVocabArray);
+		writer.close();
+	}
 
 	/*public static void addInteraction(Interaction interaction) {
 		interactions.add(interaction);
