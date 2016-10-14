@@ -18,6 +18,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
@@ -60,7 +61,8 @@ public class AddInteractionGUI extends Application {
 		Label person1Label = new Label("Person(s):");
 		Label person2Label = new Label("Person(s) Interacted With:");
 		Label locactionLabel = new Label("Location:");
-		Label dateLabel = new Label("Date:");
+		Label dateLabelFrom = new Label("Date From:");
+		Label dateLabelTo = new Label("Date To:");
 		Label interactionTypeLabel = new Label("Interaction Type:");
 		Label citationLabel = new Label("Bibliographical Citation:");
 		Label notesLabel = new Label("Notes:");
@@ -78,7 +80,8 @@ public class AddInteractionGUI extends Application {
 		ListView<Person> person1List = new ListView<Person>();
 		ListView<Person> person2List = new ListView<Person>();
 		TextArea notesTextArea = new TextArea();
-		TextField dateTextField = new TextField();
+		DatePicker datePickerFrom = new DatePicker();
+		DatePicker datePickerTo = new DatePicker();
 		oListPersonDropDown = FXCollections.observableArrayList(DataCollections.getPersonCollection());
 		oListLocation = FXCollections.observableArrayList(ControlledVocab.getLocationVocab());
 		oListInteractionType = FXCollections.observableArrayList(ControlledVocab.getInteractionTypeVocab());
@@ -96,16 +99,18 @@ public class AddInteractionGUI extends Application {
 		grid.add(removeButtonsBox, 1, 3);
 		grid.add(locactionLabel, 0, 4);
 		grid.add(locationDropDown, 1, 4);
-		grid.add(dateLabel, 0, 5);
-		grid.add(dateTextField, 1, 5);
-		grid.add(interactionTypeLabel, 0, 6);
-		grid.add(interactionTypeDropDown, 1, 6);
-		grid.add(citationLabel, 0, 7);
-		grid.add(citationTextField, 1, 7);
-		grid.add(notesLabelBox, 0, 8);
-		grid.add(notesTextArea, 1, 8);
-		grid.add(backButton, 0, 9);
-		grid.add(buttonBox, 1, 9);
+		grid.add(dateLabelFrom, 0, 5);
+		grid.add(datePickerFrom, 1, 5);
+		grid.add(dateLabelTo, 0, 6);
+		grid.add(datePickerTo, 1, 6);
+		grid.add(interactionTypeLabel, 0, 7);
+		grid.add(interactionTypeDropDown, 1, 7);
+		grid.add(citationLabel, 0, 8);
+		grid.add(citationTextField, 1, 8);
+		grid.add(notesLabelBox, 0, 9);
+		grid.add(notesTextArea, 1, 9);
+		grid.add(backButton, 0, 10);
+		grid.add(buttonBox, 1, 10);
 
 		// Person Label Box Methods
 		personLabelBox.getChildren().add(person1Label);
@@ -157,10 +162,8 @@ public class AddInteractionGUI extends Application {
 		});
 
 		// Add Person 2 Button Methods
-
 		addPerson2Button.setTextFill(Color.BLACK);
 		addPerson2Button.setStyle("-fx-base: #FFFFFF");
-
 		addPerson2Button.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
@@ -219,8 +222,11 @@ public class AddInteractionGUI extends Application {
 		personAreaBox.getChildren().add(person1List);
 		personAreaBox.getChildren().add(person2List);
 
-		// Date Text Field Methods
-		dateTextField.setMaxSize(450, 20);
+		// DatePicker Field Methods
+		datePickerFrom.setMaxSize(450, 20);
+
+		// DatePicker Field Methods
+		datePickerTo.setMaxSize(450, 20);
 
 		// Remove Buttons Box Methods
 		removeButtonsBox.getChildren().add(removePerson1Button);
@@ -251,7 +257,7 @@ public class AddInteractionGUI extends Application {
 			@Override
 			public void handle(ActionEvent e) {
 				String location = locationDropDown.getValue();
-				String date = dateTextField.getText();
+				String date = datePickerFrom.getValue().toString() + ":" + datePickerTo.getValue().toString();
 				String citation = citationTextField.getText();
 				String interactionType = interactionTypeDropDown.getValue();
 				String notes = notesTextArea.getText();
@@ -297,7 +303,7 @@ public class AddInteractionGUI extends Application {
 						oListPerson1Selected.clear();
 						oListPerson2Selected.clear();
 						locationDropDown.setValue(null);
-						dateTextField.clear();
+						datePickerFrom.setValue(null);
 						interactionTypeDropDown.setValue(null);
 						citationTextField.clear();
 						notesTextArea.clear();
@@ -342,21 +348,21 @@ public class AddInteractionGUI extends Application {
 
 		// Primary Stage Methods
 		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-		      public void handle(WindowEvent we) {
-		    	  try {
-						CSVUtil.savePerson("data/People.csv");
-					} catch (IOException error) {
-						DialogGUI.showError("Couldn't save Person object.", error.toString());
-					}
-		    	  try {
-		  			CSVUtil.saveInteractions("data/Interaction.csv");
-		  		} catch (IOException error) {
-		  			DialogGUI.showError("Couldn't Save Interaction to CSV", error.toString());
-		  			
-		  		}
-		      }
-		  }); 
-		
+			public void handle(WindowEvent we) {
+				try {
+					CSVUtil.savePerson("data/People.csv");
+				} catch (IOException error) {
+					DialogGUI.showError("Couldn't save Person object.", error.toString());
+				}
+				try {
+					CSVUtil.saveInteractions("data/Interaction.csv");
+				} catch (IOException error) {
+					DialogGUI.showError("Couldn't Save Interaction to CSV", error.toString());
+
+				}
+			}
+		});
+
 		primaryStage.setTitle("Insert Interaction");
 		primaryStage.setScene(scene);
 		primaryStage.show();

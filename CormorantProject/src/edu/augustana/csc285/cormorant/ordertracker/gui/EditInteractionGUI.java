@@ -18,10 +18,9 @@ import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
@@ -83,10 +82,9 @@ public class EditInteractionGUI extends Application {
 		ComboBox<String> locationDropDown = new ComboBox<String>();
 		TextField citationTextField = new TextField();
 		ListView<Person> person1List = new ListView<Person>();
-
 		ListView<Person> person2List = new ListView<Person>();
 		TextArea notesTextArea = new TextArea();
-		TextField dateTextField = new TextField();
+		DatePicker datePicker = new DatePicker();
 		editedPersonDropDown.addAll(DataCollections.getPersonCollection());
 		editedPersonDropDown.removeAll(SearchResultGUI.getSelectedInteraction().getPeople1());
 		editedPersonDropDown.removeAll(SearchResultGUI.getSelectedInteraction().getPeople2());
@@ -97,7 +95,7 @@ public class EditInteractionGUI extends Application {
 		oListPerson2Selected = FXCollections.observableArrayList(SearchResultGUI.getSelectedInteraction().getPeople2());
 		person1List.setItems(oListPerson1Selected);
 		person2List.setItems(oListPerson2Selected);
-		dateTextField.setText(SearchResultGUI.getSelectedInteraction().getDate());
+		datePicker.setPromptText(SearchResultGUI.getSelectedInteraction().getDate());
 		notesTextArea.setText(SearchResultGUI.getSelectedInteraction().getNotes());
 		if (SearchResultGUI.getSelectedInteraction().getLocation().equals("Unknown")) {
 			locationDropDown.setValue(null);
@@ -121,7 +119,7 @@ public class EditInteractionGUI extends Application {
 		grid.add(locactionLabel, 0, 4);
 		grid.add(locationDropDown, 1, 4);
 		grid.add(dateLabel, 0, 5);
-		grid.add(dateTextField, 1, 5);
+		grid.add(datePicker, 1, 5);
 		grid.add(interactionTypeLabel, 0, 6);
 		grid.add(interactionTypeDropDown, 1, 6);
 		grid.add(citationLabel, 0, 7);
@@ -184,9 +182,7 @@ public class EditInteractionGUI extends Application {
 		addPerson2Button.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
-				if (person2DropDown.getValue() == null) {
-
-				} else {
+				if (!(person2DropDown.getValue() == null)) {
 					oListPerson2Selected.add(person2DropDown.getValue());
 					Collections.sort(oListPerson2Selected, Person.personNameComparator);
 					person2List.setItems(oListPerson2Selected);
@@ -241,7 +237,7 @@ public class EditInteractionGUI extends Application {
 		personAreaBox.getChildren().add(person2List);
 
 		// Date Text Field Methods
-		dateTextField.setMaxSize(450, 20);
+		datePicker.setMaxSize(450, 20);
 
 		// Remove Buttons Box Methods
 		removeButtonsBox.getChildren().add(removePerson1Button);
@@ -273,7 +269,7 @@ public class EditInteractionGUI extends Application {
 			public void handle(ActionEvent e) {
 				if (!(oListPerson1Selected.isEmpty() && oListPerson2Selected.isEmpty())) {
 					String location = locationDropDown.getValue();
-					String date = dateTextField.getText();
+					String date = datePicker.getValue().toString();
 					String citation = citationTextField.getText();
 					String interactionType = interactionTypeDropDown.getValue();
 					String notes = notesTextArea.getText();
@@ -281,11 +277,7 @@ public class EditInteractionGUI extends Application {
 					Interaction interaction = new Interaction(oListPerson1Selected, oListPerson2Selected, location,
 							date, interactionType, citation, notes, false);
 					if (DataCollections.checkForInteractionDuplicates(interaction) >= 0) {
-						Alert alert = new Alert(AlertType.ERROR);
-						alert.setTitle("Error");
-						alert.setHeaderText("That interaction has already been entered.");
-						alert.setContentText("Interaction already exists.");
-						alert.showAndWait();
+						DialogGUI.showError("That interaction has already been entered.", "Interaction already exists");
 					} else {
 						DataCollections.addInteraction(interaction);
 						SearchResultGUI searchGUI = new SearchResultGUI();
@@ -313,20 +305,20 @@ public class EditInteractionGUI extends Application {
 
 		// Primary Stage Methods
 		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-		      public void handle(WindowEvent we) {
-		    	  try {
-						CSVUtil.savePerson("data/People.csv");
-					} catch (IOException error) {
-						DialogGUI.showError("Couldn't save Person object.", error.toString());
-					}
-		    	  try {
-		  			CSVUtil.saveInteractions("data/Interaction.csv");
-		  		} catch (IOException error) {
-		  			DialogGUI.showError("Couldn't Save Interaction to CSV", error.toString());
-		  			
-		  		}
-		      }
-		  }); 
+			public void handle(WindowEvent we) {
+				try {
+					CSVUtil.savePerson("data/People.csv");
+				} catch (IOException error) {
+					DialogGUI.showError("Couldn't save Person object.", error.toString());
+				}
+				try {
+					CSVUtil.saveInteractions("data/Interaction.csv");
+				} catch (IOException error) {
+					DialogGUI.showError("Couldn't Save Interaction to CSV", error.toString());
+
+				}
+			}
+		});
 		primaryStage.setTitle("Edit Interaction");
 		primaryStage.setScene(scene);
 		primaryStage.show();
