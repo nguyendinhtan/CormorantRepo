@@ -103,7 +103,7 @@ public class SearchResultGUI extends Application {
 			personResultsView.setMaxSize(400, 300);
 			grid.add(personResultsView, 1, 0);
 			if (HomeGUI.getSearchKey().isEmpty() || HomeGUI.getSearchKey().equals(" ")) {
-				oListPersonResults = FXCollections.observableList(DataCollections.getPersonCollection());
+				oListPersonResults = FXCollections.observableArrayList(DataCollections.getPersonCollection());
 
 			} else {
 				oListPersonResults = FXCollections.observableArrayList(SearchUtil.searchPeople(HomeGUI.getSearchKey()));
@@ -131,6 +131,7 @@ public class SearchResultGUI extends Application {
 								}
 							}
 						}
+						DataCollections.getPersonCollection().remove(personResultsView.getSelectionModel().getSelectedItem());
 						oListPersonResults.remove(selectedIndex);
 					}
 

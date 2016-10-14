@@ -55,14 +55,12 @@ public class Person {
 	 * @param csvRowData
 	 */
 	public Person(String[] csvRowData) {
-		if (!csvRowData[0].equals("")){
 		this.id = Integer.parseInt(csvRowData[0]);
 		this.name = csvRowData[1];
 		this.gender = csvRowData[2];
 		this.culture = csvRowData[3];
 		this.occupation = csvRowData[4];
 		this.notes = csvRowData[5];
-		}
 	}
 
 	@Override

@@ -22,7 +22,9 @@ public class CSVUtil {
 		reader = new CSVReader(new FileReader(fileName));
 		List<String[]> myRows = reader.readAll();
 		for (String[] row : myRows) {
+			if (!row[0].equals("")){
 			addPerson(new Person(row));
+			}
 		}
 		// TODO: Delete DEBUG CODE later
 		// for (Integer key : watcherMap.keySet()) {
