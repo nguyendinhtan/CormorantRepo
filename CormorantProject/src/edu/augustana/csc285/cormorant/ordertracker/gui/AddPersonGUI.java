@@ -134,7 +134,7 @@ public class AddPersonGUI extends Application {
 						notes = "none";
 					}
 					Person person = new Person(id, name,nickname, gender, culture, occupation, notes);
-					if (person.checkForUnallowedInput(person.getName(), person.getNickname(), person.getCulture(),
+					if (person.checkForUnallowedInput(person.getName(),person.getNickname(), person.getCulture(),
 							person.getOccupation()) < 0) {
 						DialogGUI.showError("Invalid Characters Entered",
 								"Make sure no numbers or special characters are entered in the Name, Culture or Occupation fields");
@@ -162,7 +162,6 @@ public class AddPersonGUI extends Application {
 						DialogGUI.showInfo("Person Added", "Person was added to list.");
 		
 						nameTextField.clear();
-						nicknameTextField.clear();
 						genderDropDown.setValue(null);
 						cultureDropDown.setValue(null);
 						occupationDropDown.setValue(null);

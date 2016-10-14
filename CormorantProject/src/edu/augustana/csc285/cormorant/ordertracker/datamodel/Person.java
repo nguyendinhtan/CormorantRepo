@@ -157,12 +157,9 @@ public class Person {
 		for (int i = 0; i < unallowedChars.length(); i++) {
 			for (int j = 0; j < name.length(); j++) {
 				if (name.charAt(j) == ((unallowedChars.charAt(i)))) {
+
 					return -1;
-				}
-			}
-			for (int j = 0; j < nickname.length(); j++) {
-				if (nickname.charAt(j) == ((unallowedChars.charAt(i)))) {
-					return -1;
+
 				}
 			}
 			for (int j = 0; j < culture.length(); j++) {

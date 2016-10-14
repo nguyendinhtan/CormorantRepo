@@ -124,7 +124,7 @@ public class EditPersonGUI extends Application {
 						name = "Anonymous";
 					}
 					if (nickname.isEmpty()) {
-						nickname = "No Nickname";
+						nickname = "Anonymous";
 					}
 					if (gender == null) {
 						gender = "Unknown";

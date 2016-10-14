@@ -19,4 +19,12 @@ public class DialogGUI {
 		alert.setHeaderText(infoText);
 		alert.showAndWait();
 	}
+	
+	public static void showWarning(String headerText, String infoText) {
+		Alert alert = new Alert(AlertType.WARNING);
+		alert.setTitle("Warning");
+		alert.setHeaderText(headerText);
+		alert.setContentText(infoText);
+		alert.showAndWait();
+	}
 }

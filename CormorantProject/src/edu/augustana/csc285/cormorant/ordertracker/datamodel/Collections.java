@@ -65,7 +65,7 @@ public class Collections {
 	 * @param notes
 	 *            the notes
 	 */
-	public void editPerson(int id, Person person, String name, String nickname, String gender, String culture, String occupation,
+	public void editPerson(int id, Person person, String name,String nickname, String gender, String culture, String occupation,
 			String notes) {
 		person = new Person(id, name, nickname, gender, culture, occupation, notes);
 	}
