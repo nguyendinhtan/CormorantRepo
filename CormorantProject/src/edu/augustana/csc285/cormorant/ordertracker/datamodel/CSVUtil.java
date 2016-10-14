@@ -105,6 +105,29 @@ public class CSVUtil {
 
 		}
 	}
+	
+	public static void loadInteractionType(String fileName) throws IOException {
+		reader = new CSVReader(new FileReader(fileName));
+		String[] myRows = reader.readNext();
+		for (String row : myRows) {
+			ControlledVocab.addInteractionTypeVocab(row);
+		}
+		// TODO: Delete DEBUG CODE later
+		// for (Integer key : watcherMap.keySet()) {
+		// System.out.println("key: " + key + " value: " + watcherMap.get(key));
+		// }
+
+	}
+	public static void saveInteractionType(String fileName) throws IOException {
+		writer = new CSVWriter(new FileWriter(fileName), ',', CSVWriter.NO_QUOTE_CHARACTER);
+		int sizeList = ControlledVocab.getInteractionTypeVocab().size();
+		String[] interactionTypeArray = new String[sizeList];
+		for (int i = 0; i< sizeList; i++){
+			interactionTypeArray[i] = ControlledVocab.getInteractionTypeVocab().get(i);
+		}
+		writer.writeNext(interactionTypeArray);
+		writer.close();
+	}
 
 	/*public static void addInteraction(Interaction interaction) {
 		interactions.add(interaction);
