@@ -173,5 +173,5 @@ public class HomeGUI extends Application {
 	public static String getSearchKey() {
 		return searchKey;
 	}
-
+	
 }
