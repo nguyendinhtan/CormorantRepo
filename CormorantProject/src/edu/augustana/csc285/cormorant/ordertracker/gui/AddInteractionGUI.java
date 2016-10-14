@@ -18,6 +18,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
@@ -78,7 +79,7 @@ public class AddInteractionGUI extends Application {
 		ListView<Person> person1List = new ListView<Person>();
 		ListView<Person> person2List = new ListView<Person>();
 		TextArea notesTextArea = new TextArea();
-		TextField dateTextField = new TextField();
+		DatePicker datePicker = new DatePicker();
 		oListPersonDropDown = FXCollections.observableArrayList(DataCollections.getPersonCollection());
 		oListLocation = FXCollections.observableArrayList(ControlledVocab.getLocationVocab());
 		oListInteractionType = FXCollections.observableArrayList(ControlledVocab.getInteractionTypeVocab());
@@ -97,7 +98,7 @@ public class AddInteractionGUI extends Application {
 		grid.add(locactionLabel, 0, 4);
 		grid.add(locationDropDown, 1, 4);
 		grid.add(dateLabel, 0, 5);
-		grid.add(dateTextField, 1, 5);
+		grid.add(datePicker, 1, 5);
 		grid.add(interactionTypeLabel, 0, 6);
 		grid.add(interactionTypeDropDown, 1, 6);
 		grid.add(citationLabel, 0, 7);
@@ -220,7 +221,7 @@ public class AddInteractionGUI extends Application {
 		personAreaBox.getChildren().add(person2List);
 
 		// Date Text Field Methods
-		dateTextField.setMaxSize(450, 20);
+		datePicker.setMaxSize(450, 20);
 
 		// Remove Buttons Box Methods
 		removeButtonsBox.getChildren().add(removePerson1Button);
@@ -251,7 +252,7 @@ public class AddInteractionGUI extends Application {
 			@Override
 			public void handle(ActionEvent e) {
 				String location = locationDropDown.getValue();
-				String date = dateTextField.getText();
+				String date = datePicker.getValue().toString();
 				String citation = citationTextField.getText();
 				String interactionType = interactionTypeDropDown.getValue();
 				String notes = notesTextArea.getText();
@@ -297,7 +298,7 @@ public class AddInteractionGUI extends Application {
 						oListPerson1Selected.clear();
 						oListPerson2Selected.clear();
 						locationDropDown.setValue(null);
-						dateTextField.clear();
+						datePicker.setValue(null);
 						interactionTypeDropDown.setValue(null);
 						citationTextField.clear();
 						notesTextArea.clear();
