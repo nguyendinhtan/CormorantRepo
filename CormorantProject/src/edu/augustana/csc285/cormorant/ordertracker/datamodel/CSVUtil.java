@@ -24,11 +24,6 @@ public class CSVUtil {
 		for (String[] row : myRows) {
 			addPerson(new Person(row));
 		}
-		// TODO: Delete DEBUG CODE later
-		// for (Integer key : watcherMap.keySet()) {
-		// System.out.println("key: " + key + " value: " + watcherMap.get(key));
-		// }
-
 	}
 
 	/**
@@ -112,10 +107,6 @@ public class CSVUtil {
 		for (String row : myRows) {
 			ControlledVocab.addInteractionTypeVocab(row);
 		}
-		// TODO: Delete DEBUG CODE later
-		// for (Integer key : watcherMap.keySet()) {
-		// System.out.println("key: " + key + " value: " + watcherMap.get(key));
-		// }
 
 	}
 	public static void saveInteractionType(String fileName) throws IOException {
@@ -135,10 +126,6 @@ public class CSVUtil {
 		for (String row : myRows) {
 			ControlledVocab.addCultureVocab(row);
 		}
-		// TODO: Delete DEBUG CODE later
-		// for (Integer key : watcherMap.keySet()) {
-		// System.out.println("key: " + key + " value: " + watcherMap.get(key));
-		// }
 
 	}
 	public static void saveCultureVocab(String fileName) throws IOException {
@@ -158,10 +145,6 @@ public class CSVUtil {
 		for (String row : myRows) {
 			ControlledVocab.addOccupationVocab(row);
 		}
-		// TODO: Delete DEBUG CODE later
-		// for (Integer key : watcherMap.keySet()) {
-		// System.out.println("key: " + key + " value: " + watcherMap.get(key));
-		// }
 
 	}
 	public static void saveOccupationVocab(String fileName) throws IOException {
