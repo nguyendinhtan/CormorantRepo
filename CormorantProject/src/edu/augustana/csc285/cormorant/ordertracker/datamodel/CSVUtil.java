@@ -151,7 +151,29 @@ public class CSVUtil {
 		writer.writeNext(cultureVocabArray);
 		writer.close();
 	}
+	
+	public static void loadOccupationVocab(String fileName) throws IOException {
+		reader = new CSVReader(new FileReader(fileName));
+		String[] myRows = reader.readNext();
+		for (String row : myRows) {
+			ControlledVocab.addOccupationVocab(row);
+		}
+		// TODO: Delete DEBUG CODE later
+		// for (Integer key : watcherMap.keySet()) {
+		// System.out.println("key: " + key + " value: " + watcherMap.get(key));
+		// }
 
+	}
+	public static void saveOccupationVocab(String fileName) throws IOException {
+		writer = new CSVWriter(new FileWriter(fileName), ',', CSVWriter.NO_QUOTE_CHARACTER);
+		int sizeList = ControlledVocab.getOccupationVocab().size();
+		String[] occupationVocabArray = new String[sizeList];
+		for (int i = 0; i< sizeList; i++){
+			occupationVocabArray[i] = ControlledVocab.getOccupationVocab().get(i);
+		}
+		writer.writeNext(occupationVocabArray);
+		writer.close();
+	}
 	/*public static void addInteraction(Interaction interaction) {
 		interactions.add(interaction);
 		DataCollections.addInteraction(interaction);
