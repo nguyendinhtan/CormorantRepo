@@ -162,6 +162,7 @@ public class AddPersonGUI extends Application {
 						DialogGUI.showInfo("Person Added", "Person was added to list.");
 		
 						nameTextField.clear();
+						nicknameTextField.clear();
 						genderDropDown.setValue(null);
 						cultureDropDown.setValue(null);
 						occupationDropDown.setValue(null);
