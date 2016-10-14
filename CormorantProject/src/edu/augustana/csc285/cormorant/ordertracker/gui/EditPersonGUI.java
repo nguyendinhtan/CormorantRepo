@@ -44,13 +44,11 @@ public class EditPersonGUI extends Application {
 		GridPane grid = new GridPane();
 		Scene scene = new Scene(grid, 500, 400);
 		Label nameLabel = new Label("Name:");
-		Label nicknameLabel = new Label("Nickname:");
 		Label genderLabel = new Label("Gender:");
 		Label cultureLabel = new Label("Culture Identity:");
 		Label occupationLabel = new Label("Occupation:");
 		Label notesLabel = new Label("Notes:");
 		TextField nameTextField = new TextField();
-		TextField nicknameTextField = new TextField();
 		ComboBox<String> cultureDropDown = new ComboBox<String>();
 		TextArea notesTextArea = new TextArea();
 		ComboBox<String> occupationDropDown = new ComboBox<String>();
@@ -62,7 +60,6 @@ public class EditPersonGUI extends Application {
 		oListCulture = FXCollections.observableArrayList(ControlledVocab.getCultureVocab());
 		oListOccupation = FXCollections.observableArrayList(ControlledVocab.getOccupationVocab());
 		nameTextField.setText(SearchResultGUI.getSelectedPerson().getName());
-		nicknameTextField.setText(SearchResultGUI.getSelectedPerson().getNickname());
 		genderDropDown.setValue(SearchResultGUI.getSelectedPerson().getGender());
 		cultureDropDown.setValue(SearchResultGUI.getSelectedPerson().getCulture());
 		occupationDropDown.setValue(SearchResultGUI.getSelectedPerson().getOccupation());
@@ -75,16 +72,14 @@ public class EditPersonGUI extends Application {
 		grid.setPadding(new Insets(25, 25, 25, 25));
 		grid.add(nameLabel, 0, 0);
 		grid.add(nameTextField, 1, 0);
-		grid.add(nicknameLabel, 0, 1);
-		grid.add(nicknameTextField, 1, 1);
-		grid.add(genderLabel, 0, 2);
-		grid.add(genderDropDown, 1, 2);
-		grid.add(cultureLabel, 0, 3);
-		grid.add(cultureDropDown, 1, 3);
-		grid.add(occupationLabel, 0, 4);
-		grid.add(occupationDropDown, 1, 4);
-		grid.add(notesLabelBox, 0, 5);
-		grid.add(notesTextArea, 1, 5);
+		grid.add(genderLabel, 0, 1);
+		grid.add(genderDropDown, 1, 1);
+		grid.add(cultureLabel, 0, 2);
+		grid.add(cultureDropDown, 1, 2);
+		grid.add(occupationLabel, 0, 3);
+		grid.add(occupationDropDown, 1, 3);
+		grid.add(notesLabelBox, 0, 4);
+		grid.add(notesTextArea, 1, 4);
 		grid.add(backButton, 0, 6);
 		grid.add(buttonBox, 1, 6);
 
@@ -112,19 +107,15 @@ public class EditPersonGUI extends Application {
 			public void handle(ActionEvent e) {
 				int id = SearchResultGUI.getSelectedPerson().getID();
 				String name = nameTextField.getText();
-				String nickname = nicknameTextField.getText();
 				String gender = genderDropDown.getValue();
 				String culture = cultureDropDown.getValue();
 				String occupation = occupationDropDown.getValue();
 				String notes = notesTextArea.getText();
-				if (name.isEmpty() && nickname.isEmpty() && gender == null && culture.isEmpty() && occupation.isEmpty() && notes.isEmpty()) {
+				if (name.isEmpty() && gender == null && culture.isEmpty() && occupation.isEmpty() && notes.isEmpty()) {
 
 				} else {
 					if (name.isEmpty()) {
 						name = "Anonymous";
-					}
-					if (nickname.isEmpty()) {
-						nickname = "No Nickname";
 					}
 					if (gender == null) {
 						gender = "Unknown";
@@ -138,8 +129,8 @@ public class EditPersonGUI extends Application {
 					if (notes.isEmpty()) {
 						notes = "none";
 					}
-					Person person = new Person(id, name, nickname, gender, culture, occupation, notes);
-					if (person.checkForUnallowedInput(person.getName(), person.getNickname(), person.getCulture(), person.getCulture()) < 0) {
+					Person person = new Person(id, name, gender, culture, occupation, notes);
+					if (person.checkForUnallowedInput(person.getName(), person.getCulture(), person.getCulture()) < 0) {
 						Alert alert = new Alert(AlertType.INFORMATION);
 						alert.setTitle("Error");
 						alert.setHeaderText("Invalid characters entered.");

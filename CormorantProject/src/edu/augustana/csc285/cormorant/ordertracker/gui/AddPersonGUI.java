@@ -47,12 +47,10 @@ public class AddPersonGUI extends Application {
 		Scene scene = new Scene(grid, 500, 400);
 		Label nameLabel = new Label("Name:");
 		Label genderLabel = new Label("Gender:");
-		Label nicknameLabel = new Label("Nickname:");
 		Label cultureLabel = new Label("Culture Identity:");
 		Label occupationLabel = new Label("Occupation:");
 		Label notesLabel = new Label("Notes:");
 		TextField nameTextField = new TextField();
-		TextField nicknameTextField = new TextField();
 		ComboBox<String> cultureDropDown = new ComboBox<String>();
 		TextArea notesTextArea = new TextArea();
 		ComboBox<String> occupationDropDown = new ComboBox<String>();
@@ -70,16 +68,14 @@ public class AddPersonGUI extends Application {
 		grid.setPadding(new Insets(25, 25, 25, 25));
 		grid.add(nameLabel, 0, 0);
 		grid.add(nameTextField, 1, 0);
-		grid.add(nicknameLabel, 0, 1);
-		grid.add(nicknameTextField, 1, 1);
-		grid.add(genderLabel, 0, 2);
-		grid.add(genderDropDown, 1, 2);
-		grid.add(cultureLabel, 0, 3);
-		grid.add(cultureDropDown, 1, 3);
-		grid.add(occupationLabel, 0, 4);
-		grid.add(occupationDropDown, 1, 4);
-		grid.add(notesLabelBox, 0, 5);
-		grid.add(notesTextArea, 1, 5);
+		grid.add(genderLabel, 0, 1);
+		grid.add(genderDropDown, 1, 1);
+		grid.add(cultureLabel, 0, 2);
+		grid.add(cultureDropDown, 1, 2);
+		grid.add(occupationLabel, 0, 3);
+		grid.add(occupationDropDown, 1, 3);
+		grid.add(notesLabelBox, 0, 4);
+		grid.add(notesTextArea, 1, 4);
 		grid.add(backButton, 0, 6);
 		grid.add(buttonBox, 1, 6);
 
@@ -108,18 +104,14 @@ public class AddPersonGUI extends Application {
 			public void handle(ActionEvent e) {
 				int id = DataCollections.getPersonCollection().size() + 1;
 				String name = nameTextField.getText();
-				String nickname = nicknameTextField.getText();
 				String gender = genderDropDown.getValue();
 				String culture = cultureDropDown.getValue();
 				String occupation = occupationDropDown.getValue();
 				String notes = notesTextArea.getText();
-				if (!(name.isEmpty() && nickname.isEmpty() && gender == null && culture.isEmpty() && occupation.isEmpty()
+				if (!(name.isEmpty() && gender == null && culture.isEmpty() && occupation.isEmpty()
 						&& notes.isEmpty())) {
 					if (name.isEmpty()) {
 						name = "Anonymous";
-					}
-					if (nickname.isEmpty()) {
-						nickname = "No Nickname";
 					}
 					if (gender == null) {
 						gender = "Unknown";
@@ -133,8 +125,8 @@ public class AddPersonGUI extends Application {
 					if (notes.isEmpty()) {
 						notes = "none";
 					}
-					Person person = new Person(id, name,nickname, gender, culture, occupation, notes);
-					if (person.checkForUnallowedInput(person.getName(), person.getNickname(), person.getCulture(),
+					Person person = new Person(id, name, gender, culture, occupation, notes);
+					if (person.checkForUnallowedInput(person.getName(), person.getCulture(),
 							person.getOccupation()) < 0) {
 						DialogGUI.showError("Invalid Characters Entered",
 								"Make sure no numbers or special characters are entered in the Name, Culture or Occupation fields");
@@ -162,7 +154,6 @@ public class AddPersonGUI extends Application {
 						DialogGUI.showInfo("Person Added", "Person was added to list.");
 		
 						nameTextField.clear();
-						nicknameTextField.clear();
 						genderDropDown.setValue(null);
 						cultureDropDown.setValue(null);
 						occupationDropDown.setValue(null);

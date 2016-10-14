@@ -110,7 +110,6 @@ public class DataCollections {
 		for (int i = 0; i < personCollection.size(); i++) {
 
 			if (person.getName().toLowerCase().equals(personCollection.get(i).getName().toLowerCase())
-					&& person.getNickname().toLowerCase().equals(personCollection.get(i).getNickname().toLowerCase())
 					&& person.getCulture().toLowerCase().equals(personCollection.get(i).getCulture().toLowerCase())
 					&& person.getOccupation().toLowerCase()
 							.equals(personCollection.get(i).getOccupation().toLowerCase())) {
