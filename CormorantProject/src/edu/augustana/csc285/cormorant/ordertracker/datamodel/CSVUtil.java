@@ -24,11 +24,6 @@ public class CSVUtil {
 		for (String[] row : myRows) {
 			addPerson(new Person(row));
 		}
-		// TODO: Delete DEBUG CODE later
-		// for (Integer key : watcherMap.keySet()) {
-		// System.out.println("key: " + key + " value: " + watcherMap.get(key));
-		// }
-
 	}
 
 	/**
@@ -105,7 +100,63 @@ public class CSVUtil {
 
 		}
 	}
+	
+	public static void loadInteractionType(String fileName) throws IOException {
+		reader = new CSVReader(new FileReader(fileName));
+		String[] myRows = reader.readNext();
+		for (String row : myRows) {
+			ControlledVocab.addInteractionTypeVocab(row);
+		}
 
+	}
+	public static void saveInteractionType(String fileName) throws IOException {
+		writer = new CSVWriter(new FileWriter(fileName), ',', CSVWriter.NO_QUOTE_CHARACTER);
+		int sizeList = ControlledVocab.getInteractionTypeVocab().size();
+		String[] interactionTypeArray = new String[sizeList];
+		for (int i = 0; i< sizeList; i++){
+			interactionTypeArray[i] = ControlledVocab.getInteractionTypeVocab().get(i);
+		}
+		writer.writeNext(interactionTypeArray);
+		writer.close();
+	}
+	
+	public static void loadCultureVocab(String fileName) throws IOException {
+		reader = new CSVReader(new FileReader(fileName));
+		String[] myRows = reader.readNext();
+		for (String row : myRows) {
+			ControlledVocab.addCultureVocab(row);
+		}
+
+	}
+	public static void saveCultureVocab(String fileName) throws IOException {
+		writer = new CSVWriter(new FileWriter(fileName), ',', CSVWriter.NO_QUOTE_CHARACTER);
+		int sizeList = ControlledVocab.getCultureVocab().size();
+		String[] cultureVocabArray = new String[sizeList];
+		for (int i = 0; i< sizeList; i++){
+			cultureVocabArray[i] = ControlledVocab.getCultureVocab().get(i);
+		}
+		writer.writeNext(cultureVocabArray);
+		writer.close();
+	}
+	
+	public static void loadOccupationVocab(String fileName) throws IOException {
+		reader = new CSVReader(new FileReader(fileName));
+		String[] myRows = reader.readNext();
+		for (String row : myRows) {
+			ControlledVocab.addOccupationVocab(row);
+		}
+
+	}
+	public static void saveOccupationVocab(String fileName) throws IOException {
+		writer = new CSVWriter(new FileWriter(fileName), ',', CSVWriter.NO_QUOTE_CHARACTER);
+		int sizeList = ControlledVocab.getOccupationVocab().size();
+		String[] occupationVocabArray = new String[sizeList];
+		for (int i = 0; i< sizeList; i++){
+			occupationVocabArray[i] = ControlledVocab.getOccupationVocab().get(i);
+		}
+		writer.writeNext(occupationVocabArray);
+		writer.close();
+	}
 	/*public static void addInteraction(Interaction interaction) {
 		interactions.add(interaction);
 		DataCollections.addInteraction(interaction);
