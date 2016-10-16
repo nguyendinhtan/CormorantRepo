@@ -136,4 +136,15 @@ public class CSVUtil {
 		writer.close();
 
 	}
+	
+	public static void palladioExport(String fileName) throws IOException {
+		writer = new CSVWriter(new FileWriter(fileName), ',', CSVWriter.NO_QUOTE_CHARACTER);
+		for (Interaction interaction:DataCollections.getInteractionCollection())	{
+			writer.writeNext(interaction.toCSVRowArray());
+		}
+		for (Person person:DataCollections.getPersonCollection())	{
+			writer.writeNext(person.toCSVRowArray());
+		}
+		writer.close();
+	}
 }
