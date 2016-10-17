@@ -13,15 +13,15 @@ public class TestDataStorage {
 		CSVUtil.savePerson("data/People.csv");
 		CSVUtil.loadInteractions("data/Interaction.csv");
 		CSVUtil.saveInteractions("data/Interaction.csv");
-		//CSVUtil.loadInteractionType("data/InteractionType.csv");
-		//ControlledVocab.addInteractionTypeVocab("Party");
-		//CSVUtil.saveInteractionType("data/InteractionType.csv");
-		//CSVUtil.loadCultureVocab("data/CultureVocab.csv");
-		//ControlledVocab.addCultureVocab("Italian");
-		//CSVUtil.saveCultureVocab("data/CultureVocab.csv");
-		//CSVUtil.loadOccupationVocab("data/OccupationVocab.csv");
-		//ControlledVocab.addOccupationVocab("Artist");
-		//CSVUtil.saveOccupationVocab("data/OccupationVocab.csv");
+		CSVUtil.loadInteractionType("data/InteractionType.csv");
+		ControlledVocab.addInteractionTypeVocab("Party");
+		CSVUtil.saveInteractionType("data/InteractionType.csv");
+		CSVUtil.loadCultureVocab("data/CultureVocab.csv");
+		ControlledVocab.addCultureVocab("Italian");
+		CSVUtil.saveCultureVocab("data/CultureVocab.csv");
+		CSVUtil.loadOccupationVocab("data/OccupationVocab.csv");
+		ControlledVocab.addOccupationVocab("Artist");
+		CSVUtil.saveOccupationVocab("data/OccupationVocab.csv");
 	}
 
 }

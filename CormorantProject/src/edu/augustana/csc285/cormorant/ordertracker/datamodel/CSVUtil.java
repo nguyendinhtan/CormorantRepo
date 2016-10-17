@@ -163,8 +163,9 @@ public class CSVUtil {
 	
 	public static void loadOccupationVocab(String fileName) throws IOException {
 		reader = new CSVReader(new FileReader(fileName));
-		String[] myRows = reader.readNext();
-		for (String row : myRows) {
+		List<String[]> myRows = reader.readAll();
+		myRows.remove(0);
+		for (String row : myRows.get(0)) {
 			ControlledVocab.addOccupationVocab(row);
 		}
 
@@ -172,6 +173,9 @@ public class CSVUtil {
 	public static void saveOccupationVocab(String fileName) throws IOException {
 		writer = new CSVWriter(new FileWriter(fileName), ',', CSVWriter.NO_QUOTE_CHARACTER);
 		int sizeList = ControlledVocab.getOccupationVocab().size();
+		String[] header = new String[1];
+		header[0] = "Occupation Vocabulary";
+		writer.writeNext(header);
 		String[] occupationVocabArray = new String[sizeList];
 		for (int i = 0; i< sizeList; i++){
 			occupationVocabArray[i] = ControlledVocab.getOccupationVocab().get(i);
