@@ -13,6 +13,10 @@ public class Main extends Application {
 	public void start(Stage primaryStage) throws Exception {
 		CSVUtil.loadPerson("data/People.csv");
 		CSVUtil.loadInteractions("data/Interaction.csv");
+		CSVUtil.loadInteractionType("data/InteractionType.csv");
+		CSVUtil.loadCultureVocab("data/CultureVocab.csv");
+		CSVUtil.loadOccupationVocab("data/OccupationVocab.csv");
+		/*
 		ControlledVocab.addLocationVocab("Rock Island");
 		ControlledVocab.addLocationVocab("Moline");
 		ControlledVocab.addLocationVocab("Davenport");
@@ -23,6 +27,7 @@ public class Main extends Application {
 		ControlledVocab.addCultureVocab("French");
 		ControlledVocab.addOccupationVocab("Painter");
 		ControlledVocab.addOccupationVocab("Sculptor");
+		*/
 		HomeGUI homeGUI = new HomeGUI();
 		homeGUI.start(primaryStage);
 	}
