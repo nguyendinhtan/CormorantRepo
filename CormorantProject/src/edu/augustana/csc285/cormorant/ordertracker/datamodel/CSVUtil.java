@@ -117,8 +117,9 @@ public class CSVUtil {
 	
 	public static void loadInteractionType(String fileName) throws IOException {
 		reader = new CSVReader(new FileReader(fileName));
-		String[] myRows = reader.readNext();
-		for (String row : myRows) {
+		List<String[]> myRows = reader.readAll();
+		myRows.remove(0);
+		for (String row : myRows.get(0)) {
 			ControlledVocab.addInteractionTypeVocab(row);
 		}
 
@@ -127,6 +128,9 @@ public class CSVUtil {
 		writer = new CSVWriter(new FileWriter(fileName), ',', CSVWriter.NO_QUOTE_CHARACTER);
 		int sizeList = ControlledVocab.getInteractionTypeVocab().size();
 		String[] interactionTypeArray = new String[sizeList];
+		String[] header = new String[1];
+		header[0] = "Interaction Type Vocabulary";
+		writer.writeNext(header);
 		for (int i = 0; i< sizeList; i++){
 			interactionTypeArray[i] = ControlledVocab.getInteractionTypeVocab().get(i);
 		}
