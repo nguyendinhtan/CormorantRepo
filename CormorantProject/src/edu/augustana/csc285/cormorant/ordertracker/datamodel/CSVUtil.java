@@ -136,8 +136,9 @@ public class CSVUtil {
 	
 	public static void loadCultureVocab(String fileName) throws IOException {
 		reader = new CSVReader(new FileReader(fileName));
-		String[] myRows = reader.readNext();
-		for (String row : myRows) {
+		List<String[]> myRows = reader.readAll();
+		myRows.remove(0);
+		for (String row : myRows.get(0)) {
 			ControlledVocab.addCultureVocab(row);
 		}
 
@@ -145,6 +146,9 @@ public class CSVUtil {
 	public static void saveCultureVocab(String fileName) throws IOException {
 		writer = new CSVWriter(new FileWriter(fileName), ',', CSVWriter.NO_QUOTE_CHARACTER);
 		int sizeList = ControlledVocab.getCultureVocab().size();
+		String[] header = new String[1];
+		header[0] = "Culture Vocabulary";
+		writer.writeNext(header);
 		String[] cultureVocabArray = new String[sizeList];
 		for (int i = 0; i< sizeList; i++){
 			cultureVocabArray[i] = ControlledVocab.getCultureVocab().get(i);
@@ -171,6 +175,8 @@ public class CSVUtil {
 		writer.writeNext(occupationVocabArray);
 		writer.close();
 	}
+	
+	
 	/*public static void addInteraction(Interaction interaction) {
 		interactions.add(interaction);
 		DataCollections.addInteraction(interaction);

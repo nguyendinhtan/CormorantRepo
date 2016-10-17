@@ -14,11 +14,11 @@ public class TestDataStorage {
 		CSVUtil.loadInteractions("data/Interaction.csv");
 		CSVUtil.saveInteractions("data/Interaction.csv");
 		//CSVUtil.loadInteractionType("data/InteractionType.csv");
-		//ControlledVocab.addInteractionTypeVocab("Meeting");
+		//ControlledVocab.addInteractionTypeVocab("Party");
 		//CSVUtil.saveInteractionType("data/InteractionType.csv");
-		//CSVUtil.loadInteractionType("data/CultureVocab.csv");
-		//ControlledVocab.addInteractionTypeVocab("Italian");
-		//CSVUtil.saveInteractionType("data/CultureVocab.csv");
+		CSVUtil.loadCultureVocab("data/CultureVocab.csv");
+		ControlledVocab.addCultureVocab("Italian");
+		CSVUtil.saveCultureVocab("data/CultureVocab.csv");
 		//CSVUtil.loadOccupationVocab("data/OccupationVocab.csv");
 		//ControlledVocab.addOccupationVocab("Artist");
 		//CSVUtil.saveOccupationVocab("data/OccupationVocab.csv");
