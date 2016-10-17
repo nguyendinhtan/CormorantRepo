@@ -21,6 +21,7 @@ public class CSVUtil {
 	public static void loadPerson(String fileName) throws IOException {
 		reader = new CSVReader(new FileReader(fileName));
 		List<String[]> myRows = reader.readAll();
+		myRows.remove(0);
 		for (String[] row : myRows) {
 			addPerson(new Person(row));
 		}
@@ -52,6 +53,8 @@ public class CSVUtil {
 	 */
 	public static void savePerson(String fileName) throws IOException {
 		writer = new CSVWriter(new FileWriter(fileName), ',', CSVWriter.NO_QUOTE_CHARACTER);
+		String[] header = "ID,Name,Nickname,Culture,Occupation,Notes".split(",");
+		writer.writeNext(header);
 		for (Person person: DataCollections.getPersonCollection()){
 			personMap.put(person.getID(), person);
 		}
@@ -188,14 +191,16 @@ public class CSVUtil {
 
 	}
 	
-	public static void palladioExport(String fileName) throws IOException {
-		writer = new CSVWriter(new FileWriter(fileName), ',', CSVWriter.NO_QUOTE_CHARACTER);
+	public static void palladioExport(String fileName1,String fileName2) throws IOException {
+		reader = new CSVReader(new FileReader(fileName1));
+		writer = new CSVWriter(new FileWriter(fileName2), ',', CSVWriter.NO_QUOTE_CHARACTER);
 		for (Interaction interaction:DataCollections.getInteractionCollection())	{
 			writer.writeNext(interaction.toCSVRowArray());
 		}
 		for (Person person:DataCollections.getPersonCollection())	{
 			writer.writeNext(person.toCSVRowArray());
 		}
+		reader.close();
 		writer.close();
 	}
 }
