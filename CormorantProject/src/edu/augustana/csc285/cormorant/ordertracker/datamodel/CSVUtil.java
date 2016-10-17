@@ -67,7 +67,7 @@ public class CSVUtil {
 	public static void loadInteractions(String fileName) throws IOException {
 		reader = new CSVReader(new FileReader(fileName));
 		List<String[]> myRows = reader.readAll();
-
+		myRows.remove(0);
 		// 0:1, 2:3,Old Main, 09/30/2016,Invite to Party, Citation from
 		// Augustana, No one comes
 		for (String[] row : myRows) {
@@ -102,6 +102,17 @@ public class CSVUtil {
 			DataCollections.addInteraction(interaction);
 
 		}
+	}
+	
+	public static void saveInteractions(String fileName) throws IOException {
+		writer = new CSVWriter(new FileWriter(fileName), ',', CSVWriter.NO_QUOTE_CHARACTER);
+		String[] header = "IDList1,IDList2,Location,Date,Citation,Notes".split(",");
+		writer.writeNext(header);
+		for (Interaction interaction : DataCollections.getInteractionCollection()) {
+			writer.writeNext(interaction.toCSVRowArray());
+		}
+		writer.close();
+
 	}
 	
 	public static void loadInteractionType(String fileName) throws IOException {
@@ -179,15 +190,6 @@ public class CSVUtil {
 			Person person = personMap.get(id);
 			personList.add(person);
 		}
-
-	}
-
-	public static void saveInteractions(String fileName) throws IOException {
-		writer = new CSVWriter(new FileWriter(fileName), ',', CSVWriter.NO_QUOTE_CHARACTER);
-		for (Interaction interaction : DataCollections.getInteractionCollection()) {
-			writer.writeNext(interaction.toCSVRowArray());
-		}
-		writer.close();
 
 	}
 	

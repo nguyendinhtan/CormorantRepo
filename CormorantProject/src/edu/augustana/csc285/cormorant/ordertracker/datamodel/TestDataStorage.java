@@ -11,8 +11,8 @@ public class TestDataStorage {
 		DataCollections
 		.addPerson(new Person(0, "Eric","E", "Male", "American", "Student", "Good man"));
 		CSVUtil.savePerson("data/People.csv");
-		//CSVUtil.loadInteractions("data/Interaction.csv");
-		//CSVUtil.saveInteractions("data/Interaction.csv");
+		CSVUtil.loadInteractions("data/Interaction.csv");
+		CSVUtil.saveInteractions("data/Interaction.csv");
 		//CSVUtil.loadInteractionType("data/InteractionType.csv");
 		//ControlledVocab.addInteractionTypeVocab("Meeting");
 		//CSVUtil.saveInteractionType("data/InteractionType.csv");
