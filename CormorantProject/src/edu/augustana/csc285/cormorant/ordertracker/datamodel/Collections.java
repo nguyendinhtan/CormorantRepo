@@ -65,9 +65,9 @@ public class Collections {
 	 * @param notes
 	 *            the notes
 	 */
-	public void editPerson(int id, Person person, String name, String gender, String culture, String occupation,
+	public void editPerson(int id, Person person, String name,String nickname, String gender, String culture, String occupation,
 			String notes) {
-		person = new Person(id, name, gender, culture, occupation, notes);
+		person = new Person(id, name, nickname, gender, culture, occupation, notes);
 	}
 
 	/**
@@ -120,6 +120,7 @@ public class Collections {
 	public int checkForPersonDuplicates(Person person) {
 		for (int i = 0; i < personCollection.size(); i++) {
 			if (person.getName().toLowerCase().equals(personCollection.get(i).getName().toLowerCase())
+					&& person.getNickname().toLowerCase().equals(personCollection.get(i).getNickname().toLowerCase())
 					&& person.getCulture().toLowerCase().equals(personCollection.get(i).getCulture().toLowerCase())
 					&& person.getOccupation().toLowerCase()
 							.equals(personCollection.get(i).getOccupation().toLowerCase())) {

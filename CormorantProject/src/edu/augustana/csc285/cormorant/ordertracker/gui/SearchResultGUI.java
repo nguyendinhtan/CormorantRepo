@@ -133,6 +133,7 @@ public class SearchResultGUI extends Application {
 						}
 						DataCollections.getPersonCollection().remove(personResultsView.getSelectionModel().getSelectedItem());
 						oListPersonResults.remove(selectedIndex);
+						System.out.println(DataCollections.getPersonCollection().size());
 					}
 
 				}
@@ -156,7 +157,7 @@ public class SearchResultGUI extends Application {
 			interactionResultsView.setMaxSize(400, 300);
 			grid.add(interactionResultsView, 1, 0);
 			if (HomeGUI.getSearchKey().isEmpty() || HomeGUI.getSearchKey().equals(" ")) {
-				oListInteractionResults = FXCollections.observableList(DataCollections.getInteractionCollection());
+				oListInteractionResults = FXCollections.observableArrayList(DataCollections.getInteractionCollection());
 			} else {
 				oListInteractionResults = FXCollections
 						.observableArrayList(SearchUtil.searchInteractions(HomeGUI.getSearchKey()));
@@ -168,6 +169,7 @@ public class SearchResultGUI extends Application {
 				public void handle(ActionEvent e) {
 					int selectedIndex = interactionResultsView.getSelectionModel().getSelectedIndex();
 					if (selectedIndex >= 0) {
+						DataCollections.getInteractionCollection().remove(interactionResultsView.getSelectionModel().getSelectedItem());
 						oListInteractionResults.remove(selectedIndex);
 					}
 				}
