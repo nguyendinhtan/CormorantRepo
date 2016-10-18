@@ -209,16 +209,43 @@ public class CSVUtil {
 
 	}
 	
-	public static void palladioExport(String fileName1,String fileName2) throws IOException {
-		reader = new CSVReader(new FileReader(fileName1));
-		writer = new CSVWriter(new FileWriter(fileName2), ',', CSVWriter.NO_QUOTE_CHARACTER);
-		for (Interaction interaction:DataCollections.getInteractionCollection())	{
-			writer.writeNext(interaction.toCSVRowArray());
+	public static void palladioExport(String fileName) throws IOException {
+		writer = new CSVWriter(new FileWriter(fileName), ',', CSVWriter.NO_QUOTE_CHARACTER);
+		List<Interaction> interactionList = DataCollections.getInteractionCollection();
+		String[] header= "Source,Target".split(",");
+		writer.writeNext(header);
+		for (Interaction interaction: interactionList){
+			List<Person> people1=interaction.getPeople1();
+			List<Person> people2=interaction.getPeople2();
+			for (Person person1:people1){
+				for (Person person2:people2)	{
+					String[] arrayName = new String[2];
+					arrayName[0]=person1.getName();
+					arrayName[1]=person2.getName();
+					writer.writeNext(arrayName);
+				}
+			}
 		}
-		for (Person person:DataCollections.getPersonCollection())	{
-			writer.writeNext(person.toCSVRowArray());
+		writer.close();
+	}
+	
+	public static void gephiExportNodes(String fileName) throws IOException {
+		writer = new CSVWriter(new FileWriter(fileName), ',', CSVWriter.NO_QUOTE_CHARACTER);
+		List<Interaction> interactionList = DataCollections.getInteractionCollection();
+		String[] header= "Source,Target".split(",");
+		writer.writeNext(header);
+		for (Interaction interaction: interactionList){
+			List<Person> people1=interaction.getPeople1();
+			List<Person> people2=interaction.getPeople2();
+			for (Person person1:people1){
+				for (Person person2:people2)	{
+					String[] arrayName = new String[2];
+					arrayName[0]=person1.getName();
+					arrayName[1]=person2.getName();
+					writer.writeNext(arrayName);
+				}
+			}
 		}
-		reader.close();
 		writer.close();
 	}
 }

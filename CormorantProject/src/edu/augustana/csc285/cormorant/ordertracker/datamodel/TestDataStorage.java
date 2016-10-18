@@ -11,7 +11,7 @@ public class TestDataStorage {
 		CSVUtil.savePerson("data/People.csv");
 		CSVUtil.loadInteractions("data/Interaction.csv");
 		CSVUtil.saveInteractions("data/Interaction.csv");
-
+		CSVUtil.palladioExport("data/PalladioExport.csv");
 	}
 
 }
