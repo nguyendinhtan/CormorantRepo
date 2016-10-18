@@ -72,14 +72,11 @@ public class EditVocabGUI extends Application {
 
 		// Vocab Drop Down Methods
 		vocabDropDown.setMinSize(300, 30);
-		vocabDropDown.getItems().addAll("Location", "Interaction Type", "Culture", "Occupation");
+		vocabDropDown.getItems().addAll("Interaction Type", "Culture", "Occupation");
 		vocabDropDown.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
-				if (vocabDropDown.getValue().equals("Location")) {
-					observableListVocab = FXCollections.observableArrayList(ControlledVocab.getLocationVocab());
-
-				} else if (vocabDropDown.getValue().equals("Interaction Type")) {
+				 if (vocabDropDown.getValue().equals("Interaction Type")) {
 					observableListVocab = FXCollections.observableArrayList(ControlledVocab.getInteractionTypeVocab());
 
 				} else if (vocabDropDown.getValue().equals("Culture")) {
@@ -127,20 +124,7 @@ public class EditVocabGUI extends Application {
 							alert.setHeaderText("List already contains that vocabulary.");
 							alert.showAndWait();
 						} else {
-							if (vocabDropDown.getValue().equals("Location")) {
-								Alert alert = new Alert(AlertType.INFORMATION);
-								alert.setTitle("Vocabulary Added");
-								alert.setHeaderText("Vocabulary added to location.");
-								alert.showAndWait();
-								ControlledVocab.addLocationVocab(vocab);
-								observableListVocab = FXCollections
-										.observableArrayList(ControlledVocab.getLocationVocab());
-
-								// For Testing
-								for (int i = 0; i < ControlledVocab.getLocationVocab().size(); i++) {
-									System.out.println(ControlledVocab.getLocationVocab().get(i));
-								}
-							} else if (vocabDropDown.getValue().equals("Interaction Type")) {
+							 if (vocabDropDown.getValue().equals("Interaction Type")) {
 								Alert alert = new Alert(AlertType.INFORMATION);
 								alert.setTitle("Vocabulary Added");
 								alert.setHeaderText("Vocabulary added to interaction type.");

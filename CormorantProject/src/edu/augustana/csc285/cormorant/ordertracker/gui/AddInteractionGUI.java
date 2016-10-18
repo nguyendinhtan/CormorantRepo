@@ -34,7 +34,6 @@ import javafx.stage.WindowEvent;
  *
  */
 public class AddInteractionGUI extends Application {
-	private ObservableList<String> oListLocation;
 	private ObservableList<String> oListInteractionType;
 	private ObservableList<Person> oListPersonDropDown;
 	private ObservableList<Person> oListPerson1Selected;
@@ -74,14 +73,13 @@ public class AddInteractionGUI extends Application {
 		ComboBox<Person> person1DropDown = new ComboBox<Person>();
 		ComboBox<Person> person2DropDown = new ComboBox<Person>();
 		ComboBox<String> interactionTypeDropDown = new ComboBox<String>();
-		ComboBox<String> locationDropDown = new ComboBox<String>();
+		TextField locationTextField = new TextField();
 		TextField citationTextField = new TextField();
 		ListView<Person> person1List = new ListView<Person>();
 		ListView<Person> person2List = new ListView<Person>();
 		TextArea notesTextArea = new TextArea();
 		DatePicker datePicker = new DatePicker();
 		oListPersonDropDown = FXCollections.observableArrayList(DataCollections.getPersonCollection());
-		oListLocation = FXCollections.observableArrayList(ControlledVocab.getLocationVocab());
 		oListInteractionType = FXCollections.observableArrayList(ControlledVocab.getInteractionTypeVocab());
 		oListPerson1Selected = FXCollections.observableArrayList();
 		oListPerson2Selected = FXCollections.observableArrayList();
@@ -96,7 +94,7 @@ public class AddInteractionGUI extends Application {
 		grid.add(personAreaBox, 1, 2);
 		grid.add(removeButtonsBox, 1, 3);
 		grid.add(locactionLabel, 0, 4);
-		grid.add(locationDropDown, 1, 4);
+		grid.add(locationTextField, 1, 4);
 		grid.add(dateLabel, 0, 5);
 		grid.add(datePicker, 1, 5);
 		grid.add(interactionTypeLabel, 0, 6);
@@ -228,8 +226,7 @@ public class AddInteractionGUI extends Application {
 		removeButtonsBox.getChildren().add(removePerson2Button);
 
 		// Location Drop Down Methods
-		locationDropDown.setItems(oListLocation);
-		locationDropDown.setMinSize(450, 10);
+		locationTextField.setMinSize(450, 10);
 
 		// Interaction Type Drop Down Methods
 		interactionTypeDropDown.setItems(oListInteractionType);
@@ -251,13 +248,13 @@ public class AddInteractionGUI extends Application {
 		addInteractionButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
-				String location = locationDropDown.getValue();
+				String location = locationTextField.getText();
 				String date = datePicker.getValue().toString();
 				String citation = citationTextField.getText();
 				String interactionType = interactionTypeDropDown.getValue();
 				String notes = notesTextArea.getText();
 				if (!(oListPerson1Selected.isEmpty() && oListPerson2Selected.isEmpty())) {
-					if (location == null) {
+					if (location.isEmpty()) {
 						location = "Unknown";
 					}
 					if (date.isEmpty()) {
@@ -277,27 +274,13 @@ public class AddInteractionGUI extends Application {
 					if (DataCollections.checkForInteractionDuplicates(interaction) >= 0) {
 						DialogGUI.showError("Duplicate Interaction Entered",
 								"Interaction already exists." + interaction.toString());
-						/*
-						 * Alert alert = new Alert(AlertType.ERROR);
-						 * alert.setTitle("Error"); alert. setHeaderText(
-						 * "That interaction has already been entered." );
-						 * alert.setContentText("Interaction already exists.");
-						 * alert.showAndWait();
-						 */
 					} else {
 						DataCollections.addInteraction(interaction);
-						// CSVUtil.addInteraction(interaction);
 						DialogGUI.showInfo("Interaction Added", "Interaction was added to list.");
-						/*
-						 * Alert alert = new Alert(AlertType.INFORMATION);
-						 * alert.setTitle("Interaction Added");
-						 * alert.setHeaderText("Interaction was added to list");
-						 * alert.showAndWait();
-						 */
 
 						oListPerson1Selected.clear();
 						oListPerson2Selected.clear();
-						locationDropDown.setValue(null);
+						locationTextField.clear();;
 						datePicker.setValue(null);
 						interactionTypeDropDown.setValue(null);
 						citationTextField.clear();

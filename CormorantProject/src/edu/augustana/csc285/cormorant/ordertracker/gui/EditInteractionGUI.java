@@ -34,7 +34,6 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
 public class EditInteractionGUI extends Application {
-	private ObservableList<String> oListLocation;
 	private ObservableList<String> oListInteractionType;
 	private ObservableList<Person> oListPersonDropDown;
 	private ObservableList<Person> oListPerson1Selected;
@@ -81,7 +80,7 @@ public class EditInteractionGUI extends Application {
 		ComboBox<Person> person1DropDown = new ComboBox<Person>();
 		ComboBox<Person> person2DropDown = new ComboBox<Person>();
 		ComboBox<String> interactionTypeDropDown = new ComboBox<String>();
-		ComboBox<String> locationDropDown = new ComboBox<String>();
+		TextField locationTextField = new TextField();
 		TextField citationTextField = new TextField();
 		ListView<Person> person1List = new ListView<Person>();
 		ListView<Person> person2List = new ListView<Person>();
@@ -91,7 +90,6 @@ public class EditInteractionGUI extends Application {
 		editedPersonDropDown.removeAll(SearchResultGUI.getSelectedInteraction().getPeople1());
 		editedPersonDropDown.removeAll(SearchResultGUI.getSelectedInteraction().getPeople2());
 		oListPersonDropDown = FXCollections.observableArrayList(editedPersonDropDown);
-		oListLocation = FXCollections.observableArrayList(ControlledVocab.getLocationVocab());
 		oListInteractionType = FXCollections.observableArrayList(ControlledVocab.getInteractionTypeVocab());
 		oListPerson1Selected = FXCollections.observableArrayList(SearchResultGUI.getSelectedInteraction().getPeople1());
 		oListPerson2Selected = FXCollections.observableArrayList(SearchResultGUI.getSelectedInteraction().getPeople2());
@@ -99,10 +97,7 @@ public class EditInteractionGUI extends Application {
 		person2List.setItems(oListPerson2Selected);
 		datePicker.setPromptText(SearchResultGUI.getSelectedInteraction().getDate());
 		notesTextArea.setText(SearchResultGUI.getSelectedInteraction().getNotes());
-		if (SearchResultGUI.getSelectedInteraction().getLocation().equals("Unknown")) {
-			locationDropDown.setValue(null);
-		}
-		locationDropDown.setValue(SearchResultGUI.getSelectedInteraction().getLocation());
+		locationTextField.setText(SearchResultGUI.getSelectedInteraction().getLocation());
 		citationTextField.setText(SearchResultGUI.getSelectedInteraction().getCitation());
 		if (SearchResultGUI.getSelectedInteraction().getInteractionType().equals("Unknown")) {
 			interactionTypeDropDown.setValue(null);
@@ -119,7 +114,7 @@ public class EditInteractionGUI extends Application {
 		grid.add(personAreaBox, 1, 2);
 		grid.add(removeButtonsBox, 1, 3);
 		grid.add(locactionLabel, 0, 4);
-		grid.add(locationDropDown, 1, 4);
+		grid.add(locationTextField, 1, 4);
 		grid.add(dateLabel, 0, 5);
 		grid.add(datePicker, 1, 5);
 		grid.add(interactionTypeLabel, 0, 6);
@@ -248,8 +243,7 @@ public class EditInteractionGUI extends Application {
 		removeButtonsBox.getChildren().add(removePerson2Button);
 
 		// Location Drop Down Methods
-		locationDropDown.setItems(oListLocation);
-		locationDropDown.setMinSize(450, 10);
+		locationTextField.setMinSize(450, 10);
 
 		// Interaction Type Drop Down Methods
 		interactionTypeDropDown.setItems(oListInteractionType);
@@ -271,22 +265,34 @@ public class EditInteractionGUI extends Application {
 		addInteractionButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
-				if (!(oListPerson1Selected.isEmpty() && oListPerson2Selected.isEmpty())) {
-					String location = locationDropDown.getValue();
-					String date = datePicker.getValue().toString();
-					String citation = citationTextField.getText();
-					String interactionType = interactionTypeDropDown.getValue();
-					String notes = notesTextArea.getText();
+				String location = locationTextField.getText();
+				String date = datePicker.getValue().toString();
+				String citation = citationTextField.getText();
+				String interactionType = interactionTypeDropDown.getValue();
+				String notes = notesTextArea.getText();
 
+				if (!(oListPerson1Selected.isEmpty() && oListPerson2Selected.isEmpty())) {
+					if (location.isEmpty()) {
+						location = "Unknown";
+					}
+					if (date.isEmpty()) {
+						date = "Unknown";
+					}
+					if (citation.isEmpty()) {
+						citation = "none";
+					}
+					if (interactionType == null) {
+						interactionType = "Unknown";
+					}
+					if (notes.isEmpty()) {
+						notes = "none";
+					}
 					Interaction interaction = new Interaction(oListPerson1Selected, oListPerson2Selected, location,
 							date, interactionType, citation, notes, false);
 					if (DataCollections.checkForInteractionDuplicates(interaction) >= 0) {
-						Alert alert = new Alert(AlertType.ERROR);
-						alert.setTitle("Error");
-						alert.setHeaderText("That interaction has already been entered.");
-						alert.setContentText("Interaction already exists.");
-						alert.showAndWait();
-					} else {
+						DialogGUI.showError("Duplicate Interaction Entered",
+								"Interaction already exists." + interaction.toString());
+						} else {
 						DataCollections.addInteraction(interaction);
 						SearchResultGUI searchGUI = new SearchResultGUI();
 						searchGUI.start(primaryStage);

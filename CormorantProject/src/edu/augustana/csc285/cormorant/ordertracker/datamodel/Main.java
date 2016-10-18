@@ -13,9 +13,6 @@ public class Main extends Application {
 	public void start(Stage primaryStage) throws Exception {
 		CSVUtil.loadPerson("data/People.csv");
 		CSVUtil.loadInteractions("data/Interaction.csv");
-		ControlledVocab.addLocationVocab("Rock Island");
-		ControlledVocab.addLocationVocab("Moline");
-		ControlledVocab.addLocationVocab("Davenport");
 		ControlledVocab.addInteractionTypeVocab("Journal");
 		ControlledVocab.addInteractionTypeVocab("Party");
 		ControlledVocab.addInteractionTypeVocab("Letter");

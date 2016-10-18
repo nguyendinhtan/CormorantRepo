@@ -13,14 +13,10 @@ import java.util.List;
 
 public class ControlledVocab {
 
-	private static List<String> locationVocab = new ArrayList<String>();
 	private static List<String> interactionTypeVocab = new ArrayList<String>();
 	private static List<String> cultureVocab = new ArrayList<String>();
 	private static List<String> occupationVocab = new ArrayList<String>();
-
-	public static List<String> getLocationVocab() {
-		return locationVocab;
-	}
+	
 
 	public static List<String> getInteractionTypeVocab() {
 		return interactionTypeVocab;
@@ -35,9 +31,7 @@ public class ControlledVocab {
 	}
 
 	public static void remove(int vocabIndex, String listType) {
-		if (listType == "Location") {
-			locationVocab.remove(vocabIndex);
-		} else if (listType == "Interaction Type") {
+		if (listType == "Interaction Type") {
 			interactionTypeVocab.remove(vocabIndex);
 		} else if (listType == "Occupation") {
 			occupationVocab.remove(vocabIndex);
@@ -46,10 +40,6 @@ public class ControlledVocab {
 		}
 	}
 
-	public static void addLocationVocab(String location) {
-		locationVocab.add(location);
-		locationVocab.sort(null);
-	}
 
 	public static void addInteractionTypeVocab(String interactionType) {
 		interactionTypeVocab.add(interactionType);
@@ -83,9 +73,9 @@ public class ControlledVocab {
 	}
 
 	public static int checkForVocabDuplicates(String vocab, String list) {
-		if (list == "Location") {
-			for (int i = 0; i < locationVocab.size(); i++) {
-				if (vocab.toLowerCase().equals(locationVocab.get(i).toLowerCase())) {
+		if (list == "Occupation") {
+			for (int i = 0; i < occupationVocab.size(); i++) {
+				if (vocab.toLowerCase().equals(occupationVocab.get(i).toLowerCase())) {
 					return i;
 				}
 			}
