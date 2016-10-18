@@ -231,17 +231,34 @@ public class CSVUtil {
 	
 	public static void gephiExportNodes(String fileName) throws IOException {
 		writer = new CSVWriter(new FileWriter(fileName), ',', CSVWriter.NO_QUOTE_CHARACTER);
+		List<Person> personList = DataCollections.getPersonCollection();
+		String[] header= "Node ID,Label".split(",");
+		writer.writeNext(header);
+		for (Person person: personList){
+			String[] arrayNodes = new String[2];
+			arrayNodes[0]=Integer.toString(person.getID());
+			arrayNodes[1]=person.getName();
+			writer.writeNext(arrayNodes);
+		}
+		writer.close();
+	}
+	
+	public static void gephiExportEdges(String fileName) throws IOException {
+		writer = new CSVWriter(new FileWriter(fileName), ',', CSVWriter.NO_QUOTE_CHARACTER);
 		List<Interaction> interactionList = DataCollections.getInteractionCollection();
-		String[] header= "Source,Target".split(",");
+		String[] header= "Source,Target,Edge ID".split(",");
 		writer.writeNext(header);
 		for (Interaction interaction: interactionList){
 			List<Person> people1=interaction.getPeople1();
 			List<Person> people2=interaction.getPeople2();
+			int edgeId=0;
 			for (Person person1:people1){
 				for (Person person2:people2)	{
-					String[] arrayName = new String[2];
-					arrayName[0]=person1.getName();
-					arrayName[1]=person2.getName();
+					edgeId++;
+					String[] arrayName = new String[3];
+					arrayName[0]=Integer.toString(person1.getID());
+					arrayName[1]=Integer.toString(person2.getID());
+					arrayName[2]=Integer.toString(edgeId);
 					writer.writeNext(arrayName);
 				}
 			}
