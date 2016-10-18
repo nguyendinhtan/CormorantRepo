@@ -1,1 +1,7 @@
+<<<<<<< HEAD
 1,test,t,Unknown,American,Unknown,none
+=======
+ID,Name,Nickname,Culture,Occupation,Notes
+0,Eric,E,Male,American,Student,Good man
+17,FreddyTheTelescopeMan,Freddy,Male,Italian,Telescope Man,Good man
+>>>>>>> branch 'master' of https://github.com/AugustanaCSC285Fall16/CormorantRepo.git
