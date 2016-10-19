@@ -76,7 +76,7 @@ public class EditVocabGUI extends Application {
 		vocabDropDown.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
-				 if (vocabDropDown.getValue().equals("Interaction Type")) {
+				if (vocabDropDown.getValue().equals("Interaction Type")) {
 					observableListVocab = FXCollections.observableArrayList(ControlledVocab.getInteractionTypeVocab());
 
 				} else if (vocabDropDown.getValue().equals("Culture")) {
@@ -124,7 +124,7 @@ public class EditVocabGUI extends Application {
 							alert.setHeaderText("List already contains that vocabulary.");
 							alert.showAndWait();
 						} else {
-							 if (vocabDropDown.getValue().equals("Interaction Type")) {
+							if (vocabDropDown.getValue().equals("Interaction Type")) {
 								Alert alert = new Alert(AlertType.INFORMATION);
 								alert.setTitle("Vocabulary Added");
 								alert.setHeaderText("Vocabulary added to interaction type.");
@@ -200,6 +200,21 @@ public class EditVocabGUI extends Application {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
+				try {
+					CSVUtil.saveInteractionType("data/InteractionType.csv");
+				} catch (IOException error) {
+					DialogGUI.showError("Couldn't save interaction type vocab.", error.toString());
+				}
+				try {
+					CSVUtil.saveCultureVocab("data/CultureVocab.csv");
+				} catch (IOException error) {
+					DialogGUI.showError("Couldn't save culture vocab.", error.toString());
+				}
+				try {
+					CSVUtil.saveOccupationVocab("data/OccupationVocab.csv");
+				} catch (IOException error) {
+					DialogGUI.showError("Couldn't save occupation vocab.", error.toString());
+				}
 			}
 		});
 
@@ -212,20 +227,35 @@ public class EditVocabGUI extends Application {
 
 		// Primary Stage Methods
 		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-		      public void handle(WindowEvent we) {
-		    	  try {
-						CSVUtil.savePerson("data/People.csv");
-					} catch (IOException error) {
-						DialogGUI.showError("Couldn't save Person object.", error.toString());
-					}
-		    	  try {
-		  			CSVUtil.saveInteractions("data/Interaction.csv");
-		  		} catch (IOException error) {
-		  			DialogGUI.showError("Couldn't Save Interaction to CSV", error.toString());
-		  			
-		  		}
-		      }
-		  }); 
+			public void handle(WindowEvent we) {
+				try {
+					CSVUtil.savePerson("data/People.csv");
+				} catch (IOException error) {
+					DialogGUI.showError("Couldn't save Person object.", error.toString());
+				}
+				try {
+					CSVUtil.saveInteractions("data/Interaction.csv");
+				} catch (IOException error) {
+					DialogGUI.showError("Couldn't Save Interaction to CSV", error.toString());
+
+				}
+				try {
+					CSVUtil.saveInteractionType("data/InteractionType.csv");
+				} catch (IOException error) {
+					DialogGUI.showError("Couldn't save interaction type vocab.", error.toString());
+				}
+				try {
+					CSVUtil.saveCultureVocab("data/CultureVocab.csv");
+				} catch (IOException error) {
+					DialogGUI.showError("Couldn't save culture vocab.", error.toString());
+				}
+				try {
+					CSVUtil.saveOccupationVocab("data/OccupationVocab.csv");
+				} catch (IOException error) {
+					DialogGUI.showError("Couldn't save occupation vocab.", error.toString());
+				}
+			}
+		});
 		primaryStage.setTitle("Edit Controlled Vocabulary");
 		primaryStage.setScene(scene);
 		primaryStage.show();

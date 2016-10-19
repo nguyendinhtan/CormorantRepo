@@ -13,13 +13,9 @@ public class Main extends Application {
 	public void start(Stage primaryStage) throws Exception {
 		CSVUtil.loadPerson("data/People.csv");
 		CSVUtil.loadInteractions("data/Interaction.csv");
-		ControlledVocab.addInteractionTypeVocab("Journal");
-		ControlledVocab.addInteractionTypeVocab("Party");
-		ControlledVocab.addInteractionTypeVocab("Letter");
-		ControlledVocab.addCultureVocab("American");
-		ControlledVocab.addCultureVocab("French");
-		ControlledVocab.addOccupationVocab("Painter");
-		ControlledVocab.addOccupationVocab("Sculptor");
+		CSVUtil.loadInteractionType("data/InteractionType.csv");
+		CSVUtil.loadCultureVocab("data/CultureVocab.csv");
+		CSVUtil.loadOccupationVocab("data/OccupationVocab.csv");
 		HomeGUI homeGUI = new HomeGUI();
 		homeGUI.start(primaryStage);
 	}

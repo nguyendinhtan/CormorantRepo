@@ -22,13 +22,13 @@ public class CSVUtil {
 		reader = new CSVReader(new FileReader(fileName));
 		List<String[]> myRows = reader.readAll();
 		myRows.remove(0);
-		for (String[] row : myRows) {
-			if (!row[0].equals("")){
-			addPerson(new Person(row));
+		if (!myRows.isEmpty()){
+			for (String[] row : myRows) {
+				addPerson(new Person(row));
 			}
 		}
 	}
-
+	
 	/**
 	 * This adds a person to a person map.
 	 * 
@@ -117,14 +117,16 @@ public class CSVUtil {
 
 	}
 	
+	
 	public static void loadInteractionType(String fileName) throws IOException {
 		reader = new CSVReader(new FileReader(fileName));
 		List<String[]> myRows = reader.readAll();
 		myRows.remove(0);
-		for (String row : myRows.get(0)) {
-			ControlledVocab.addInteractionTypeVocab(row);
+		if (!myRows.isEmpty()){
+			for (String row : myRows.get(0)) {
+				ControlledVocab.addInteractionTypeVocab(row);
+			}
 		}
-
 	}
 	public static void saveInteractionType(String fileName) throws IOException {
 		writer = new CSVWriter(new FileWriter(fileName), ',', CSVWriter.NO_QUOTE_CHARACTER);
@@ -139,13 +141,16 @@ public class CSVUtil {
 		writer.writeNext(interactionTypeArray);
 		writer.close();
 	}
+
 	
 	public static void loadCultureVocab(String fileName) throws IOException {
 		reader = new CSVReader(new FileReader(fileName));
 		List<String[]> myRows = reader.readAll();
 		myRows.remove(0);
+		if (!myRows.isEmpty()){
 		for (String row : myRows.get(0)) {
 			ControlledVocab.addCultureVocab(row);
+		}
 		}
 
 	}
@@ -167,10 +172,11 @@ public class CSVUtil {
 		reader = new CSVReader(new FileReader(fileName));
 		List<String[]> myRows = reader.readAll();
 		myRows.remove(0);
+		if (!myRows.isEmpty()){
 		for (String row : myRows.get(0)) {
 			ControlledVocab.addOccupationVocab(row);
 		}
-
+		}
 	}
 	public static void saveOccupationVocab(String fileName) throws IOException {
 		writer = new CSVWriter(new FileWriter(fileName), ',', CSVWriter.NO_QUOTE_CHARACTER);
