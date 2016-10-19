@@ -115,6 +115,7 @@ public class SearchResultGUI extends Application {
 				public void handle(ActionEvent e) {
 					int selectedIndex = personResultsView.getSelectionModel().getSelectedIndex();
 					if (selectedIndex >= 0) {
+						if (DialogGUI.conformation("Deleting Person From List", "Are you sure you want to delete this person?")){
 						for (int i = 0; i < DataCollections.getInteractionCollection().size(); i++) {
 							for (int j = 0; j < DataCollections.getInteractionCollection().get(i).getPeople1()
 									.size(); j++) {
@@ -135,7 +136,7 @@ public class SearchResultGUI extends Application {
 						oListPersonResults.remove(selectedIndex);
 						System.out.println(DataCollections.getPersonCollection().size());
 					}
-
+					}
 				}
 			});
 
@@ -169,8 +170,10 @@ public class SearchResultGUI extends Application {
 				public void handle(ActionEvent e) {
 					int selectedIndex = interactionResultsView.getSelectionModel().getSelectedIndex();
 					if (selectedIndex >= 0) {
+						if (DialogGUI.conformation("Deleteing Interaction", "Are you sure you want to delete this interaction?")){
 						DataCollections.getInteractionCollection().remove(interactionResultsView.getSelectionModel().getSelectedItem());
 						oListInteractionResults.remove(selectedIndex);
+					}
 					}
 				}
 			});
@@ -201,6 +204,7 @@ public class SearchResultGUI extends Application {
 		  			DialogGUI.showError("Couldn't Save Interaction to CSV", error.toString());
 		  			
 		  		}
+		    	  
 		      }
 		  }); 
 		primaryStage.setTitle("Search Results");

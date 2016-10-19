@@ -37,7 +37,6 @@ public class CSVUtil {
 	 *            the person
 	 */
 	public static void addPerson(Person person) {
-		personMap.put(person.getID(), person);
 		DataCollections.addPerson(person);
 	}
 
@@ -61,7 +60,7 @@ public class CSVUtil {
 		for (Person person: DataCollections.getPersonCollection()){
 			personMap.put(person.getID(), person);
 		}
-		for (Person person : personMap.values()) {
+		for (Person person : DataCollections.getPersonCollection()) {
 			writer.writeNext(person.toCSVRowArray());
 		}
 		writer.close();

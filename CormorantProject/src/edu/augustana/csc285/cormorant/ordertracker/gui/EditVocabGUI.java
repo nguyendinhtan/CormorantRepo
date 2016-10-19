@@ -104,32 +104,18 @@ public class EditVocabGUI extends Application {
 		addButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
-				if (vocabDropDown.getValue() == null || addVocabTextField.getText().isEmpty()) {
-					Alert alert = new Alert(AlertType.INFORMATION);
-					alert.setTitle("Error");
-					alert.setHeaderText("No data entered.");
-					alert.setContentText("Please select a vocabulary type and enter new vocabulary into the query.");
-					alert.showAndWait();
+				if (vocabDropDown.getValue() == null || !(addVocabTextField.getText().matches(".*[a-zA-Z]+.*"))) {
+					DialogGUI.showError("No data entered.", "Please select a vocabulary type and enter new vocabulary into the text field.");
 				} else {
 					String vocab = addVocabTextField.getText();
 					if (ControlledVocab.checkForUnallowedInput(vocab) < 0) {
-						Alert alert = new Alert(AlertType.INFORMATION);
-						alert.setTitle("Error");
-						alert.setHeaderText("Invalid characters entered.");
-						alert.setContentText("Make sure no numbers or special characters are entered");
-						alert.showAndWait();
+						DialogGUI.showError("Invalid characters entered.", "Make sure no special characters are entered");
 					} else {
 						if (ControlledVocab.checkForVocabDuplicates(vocab, vocabDropDown.getValue()) >= 0) {
-							Alert alert = new Alert(AlertType.INFORMATION);
-							alert.setTitle("Error");
-							alert.setHeaderText("List already contains that vocabulary.");
-							alert.showAndWait();
+							DialogGUI.showError("List already contains that vocabulary.", "");
 						} else {
 							if (vocabDropDown.getValue().equals("Interaction Type")) {
-								Alert alert = new Alert(AlertType.INFORMATION);
-								alert.setTitle("Vocabulary Added");
-								alert.setHeaderText("Vocabulary added to interaction type.");
-								alert.showAndWait();
+								DialogGUI.showInfo("Vocabulary Added", "Vocabulary added to interaction type.");
 								ControlledVocab.addInteractionTypeVocab(vocab);
 								observableListVocab = FXCollections
 										.observableArrayList(ControlledVocab.getInteractionTypeVocab());
@@ -176,15 +162,14 @@ public class EditVocabGUI extends Application {
 		removeButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
-				if (listView.getSelectionModel().getSelectedItem() == null) {
-
-				} else {
+				if (listView.getSelectionModel().getSelectedItem() != null) {
+					if (DialogGUI.conformation("Deleteing Vocabulary", "Are you sure you want to delete this controlled vocabulary?")){
 					int deletedIndex = listView.getSelectionModel().getSelectedIndex();
 					observableListVocab.remove(deletedIndex);
 					ControlledVocab.remove(deletedIndex, vocabDropDown.getValue());
 					listView.setItems(observableListVocab);
 				}
-
+				}
 			}
 		});
 

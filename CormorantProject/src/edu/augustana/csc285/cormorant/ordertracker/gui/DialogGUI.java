@@ -1,7 +1,10 @@
 package edu.augustana.csc285.cormorant.ordertracker.gui;
 
+import java.util.Optional;
+
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 
 public class DialogGUI {
 
@@ -26,5 +29,19 @@ public class DialogGUI {
 		alert.setHeaderText(headerText);
 		alert.setContentText(infoText);
 		alert.showAndWait();
+	}
+	
+	public static boolean conformation(String headerText, String confirmText){
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setTitle("Confirmation");
+		alert.setHeaderText(headerText);
+		alert.setContentText(confirmText);
+
+		Optional<ButtonType> result = alert.showAndWait();
+		if (result.get() == ButtonType.OK){
+		    return true;
+		} else {
+			return false;
+		}
 	}
 }
