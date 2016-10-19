@@ -40,9 +40,11 @@ public class HomeGUI extends Application {
 		Image imageSearch = new Image("search_icon.png");
 		Image imagePerson = new Image("person_icon.png");
 		Image imageInteraction = new Image("interaction_icon.png");
+		Image imageEdit = new Image("edit_icon.png");
 		ImageView imageSearchView = new ImageView(imageSearch);
 		ImageView imagePersonView = new ImageView(imagePerson);
 		ImageView imageInteractionView = new ImageView(imageInteraction);
+		ImageView imageEditView = new ImageView(imageEdit);
 		Button searchButton = new Button("Search", imageSearchView);
 		imageSearchView.setFitHeight(15);
 		imageSearchView.setFitWidth(15);
@@ -52,7 +54,9 @@ public class HomeGUI extends Application {
 		Button insertInteractionButton = new Button("Insert Interaction", imageInteractionView);
 		imageInteractionView.setFitHeight(20);
 		imageInteractionView.setFitWidth(20);
-		Button editVocabButton = new Button("Edit Controlled Vocabulary");
+		Button editVocabButton = new Button("Edit Controlled Vocabulary", imageEditView);
+		imageEditView.setFitHeight(20);
+		imageEditView.setFitWidth(20);
 		HBox topRowBox = new HBox();
 		HBox bottomButtonRowBox = new HBox(10);
 
