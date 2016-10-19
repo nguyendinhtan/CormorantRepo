@@ -272,19 +272,19 @@ public class EditInteractionGUI extends Application {
 				String notes = notesTextArea.getText();
 
 				if (!(oListPerson1Selected.isEmpty() && oListPerson2Selected.isEmpty())) {
-					if (location.isEmpty()) {
+					if (location.matches(".*[a-zA-Z]+.*")) {
 						location = "Unknown";
 					}
-					if (date.isEmpty()) {
+					if (date.matches("[0-9]")) {
 						date = "Unknown";
 					}
-					if (citation.isEmpty()) {
+					if (citation.matches(".*[a-zA-Z]+.*")) {
 						citation = "none";
 					}
 					if (interactionType == null) {
 						interactionType = "Unknown";
 					}
-					if (notes.isEmpty()) {
+					if (notes.matches(".*[a-zA-Z]+.*")) {
 						notes = "none";
 					}
 					Interaction interaction = new Interaction(oListPerson1Selected, oListPerson2Selected, location,

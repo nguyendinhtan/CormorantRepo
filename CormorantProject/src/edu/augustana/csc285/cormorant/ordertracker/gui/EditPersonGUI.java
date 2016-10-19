@@ -117,14 +117,9 @@ public class EditPersonGUI extends Application {
 				String culture = cultureDropDown.getValue();
 				String occupation = occupationDropDown.getValue();
 				String notes = notesTextArea.getText();
-				if (name.isEmpty() && nickname.isEmpty() && gender == null && culture.isEmpty() && occupation.isEmpty() && notes.isEmpty()) {
-
-				} else {
-					if (name.isEmpty()) {
-						name = "Anonymous";
-					}
-					if (nickname.isEmpty()) {
-						nickname = "Anonymous";
+				if (name.matches(".*[a-zA-Z]+.*")){
+					if (!nickname.matches(".*[a-zA-Z]+.*")) {
+						nickname = "No Nickname";
 					}
 					if (gender == null) {
 						gender = "Unknown";
@@ -135,7 +130,7 @@ public class EditPersonGUI extends Application {
 					if (occupation == null) {
 						occupation = "Unknown";
 					}
-					if (notes.isEmpty()) {
+					if (!notes.matches(".*[a-zA-Z]+.*")) {
 						notes = "none";
 					}
 					Person person = new Person(id, name, nickname, gender, culture, occupation, notes);
@@ -176,6 +171,8 @@ public class EditPersonGUI extends Application {
 						SearchResultGUI searchGUI = new SearchResultGUI();
 						searchGUI.start(primaryStage);
 					}
+				}else{
+					DialogGUI.showError("No Letters in Name Field", "Name must contain a letter.");;
 				}
 			}
 		});

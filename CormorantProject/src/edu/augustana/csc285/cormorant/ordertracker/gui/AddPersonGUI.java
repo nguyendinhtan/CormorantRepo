@@ -113,12 +113,8 @@ public class AddPersonGUI extends Application {
 				String culture = cultureDropDown.getValue();
 				String occupation = occupationDropDown.getValue();
 				String notes = notesTextArea.getText();
-				if (!(name.isEmpty() && nickname.isEmpty() && gender == null && culture.isEmpty() && occupation.isEmpty()
-						&& notes.isEmpty())) {
-					if (name.isEmpty()) {
-						name = "Anonymous";
-					}
-					if (nickname.isEmpty()) {
+				if (name.matches(".*[a-zA-Z]+.*")){
+					if (!nickname.matches(".*[a-zA-Z]+.*")) {
 						nickname = "No Nickname";
 					}
 					if (gender == null) {
@@ -130,7 +126,7 @@ public class AddPersonGUI extends Application {
 					if (occupation == null) {
 						occupation = "Unknown";
 					}
-					if (notes.isEmpty()) {
+					if (!notes.matches(".*[a-zA-Z]+.*")) {
 						notes = "none";
 					}
 					Person person = new Person(id, name,nickname, gender, culture, occupation, notes);

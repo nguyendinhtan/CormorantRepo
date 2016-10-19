@@ -1,3 +1,4 @@
+
 package edu.augustana.csc285.cormorant.ordertracker.datamodel;
 
 import edu.augustana.csc285.cormorant.ordertracker.gui.HomeGUI;

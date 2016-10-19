@@ -1,3 +1,4 @@
+
 package edu.augustana.csc285.cormorant.ordertracker.datamodel;
 
 import java.io.FileReader;
@@ -55,7 +56,7 @@ public class CSVUtil {
 	 */
 	public static void savePerson(String fileName) throws IOException {
 		writer = new CSVWriter(new FileWriter(fileName), ',', CSVWriter.NO_QUOTE_CHARACTER);
-		String[] header = "ID,Name,Nickname,Culture,Occupation,Notes".split(",");
+		String[] header = "ID,Name,Nickname,Gender,Culture,Occupation,Notes".split(",");
 		writer.writeNext(header);
 		for (Person person: DataCollections.getPersonCollection()){
 			personMap.put(person.getID(), person);
@@ -64,6 +65,16 @@ public class CSVUtil {
 			writer.writeNext(person.toCSVRowArray());
 		}
 		writer.close();
+	}
+	public static void saveInteractions(String fileName) throws IOException {
+		writer = new CSVWriter(new FileWriter(fileName), ',', CSVWriter.NO_QUOTE_CHARACTER);
+		String[] header = "IDList1,IDList2,Location,Date,Citation,Notes".split(",");
+		writer.writeNext(header);
+		for (Interaction interaction : DataCollections.getInteractionCollection()) {
+			writer.writeNext(interaction.toCSVRowArray());
+		}
+		writer.close();
+
 	}
 
 	public static void loadInteractions(String fileName) throws IOException {
@@ -106,16 +117,6 @@ public class CSVUtil {
 		}
 	}
 	
-	public static void saveInteractions(String fileName) throws IOException {
-		writer = new CSVWriter(new FileWriter(fileName), ',', CSVWriter.NO_QUOTE_CHARACTER);
-		String[] header = "IDList1,IDList2,Location,Date,Citation,Notes".split(",");
-		writer.writeNext(header);
-		for (Interaction interaction : DataCollections.getInteractionCollection()) {
-			writer.writeNext(interaction.toCSVRowArray());
-		}
-		writer.close();
-
-	}
 	
 	
 	public static void loadInteractionType(String fileName) throws IOException {
@@ -138,7 +139,9 @@ public class CSVUtil {
 		for (int i = 0; i< sizeList; i++){
 			interactionTypeArray[i] = ControlledVocab.getInteractionTypeVocab().get(i);
 		}
+		if (!(ControlledVocab.getInteractionTypeVocab().isEmpty())){	
 		writer.writeNext(interactionTypeArray);
+		}
 		writer.close();
 	}
 
@@ -164,7 +167,9 @@ public class CSVUtil {
 		for (int i = 0; i< sizeList; i++){
 			cultureVocabArray[i] = ControlledVocab.getCultureVocab().get(i);
 		}
+		if (!(ControlledVocab.getCultureVocab().isEmpty())){	
 		writer.writeNext(cultureVocabArray);
+		}
 		writer.close();
 	}
 	
@@ -185,11 +190,15 @@ public class CSVUtil {
 		header[0] = "Occupation Vocabulary";
 		writer.writeNext(header);
 		String[] occupationVocabArray = new String[sizeList];
+		
 		for (int i = 0; i< sizeList; i++){
 			occupationVocabArray[i] = ControlledVocab.getOccupationVocab().get(i);
 		}
-		writer.writeNext(occupationVocabArray);
+		if (!(ControlledVocab.getOccupationVocab().isEmpty())){	
+			writer.writeNext(occupationVocabArray);
+		}
 		writer.close();
+		
 	}
 	
 	
@@ -227,4 +236,61 @@ public class CSVUtil {
 		reader.close();
 		writer.close();
 	}
+
+public static void palladioExport(String fileName) throws IOException {
+	writer = new CSVWriter(new FileWriter(fileName), ',', CSVWriter.NO_QUOTE_CHARACTER);
+	List<Interaction> interactionList = DataCollections.getInteractionCollection();
+	String[] header= "Source,Target".split(",");
+	writer.writeNext(header);
+	for (Interaction interaction: interactionList){
+		List<Person> people1=interaction.getPeople1();
+		List<Person> people2=interaction.getPeople2();
+		for (Person person1:people1){
+			for (Person person2:people2)	{
+				String[] arrayName = new String[2];
+				arrayName[0]=person1.getName();
+				arrayName[1]=person2.getName();
+				writer.writeNext(arrayName);
+			}
+		}
+	}
+	writer.close();
+}
+
+public static void gephiExportNodes(String fileName) throws IOException {
+	writer = new CSVWriter(new FileWriter(fileName), ',', CSVWriter.NO_QUOTE_CHARACTER);
+	List<Person> personList = DataCollections.getPersonCollection();
+	String[] header= "Node ID,Label".split(",");
+	writer.writeNext(header);
+	for (Person person: personList){
+		String[] arrayNodes = new String[2];
+		arrayNodes[0]=Integer.toString(person.getID());
+		arrayNodes[1]=person.getName();
+		writer.writeNext(arrayNodes);
+	}
+	writer.close();
+}
+
+public static void gephiExportEdges(String fileName) throws IOException {
+	writer = new CSVWriter(new FileWriter(fileName), ',', CSVWriter.NO_QUOTE_CHARACTER);
+	List<Interaction> interactionList = DataCollections.getInteractionCollection();
+	String[] header= "Source,Target,Edge ID".split(",");
+	writer.writeNext(header);
+	for (Interaction interaction: interactionList){
+		List<Person> people1=interaction.getPeople1();
+		List<Person> people2=interaction.getPeople2();
+		int edgeId=0;
+		for (Person person1:people1){
+			for (Person person2:people2)	{
+				edgeId++;
+				String[] arrayName = new String[3];
+				arrayName[0]=Integer.toString(person1.getID());
+				arrayName[1]=Integer.toString(person2.getID());
+				arrayName[2]=Integer.toString(edgeId);
+				writer.writeNext(arrayName);
+			}
+		}
+	}
+	writer.close();
+}
 }
