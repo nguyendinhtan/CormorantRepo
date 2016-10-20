@@ -22,7 +22,6 @@ import javafx.stage.WindowEvent;
 
 public class HomeGUI extends Application {
 	private ComboBox<String> searchType;
-	private TextField searchTextField;
 	private static String typeOfSearch;
 	private static String searchKey;
 
@@ -88,8 +87,6 @@ public class HomeGUI extends Application {
 					typeOfSearch = searchType.getValue();
 					searchKey = searchTextField.getText();
 					searchGUI.start(primaryStage);
-				} else {
-
 				}
 			}
 		});

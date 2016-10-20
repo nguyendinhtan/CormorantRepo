@@ -183,7 +183,6 @@ public class Interaction {
 			for (int i = 1; i < peopleList.size(); i++) {
 				peopleGroup += ", " + peopleList.get(i).getName();
 			}
-
 			return peopleGroup;
 		}
 		return " ";
@@ -214,7 +213,6 @@ public class Interaction {
 				return 2;
 			}
 		}
-
 		return -1;
 	}
 }

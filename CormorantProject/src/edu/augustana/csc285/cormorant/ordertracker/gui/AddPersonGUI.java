@@ -100,7 +100,6 @@ public class AddPersonGUI extends Application {
 		notesTextArea.setMaxSize(300, 100);
 
 		// Add Person Buttons
-		// addPersonButton.setTextFill(Color.BLACK);
 		addPersonButton.setTextFill(Color.BLACK);
 		addPersonButton.setStyle("-fx-base: #FFFFFF");
 		addPersonButton.setOnAction(new EventHandler<ActionEvent>() {

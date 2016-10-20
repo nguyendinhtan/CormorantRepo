@@ -163,9 +163,7 @@ public class AddInteractionGUI extends Application {
 		addPerson2Button.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
-				if (person2DropDown.getValue() == null) {
-
-				} else {
+				if (person2DropDown.getValue() != null) {
 					oListPerson2Selected.add(person2DropDown.getValue());
 					Collections.sort(oListPerson2Selected, Person.personNameComparator);
 					person2List.setItems(oListPerson2Selected);
@@ -182,9 +180,7 @@ public class AddInteractionGUI extends Application {
 		removePerson1Button.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
-				if (person1List.getSelectionModel().getSelectedIndex() < 0) {
-
-				} else {
+				if (person1List.getSelectionModel().getSelectedIndex() >= 0) {
 					oListPersonDropDown.add(person1List.getSelectionModel().getSelectedItem());
 					Collections.sort(oListPersonDropDown, Person.personNameComparator);
 					oListPerson1Selected.remove(person1List.getSelectionModel().getSelectedIndex());
@@ -200,13 +196,10 @@ public class AddInteractionGUI extends Application {
 		removePerson2Button.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
-				if (person2List.getSelectionModel().getSelectedIndex() < 0) {
-
-				} else {
+				if (person2List.getSelectionModel().getSelectedIndex() >= 0) {
 					oListPersonDropDown.add(person2List.getSelectionModel().getSelectedItem());
 					Collections.sort(oListPersonDropDown, Person.personNameComparator);
 					oListPerson2Selected.remove(person2List.getSelectionModel().getSelectedIndex());
-
 				}
 			}
 		});

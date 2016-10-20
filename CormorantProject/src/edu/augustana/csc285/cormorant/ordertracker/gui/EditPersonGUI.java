@@ -171,7 +171,7 @@ public class EditPersonGUI extends Application {
 						SearchResultGUI searchGUI = new SearchResultGUI();
 						searchGUI.start(primaryStage);
 					}
-				}else{
+				} else {
 					DialogGUI.showError("No Letters in Name Field", "Name must contain a letter.");;
 				}
 			}

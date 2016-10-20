@@ -15,7 +15,6 @@ import com.opencsv.CSVWriter;
 public class CSVUtil {
 
 	private static Map<Integer, Person> personMap = new TreeMap<>();
-	//private static List<Interaction> interactions = new ArrayList<>();
 	private static CSVReader reader;
 	private static CSVWriter writer;
 
@@ -96,21 +95,20 @@ public class CSVUtil {
 			List<Person> personList2 = new ArrayList<Person>();
 			for (String idStr : idArrayPerson1) {
 				if (!idStr.isEmpty()){
-				int id = Integer.parseInt(idStr);
-				Person person1 = personMap.get(id);
-				personList1.add(person1);
+					int id = Integer.parseInt(idStr);
+					Person person1 = personMap.get(id);
+					personList1.add(person1);
 				}
 			}
 			for (String idStr : idArrayPerson2) {
 				if (!idStr.isEmpty()){
-				int id = Integer.parseInt(idStr);
-				Person person2 = personMap.get(id);
-				personList2.add(person2);
+					int id = Integer.parseInt(idStr);
+					Person person2 = personMap.get(id);
+					personList2.add(person2);
 				}
 			}
 			Interaction interaction = new Interaction(personList1, personList2, location, date, interactionType,
 					citation, notes, true);
-			//interactions.add(interaction);
 			DataCollections.addInteraction(interaction);
 
 		}
@@ -139,7 +137,7 @@ public class CSVUtil {
 			interactionTypeArray[i] = ControlledVocab.getInteractionTypeVocab().get(i);
 		}
 		if (!(ControlledVocab.getInteractionTypeVocab().isEmpty())){	
-		writer.writeNext(interactionTypeArray);
+			writer.writeNext(interactionTypeArray);
 		}
 		writer.close();
 	}
@@ -150,9 +148,9 @@ public class CSVUtil {
 		List<String[]> myRows = reader.readAll();
 		myRows.remove(0);
 		if (!myRows.isEmpty()){
-		for (String row : myRows.get(0)) {
-			ControlledVocab.addCultureVocab(row);
-		}
+			for (String row : myRows.get(0)) {
+				ControlledVocab.addCultureVocab(row);
+			}
 		}
 
 	}
@@ -167,7 +165,7 @@ public class CSVUtil {
 			cultureVocabArray[i] = ControlledVocab.getCultureVocab().get(i);
 		}
 		if (!(ControlledVocab.getCultureVocab().isEmpty())){	
-		writer.writeNext(cultureVocabArray);
+			writer.writeNext(cultureVocabArray);
 		}
 		writer.close();
 	}
@@ -177,9 +175,9 @@ public class CSVUtil {
 		List<String[]> myRows = reader.readAll();
 		myRows.remove(0);
 		if (!myRows.isEmpty()){
-		for (String row : myRows.get(0)) {
-			ControlledVocab.addOccupationVocab(row);
-		}
+			for (String row : myRows.get(0)) {
+				ControlledVocab.addOccupationVocab(row);
+			}
 		}
 	}
 	public static void saveOccupationVocab(String fileName) throws IOException {
@@ -199,13 +197,6 @@ public class CSVUtil {
 		writer.close();
 		
 	}
-	
-	
-	/*public static void addInteraction(Interaction interaction) {
-		interactions.add(interaction);
-		DataCollections.addInteraction(interaction);
-	}*/
-
 	/**
 	 * Goes through an array and adds all the people to a person list.
 	 * 
