@@ -136,9 +136,8 @@ public class SearchResultGUI extends Application {
 				public void handle(ActionEvent e) {
 					try {
 						CSVUtil.gephiExportNodes("data/GephiExportNodes.csv", oListPersonResults);
-					} catch (IOException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
+					} catch (IOException error) {
+						DialogGUI.showError("Error Exporting Nodes to Gephi", error.toString());
 					}
 				}
 			});
