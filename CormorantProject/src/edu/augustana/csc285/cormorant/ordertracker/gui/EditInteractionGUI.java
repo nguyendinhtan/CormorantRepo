@@ -18,8 +18,6 @@ import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
@@ -94,7 +92,7 @@ public class EditInteractionGUI extends Application {
 		oListPerson2Selected = FXCollections.observableArrayList(SearchResultGUI.getSelectedInteraction().getPeople2());
 		person1List.setItems(oListPerson1Selected);
 		person2List.setItems(oListPerson2Selected);
-		datePicker.setPromptText(SearchResultGUI.getSelectedInteraction().getDate());
+		datePicker.setValue(SearchResultGUI.getSelectedInteraction().getDate());
 		notesTextArea.setText(SearchResultGUI.getSelectedInteraction().getNotes());
 		locationTextField.setText(SearchResultGUI.getSelectedInteraction().getLocation());
 		citationTextField.setText(SearchResultGUI.getSelectedInteraction().getCitation());

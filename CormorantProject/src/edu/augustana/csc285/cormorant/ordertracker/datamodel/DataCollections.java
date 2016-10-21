@@ -128,7 +128,7 @@ public class DataCollections {
 				if (interactionCollection.get(i).getPeople1().equals(interaction.getPeople1())
 						&& interactionCollection.get(i).getPeople2().equals(interaction.getPeople2())
 						&& interactionCollection.get(i).getLocation().equals(interaction.getLocation())
-						&& interactionCollection.get(i).getDate().equals(interaction.getDate())
+						&& interactionCollection.get(i).getDateString().equals(interaction.getDateString())
 						&& interactionCollection.get(i).getInteractionType().equals(interaction.getInteractionType())) {
 					return i;
 				}
