@@ -73,8 +73,8 @@ public class HomeGUI extends Application {
 																// combobox
 
 		// Search Text Field Methods
-		searchTextField.setMinSize(300, 10);
-		searchTextField.setMaxSize(300, 50);
+		searchTextField.setMinSize(325, 10);
+		searchTextField.setMaxSize(325, 50);
 
 		// Search Button Methods
 		searchButton.setTextFill(Color.WHITE);

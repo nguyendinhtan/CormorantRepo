@@ -263,7 +263,7 @@ public class EditInteractionGUI extends Application {
 					if (!location.matches(".*[a-zA-Z]+.*")) {
 						location = "Unknown";
 					}
-					if (date.matches("[0-9]")) {
+					if (date.isEmpty()) {
 						date = "Unknown";
 					}
 					if (!citation.matches(".*[a-zA-Z]+.*")) {

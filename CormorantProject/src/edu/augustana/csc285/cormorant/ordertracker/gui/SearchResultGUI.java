@@ -43,7 +43,7 @@ public class SearchResultGUI extends Application {
 
 		// GUI Variables
 		GridPane grid = new GridPane();
-		Scene scene = new Scene(grid, 600, 400);
+		Scene scene = new Scene(grid, 700, 400);
 		TableView<Person> personResultsView = new TableView<Person>();
 		TableView<Interaction> interactionResultsView = new TableView<Interaction>();
 		Image imageEdit = new Image("edit_icon.png");
@@ -58,7 +58,7 @@ public class SearchResultGUI extends Application {
 		imageDeleteView.setFitHeight(15);
 		imageDeleteView.setFitWidth(15);
 		Button btnBack = new Button("Back");
-		HBox hbBtn = new HBox(47);
+		HBox hbBtn = new HBox(113);
 
 		// Grid Methods
 		grid.setAlignment(Pos.CENTER);
@@ -106,24 +106,30 @@ public class SearchResultGUI extends Application {
 
 		if (HomeGUI.getType().equals("Person")) {
 			// sets size of list view
-			personResultsView.setMinSize(400, 300);
-			personResultsView.setMaxSize(400, 300);
+			personResultsView.setMinSize(600, 300);
+			personResultsView.setMaxSize(600, 300);
 			TableColumn<Person, String> nameCol = new TableColumn<Person, String>("Name");
-			 nameCol.setCellValueFactory(
+			nameCol.setMinWidth(75); 
+			nameCol.setCellValueFactory(
 		                new PropertyValueFactory<Person, String>("name"));
 		    TableColumn<Person, String> nicknameCol = new TableColumn<Person, String>("Nickname");
+		    nicknameCol.setMinWidth(75); 
 		    nicknameCol.setCellValueFactory(
 	                new PropertyValueFactory<Person, String>("nickname"));
 		    TableColumn<Person, String> genderCol = new TableColumn<Person, String>("Gender");
+		    genderCol.setMinWidth(75); 
 		    genderCol.setCellValueFactory(
 	                new PropertyValueFactory<Person, String>("gender"));
 		    TableColumn<Person, String> cultureCol = new TableColumn<Person, String>("Culture");
+		    cultureCol.setMinWidth(75);
 		    cultureCol.setCellValueFactory(
 	                new PropertyValueFactory<Person, String>("culture"));
 	        TableColumn<Person, String> occupationCol = new TableColumn<Person, String>("Occupation");
+	        occupationCol.setMinWidth(100);
 	        occupationCol.setCellValueFactory(
 	                new PropertyValueFactory<Person, String>("occupation"));
 	        TableColumn<Person, String> notesCol = new TableColumn<Person, String>("Notes");
+	        notesCol.setMinWidth(185);
 	        notesCol.setCellValueFactory(
 	                new PropertyValueFactory<Person, String>("notes"));
 	        personResultsView.getColumns().addAll(nameCol, nicknameCol, genderCol, cultureCol, occupationCol, notesCol);
@@ -192,27 +198,34 @@ public class SearchResultGUI extends Application {
 			});
 		}
 		if (HomeGUI.getType().equals("Interaction")) {
-			interactionResultsView.setMinSize(400, 300);
-			interactionResultsView.setMaxSize(400, 300);
+			interactionResultsView.setMinSize(600, 300);
+			interactionResultsView.setMaxSize(600, 300);
 			TableColumn<Interaction, String[]> people1Col = new TableColumn<Interaction, String[]>("People");
-			 people1Col.setCellValueFactory(
+			people1Col.setMinWidth(75); 
+			people1Col.setCellValueFactory(
 		                new PropertyValueFactory<Interaction, String[]>("people1"));
 		    TableColumn<Interaction, String[]> people2Col = new TableColumn<Interaction, String[]>("People Interacted With");
+		    people2Col.setMinWidth(75);
 		    people2Col.setCellValueFactory(
 	                new PropertyValueFactory<Interaction, String[]>("people2"));
 		    TableColumn<Interaction, String> locationCol = new TableColumn<Interaction, String>("Location");
+		    locationCol.setMinWidth(75);
 		    locationCol.setCellValueFactory(
 	                new PropertyValueFactory<Interaction, String>("location"));
 		    TableColumn<Interaction, String> dateCol = new TableColumn<Interaction, String>("Date");
+		    dateCol.setMinWidth(75);
 		    dateCol.setCellValueFactory(
 	                new PropertyValueFactory<Interaction, String>("date"));
 	        TableColumn<Interaction, String> interactionTypeCol = new TableColumn<Interaction, String>("Interaction Type");
+	        interactionTypeCol.setMinWidth(75);
 	        interactionTypeCol.setCellValueFactory(
 	                new PropertyValueFactory<Interaction, String>("interactionType"));
 	        TableColumn<Interaction, String> citationCol = new TableColumn<Interaction, String>("Bibliographical Citation");
+	        citationCol.setMinWidth(75);
 	        citationCol.setCellValueFactory(
 	                new PropertyValueFactory<Interaction, String>("citation"));
 	        TableColumn<Interaction, String> notesCol = new TableColumn<Interaction, String>("Notes");
+	        notesCol.setMinWidth(125);
 	        notesCol.setCellValueFactory(
 	                new PropertyValueFactory<Interaction, String>("notes"));
 			grid.add(interactionResultsView, 1, 0);
