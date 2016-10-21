@@ -1,6 +1,14 @@
 package edu.augustana.csc285.cormorant.ordertracker.datamodel;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.*;
+
+import edu.augustana.csc285.cormorant.ordertracker.gui.DialogGUI;
 
 /**
  * The Class Interaction.
@@ -131,12 +139,30 @@ public class Interaction {
 	}
 
 	/**
-	 * Gets the date.
+	 * Gets the date in a string format.
 	 *
-	 * @return the date
+	 * @return the date string
 	 */
-	public String getDate() {
+	public String getDateString() {
 		return date;
+	}
+	
+	/**
+	 * Gets the date in a LocalDate format.
+	 *
+	 * @return the LocalDate date
+	 */
+	public LocalDate getDate() {
+		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+		Date d = null;
+		try {
+			d = df.parse(date);
+		} catch (ParseException e) {
+			DialogGUI.showError("Error Creating Date", e.toString());
+		}
+		Instant i = d.toInstant();
+		LocalDate l = i.atZone(ZoneId.systemDefault()).toLocalDate();
+		return l;
 	}
 
 	/**
