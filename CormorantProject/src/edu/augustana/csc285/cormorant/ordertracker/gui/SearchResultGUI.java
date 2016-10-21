@@ -28,7 +28,6 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
 /**
- * 
  * Search Result GUI view class.
  */
 public class SearchResultGUI extends Application {
@@ -80,26 +79,24 @@ public class SearchResultGUI extends Application {
 
 		// Action for back button to return program to the home screen
 		btnBack.setOnAction(new EventHandler<ActionEvent>() {
-
 			@Override
 			public void handle(ActionEvent e) {
 				HomeGUI homeGUI = new HomeGUI();
 				try {
 					homeGUI.start(primaryStage);
-				} catch (Exception e1) {
-					e1.printStackTrace();
+				} catch (Exception error) {
+					DialogGUI.showError("Error Changing to Home View", error.toString());
 				}
 			}
 		});
 
 		// adds buttons to box
-
 		hbBtn.getChildren().add(btnBack);
 		hbBtn.getChildren().add(btnDelete);
 		hbBtn.getChildren().add(btnEdit);
 		hbBtn.getChildren().add(exportButton);
-		// adds box and list view to grid for display
 
+		// adds box and list view to grid for display
 		grid.add(hbBtn, 1, 1);
 
 		if (HomeGUI.getType().equals("Person")) {
@@ -128,6 +125,7 @@ public class SearchResultGUI extends Application {
 			grid.add(personResultsView, 1, 0);
 			if (HomeGUI.getSearchKey().isEmpty() || HomeGUI.getSearchKey().equals(" ")) {
 				oListPersonResults = FXCollections.observableArrayList(DataCollections.getPersonCollection());
+
 			} else {
 				oListPersonResults = FXCollections.observableArrayList(SearchUtil.searchPeople(HomeGUI.getSearchKey()));
 			}
@@ -186,10 +184,10 @@ public class SearchResultGUI extends Application {
 						EditPersonGUI editPerson = new EditPersonGUI();
 						editPerson.start(primaryStage);
 					}
+
 				}
 			});
 		}
-
 		if (HomeGUI.getType().equals("Interaction")) {
 			interactionResultsView.setMinSize(600, 300);
 			interactionResultsView.setMaxSize(600, 300);
@@ -243,6 +241,7 @@ public class SearchResultGUI extends Application {
 					}
 				}
 			});
+
 			btnDelete.setOnAction(new EventHandler<ActionEvent>() {
 				@Override
 				public void handle(ActionEvent e) {
@@ -257,6 +256,7 @@ public class SearchResultGUI extends Application {
 					}
 				}
 			});
+
 			btnEdit.setOnAction(new EventHandler<ActionEvent>() {
 				@Override
 				public void handle(ActionEvent e) {
@@ -270,6 +270,7 @@ public class SearchResultGUI extends Application {
 				}
 			});
 		}
+
 		// primaryStage methods
 		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 			public void handle(WindowEvent we) {

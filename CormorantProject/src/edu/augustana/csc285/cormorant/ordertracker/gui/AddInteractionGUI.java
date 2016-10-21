@@ -259,7 +259,6 @@ public class AddInteractionGUI extends Application {
 						oListPerson1Selected.clear();
 						oListPerson2Selected.clear();
 						locationTextField.clear();
-						;
 						datePicker.setValue(null);
 						interactionTypeDropDown.setValue(null);
 						citationTextField.clear();
