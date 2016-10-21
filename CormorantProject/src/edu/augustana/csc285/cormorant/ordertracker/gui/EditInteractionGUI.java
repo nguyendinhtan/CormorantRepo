@@ -45,7 +45,6 @@ public class EditInteractionGUI extends Application {
 	}
 
 	public void start(Stage primaryStage) {
-
 		System.setProperty("glass.accessible.force", "false"); // Fixes bug of
 																// combobox
 																// crashing when
@@ -160,15 +159,12 @@ public class EditInteractionGUI extends Application {
 		addPerson1Button.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
-				if (person1DropDown.getValue() == null) {
-
-				} else {
+				if (person1DropDown.getValue() != null) {
 					oListPerson1Selected.add(person1DropDown.getValue());
 					Collections.sort(oListPerson1Selected, Person.personNameComparator);
 					person1List.setItems(oListPerson1Selected);
 					oListPersonDropDown.remove(person1DropDown.getValue());
 					person1DropDown.setValue(null);
-
 				}
 			}
 		});
@@ -179,9 +175,7 @@ public class EditInteractionGUI extends Application {
 		addPerson2Button.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
-				if (person2DropDown.getValue() == null) {
-
-				} else {
+				if (person2DropDown.getValue() != null) {
 					oListPerson2Selected.add(person2DropDown.getValue());
 					Collections.sort(oListPerson2Selected, Person.personNameComparator);
 					person2List.setItems(oListPerson2Selected);
@@ -198,13 +192,10 @@ public class EditInteractionGUI extends Application {
 		removePerson1Button.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
-				if (person1List.getSelectionModel().getSelectedIndex() < 0) {
-
-				} else {
+				if (person1List.getSelectionModel().getSelectedIndex() >= 0) {
 					oListPersonDropDown.add(person1List.getSelectionModel().getSelectedItem());
 					Collections.sort(oListPersonDropDown, Person.personNameComparator);
 					oListPerson1Selected.remove(person1List.getSelectionModel().getSelectedIndex());
-
 				}
 			}
 		});
@@ -216,13 +207,10 @@ public class EditInteractionGUI extends Application {
 		removePerson2Button.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
-				if (person2List.getSelectionModel().getSelectedIndex() < 0) {
-
-				} else {
+				if (person2List.getSelectionModel().getSelectedIndex() >= 0) {
 					oListPersonDropDown.add(person2List.getSelectionModel().getSelectedItem());
 					Collections.sort(oListPersonDropDown, Person.personNameComparator);
 					oListPerson2Selected.remove(person2List.getSelectionModel().getSelectedIndex());
-
 				}
 			}
 		});
