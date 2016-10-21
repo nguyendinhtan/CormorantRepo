@@ -48,7 +48,7 @@ public class AddInteractionGUI extends Application {
 																// computers
 		// GUI Variables
 		GridPane grid = new GridPane();
-		Scene scene = new Scene(grid, 700, 700);
+		Scene scene = new Scene(grid);
 		HBox personLabelBox = new HBox(185);
 		HBox buttonList1Box = new HBox();
 		HBox buttonList2Box = new HBox();

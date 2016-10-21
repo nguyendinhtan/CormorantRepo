@@ -42,7 +42,7 @@ public class EditPersonGUI extends Application {
 		DataCollections.getPersonCollection().remove(SearchResultGUI.getSelectedPerson());
 		// GUI Variables
 		GridPane grid = new GridPane();
-		Scene scene = new Scene(grid, 500, 400);
+		Scene scene = new Scene(grid);
 		Label nameLabel = new Label("Name:");
 		Label nicknameLabel = new Label("Nickname:");
 		Label genderLabel = new Label("Gender:");

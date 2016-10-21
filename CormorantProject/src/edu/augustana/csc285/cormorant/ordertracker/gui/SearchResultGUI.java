@@ -42,7 +42,7 @@ public class SearchResultGUI extends Application {
 
 		// GUI Variables
 		GridPane grid = new GridPane();
-		Scene scene = new Scene(grid, 700, 400);
+		Scene scene = new Scene(grid);
 		TableView<Person> personResultsView = new TableView<Person>();
 		TableView<Interaction> interactionResultsView = new TableView<Interaction>();
 		Image imageEdit = new Image("edit_icon.png");

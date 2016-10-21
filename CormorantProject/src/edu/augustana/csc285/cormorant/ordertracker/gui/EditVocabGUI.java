@@ -42,7 +42,7 @@ public class EditVocabGUI extends Application {
 
 		// GUI Variables
 		GridPane grid = new GridPane();
-		Scene scene = new Scene(grid, 600, 400);
+		Scene scene = new Scene(grid);
 		HBox queryBox = new HBox();
 		HBox controlledVocabBox = new HBox();
 		HBox buttonGroup = new HBox(175);

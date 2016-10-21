@@ -30,11 +30,12 @@ public class HomeGUI extends Application {
 		launch(args);
 	}
 
+	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		// GUI Variables
 		GridPane grid = new GridPane();
-		Scene scene = new Scene(grid, 700, 300);
+		Scene scene = new Scene(grid);
 		searchType = new ComboBox<String>();
 		TextField searchTextField = new TextField();
 		Image imageSearch = new Image("search_icon.png");
@@ -100,6 +101,7 @@ public class HomeGUI extends Application {
 
 		// Insert Person Button Methods
 		insertPersonButton.setTextFill(Color.BLACK);
+		insertPersonButton.setAlignment(Pos.CENTER_LEFT);
 		insertPersonButton.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
@@ -115,6 +117,7 @@ public class HomeGUI extends Application {
 		});
 
 		// Insert Interaction Button Methods
+		insertInteractionButton.setAlignment(Pos.CENTER);
 		insertInteractionButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
@@ -130,6 +133,7 @@ public class HomeGUI extends Application {
 
 		// Edit Vocab Button Methods
 		editVocabButton.setTextFill(Color.BLACK);
+		editVocabButton.setAlignment(Pos.CENTER_RIGHT);
 		editVocabButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {

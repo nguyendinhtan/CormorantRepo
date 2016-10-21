@@ -44,7 +44,7 @@ public class AddPersonGUI extends Application {
 
 		// GUI Variables
 		GridPane grid = new GridPane();
-		Scene scene = new Scene(grid, 500, 400);
+		Scene scene = new Scene(grid);
 		Label nameLabel = new Label("Name:");
 		Label genderLabel = new Label("Gender:");
 		Label nicknameLabel = new Label("Nickname:");
