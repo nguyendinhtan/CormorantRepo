@@ -37,7 +37,7 @@ public class SearchResultGUI extends Application {
 	private static Person selectedPerson;
 	private static Interaction selectedInteraction;
 
-	// @override
+	@Override
 	public void start(Stage primaryStage) {
 
 		// GUI Variables
@@ -128,13 +128,12 @@ public class SearchResultGUI extends Application {
 			grid.add(personResultsView, 1, 0);
 			if (HomeGUI.getSearchKey().isEmpty() || HomeGUI.getSearchKey().equals(" ")) {
 				oListPersonResults = FXCollections.observableArrayList(DataCollections.getPersonCollection());
-
 			} else {
 				oListPersonResults = FXCollections.observableArrayList(SearchUtil.searchPeople(HomeGUI.getSearchKey()));
 			}
 			personResultsView.setItems(oListPersonResults);
-			exportButton.setOnAction(new EventHandler<ActionEvent>() {
 
+			exportButton.setOnAction(new EventHandler<ActionEvent>() {
 				@Override
 				public void handle(ActionEvent e) {
 					try {
@@ -145,8 +144,8 @@ public class SearchResultGUI extends Application {
 					}
 				}
 			});
-			btnDelete.setOnAction(new EventHandler<ActionEvent>() {
 
+			btnDelete.setOnAction(new EventHandler<ActionEvent>() {
 				@Override
 				public void handle(ActionEvent e) {
 					int selectedIndex = personResultsView.getSelectionModel().getSelectedIndex();
@@ -190,7 +189,7 @@ public class SearchResultGUI extends Application {
 				}
 			});
 		}
-		
+
 		if (HomeGUI.getType().equals("Interaction")) {
 			interactionResultsView.setMinSize(600, 300);
 			interactionResultsView.setMaxSize(600, 300);

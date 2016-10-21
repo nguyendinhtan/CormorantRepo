@@ -26,7 +26,6 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
 /**
- * 
  * Add Person GUI view class.
  */
 
@@ -133,7 +132,6 @@ public class AddPersonGUI extends Application {
 					} else {
 						DataCollections.addPerson(person);
 						DialogGUI.showInfo("Person Added", "Person was added to list.");
-
 						nameTextField.clear();
 						nicknameTextField.clear();
 						genderDropDown.setValue(null);
@@ -155,9 +153,8 @@ public class AddPersonGUI extends Application {
 				HomeGUI Homegui = new HomeGUI();
 				try {
 					Homegui.start(primaryStage);
-				} catch (Exception e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+				} catch (Exception error) {
+					DialogGUI.showError("Error Changing to the Home View", error.toString());
 				}
 			}
 		});
