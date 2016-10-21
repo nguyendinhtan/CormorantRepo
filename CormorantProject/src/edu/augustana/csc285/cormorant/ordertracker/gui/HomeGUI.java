@@ -68,6 +68,7 @@ public class HomeGUI extends Application {
 
 		// DropDown list for choosing search type
 		searchType.getItems().addAll("Person", "Interaction");
+		searchType.setPromptText("Search Category");
 		System.setProperty("glass.accessible.force", "false");// Fixes bug of
 																// crashing
 																// combobox
