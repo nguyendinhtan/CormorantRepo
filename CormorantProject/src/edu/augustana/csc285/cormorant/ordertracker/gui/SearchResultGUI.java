@@ -230,20 +230,17 @@ public class SearchResultGUI extends Application {
 
 			interactionResultsView.setItems(oListInteractionResults);
 			exportButton.setOnAction(new EventHandler<ActionEvent>() {
-
 				@Override
 				public void handle(ActionEvent e) {
 					try {
 						CSVUtil.palladioExport("data/PalladioExport.csv", oListInteractionResults);
-					} catch (IOException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
+					} catch (IOException error) {
+						DialogGUI.showError("Error Exporting Palladio CSV File", error.toString());
 					}
 					try {
 						CSVUtil.gephiExportEdges("data/GephyExportEdges.csv", oListInteractionResults);
-					} catch (IOException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
+					} catch (IOException error) {
+						DialogGUI.showError("Error Exporting to Gephi CSV File", error.toString());
 					}
 				}
 			});
