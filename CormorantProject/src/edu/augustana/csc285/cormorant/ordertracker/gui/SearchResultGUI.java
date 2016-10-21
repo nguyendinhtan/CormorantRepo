@@ -51,7 +51,7 @@ public class SearchResultGUI extends Application {
 		ImageView imageDeleteView = new ImageView(imageDelete);
 		Button btnEdit = new Button("Edit", imageEditView);
 		Button btnDelete = new Button("Delete", imageDeleteView);
-		Button exportButton=new Button("Export");
+		Button exportButton = new Button("Export");
 		imageEditView.setFitHeight(15);
 		imageEditView.setFitWidth(15);
 		imageDeleteView.setFitHeight(15);
@@ -74,7 +74,7 @@ public class SearchResultGUI extends Application {
 
 		btnBack.setTextFill(Color.BLACK);
 		btnBack.setStyle("-fx-base: #FFFFFF");
-		
+
 		exportButton.setTextFill(Color.BLACK);
 		exportButton.setStyle("-fx-base: #FFFFFF");
 
@@ -91,7 +91,6 @@ public class SearchResultGUI extends Application {
 				}
 			}
 		});
-		
 
 		// adds buttons to box
 
@@ -108,30 +107,24 @@ public class SearchResultGUI extends Application {
 			personResultsView.setMinSize(600, 300);
 			personResultsView.setMaxSize(600, 300);
 			TableColumn<Person, String> nameCol = new TableColumn<Person, String>("Name");
-			nameCol.setMinWidth(75); 
-			nameCol.setCellValueFactory(
-		                new PropertyValueFactory<Person, String>("name"));
-		    TableColumn<Person, String> nicknameCol = new TableColumn<Person, String>("Nickname");
-		    nicknameCol.setMinWidth(75); 
-		    nicknameCol.setCellValueFactory(
-	                new PropertyValueFactory<Person, String>("nickname"));
-		    TableColumn<Person, String> genderCol = new TableColumn<Person, String>("Gender");
-		    genderCol.setMinWidth(75); 
-		    genderCol.setCellValueFactory(
-	                new PropertyValueFactory<Person, String>("gender"));
-		    TableColumn<Person, String> cultureCol = new TableColumn<Person, String>("Culture");
-		    cultureCol.setMinWidth(75);
-		    cultureCol.setCellValueFactory(
-	                new PropertyValueFactory<Person, String>("culture"));
-	        TableColumn<Person, String> occupationCol = new TableColumn<Person, String>("Occupation");
-	        occupationCol.setMinWidth(100);
-	        occupationCol.setCellValueFactory(
-	                new PropertyValueFactory<Person, String>("occupation"));
-	        TableColumn<Person, String> notesCol = new TableColumn<Person, String>("Notes");
-	        notesCol.setMinWidth(185);
-	        notesCol.setCellValueFactory(
-	                new PropertyValueFactory<Person, String>("notes"));
-	        personResultsView.getColumns().addAll(nameCol, nicknameCol, genderCol, cultureCol, occupationCol, notesCol);
+			nameCol.setMinWidth(75);
+			nameCol.setCellValueFactory(new PropertyValueFactory<Person, String>("name"));
+			TableColumn<Person, String> nicknameCol = new TableColumn<Person, String>("Nickname");
+			nicknameCol.setMinWidth(75);
+			nicknameCol.setCellValueFactory(new PropertyValueFactory<Person, String>("nickname"));
+			TableColumn<Person, String> genderCol = new TableColumn<Person, String>("Gender");
+			genderCol.setMinWidth(75);
+			genderCol.setCellValueFactory(new PropertyValueFactory<Person, String>("gender"));
+			TableColumn<Person, String> cultureCol = new TableColumn<Person, String>("Culture");
+			cultureCol.setMinWidth(75);
+			cultureCol.setCellValueFactory(new PropertyValueFactory<Person, String>("culture"));
+			TableColumn<Person, String> occupationCol = new TableColumn<Person, String>("Occupation");
+			occupationCol.setMinWidth(100);
+			occupationCol.setCellValueFactory(new PropertyValueFactory<Person, String>("occupation"));
+			TableColumn<Person, String> notesCol = new TableColumn<Person, String>("Notes");
+			notesCol.setMinWidth(185);
+			notesCol.setCellValueFactory(new PropertyValueFactory<Person, String>("notes"));
+			personResultsView.getColumns().addAll(nameCol, nicknameCol, genderCol, cultureCol, occupationCol, notesCol);
 			grid.add(personResultsView, 1, 0);
 			if (HomeGUI.getSearchKey().isEmpty() || HomeGUI.getSearchKey().equals(" ")) {
 				oListPersonResults = FXCollections.observableArrayList(DataCollections.getPersonCollection());
@@ -158,27 +151,29 @@ public class SearchResultGUI extends Application {
 				public void handle(ActionEvent e) {
 					int selectedIndex = personResultsView.getSelectionModel().getSelectedIndex();
 					if (selectedIndex >= 0) {
-						if (DialogGUI.conformation("Deleting Person From List", "Are you sure you want to delete this person?")){
-						for (int i = 0; i < DataCollections.getInteractionCollection().size(); i++) {
-							for (int j = 0; j < DataCollections.getInteractionCollection().get(i).getPeople1()
-									.size(); j++) {
-								if (DataCollections.getInteractionCollection().get(i).getPeople1().get(j)
-										.equals(personResultsView.getSelectionModel().getSelectedItem())) {
-									DataCollections.getInteractionCollection().get(i).getPeople1().remove(j);
+						if (DialogGUI.conformation("Deleting Person From List",
+								"Are you sure you want to delete this person?")) {
+							for (int i = 0; i < DataCollections.getInteractionCollection().size(); i++) {
+								for (int j = 0; j < DataCollections.getInteractionCollection().get(i).getPeople1()
+										.size(); j++) {
+									if (DataCollections.getInteractionCollection().get(i).getPeople1().get(j)
+											.equals(personResultsView.getSelectionModel().getSelectedItem())) {
+										DataCollections.getInteractionCollection().get(i).getPeople1().remove(j);
+									}
+								}
+								for (int j = 0; j < DataCollections.getInteractionCollection().get(i).getPeople2()
+										.size(); j++) {
+									if (DataCollections.getInteractionCollection().get(i).getPeople2().get(j)
+											.equals(personResultsView.getSelectionModel().getSelectedItem())) {
+										DataCollections.getInteractionCollection().get(i).getPeople2().remove(j);
+									}
 								}
 							}
-							for (int j = 0; j < DataCollections.getInteractionCollection().get(i).getPeople2()
-									.size(); j++) {
-								if (DataCollections.getInteractionCollection().get(i).getPeople2().get(j)
-										.equals(personResultsView.getSelectionModel().getSelectedItem())) {
-									DataCollections.getInteractionCollection().get(i).getPeople2().remove(j);
-								}
-							}
+							DataCollections.getPersonCollection()
+									.remove(personResultsView.getSelectionModel().getSelectedItem());
+							oListPersonResults.remove(selectedIndex);
+							System.out.println(DataCollections.getPersonCollection().size());
 						}
-						DataCollections.getPersonCollection().remove(personResultsView.getSelectionModel().getSelectedItem());
-						oListPersonResults.remove(selectedIndex);
-						System.out.println(DataCollections.getPersonCollection().size());
-					}
 					}
 				}
 			});
@@ -200,35 +195,32 @@ public class SearchResultGUI extends Application {
 			interactionResultsView.setMinSize(600, 300);
 			interactionResultsView.setMaxSize(600, 300);
 			TableColumn<Interaction, String[]> people1Col = new TableColumn<Interaction, String[]>("People");
-			people1Col.setMinWidth(75); 
-			people1Col.setCellValueFactory(
-		                new PropertyValueFactory<Interaction, String[]>("people1"));
-		    TableColumn<Interaction, String[]> people2Col = new TableColumn<Interaction, String[]>("People Interacted With");
-		    people2Col.setMinWidth(75);
-		    people2Col.setCellValueFactory(
-	                new PropertyValueFactory<Interaction, String[]>("people2"));
-		    TableColumn<Interaction, String> locationCol = new TableColumn<Interaction, String>("Location");
-		    locationCol.setMinWidth(75);
-		    locationCol.setCellValueFactory(
-	                new PropertyValueFactory<Interaction, String>("location"));
-		    TableColumn<Interaction, String> dateCol = new TableColumn<Interaction, String>("Date");
-		    dateCol.setMinWidth(75);
-		    dateCol.setCellValueFactory(
-	                new PropertyValueFactory<Interaction, String>("date"));
-	        TableColumn<Interaction, String> interactionTypeCol = new TableColumn<Interaction, String>("Interaction Type");
-	        interactionTypeCol.setMinWidth(75);
-	        interactionTypeCol.setCellValueFactory(
-	                new PropertyValueFactory<Interaction, String>("interactionType"));
-	        TableColumn<Interaction, String> citationCol = new TableColumn<Interaction, String>("Bibliographical Citation");
-	        citationCol.setMinWidth(75);
-	        citationCol.setCellValueFactory(
-	                new PropertyValueFactory<Interaction, String>("citation"));
-	        TableColumn<Interaction, String> notesCol = new TableColumn<Interaction, String>("Notes");
-	        notesCol.setMinWidth(125);
-	        notesCol.setCellValueFactory(
-	                new PropertyValueFactory<Interaction, String>("notes"));
+			people1Col.setMinWidth(75);
+			people1Col.setCellValueFactory(new PropertyValueFactory<Interaction, String[]>("people1"));
+			TableColumn<Interaction, String[]> people2Col = new TableColumn<Interaction, String[]>(
+					"People Interacted With");
+			people2Col.setMinWidth(75);
+			people2Col.setCellValueFactory(new PropertyValueFactory<Interaction, String[]>("people2"));
+			TableColumn<Interaction, String> locationCol = new TableColumn<Interaction, String>("Location");
+			locationCol.setMinWidth(75);
+			locationCol.setCellValueFactory(new PropertyValueFactory<Interaction, String>("location"));
+			TableColumn<Interaction, String> dateCol = new TableColumn<Interaction, String>("Date");
+			dateCol.setMinWidth(75);
+			dateCol.setCellValueFactory(new PropertyValueFactory<Interaction, String>("date"));
+			TableColumn<Interaction, String> interactionTypeCol = new TableColumn<Interaction, String>(
+					"Interaction Type");
+			interactionTypeCol.setMinWidth(75);
+			interactionTypeCol.setCellValueFactory(new PropertyValueFactory<Interaction, String>("interactionType"));
+			TableColumn<Interaction, String> citationCol = new TableColumn<Interaction, String>(
+					"Bibliographical Citation");
+			citationCol.setMinWidth(75);
+			citationCol.setCellValueFactory(new PropertyValueFactory<Interaction, String>("citation"));
+			TableColumn<Interaction, String> notesCol = new TableColumn<Interaction, String>("Notes");
+			notesCol.setMinWidth(125);
+			notesCol.setCellValueFactory(new PropertyValueFactory<Interaction, String>("notes"));
 			grid.add(interactionResultsView, 1, 0);
-			interactionResultsView.getColumns().addAll(people1Col, people2Col, locationCol, dateCol, interactionTypeCol,citationCol, notesCol);
+			interactionResultsView.getColumns().addAll(people1Col, people2Col, locationCol, dateCol, interactionTypeCol,
+					citationCol, notesCol);
 			if (HomeGUI.getSearchKey().isEmpty() || HomeGUI.getSearchKey().equals(" ")) {
 				oListInteractionResults = FXCollections.observableArrayList(DataCollections.getInteractionCollection());
 			} else {
@@ -260,10 +252,12 @@ public class SearchResultGUI extends Application {
 				public void handle(ActionEvent e) {
 					int selectedIndex = interactionResultsView.getSelectionModel().getSelectedIndex();
 					if (selectedIndex >= 0) {
-						if (DialogGUI.conformation("Deleteing Interaction", "Are you sure you want to delete this interaction?")){
-						DataCollections.getInteractionCollection().remove(interactionResultsView.getSelectionModel().getSelectedItem());
-						oListInteractionResults.remove(selectedIndex);
-					}
+						if (DialogGUI.conformation("Deleteing Interaction",
+								"Are you sure you want to delete this interaction?")) {
+							DataCollections.getInteractionCollection()
+									.remove(interactionResultsView.getSelectionModel().getSelectedItem());
+							oListInteractionResults.remove(selectedIndex);
+						}
 					}
 				}
 			});
@@ -282,21 +276,21 @@ public class SearchResultGUI extends Application {
 		}
 		// primaryStage methods
 		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-		      public void handle(WindowEvent we) {
-		    	  try {
-						CSVUtil.savePerson("data/People.csv");
-					} catch (IOException error) {
-						DialogGUI.showError("Couldn't save Person object.", error.toString());
-					}
-		    	  try {
-		  			CSVUtil.saveInteractions("data/Interaction.csv");
-		  		} catch (IOException error) {
-		  			DialogGUI.showError("Couldn't Save Interaction to CSV", error.toString());
-		  			
-		  		}
-		    	  
-		      }
-		  }); 
+			public void handle(WindowEvent we) {
+				try {
+					CSVUtil.savePerson("data/People.csv");
+				} catch (IOException error) {
+					DialogGUI.showError("Couldn't save Person object.", error.toString());
+				}
+				try {
+					CSVUtil.saveInteractions("data/Interaction.csv");
+				} catch (IOException error) {
+					DialogGUI.showError("Couldn't Save Interaction to CSV", error.toString());
+
+				}
+
+			}
+		});
 		primaryStage.setTitle("Search Results");
 		primaryStage.setScene(scene);
 		primaryStage.show();

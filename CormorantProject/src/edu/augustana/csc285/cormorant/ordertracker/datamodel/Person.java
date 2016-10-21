@@ -14,7 +14,7 @@ public class Person {
 
 	/** The short name of the person. */
 	private String nickname;
-	
+
 	/** The gender of the person. */
 	private String gender;
 
@@ -35,7 +35,7 @@ public class Person {
 	 * @param name
 	 *            the name
 	 * @param nickname
-	 * 			  the nickname
+	 *            the nickname
 	 * @param gender
 	 *            the gender
 	 * @param culture
@@ -45,7 +45,8 @@ public class Person {
 	 * @param notes
 	 *            the notes
 	 */
-	public Person(int id, String name, String nickname, String gender, String culture, String occupation, String notes) {
+	public Person(int id, String name, String nickname, String gender, String culture, String occupation,
+			String notes) {
 		this.id = id;
 		this.name = name;
 		this.nickname = nickname;
@@ -74,8 +75,10 @@ public class Person {
 
 	@Override
 	public String toString() {
-		return name; //+ " {id=" + id  + " nickname=" + nickname +  " gender=" + gender + " culture=" + culture + " occupation=" + occupation
-				//+ " notes=" + notes + "}";
+		return name; // + " {id=" + id + " nickname=" + nickname + " gender=" +
+						// gender + " culture=" + culture + " occupation=" +
+						// occupation
+		// + " notes=" + notes + "}";
 	}
 
 	/*
@@ -107,6 +110,7 @@ public class Person {
 	public String getName() {
 		return name;
 	}
+
 	/**
 	 * Gets the nickname.
 	 *
@@ -115,6 +119,7 @@ public class Person {
 	public String getNickname() {
 		return nickname;
 	}
+
 	/**
 	 * Gets the gender.
 	 *
@@ -202,8 +207,9 @@ public class Person {
 	// For searching
 	public int contains(String search) {
 		String searchLower = search.toLowerCase();
-		if (searchLower.equals(id) || name.toLowerCase().contains(searchLower) || nickname.toLowerCase().contains(searchLower)
-				|| culture.toLowerCase().contains(searchLower) || occupation.toLowerCase().contains(searchLower)) {
+		if (searchLower.equals(id) || name.toLowerCase().contains(searchLower)
+				|| nickname.toLowerCase().contains(searchLower) || culture.toLowerCase().contains(searchLower)
+				|| occupation.toLowerCase().contains(searchLower)) {
 			return 1;
 		} else if (gender.toLowerCase().contains(searchLower)) {
 			return 2;

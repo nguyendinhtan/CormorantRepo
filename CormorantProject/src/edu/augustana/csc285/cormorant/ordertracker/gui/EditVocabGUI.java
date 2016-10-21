@@ -105,11 +105,13 @@ public class EditVocabGUI extends Application {
 			@Override
 			public void handle(ActionEvent e) {
 				if (vocabDropDown.getValue() == null || !(addVocabTextField.getText().matches(".*[a-zA-Z]+.*"))) {
-					DialogGUI.showError("No data entered.", "Please select a vocabulary type and enter new vocabulary into the text field.");
+					DialogGUI.showError("No data entered.",
+							"Please select a vocabulary type and enter new vocabulary into the text field.");
 				} else {
 					String vocab = addVocabTextField.getText();
 					if (ControlledVocab.checkForUnallowedInput(vocab) < 0) {
-						DialogGUI.showError("Invalid characters entered.", "Make sure no special characters are entered");
+						DialogGUI.showError("Invalid characters entered.",
+								"Make sure no special characters are entered");
 					} else {
 						if (ControlledVocab.checkForVocabDuplicates(vocab, vocabDropDown.getValue()) >= 0) {
 							DialogGUI.showError("List already contains that vocabulary.", "");
@@ -163,12 +165,13 @@ public class EditVocabGUI extends Application {
 			@Override
 			public void handle(ActionEvent e) {
 				if (listView.getSelectionModel().getSelectedItem() != null) {
-					if (DialogGUI.conformation("Deleteing Vocabulary", "Are you sure you want to delete this controlled vocabulary?")){
-					int deletedIndex = listView.getSelectionModel().getSelectedIndex();
-					observableListVocab.remove(deletedIndex);
-					ControlledVocab.remove(deletedIndex, vocabDropDown.getValue());
-					listView.setItems(observableListVocab);
-				}
+					if (DialogGUI.conformation("Deleteing Vocabulary",
+							"Are you sure you want to delete this controlled vocabulary?")) {
+						int deletedIndex = listView.getSelectionModel().getSelectedIndex();
+						observableListVocab.remove(deletedIndex);
+						ControlledVocab.remove(deletedIndex, vocabDropDown.getValue());
+						listView.setItems(observableListVocab);
+					}
 				}
 			}
 		});

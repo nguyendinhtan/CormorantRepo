@@ -146,7 +146,7 @@ public class Interaction {
 	public String getDateString() {
 		return date;
 	}
-	
+
 	/**
 	 * Gets the date in a LocalDate format.
 	 *

@@ -30,7 +30,6 @@ public class HomeGUI extends Application {
 		launch(args);
 	}
 
-	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		// GUI Variables
@@ -150,23 +149,23 @@ public class HomeGUI extends Application {
 		// Adds Boxes to grid for display
 		grid.add(topRowBox, 1, 0);
 		grid.add(bottomButtonRowBox, 1, 1);
-		
+
 		// Primary Stage Methods
 		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-		      public void handle(WindowEvent we) {
-		    	  try {
-						CSVUtil.savePerson("data/People.csv");
-					} catch (IOException error) {
-						DialogGUI.showError("Couldn't save Person object.", error.toString());
-					}
-		    	  try {
-		  			CSVUtil.saveInteractions("data/Interaction.csv");
-		  		} catch (IOException error) {
-		  			DialogGUI.showError("Couldn't Save Interaction to CSV", error.toString());
-		  			
-		  		}
-		      }
-		  }); 
+			public void handle(WindowEvent we) {
+				try {
+					CSVUtil.savePerson("data/People.csv");
+				} catch (IOException error) {
+					DialogGUI.showError("Couldn't save Person object.", error.toString());
+				}
+				try {
+					CSVUtil.saveInteractions("data/Interaction.csv");
+				} catch (IOException error) {
+					DialogGUI.showError("Couldn't Save Interaction to CSV", error.toString());
+
+				}
+			}
+		});
 		primaryStage.setTitle("Home Screen");
 		primaryStage.setScene(scene);
 		primaryStage.show();

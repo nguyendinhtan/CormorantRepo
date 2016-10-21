@@ -252,7 +252,7 @@ public class EditInteractionGUI extends Application {
 			@Override
 			public void handle(ActionEvent e) {
 				String location = locationTextField.getText();
-				String date = datePicker.getValue().toString();
+				String date = (datePicker.getValue() != null) ? datePicker.getValue().toString() : "0001-01-01";
 				String citation = citationTextField.getText();
 				String interactionType = interactionTypeDropDown.getValue();
 				String notes = notesTextArea.getText();
@@ -260,9 +260,6 @@ public class EditInteractionGUI extends Application {
 				if (!(oListPerson1Selected.isEmpty() && oListPerson2Selected.isEmpty())) {
 					if (!location.matches(".*[a-zA-Z]+.*")) {
 						location = "Unknown";
-					}
-					if (date.isEmpty()) {
-						date = "Unknown";
 					}
 					if (!citation.matches(".*[a-zA-Z]+.*")) {
 						citation = "none";
@@ -278,7 +275,7 @@ public class EditInteractionGUI extends Application {
 					if (DataCollections.checkForInteractionDuplicates(interaction) >= 0) {
 						DialogGUI.showError("Duplicate Interaction Entered",
 								"Interaction already exists." + interaction.toString());
-						} else {
+					} else {
 						DataCollections.addInteraction(interaction);
 						SearchResultGUI searchGUI = new SearchResultGUI();
 						searchGUI.start(primaryStage);

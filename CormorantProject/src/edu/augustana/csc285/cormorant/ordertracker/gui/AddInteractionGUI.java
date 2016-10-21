@@ -242,16 +242,13 @@ public class AddInteractionGUI extends Application {
 			@Override
 			public void handle(ActionEvent e) {
 				String location = locationTextField.getText();
-				String date = datePicker.getValue().toString();
+				String date = (datePicker.getValue() != null) ? datePicker.getValue().toString() : "0001-01-01";
 				String citation = citationTextField.getText();
 				String interactionType = interactionTypeDropDown.getValue();
 				String notes = notesTextArea.getText();
 				if (!(oListPerson1Selected.isEmpty() && oListPerson2Selected.isEmpty())) {
 					if (!location.matches(".*[a-zA-Z]+.*")) {
 						location = "Unknown";
-					}
-					if (date.isEmpty()) {
-						date = "Unknown";
 					}
 					if (!citation.matches(".*[a-zA-Z]+.*")) {
 						citation = "none";
@@ -273,7 +270,8 @@ public class AddInteractionGUI extends Application {
 
 						oListPerson1Selected.clear();
 						oListPerson2Selected.clear();
-						locationTextField.clear();;
+						locationTextField.clear();
+						;
 						datePicker.setValue(null);
 						interactionTypeDropDown.setValue(null);
 						citationTextField.clear();
@@ -319,21 +317,21 @@ public class AddInteractionGUI extends Application {
 
 		// Primary Stage Methods
 		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-		      public void handle(WindowEvent we) {
-		    	  try {
-						CSVUtil.savePerson("data/People.csv");
-					} catch (IOException error) {
-						DialogGUI.showError("Couldn't save Person object.", error.toString());
-					}
-		    	  try {
-		  			CSVUtil.saveInteractions("data/Interaction.csv");
-		  		} catch (IOException error) {
-		  			DialogGUI.showError("Couldn't Save Interaction to CSV", error.toString());
-		  			
-		  		}
-		      }
-		  }); 
-		
+			public void handle(WindowEvent we) {
+				try {
+					CSVUtil.savePerson("data/People.csv");
+				} catch (IOException error) {
+					DialogGUI.showError("Couldn't save Person object.", error.toString());
+				}
+				try {
+					CSVUtil.saveInteractions("data/Interaction.csv");
+				} catch (IOException error) {
+					DialogGUI.showError("Couldn't Save Interaction to CSV", error.toString());
+
+				}
+			}
+		});
+
 		primaryStage.setTitle("Insert Interaction");
 		primaryStage.setScene(scene);
 		primaryStage.show();

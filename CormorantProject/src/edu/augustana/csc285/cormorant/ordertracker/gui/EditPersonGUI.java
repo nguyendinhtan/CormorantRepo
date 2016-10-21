@@ -40,6 +40,7 @@ public class EditPersonGUI extends Application {
 																// computers
 		// Removes person from list
 		DataCollections.getPersonCollection().remove(SearchResultGUI.getSelectedPerson());
+
 		// GUI Variables
 		GridPane grid = new GridPane();
 		Scene scene = new Scene(grid);
@@ -103,6 +104,13 @@ public class EditPersonGUI extends Application {
 		notesLabelBox.getChildren().add(notesLabel);
 		notesLabelBox.setAlignment(Pos.TOP_LEFT);
 		notesTextArea.setMaxSize(300, 100);
+		notesTextArea.setPromptText("Brief description of person...");
+
+		// Name Text Field
+		nameTextField.setPromptText("ex. John Doe");
+
+		// Nick Name Text Field
+		nicknameTextField.setPromptText("ex. Johny");
 
 		// Add Person Buttons
 		addPersonButton.setTextFill(Color.BLACK);
@@ -117,7 +125,7 @@ public class EditPersonGUI extends Application {
 				String culture = cultureDropDown.getValue();
 				String occupation = occupationDropDown.getValue();
 				String notes = notesTextArea.getText();
-				if (name.matches(".*[a-zA-Z]+.*")){
+				if (name.matches(".*[a-zA-Z]+.*")) {
 					if (!nickname.matches(".*[a-zA-Z]+.*")) {
 						nickname = "No Nickname";
 					}
@@ -134,7 +142,8 @@ public class EditPersonGUI extends Application {
 						notes = "none";
 					}
 					Person person = new Person(id, name, nickname, gender, culture, occupation, notes);
-					if (person.checkForUnallowedInput(person.getName(), person.getNickname(), person.getCulture(), person.getCulture()) < 0) {
+					if (person.checkForUnallowedInput(person.getName(), person.getNickname(), person.getCulture(),
+							person.getCulture()) < 0) {
 						Alert alert = new Alert(AlertType.INFORMATION);
 						alert.setTitle("Error");
 						alert.setHeaderText("Invalid characters entered.");
@@ -172,7 +181,8 @@ public class EditPersonGUI extends Application {
 						searchGUI.start(primaryStage);
 					}
 				} else {
-					DialogGUI.showError("No Letters in Name Field", "Name must contain a letter.");;
+					DialogGUI.showError("No Letters in Name Field", "Name must contain a letter.");
+					;
 				}
 			}
 		});
@@ -195,20 +205,20 @@ public class EditPersonGUI extends Application {
 
 		// Primary Stage Methods
 		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-		      public void handle(WindowEvent we) {
-		    	  try {
-						CSVUtil.savePerson("data/People.csv");
-					} catch (IOException error) {
-						DialogGUI.showError("Couldn't save Person object.", error.toString());
-					}
-		    	  try {
-		  			CSVUtil.saveInteractions("data/Interaction.csv");
-		  		} catch (IOException error) {
-		  			DialogGUI.showError("Couldn't Save Interaction to CSV", error.toString());
-		  			
-		  		}
-		      }
-		  }); 
+			public void handle(WindowEvent we) {
+				try {
+					CSVUtil.savePerson("data/People.csv");
+				} catch (IOException error) {
+					DialogGUI.showError("Couldn't save Person object.", error.toString());
+				}
+				try {
+					CSVUtil.saveInteractions("data/Interaction.csv");
+				} catch (IOException error) {
+					DialogGUI.showError("Couldn't Save Interaction to CSV", error.toString());
+
+				}
+			}
+		});
 		primaryStage.setTitle("Edit Person");
 		primaryStage.setScene(scene);
 		primaryStage.show();
