@@ -63,6 +63,7 @@ public class AddPersonGUI extends Application {
 		HBox buttonBox = new HBox();
 		oListCulture = FXCollections.observableArrayList(ControlledVocab.getCultureVocab());
 		oListOccupation = FXCollections.observableArrayList(ControlledVocab.getOccupationVocab());
+		
 		// Grid Methods
 		grid.setAlignment(Pos.CENTER);
 		grid.setHgap(10);
@@ -90,6 +91,7 @@ public class AddPersonGUI extends Application {
 		// Culture Methods
 		cultureDropDown.getItems().addAll(oListCulture);
 		cultureDropDown.setMinSize(300, 10);
+		
 		// Occupation Methods
 		occupationDropDown.getItems().addAll(oListOccupation);
 		occupationDropDown.setMinSize(300, 10);
@@ -98,6 +100,13 @@ public class AddPersonGUI extends Application {
 		notesLabelBox.getChildren().add(notesLabel);
 		notesLabelBox.setAlignment(Pos.TOP_LEFT);
 		notesTextArea.setMaxSize(300, 100);
+		notesTextArea.setPromptText("Brief description of person...");
+		
+		// Name Text Field
+		nameTextField.setPromptText("ex. John Doe");
+		
+		// Nick Name Text Field
+		nicknameTextField.setPromptText("ex. Johny");
 
 		// Add Person Buttons
 		addPersonButton.setTextFill(Color.BLACK);

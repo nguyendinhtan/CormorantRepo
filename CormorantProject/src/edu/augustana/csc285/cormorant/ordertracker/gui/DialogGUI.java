@@ -22,7 +22,7 @@ public class DialogGUI {
 		alert.setHeaderText(infoText);
 		alert.showAndWait();
 	}
-	
+
 	public static void showWarning(String headerText, String infoText) {
 		Alert alert = new Alert(AlertType.WARNING);
 		alert.setTitle("Warning");
@@ -30,16 +30,16 @@ public class DialogGUI {
 		alert.setContentText(infoText);
 		alert.showAndWait();
 	}
-	
-	public static boolean conformation(String headerText, String confirmText){
+
+	public static boolean conformation(String headerText, String confirmText) {
 		Alert alert = new Alert(AlertType.CONFIRMATION);
 		alert.setTitle("Confirmation");
 		alert.setHeaderText(headerText);
 		alert.setContentText(confirmText);
 
 		Optional<ButtonType> result = alert.showAndWait();
-		if (result.get() == ButtonType.OK){
-		    return true;
+		if (result.get() == ButtonType.OK) {
+			return true;
 		} else {
 			return false;
 		}

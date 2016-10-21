@@ -223,6 +223,7 @@ public class EditInteractionGUI extends Application {
 
 		// Date Text Field Methods
 		datePicker.setMaxSize(450, 20);
+		datePicker.setPromptText("MM/dd/yyyy");
 
 		// Remove Buttons Box Methods
 		removeButtonsBox.getChildren().add(removePerson1Button);
@@ -230,13 +231,15 @@ public class EditInteractionGUI extends Application {
 
 		// Location Drop Down Methods
 		locationTextField.setMinSize(450, 10);
+		locationTextField.setPromptText("ex. Paris");
 
 		// Interaction Type Drop Down Methods
 		interactionTypeDropDown.setItems(oListInteractionType);
 		interactionTypeDropDown.setMinSize(450, 10);
 
-		// Citation Drop Down Methods
+		// Citation Text Field Methods
 		citationTextField.setMinSize(450, 10);
+		citationTextField.setPromptText("ex. Encyclopedia of Art");
 
 		// Notes Label Box Methods
 		notesLabelBox.getChildren().add(notesLabel);
@@ -244,6 +247,7 @@ public class EditInteractionGUI extends Application {
 
 		// Notes Text Area Methods
 		notesTextArea.setMaxSize(450, 100);
+		notesTextArea.setPromptText("Brief description of the interaction...");
 
 		// Add Interaction Button Methods
 		addInteractionButton.setTextFill(Color.BLACK);
@@ -252,7 +256,7 @@ public class EditInteractionGUI extends Application {
 			@Override
 			public void handle(ActionEvent e) {
 				String location = locationTextField.getText();
-				String date = datePicker.getValue().toString();
+				String date = (datePicker.getValue() != null) ? datePicker.getValue().toString() : "0001-01-01";
 				String citation = citationTextField.getText();
 				String interactionType = interactionTypeDropDown.getValue();
 				String notes = notesTextArea.getText();
@@ -260,9 +264,6 @@ public class EditInteractionGUI extends Application {
 				if (!(oListPerson1Selected.isEmpty() && oListPerson2Selected.isEmpty())) {
 					if (!location.matches(".*[a-zA-Z]+.*")) {
 						location = "Unknown";
-					}
-					if (date.isEmpty()) {
-						date = "Unknown";
 					}
 					if (!citation.matches(".*[a-zA-Z]+.*")) {
 						citation = "none";
@@ -278,7 +279,7 @@ public class EditInteractionGUI extends Application {
 					if (DataCollections.checkForInteractionDuplicates(interaction) >= 0) {
 						DialogGUI.showError("Duplicate Interaction Entered",
 								"Interaction already exists." + interaction.toString());
-						} else {
+					} else {
 						DataCollections.addInteraction(interaction);
 						SearchResultGUI searchGUI = new SearchResultGUI();
 						searchGUI.start(primaryStage);

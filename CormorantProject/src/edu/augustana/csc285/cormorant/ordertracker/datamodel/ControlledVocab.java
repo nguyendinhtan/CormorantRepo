@@ -16,7 +16,6 @@ public class ControlledVocab {
 	private static List<String> interactionTypeVocab = new ArrayList<String>();
 	private static List<String> cultureVocab = new ArrayList<String>();
 	private static List<String> occupationVocab = new ArrayList<String>();
-	
 
 	public static List<String> getInteractionTypeVocab() {
 		return interactionTypeVocab;
@@ -39,7 +38,6 @@ public class ControlledVocab {
 			cultureVocab.remove(vocabIndex);
 		}
 	}
-
 
 	public static void addInteractionTypeVocab(String interactionType) {
 		interactionTypeVocab.add(interactionType);

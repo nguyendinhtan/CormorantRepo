@@ -136,15 +136,11 @@ public class AddInteractionGUI extends Application {
 
 		// Add Person 1 Button Methods
 		addPerson1Button.setTextFill(Color.BLACK);
-
 		addPerson1Button.setStyle("-fx-base: #FFFFFF");
-
 		addPerson1Button.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
-				if (person1DropDown.getValue() == null) {
-
-				} else {
+				if (person1DropDown.getValue() != null) {
 					oListPerson1Selected.add(person1DropDown.getValue());
 					Collections.sort(oListPerson1Selected, Person.personNameComparator);
 					person1List.setItems(oListPerson1Selected);
@@ -156,10 +152,8 @@ public class AddInteractionGUI extends Application {
 		});
 
 		// Add Person 2 Button Methods
-
 		addPerson2Button.setTextFill(Color.BLACK);
 		addPerson2Button.setStyle("-fx-base: #FFFFFF");
-
 		addPerson2Button.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
@@ -184,7 +178,6 @@ public class AddInteractionGUI extends Application {
 					oListPersonDropDown.add(person1List.getSelectionModel().getSelectedItem());
 					Collections.sort(oListPersonDropDown, Person.personNameComparator);
 					oListPerson1Selected.remove(person1List.getSelectionModel().getSelectedIndex());
-
 				}
 			}
 		});
@@ -213,6 +206,7 @@ public class AddInteractionGUI extends Application {
 
 		// Date Text Field Methods
 		datePicker.setMaxSize(450, 20);
+		datePicker.setPromptText("MM/dd/yyyy");
 
 		// Remove Buttons Box Methods
 		removeButtonsBox.getChildren().add(removePerson1Button);
@@ -220,13 +214,15 @@ public class AddInteractionGUI extends Application {
 
 		// Location Drop Down Methods
 		locationTextField.setMinSize(450, 10);
+		locationTextField.setPromptText("ex. Paris");
 
 		// Interaction Type Drop Down Methods
 		interactionTypeDropDown.setItems(oListInteractionType);
 		interactionTypeDropDown.setMinSize(450, 10);
 
-		// Citation Drop Down Methods
+		// Citation Text Field Methods
 		citationTextField.setMinSize(450, 10);
+		citationTextField.setPromptText("ex. Encyclopedia of Art");
 
 		// Notes Label Box Methods
 		notesLabelBox.getChildren().add(notesLabel);
@@ -234,6 +230,7 @@ public class AddInteractionGUI extends Application {
 
 		// Notes Text Area Methods
 		notesTextArea.setMaxSize(450, 100);
+		notesTextArea.setPromptText("Brief description of the interaction...");
 
 		// Add Interaction Button Methods
 		addInteractionButton.setTextFill(Color.BLACK);
@@ -242,16 +239,13 @@ public class AddInteractionGUI extends Application {
 			@Override
 			public void handle(ActionEvent e) {
 				String location = locationTextField.getText();
-				String date = datePicker.getValue().toString();
+				String date = (datePicker.getValue() != null) ? datePicker.getValue().toString() : "0001-01-01";
 				String citation = citationTextField.getText();
 				String interactionType = interactionTypeDropDown.getValue();
 				String notes = notesTextArea.getText();
 				if (!(oListPerson1Selected.isEmpty() && oListPerson2Selected.isEmpty())) {
 					if (!location.matches(".*[a-zA-Z]+.*")) {
 						location = "Unknown";
-					}
-					if (date.isEmpty()) {
-						date = "Unknown";
 					}
 					if (!citation.matches(".*[a-zA-Z]+.*")) {
 						citation = "none";
@@ -273,7 +267,8 @@ public class AddInteractionGUI extends Application {
 
 						oListPerson1Selected.clear();
 						oListPerson2Selected.clear();
-						locationTextField.clear();;
+						locationTextField.clear();
+						;
 						datePicker.setValue(null);
 						interactionTypeDropDown.setValue(null);
 						citationTextField.clear();
@@ -283,21 +278,12 @@ public class AddInteractionGUI extends Application {
 						oListPersonDropDown = FXCollections.observableArrayList(DataCollections.getPersonCollection());
 						person1DropDown.setItems(oListPersonDropDown);
 						person2DropDown.setItems(oListPersonDropDown);
-
-						// Testing
-						/*
-						 * for (int i=0;
-						 * i<interactionList.getInteractionCollection().size();
-						 * i++){ System.out.println(interactionList.
-						 * getInteractionCollection().get(i).toString()); }
-						 */
 					}
 				}
 			}
 		});
 
 		// Back Button Methods
-
 		backButton.setTextFill(Color.BLACK);
 		backButton.setStyle("-fx-base: #FFFFFF");
 		backButton.setOnAction(new EventHandler<ActionEvent>() {
@@ -306,9 +292,8 @@ public class AddInteractionGUI extends Application {
 				HomeGUI Homegui = new HomeGUI();
 				try {
 					Homegui.start(primaryStage);
-				} catch (Exception e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+				} catch (Exception error) {
+					DialogGUI.showError("Error Changing Views", error.toString());
 				}
 			}
 		});
@@ -319,21 +304,21 @@ public class AddInteractionGUI extends Application {
 
 		// Primary Stage Methods
 		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-		      public void handle(WindowEvent we) {
-		    	  try {
-						CSVUtil.savePerson("data/People.csv");
-					} catch (IOException error) {
-						DialogGUI.showError("Couldn't save Person object.", error.toString());
-					}
-		    	  try {
-		  			CSVUtil.saveInteractions("data/Interaction.csv");
-		  		} catch (IOException error) {
-		  			DialogGUI.showError("Couldn't Save Interaction to CSV", error.toString());
-		  			
-		  		}
-		      }
-		  }); 
-		
+			public void handle(WindowEvent we) {
+				try {
+					CSVUtil.savePerson("data/People.csv");
+				} catch (IOException error) {
+					DialogGUI.showError("Couldn't save Person object.", error.toString());
+				}
+				try {
+					CSVUtil.saveInteractions("data/Interaction.csv");
+				} catch (IOException error) {
+					DialogGUI.showError("Couldn't Save Interaction to CSV", error.toString());
+
+				}
+			}
+		});
+
 		primaryStage.setTitle("Insert Interaction");
 		primaryStage.setScene(scene);
 		primaryStage.show();

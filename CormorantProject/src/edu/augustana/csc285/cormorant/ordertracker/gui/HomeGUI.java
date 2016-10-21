@@ -12,6 +12,9 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -30,7 +33,6 @@ public class HomeGUI extends Application {
 		launch(args);
 	}
 
-	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		// GUI Variables
@@ -59,16 +61,36 @@ public class HomeGUI extends Application {
 		imageEditView.setFitHeight(20);
 		imageEditView.setFitWidth(20);
 		HBox topRowBox = new HBox();
-		HBox bottomButtonRowBox = new HBox(10);
-
+		HBox bottomButtonRowBox = new HBox(30);
+		Menu menuFile=new Menu("File");
+		MenuBar menuBar=new MenuBar();
+		MenuItem open=new MenuItem("Open Existing Project");
+		
+		MenuItem newProject=new MenuItem("New Project");
+		menuFile.getItems().addAll(newProject, open);
+		menuBar.getMenus().addAll(menuFile);
 		// Grid Methods
 		grid.setAlignment(Pos.CENTER);
 		grid.setHgap(10);
 		grid.setVgap(10);
 		grid.setPadding(new Insets(25, 25, 25, 25));
-
+		
+		open.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent e) {
+				
+			}
+		});
+		
+		newProject.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent e) {
+			
+			}
+		});
 		// DropDown list for choosing search type
 		searchType.getItems().addAll("Person", "Interaction");
+		searchType.setPromptText("Search Category");
 		System.setProperty("glass.accessible.force", "false");// Fixes bug of
 																// crashing
 																// combobox
@@ -76,12 +98,12 @@ public class HomeGUI extends Application {
 		// Search Text Field Methods
 		searchTextField.setMinSize(325, 10);
 		searchTextField.setMaxSize(325, 50);
+		searchTextField.setPromptText("Search Query");
 
 		// Search Button Methods
 		searchButton.setTextFill(Color.WHITE);
 		searchButton.setStyle("-fx-base: #FF0000");
 		searchButton.setOnAction(new EventHandler<ActionEvent>() {
-
 			@Override
 			public void handle(ActionEvent e) {
 				if (searchType.getValue() != null) {
@@ -103,7 +125,6 @@ public class HomeGUI extends Application {
 		insertPersonButton.setTextFill(Color.BLACK);
 		insertPersonButton.setAlignment(Pos.CENTER_LEFT);
 		insertPersonButton.setOnAction(new EventHandler<ActionEvent>() {
-
 			@Override
 			public void handle(ActionEvent e) {
 				AddPersonGUI gui = new AddPersonGUI();
@@ -150,23 +171,23 @@ public class HomeGUI extends Application {
 		// Adds Boxes to grid for display
 		grid.add(topRowBox, 1, 0);
 		grid.add(bottomButtonRowBox, 1, 1);
-		
+
 		// Primary Stage Methods
 		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-		      public void handle(WindowEvent we) {
-		    	  try {
-						CSVUtil.savePerson("data/People.csv");
-					} catch (IOException error) {
-						DialogGUI.showError("Couldn't save Person object.", error.toString());
-					}
-		    	  try {
-		  			CSVUtil.saveInteractions("data/Interaction.csv");
-		  		} catch (IOException error) {
-		  			DialogGUI.showError("Couldn't Save Interaction to CSV", error.toString());
-		  			
-		  		}
-		      }
-		  }); 
+			public void handle(WindowEvent we) {
+				try {
+					CSVUtil.savePerson("data/People.csv");
+				} catch (IOException error) {
+					DialogGUI.showError("Couldn't save Person object.", error.toString());
+				}
+				try {
+					CSVUtil.saveInteractions("data/Interaction.csv");
+				} catch (IOException error) {
+					DialogGUI.showError("Couldn't Save Interaction to CSV", error.toString());
+
+				}
+			}
+		});
 		primaryStage.setTitle("Home Screen");
 		primaryStage.setScene(scene);
 		primaryStage.show();
