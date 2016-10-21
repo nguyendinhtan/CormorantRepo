@@ -75,12 +75,12 @@ public class HomeGUI extends Application {
 		// Search Text Field Methods
 		searchTextField.setMinSize(325, 10);
 		searchTextField.setMaxSize(325, 50);
+		searchTextField.setPromptText("Search Query");
 
 		// Search Button Methods
 		searchButton.setTextFill(Color.WHITE);
 		searchButton.setStyle("-fx-base: #FF0000");
 		searchButton.setOnAction(new EventHandler<ActionEvent>() {
-
 			@Override
 			public void handle(ActionEvent e) {
 				if (searchType.getValue() != null) {
@@ -102,7 +102,6 @@ public class HomeGUI extends Application {
 		insertPersonButton.setTextFill(Color.BLACK);
 		insertPersonButton.setAlignment(Pos.CENTER_LEFT);
 		insertPersonButton.setOnAction(new EventHandler<ActionEvent>() {
-
 			@Override
 			public void handle(ActionEvent e) {
 				AddPersonGUI gui = new AddPersonGUI();

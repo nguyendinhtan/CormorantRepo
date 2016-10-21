@@ -223,6 +223,7 @@ public class EditInteractionGUI extends Application {
 
 		// Date Text Field Methods
 		datePicker.setMaxSize(450, 20);
+		datePicker.setPromptText("MM/dd/yyyy");
 
 		// Remove Buttons Box Methods
 		removeButtonsBox.getChildren().add(removePerson1Button);
@@ -230,13 +231,15 @@ public class EditInteractionGUI extends Application {
 
 		// Location Drop Down Methods
 		locationTextField.setMinSize(450, 10);
+		locationTextField.setPromptText("ex. Paris");
 
 		// Interaction Type Drop Down Methods
 		interactionTypeDropDown.setItems(oListInteractionType);
 		interactionTypeDropDown.setMinSize(450, 10);
 
-		// Citation Drop Down Methods
+		// Citation Text Field Methods
 		citationTextField.setMinSize(450, 10);
+		citationTextField.setPromptText("ex. Encyclopedia of Art");
 
 		// Notes Label Box Methods
 		notesLabelBox.getChildren().add(notesLabel);
@@ -244,6 +247,7 @@ public class EditInteractionGUI extends Application {
 
 		// Notes Text Area Methods
 		notesTextArea.setMaxSize(450, 100);
+		notesTextArea.setPromptText("Brief description of the interaction...");
 
 		// Add Interaction Button Methods
 		addInteractionButton.setTextFill(Color.BLACK);
