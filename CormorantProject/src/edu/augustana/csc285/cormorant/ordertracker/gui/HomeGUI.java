@@ -32,6 +32,7 @@ public class HomeGUI extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
+
 		// GUI Variables
 		GridPane grid = new GridPane();
 		Scene scene = new Scene(grid);

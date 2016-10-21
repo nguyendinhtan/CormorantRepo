@@ -187,10 +187,10 @@ public class SearchResultGUI extends Application {
 						EditPersonGUI editPerson = new EditPersonGUI();
 						editPerson.start(primaryStage);
 					}
-
 				}
 			});
 		}
+		
 		if (HomeGUI.getType().equals("Interaction")) {
 			interactionResultsView.setMinSize(600, 300);
 			interactionResultsView.setMaxSize(600, 300);

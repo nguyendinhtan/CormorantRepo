@@ -96,6 +96,7 @@ public class EditPersonGUI extends Application {
 		// Culture Methods
 		cultureDropDown.getItems().addAll(oListCulture);
 		cultureDropDown.setMinSize(300, 10);
+		
 		// Occupation Methods
 		occupationDropDown.getItems().addAll(oListOccupation);
 		occupationDropDown.setMinSize(300, 10);
@@ -120,43 +121,22 @@ public class EditPersonGUI extends Application {
 			public void handle(ActionEvent e) {
 				int id = SearchResultGUI.getSelectedPerson().getID();
 				String name = nameTextField.getText();
-				String nickname = nicknameTextField.getText();
-				String gender = genderDropDown.getValue();
-				String culture = cultureDropDown.getValue();
-				String occupation = occupationDropDown.getValue();
-				String notes = notesTextArea.getText();
+				String nickname = (nicknameTextField.getText().matches(".*[a-zA-Z]+.*")) ? nicknameTextField.getText()
+						: "No Nickname";
+				String gender = (genderDropDown.getValue() != null) ? genderDropDown.getValue() : "Unknown";
+				String culture = (cultureDropDown.getValue() != null) ? cultureDropDown.getValue() : "Unknown";
+				String occupation = (occupationDropDown.getValue() != null) ? occupationDropDown.getValue() : "Unknown";
+				String notes = (notesTextArea.getText() != null) ? notesTextArea.getText() : "none";
 				if (name.matches(".*[a-zA-Z]+.*")) {
-					if (!nickname.matches(".*[a-zA-Z]+.*")) {
-						nickname = "No Nickname";
-					}
-					if (gender == null) {
-						gender = "Unknown";
-					}
-					if (culture == null) {
-						culture = "Unknown";
-					}
-					if (occupation == null) {
-						occupation = "Unknown";
-					}
-					if (!notes.matches(".*[a-zA-Z]+.*")) {
-						notes = "none";
-					}
 					Person person = new Person(id, name, nickname, gender, culture, occupation, notes);
 					if (person.checkForUnallowedInput(person.getName(), person.getNickname(), person.getCulture(),
 							person.getCulture()) < 0) {
-						Alert alert = new Alert(AlertType.INFORMATION);
-						alert.setTitle("Error");
-						alert.setHeaderText("Invalid characters entered.");
-						alert.setContentText(
+						DialogGUI.showError("Invalid Characters Entered",
 								"Make sure no numbers or special characters are entered in the Name, Culture or Occupation fields");
-						alert.showAndWait();
 					} else if (DataCollections.checkForPersonDuplicates(person) > 0) {
-						Alert alert = new Alert(AlertType.INFORMATION);
-						alert.setTitle("Error");
-						alert.setHeaderText("That person has already been entered.");
-						alert.setContentText("Person already exists. (ID number:"
-								+ DataCollections.checkForPersonDuplicates(person) + ")");
-						alert.showAndWait();
+						DialogGUI.showError("That person has already been entered.",
+								"Person already exists. (ID number:" + DataCollections.checkForPersonDuplicates(person)
+										+ ")");
 					} else {
 						DataCollections.addPerson(person);
 						for (int i = 0; i < DataCollections.getInteractionCollection().size(); i++) {
@@ -182,7 +162,6 @@ public class EditPersonGUI extends Application {
 					}
 				} else {
 					DialogGUI.showError("No Letters in Name Field", "Name must contain a letter.");
-					;
 				}
 			}
 		});
