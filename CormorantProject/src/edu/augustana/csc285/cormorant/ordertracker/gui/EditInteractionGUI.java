@@ -255,25 +255,15 @@ public class EditInteractionGUI extends Application {
 		addInteractionButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
-				String location = locationTextField.getText();
+				String location = (locationTextField.getText().matches(".*[a-zA-Z]+.*")) ? locationTextField.getText()
+						: "Unknown";
 				String date = (datePicker.getValue() != null) ? datePicker.getValue().toString() : "0001-01-01";
-				String citation = citationTextField.getText();
-				String interactionType = interactionTypeDropDown.getValue();
-				String notes = notesTextArea.getText();
-
+				String citation = (citationTextField.getText().matches(".*[a-zA-Z]+.*")) ? citationTextField.getText()
+						: "none";
+				String interactionType = (interactionTypeDropDown.getValue() != null)
+						? interactionTypeDropDown.getValue() : "Unknown";
+				String notes = (notesTextArea.getText().matches(".*[a-zA-Z]+.*")) ? notesTextArea.getText() : "none";
 				if (!(oListPerson1Selected.isEmpty() && oListPerson2Selected.isEmpty())) {
-					if (!location.matches(".*[a-zA-Z]+.*")) {
-						location = "Unknown";
-					}
-					if (!citation.matches(".*[a-zA-Z]+.*")) {
-						citation = "none";
-					}
-					if (interactionType == null) {
-						interactionType = "Unknown";
-					}
-					if (!notes.matches(".*[a-zA-Z]+.*")) {
-						notes = "none";
-					}
 					Interaction interaction = new Interaction(oListPerson1Selected, oListPerson2Selected, location,
 							date, interactionType, citation, notes, false);
 					if (DataCollections.checkForInteractionDuplicates(interaction) >= 0) {
