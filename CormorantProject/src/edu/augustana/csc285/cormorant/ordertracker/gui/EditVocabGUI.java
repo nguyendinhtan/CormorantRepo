@@ -117,7 +117,6 @@ public class EditVocabGUI extends Application {
 							DialogGUI.showError("List already contains that vocabulary.", "");
 						} else {
 							if (vocabDropDown.getValue().equals("Interaction Type")) {
-								DialogGUI.showInfo("Vocabulary Added", "Vocabulary added to interaction type.");
 								ControlledVocab.addInteractionTypeVocab(vocab);
 								observableListVocab = FXCollections
 										.observableArrayList(ControlledVocab.getInteractionTypeVocab());
@@ -126,10 +125,6 @@ public class EditVocabGUI extends Application {
 									System.out.println(ControlledVocab.getInteractionTypeVocab().get(i));
 								}
 							} else if (vocabDropDown.getValue().equals("Culture")) {
-								Alert alert = new Alert(AlertType.INFORMATION);
-								alert.setTitle("Vocabulary Added");
-								alert.setHeaderText("Vocabulary added to culture.");
-								alert.showAndWait();
 								ControlledVocab.addCultureVocab(vocab);
 								observableListVocab = FXCollections
 										.observableArrayList(ControlledVocab.getCultureVocab());
@@ -138,10 +133,6 @@ public class EditVocabGUI extends Application {
 									System.out.println(ControlledVocab.getCultureVocab().get(i));
 								}
 							} else if (vocabDropDown.getValue().equals("Occupation")) {
-								Alert alert = new Alert(AlertType.INFORMATION);
-								alert.setTitle("Vocabulary Added");
-								alert.setHeaderText("Vocabulary added to occupation.");
-								alert.showAndWait();
 								ControlledVocab.addOccupationVocab(vocab);
 								observableListVocab = FXCollections
 										.observableArrayList(ControlledVocab.getOccupationVocab());
@@ -165,7 +156,7 @@ public class EditVocabGUI extends Application {
 			@Override
 			public void handle(ActionEvent e) {
 				if (listView.getSelectionModel().getSelectedItem() != null) {
-					if (DialogGUI.conformation("Deleteing Vocabulary",
+					if (DialogGUI.conformation("Delete Vocabulary",
 							"Are you sure you want to delete this controlled vocabulary?")) {
 						int deletedIndex = listView.getSelectionModel().getSelectedIndex();
 						observableListVocab.remove(deletedIndex);
