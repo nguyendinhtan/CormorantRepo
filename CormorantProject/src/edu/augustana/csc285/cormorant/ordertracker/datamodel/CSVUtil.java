@@ -37,6 +37,7 @@ public class CSVUtil {
 	 *            the person
 	 */
 	public static void addPerson(Person person) {
+		personMap.put(person.getID(), person);
 		DataCollections.addPerson(person);
 	}
 
@@ -67,7 +68,7 @@ public class CSVUtil {
 	}
 	public static void saveInteractions(String fileName) throws IOException {
 		writer = new CSVWriter(new FileWriter(fileName), ',', CSVWriter.NO_QUOTE_CHARACTER);
-		String[] header = "IDList1,IDList2,Location,Date,Citation,Notes".split(",");
+		String[] header = "IDList1,IDList2,Location,Date,Interaction Type, Citation,Notes".split(",");
 		writer.writeNext(header);
 		for (Interaction interaction : DataCollections.getInteractionCollection()) {
 			writer.writeNext(interaction.toCSVRowArray());
@@ -112,6 +113,7 @@ public class CSVUtil {
 					citation, notes, true);
 			//interactions.add(interaction);
 			DataCollections.addInteraction(interaction);
+			personMap.clear();
 
 		}
 	}
@@ -236,9 +238,9 @@ public class CSVUtil {
 		writer.close();
 	}
 
-public static void palladioExport(String fileName) throws IOException {
+public static void palladioExport(String fileName, List<Interaction> list) throws IOException {
 	writer = new CSVWriter(new FileWriter(fileName), ',', CSVWriter.NO_QUOTE_CHARACTER);
-	List<Interaction> interactionList = DataCollections.getInteractionCollection();
+	List<Interaction> interactionList = list;
 	String[] header= "Source,Target".split(",");
 	writer.writeNext(header);
 	for (Interaction interaction: interactionList){
@@ -256,9 +258,9 @@ public static void palladioExport(String fileName) throws IOException {
 	writer.close();
 }
 
-public static void gephiExportNodes(String fileName) throws IOException {
+public static void gephiExportNodes(String fileName, List<Person> list) throws IOException {
 	writer = new CSVWriter(new FileWriter(fileName), ',', CSVWriter.NO_QUOTE_CHARACTER);
-	List<Person> personList = DataCollections.getPersonCollection();
+	List<Person> personList = list;
 	String[] header= "Node ID,Label".split(",");
 	writer.writeNext(header);
 	for (Person person: personList){
@@ -270,9 +272,9 @@ public static void gephiExportNodes(String fileName) throws IOException {
 	writer.close();
 }
 
-public static void gephiExportEdges(String fileName) throws IOException {
+public static void gephiExportEdges(String fileName, List<Interaction> list) throws IOException {
 	writer = new CSVWriter(new FileWriter(fileName), ',', CSVWriter.NO_QUOTE_CHARACTER);
-	List<Interaction> interactionList = DataCollections.getInteractionCollection();
+	List<Interaction> interactionList = list;
 	String[] header= "Source,Target,Edge ID".split(",");
 	writer.writeNext(header);
 	for (Interaction interaction: interactionList){

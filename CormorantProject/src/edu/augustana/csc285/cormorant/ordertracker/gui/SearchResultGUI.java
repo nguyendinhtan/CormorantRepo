@@ -17,6 +17,9 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
@@ -41,20 +44,21 @@ public class SearchResultGUI extends Application {
 		// GUI Variables
 		GridPane grid = new GridPane();
 		Scene scene = new Scene(grid, 600, 400);
-		ListView<Person> personResultsView = new ListView<Person>();
-		ListView<Interaction> interactionResultsView = new ListView<Interaction>();
+		TableView<Person> personResultsView = new TableView<Person>();
+		TableView<Interaction> interactionResultsView = new TableView<Interaction>();
 		Image imageEdit = new Image("edit_icon.png");
 		Image imageDelete = new Image("delete_icon.png");
 		ImageView imageEditView = new ImageView(imageEdit);
 		ImageView imageDeleteView = new ImageView(imageDelete);
 		Button btnEdit = new Button("Edit", imageEditView);
 		Button btnDelete = new Button("Delete", imageDeleteView);
+		Button exportButton=new Button("Export");
 		imageEditView.setFitHeight(15);
 		imageEditView.setFitWidth(15);
 		imageDeleteView.setFitHeight(15);
 		imageDeleteView.setFitWidth(15);
 		Button btnBack = new Button("Back");
-		HBox hbBtn = new HBox(100);
+		HBox hbBtn = new HBox(47);
 
 		// Grid Methods
 		grid.setAlignment(Pos.CENTER);
@@ -71,6 +75,9 @@ public class SearchResultGUI extends Application {
 
 		btnBack.setTextFill(Color.BLACK);
 		btnBack.setStyle("-fx-base: #FFFFFF");
+		
+		exportButton.setTextFill(Color.BLACK);
+		exportButton.setStyle("-fx-base: #FFFFFF");
 
 		// Action for back button to return program to the home screen
 		btnBack.setOnAction(new EventHandler<ActionEvent>() {
@@ -81,18 +88,18 @@ public class SearchResultGUI extends Application {
 				try {
 					homeGUI.start(primaryStage);
 				} catch (Exception e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			}
 		});
+		
 
 		// adds buttons to box
 
 		hbBtn.getChildren().add(btnBack);
 		hbBtn.getChildren().add(btnDelete);
 		hbBtn.getChildren().add(btnEdit);
-
+		hbBtn.getChildren().add(exportButton);
 		// adds box and list view to grid for display
 
 		grid.add(hbBtn, 1, 1);
@@ -101,6 +108,25 @@ public class SearchResultGUI extends Application {
 			// sets size of list view
 			personResultsView.setMinSize(400, 300);
 			personResultsView.setMaxSize(400, 300);
+			TableColumn<Person, String> nameCol = new TableColumn<Person, String>("Name");
+			 nameCol.setCellValueFactory(
+		                new PropertyValueFactory<Person, String>("name"));
+		    TableColumn<Person, String> nicknameCol = new TableColumn<Person, String>("Nickname");
+		    nicknameCol.setCellValueFactory(
+	                new PropertyValueFactory<Person, String>("nickname"));
+		    TableColumn<Person, String> genderCol = new TableColumn<Person, String>("Gender");
+		    genderCol.setCellValueFactory(
+	                new PropertyValueFactory<Person, String>("gender"));
+		    TableColumn<Person, String> cultureCol = new TableColumn<Person, String>("Culture");
+		    cultureCol.setCellValueFactory(
+	                new PropertyValueFactory<Person, String>("culture"));
+	        TableColumn<Person, String> occupationCol = new TableColumn<Person, String>("Occupation");
+	        occupationCol.setCellValueFactory(
+	                new PropertyValueFactory<Person, String>("occupation"));
+	        TableColumn<Person, String> notesCol = new TableColumn<Person, String>("Notes");
+	        notesCol.setCellValueFactory(
+	                new PropertyValueFactory<Person, String>("notes"));
+	        personResultsView.getColumns().addAll(nameCol, nicknameCol, genderCol, cultureCol, occupationCol, notesCol);
 			grid.add(personResultsView, 1, 0);
 			if (HomeGUI.getSearchKey().isEmpty() || HomeGUI.getSearchKey().equals(" ")) {
 				oListPersonResults = FXCollections.observableArrayList(DataCollections.getPersonCollection());
@@ -109,6 +135,18 @@ public class SearchResultGUI extends Application {
 				oListPersonResults = FXCollections.observableArrayList(SearchUtil.searchPeople(HomeGUI.getSearchKey()));
 			}
 			personResultsView.setItems(oListPersonResults);
+			exportButton.setOnAction(new EventHandler<ActionEvent>() {
+
+				@Override
+				public void handle(ActionEvent e) {
+					try {
+						CSVUtil.gephiExportNodes("data/GephiExportNodes.csv", oListPersonResults);
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				}
+			});
 			btnDelete.setOnAction(new EventHandler<ActionEvent>() {
 
 				@Override
@@ -156,7 +194,29 @@ public class SearchResultGUI extends Application {
 		if (HomeGUI.getType().equals("Interaction")) {
 			interactionResultsView.setMinSize(400, 300);
 			interactionResultsView.setMaxSize(400, 300);
+			TableColumn<Interaction, String[]> people1Col = new TableColumn<Interaction, String[]>("People");
+			 people1Col.setCellValueFactory(
+		                new PropertyValueFactory<Interaction, String[]>("people1"));
+		    TableColumn<Interaction, String[]> people2Col = new TableColumn<Interaction, String[]>("People Interacted With");
+		    people2Col.setCellValueFactory(
+	                new PropertyValueFactory<Interaction, String[]>("people2"));
+		    TableColumn<Interaction, String> locationCol = new TableColumn<Interaction, String>("Location");
+		    locationCol.setCellValueFactory(
+	                new PropertyValueFactory<Interaction, String>("location"));
+		    TableColumn<Interaction, String> dateCol = new TableColumn<Interaction, String>("Date");
+		    dateCol.setCellValueFactory(
+	                new PropertyValueFactory<Interaction, String>("date"));
+	        TableColumn<Interaction, String> interactionTypeCol = new TableColumn<Interaction, String>("Interaction Type");
+	        interactionTypeCol.setCellValueFactory(
+	                new PropertyValueFactory<Interaction, String>("interactionType"));
+	        TableColumn<Interaction, String> citationCol = new TableColumn<Interaction, String>("Bibliographical Citation");
+	        citationCol.setCellValueFactory(
+	                new PropertyValueFactory<Interaction, String>("citation"));
+	        TableColumn<Interaction, String> notesCol = new TableColumn<Interaction, String>("Notes");
+	        notesCol.setCellValueFactory(
+	                new PropertyValueFactory<Interaction, String>("notes"));
 			grid.add(interactionResultsView, 1, 0);
+			interactionResultsView.getColumns().addAll(people1Col, people2Col, locationCol, dateCol, interactionTypeCol,citationCol, notesCol);
 			if (HomeGUI.getSearchKey().isEmpty() || HomeGUI.getSearchKey().equals(" ")) {
 				oListInteractionResults = FXCollections.observableArrayList(DataCollections.getInteractionCollection());
 			} else {
@@ -165,6 +225,24 @@ public class SearchResultGUI extends Application {
 			}
 
 			interactionResultsView.setItems(oListInteractionResults);
+			exportButton.setOnAction(new EventHandler<ActionEvent>() {
+
+				@Override
+				public void handle(ActionEvent e) {
+					try {
+						CSVUtil.palladioExport("data/PalladioExport.csv", oListInteractionResults);
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					try {
+						CSVUtil.gephiExportEdges("data/GephyExportEdges.csv", oListInteractionResults);
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				}
+			});
 			btnDelete.setOnAction(new EventHandler<ActionEvent>() {
 				@Override
 				public void handle(ActionEvent e) {

@@ -74,8 +74,8 @@ public class Person {
 
 	@Override
 	public String toString() {
-		return name + " {id=" + id  + " nickname=" + nickname +  " gender=" + gender + " culture=" + culture + " occupation=" + occupation
-				+ " notes=" + notes + "}";
+		return name; //+ " {id=" + id  + " nickname=" + nickname +  " gender=" + gender + " culture=" + culture + " occupation=" + occupation
+				//+ " notes=" + notes + "}";
 	}
 
 	/*

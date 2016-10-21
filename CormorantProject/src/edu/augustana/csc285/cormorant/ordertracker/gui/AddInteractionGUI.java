@@ -254,19 +254,19 @@ public class AddInteractionGUI extends Application {
 				String interactionType = interactionTypeDropDown.getValue();
 				String notes = notesTextArea.getText();
 				if (!(oListPerson1Selected.isEmpty() && oListPerson2Selected.isEmpty())) {
-					if (location.matches(".*[a-zA-Z]+.*")) {
+					if (!location.matches(".*[a-zA-Z]+.*")) {
 						location = "Unknown";
 					}
-					if (date.matches("[0-9]")) {
+					if (date.isEmpty()) {
 						date = "Unknown";
 					}
-					if (citation.matches(".*[a-zA-Z]+.*")) {
+					if (!citation.matches(".*[a-zA-Z]+.*")) {
 						citation = "none";
 					}
 					if (interactionType == null) {
 						interactionType = "Unknown";
 					}
-					if (notes.matches(".*[a-zA-Z]+.*")) {
+					if (!notes.matches(".*[a-zA-Z]+.*")) {
 						notes = "none";
 					}
 					Interaction interaction = new Interaction(oListPerson1Selected, oListPerson2Selected, location,

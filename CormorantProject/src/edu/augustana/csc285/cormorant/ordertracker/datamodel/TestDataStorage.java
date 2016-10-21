@@ -11,9 +11,9 @@ public class TestDataStorage {
 		CSVUtil.savePerson("data/People.csv");
 		CSVUtil.loadInteractions("data/Interaction.csv");
 		CSVUtil.saveInteractions("data/Interaction.csv");
-		CSVUtil.palladioExport("data/PalladioExport.csv");
-		CSVUtil.gephiExportNodes("data/GephiExportNodes.csv");
-		CSVUtil.gephiExportEdges("data/GephyExportEdges.csv");
+		//CSVUtil.palladioExport("data/PalladioExport.csv");
+		//CSVUtil.gephiExportNodes("data/GephiExportNodes.csv");
+		//CSVUtil.gephiExportEdges("data/GephyExportEdges.csv");
 	}
 
 }
