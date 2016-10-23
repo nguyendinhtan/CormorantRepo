@@ -109,9 +109,8 @@ public class HomeGUI extends Application {
 				AddPersonGUI gui = new AddPersonGUI();
 				try {
 					gui.start(primaryStage);
-				} catch (Exception e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+				} catch (Exception error) {
+					DialogGUI.showError("Error Changing to Add Person View", error.toString());
 				}
 			}
 		});
@@ -124,9 +123,8 @@ public class HomeGUI extends Application {
 				AddInteractionGUI gui = new AddInteractionGUI();
 				try {
 					gui.start(primaryStage);
-				} catch (Exception e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+				} catch (Exception error) {
+					DialogGUI.showError("Error Changing to Add Interaction View", error.toString());
 				}
 			}
 		});
@@ -153,17 +151,18 @@ public class HomeGUI extends Application {
 
 		// Primary Stage Methods
 		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+			@Override
 			public void handle(WindowEvent we) {
 				try {
 					CSVUtil.savePerson("data/People.csv");
 				} catch (IOException error) {
 					DialogGUI.showError("Couldn't save Person object.", error.toString());
 				}
+				
 				try {
 					CSVUtil.saveInteractions("data/Interaction.csv");
 				} catch (IOException error) {
 					DialogGUI.showError("Couldn't Save Interaction to CSV", error.toString());
-
 				}
 			}
 		});

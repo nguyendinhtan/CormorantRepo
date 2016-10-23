@@ -206,14 +206,15 @@ public class Interaction {
 	public String getNamesOfGroup(List<Person> peopleList) {
 		if (peopleList.size() > 0) {
 			String peopleGroup = peopleList.get(0).getName();
-			for (int i = 1; i < peopleList.size(); i++) {
-				peopleGroup += ", " + peopleList.get(i).getName();
+			for (Person person : peopleList.subList(1, peopleList.size())) {
+				peopleGroup += ", " + person.getName();
 			}
 			return peopleGroup;
 		}
 		return " ";
 	}
 
+	@Override
 	public String toString() {
 		return "Group 1=(" + getNamesOfGroup(people1) + ") interacted with Group 2=(" + getNamesOfGroup(people2)
 				+ ") {Location=" + location + ", Date=" + date + ", Interaction Type=" + interactionType
@@ -222,13 +223,13 @@ public class Interaction {
 
 	public int contains(String search) {
 		String searchLower = search.toLowerCase();
-		for (int i = 0; i < people1.size(); i++) {
-			if (people1.get(i).contains(searchLower) == 1) {
+		for (Person person : people1) {
+			if (person.contains(searchLower) == 1) {
 				return 1;
 			}
 		}
-		for (int i = 0; i < people2.size(); i++) {
-			if (people2.get(i).contains(searchLower) == 1) {
+		for (Person person : people2) {
+			if (person.contains(searchLower) == 1) {
 				return 1;
 			}
 		}
