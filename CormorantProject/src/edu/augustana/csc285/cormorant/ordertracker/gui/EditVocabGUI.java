@@ -178,17 +178,17 @@ public class EditVocabGUI extends Application {
 					DialogGUI.showError("Error Changing to Home View", error.toString());
 				}
 				try {
-					CSVUtil.saveInteractionType("data/InteractionType.csv");
+					CSVUtil.writeInteractionType("data/InteractionType.csv");
 				} catch (IOException error) {
 					DialogGUI.showError("Couldn't save interaction type vocab.", error.toString());
 				}
 				try {
-					CSVUtil.saveCultureVocab("data/CultureVocab.csv");
+					CSVUtil.writeCultureVocab("data/CultureVocab.csv");
 				} catch (IOException error) {
 					DialogGUI.showError("Couldn't save culture vocab.", error.toString());
 				}
 				try {
-					CSVUtil.saveOccupationVocab("data/OccupationVocab.csv");
+					CSVUtil.writeOccupationVocab("data/OccupationVocab.csv");
 				} catch (IOException error) {
 					DialogGUI.showError("Couldn't save occupation vocab.", error.toString());
 				}
@@ -205,32 +205,11 @@ public class EditVocabGUI extends Application {
 		// Primary Stage Methods
 		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 			public void handle(WindowEvent we) {
-				try {
-					CSVUtil.savePerson("data/People.csv");
-				} catch (IOException error) {
-					DialogGUI.showError("Couldn't save Person object.", error.toString());
-				}
-				try {
-					CSVUtil.saveInteractions("data/Interaction.csv");
-				} catch (IOException error) {
-					DialogGUI.showError("Couldn't Save Interaction to CSV", error.toString());
-
-				}
-				try {
-					CSVUtil.saveInteractionType("data/InteractionType.csv");
-				} catch (IOException error) {
-					DialogGUI.showError("Couldn't save interaction type vocab.", error.toString());
-				}
-				try {
-					CSVUtil.saveCultureVocab("data/CultureVocab.csv");
-				} catch (IOException error) {
-					DialogGUI.showError("Couldn't save culture vocab.", error.toString());
-				}
-				try {
-					CSVUtil.saveOccupationVocab("data/OccupationVocab.csv");
-				} catch (IOException error) {
-					DialogGUI.showError("Couldn't save occupation vocab.", error.toString());
-				}
+				CSVUtil.savePerson();
+				CSVUtil.saveInteractions();
+				CSVUtil.saveInteractionsType();
+				CSVUtil.saveCultureVocab();
+				CSVUtil.saveOccupationVocab();
 			}
 		});
 		primaryStage.setTitle("Edit Controlled Vocabulary");

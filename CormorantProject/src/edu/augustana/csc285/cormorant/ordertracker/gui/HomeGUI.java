@@ -1,8 +1,6 @@
 
 package edu.augustana.csc285.cormorant.ordertracker.gui;
 
-import java.io.IOException;
-
 import edu.augustana.csc285.cormorant.ordertracker.datamodel.CSVUtil;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -153,17 +151,8 @@ public class HomeGUI extends Application {
 		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 			@Override
 			public void handle(WindowEvent we) {
-				try {
-					CSVUtil.savePerson("data/People.csv");
-				} catch (IOException error) {
-					DialogGUI.showError("Couldn't save Person object.", error.toString());
-				}
-				
-				try {
-					CSVUtil.saveInteractions("data/Interaction.csv");
-				} catch (IOException error) {
-					DialogGUI.showError("Couldn't Save Interaction to CSV", error.toString());
-				}
+				CSVUtil.savePerson();
+				CSVUtil.saveInteractions();
 			}
 		});
 		primaryStage.setTitle("Home Screen");
