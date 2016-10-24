@@ -1,3 +1,4 @@
+
 package edu.augustana.csc285.cormorant.ordertracker.gui;
 
 import java.io.IOException;
@@ -138,29 +139,11 @@ public class AddPersonGUI extends Application {
 						notes = "none";
 					}
 					Person person = new Person(id, name,nickname, gender, culture, occupation, notes);
-					if (person.checkForUnallowedInput(person.getName(),person.getNickname(), person.getCulture(),
-							person.getOccupation()) < 0) {
+					if (person.checkForUnallowedInput(person.getName(),person.getNickname()) < 0) {
 						DialogGUI.showError("Invalid Characters Entered",
 								"Make sure no numbers or special characters are entered in the Name, Culture or Occupation fields");
-						/*
-						 * Alert alert = new Alert(AlertType.ERROR);
-						 * alert.setTitle("Error");
-						 * alert.setHeaderText("Invalid characters entered.");
-						 * alert.setContentText(
-						 * "Make sure no numbers or special characters are entered in the Name, Culture or Occupation fields"
-						 * ); alert.showAndWait();
-						 */
 					} else if (DataCollections.checkForPersonDuplicates(person) > 0) {
 						DialogGUI.showError("Duplicate Person Entered", "Person already exists." + person.toString());
-						/*
-						 * Alert alert = new Alert(AlertType.ERROR);
-						 * alert.setTitle("Error"); alert.
-						 * setHeaderText("That person has already been entered."
-						 * ); alert.
-						 * setContentText("Person already exists. (ID number:" +
-						 * DataCollections.checkForPersonDuplicates(person) +
-						 * ")"); alert.showAndWait();
-						 */
 					} else {
 						DataCollections.addPerson(person);
 						DialogGUI.showInfo("Person Added", "Person was added to list.");
@@ -219,3 +202,4 @@ public class AddPersonGUI extends Application {
 	}
 
 }
+

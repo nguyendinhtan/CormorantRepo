@@ -142,21 +142,11 @@ public class EditPersonGUI extends Application {
 						notes = "none";
 					}
 					Person person = new Person(id, name, nickname, gender, culture, occupation, notes);
-					if (person.checkForUnallowedInput(person.getName(), person.getNickname(), person.getCulture(),
-							person.getCulture()) < 0) {
-						Alert alert = new Alert(AlertType.INFORMATION);
-						alert.setTitle("Error");
-						alert.setHeaderText("Invalid characters entered.");
-						alert.setContentText(
-								"Make sure no numbers or special characters are entered in the Name, Culture or Occupation fields");
-						alert.showAndWait();
+					if (person.checkForUnallowedInput(person.getName(), person.getNickname()) < 0) {
+						DialogGUI.showError("Invalid characters entered.", "Make sure no numbers or special characters are entered in the Name, Culture or Occupation fields");
 					} else if (DataCollections.checkForPersonDuplicates(person) > 0) {
-						Alert alert = new Alert(AlertType.INFORMATION);
-						alert.setTitle("Error");
-						alert.setHeaderText("That person has already been entered.");
-						alert.setContentText("Person already exists. (ID number:"
+						DialogGUI.showError("That person has already been entered.", "Person already exists. (ID number:"
 								+ DataCollections.checkForPersonDuplicates(person) + ")");
-						alert.showAndWait();
 					} else {
 						DataCollections.addPerson(person);
 						for (int i = 0; i < DataCollections.getInteractionCollection().size(); i++) {

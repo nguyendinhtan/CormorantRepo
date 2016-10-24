@@ -232,10 +232,10 @@ public class Interaction {
 				return 1;
 			}
 		}
-		if (location.contains(searchLower) || date.contains(searchLower)) {
+		if (location.toLowerCase().contains(searchLower) || date.contains(searchLower)|| interactionType.toLowerCase().contains(searchLower) || citation.toLowerCase().contains(searchLower)) {
 			return 2;
 		} else if (notes != null) {
-			if (notes.contains(searchLower) || citation.contains(searchLower)) {
+			if (notes.toLowerCase().contains(searchLower)) {
 				return 2;
 			}
 		}

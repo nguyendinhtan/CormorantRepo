@@ -158,7 +158,7 @@ public class Person {
 
 	// Checks if invalid chars are entered and returns -1 if there are and 0 if
 	// there aren't
-	public int checkForUnallowedInput(String name, String nickname, String culture, String occupation) {
+	public int checkForUnallowedInput(String name, String nickname) {
 		String unallowedChars = "1234567890!@#$%^&*()-+=[]{}?<>;";
 
 		for (int i = 0; i < unallowedChars.length(); i++) {

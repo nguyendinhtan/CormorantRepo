@@ -110,10 +110,7 @@ public class DataCollections {
 		for (int i = 0; i < personCollection.size(); i++) {
 
 			if (person.getName().toLowerCase().equals(personCollection.get(i).getName().toLowerCase())
-					&& person.getNickname().toLowerCase().equals(personCollection.get(i).getNickname().toLowerCase())
-					&& person.getCulture().toLowerCase().equals(personCollection.get(i).getCulture().toLowerCase())
-					&& person.getOccupation().toLowerCase()
-							.equals(personCollection.get(i).getOccupation().toLowerCase())) {
+					|| person.getNickname().toLowerCase().equals(personCollection.get(i).getNickname().toLowerCase())) {
 				return personCollection.get(i).getID();
 			}
 		}
@@ -128,8 +125,7 @@ public class DataCollections {
 				if (interactionCollection.get(i).getPeople1().equals(interaction.getPeople1())
 						&& interactionCollection.get(i).getPeople2().equals(interaction.getPeople2())
 						&& interactionCollection.get(i).getLocation().equals(interaction.getLocation())
-						&& interactionCollection.get(i).getDateString().equals(interaction.getDateString())
-						&& interactionCollection.get(i).getInteractionType().equals(interaction.getInteractionType())) {
+						&& interactionCollection.get(i).getDateString().equals(interaction.getDateString())) {
 					return i;
 				}
 			} catch (NullPointerException e) {
