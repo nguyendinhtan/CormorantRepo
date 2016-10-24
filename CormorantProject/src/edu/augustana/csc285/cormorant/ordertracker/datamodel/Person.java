@@ -1,3 +1,4 @@
+
 package edu.augustana.csc285.cormorant.ordertracker.datamodel;
 
 import java.util.Comparator;
@@ -220,3 +221,4 @@ public class Person {
 	}
 
 }
+

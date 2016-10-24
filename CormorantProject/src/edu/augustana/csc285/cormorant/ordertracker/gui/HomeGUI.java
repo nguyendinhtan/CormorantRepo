@@ -1,8 +1,6 @@
 
 package edu.augustana.csc285.cormorant.ordertracker.gui;
 
-import java.io.IOException;
-
 import edu.augustana.csc285.cormorant.ordertracker.datamodel.CSVUtil;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -12,9 +10,6 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -35,6 +30,7 @@ public class HomeGUI extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
+
 		// GUI Variables
 		GridPane grid = new GridPane();
 		Scene scene = new Scene(grid);
@@ -61,33 +57,14 @@ public class HomeGUI extends Application {
 		imageEditView.setFitHeight(20);
 		imageEditView.setFitWidth(20);
 		HBox topRowBox = new HBox();
-		HBox bottomButtonRowBox = new HBox(30);
-		Menu menuFile=new Menu("File");
-		MenuBar menuBar=new MenuBar();
-		MenuItem open=new MenuItem("Open Existing Project");
-		
-		MenuItem newProject=new MenuItem("New Project");
-		menuFile.getItems().addAll(newProject, open);
-		menuBar.getMenus().addAll(menuFile);
+		HBox bottomButtonRowBox = new HBox(10);
+
 		// Grid Methods
 		grid.setAlignment(Pos.CENTER);
 		grid.setHgap(10);
 		grid.setVgap(10);
 		grid.setPadding(new Insets(25, 25, 25, 25));
-		
-		open.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent e) {
-				
-			}
-		});
-		
-		newProject.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent e) {
-			
-			}
-		});
+
 		// DropDown list for choosing search type
 		searchType.getItems().addAll("Person", "Interaction");
 		searchType.setPromptText("Search Category");
@@ -130,9 +107,8 @@ public class HomeGUI extends Application {
 				AddPersonGUI gui = new AddPersonGUI();
 				try {
 					gui.start(primaryStage);
-				} catch (Exception e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+				} catch (Exception error) {
+					DialogGUI.showError("Error Changing to Add Person View", error.toString());
 				}
 			}
 		});
@@ -145,9 +121,8 @@ public class HomeGUI extends Application {
 				AddInteractionGUI gui = new AddInteractionGUI();
 				try {
 					gui.start(primaryStage);
-				} catch (Exception e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+				} catch (Exception error) {
+					DialogGUI.showError("Error Changing to Add Interaction View", error.toString());
 				}
 			}
 		});
@@ -174,18 +149,10 @@ public class HomeGUI extends Application {
 
 		// Primary Stage Methods
 		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+			@Override
 			public void handle(WindowEvent we) {
-				try {
-					CSVUtil.savePerson("data/People.csv");
-				} catch (IOException error) {
-					DialogGUI.showError("Couldn't save Person object.", error.toString());
-				}
-				try {
-					CSVUtil.saveInteractions("data/Interaction.csv");
-				} catch (IOException error) {
-					DialogGUI.showError("Couldn't Save Interaction to CSV", error.toString());
-
-				}
+				CSVUtil.savePerson();
+				CSVUtil.saveInteractions();
 			}
 		});
 		primaryStage.setTitle("Home Screen");
@@ -202,3 +169,4 @@ public class HomeGUI extends Application {
 	}
 
 }
+

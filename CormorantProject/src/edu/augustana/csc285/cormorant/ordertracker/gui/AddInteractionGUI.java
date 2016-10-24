@@ -297,12 +297,12 @@ public class AddInteractionGUI extends Application {
 		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 			public void handle(WindowEvent we) {
 				try {
-					CSVUtil.savePerson("data/People.csv");
+					CSVUtil.writePerson("data/People.csv");
 				} catch (IOException error) {
 					DialogGUI.showError("Couldn't save Person object.", error.toString());
 				}
 				try {
-					CSVUtil.saveInteractions("data/Interaction.csv");
+					CSVUtil.writeInteractions("data/Interaction.csv");
 				} catch (IOException error) {
 					DialogGUI.showError("Couldn't Save Interaction to CSV", error.toString());
 

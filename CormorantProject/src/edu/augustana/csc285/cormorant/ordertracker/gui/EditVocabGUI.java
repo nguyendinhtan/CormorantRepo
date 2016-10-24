@@ -1,4 +1,3 @@
-
 package edu.augustana.csc285.cormorant.ordertracker.gui;
 
 import java.io.IOException;
@@ -13,8 +12,6 @@ import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -156,7 +153,7 @@ public class EditVocabGUI extends Application {
 			@Override
 			public void handle(ActionEvent e) {
 				if (listView.getSelectionModel().getSelectedItem() != null) {
-					if (DialogGUI.conformation("Deleteing Vocabulary",
+					if (DialogGUI.conformation("Delete Vocabulary",
 							"Are you sure you want to delete this controlled vocabulary?")) {
 						int deletedIndex = listView.getSelectionModel().getSelectedIndex();
 						observableListVocab.remove(deletedIndex);
@@ -176,22 +173,21 @@ public class EditVocabGUI extends Application {
 				HomeGUI Homegui = new HomeGUI();
 				try {
 					Homegui.start(primaryStage);
-				} catch (Exception e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+				} catch (Exception error) {
+					DialogGUI.showError("Error Changing to Home View", error.toString());
 				}
 				try {
-					CSVUtil.saveInteractionType("data/InteractionType.csv");
+					CSVUtil.writeInteractionType("data/InteractionType.csv");
 				} catch (IOException error) {
 					DialogGUI.showError("Couldn't save interaction type vocab.", error.toString());
 				}
 				try {
-					CSVUtil.saveCultureVocab("data/CultureVocab.csv");
+					CSVUtil.writeCultureVocab("data/CultureVocab.csv");
 				} catch (IOException error) {
 					DialogGUI.showError("Couldn't save culture vocab.", error.toString());
 				}
 				try {
-					CSVUtil.saveOccupationVocab("data/OccupationVocab.csv");
+					CSVUtil.writeOccupationVocab("data/OccupationVocab.csv");
 				} catch (IOException error) {
 					DialogGUI.showError("Couldn't save occupation vocab.", error.toString());
 				}
@@ -208,32 +204,11 @@ public class EditVocabGUI extends Application {
 		// Primary Stage Methods
 		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 			public void handle(WindowEvent we) {
-				try {
-					CSVUtil.savePerson("data/People.csv");
-				} catch (IOException error) {
-					DialogGUI.showError("Couldn't save Person object.", error.toString());
-				}
-				try {
-					CSVUtil.saveInteractions("data/Interaction.csv");
-				} catch (IOException error) {
-					DialogGUI.showError("Couldn't Save Interaction to CSV", error.toString());
-
-				}
-				try {
-					CSVUtil.saveInteractionType("data/InteractionType.csv");
-				} catch (IOException error) {
-					DialogGUI.showError("Couldn't save interaction type vocab.", error.toString());
-				}
-				try {
-					CSVUtil.saveCultureVocab("data/CultureVocab.csv");
-				} catch (IOException error) {
-					DialogGUI.showError("Couldn't save culture vocab.", error.toString());
-				}
-				try {
-					CSVUtil.saveOccupationVocab("data/OccupationVocab.csv");
-				} catch (IOException error) {
-					DialogGUI.showError("Couldn't save occupation vocab.", error.toString());
-				}
+				CSVUtil.savePerson();
+				CSVUtil.saveInteractions();
+				CSVUtil.saveInteractionsType();
+				CSVUtil.saveCultureVocab();
+				CSVUtil.saveOccupationVocab();
 			}
 		});
 		primaryStage.setTitle("Edit Controlled Vocabulary");
@@ -242,3 +217,4 @@ public class EditVocabGUI extends Application {
 	}
 
 }
+

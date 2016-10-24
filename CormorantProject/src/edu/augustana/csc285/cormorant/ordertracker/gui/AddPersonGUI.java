@@ -27,7 +27,6 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
 /**
- * 
  * Add Person GUI view class.
  */
 
@@ -64,7 +63,7 @@ public class AddPersonGUI extends Application {
 		HBox buttonBox = new HBox();
 		oListCulture = FXCollections.observableArrayList(ControlledVocab.getCultureVocab());
 		oListOccupation = FXCollections.observableArrayList(ControlledVocab.getOccupationVocab());
-		
+
 		// Grid Methods
 		grid.setAlignment(Pos.CENTER);
 		grid.setHgap(10);
@@ -92,7 +91,7 @@ public class AddPersonGUI extends Application {
 		// Culture Methods
 		cultureDropDown.getItems().addAll(oListCulture);
 		cultureDropDown.setMinSize(300, 10);
-		
+
 		// Occupation Methods
 		occupationDropDown.getItems().addAll(oListOccupation);
 		occupationDropDown.setMinSize(300, 10);
@@ -102,10 +101,10 @@ public class AddPersonGUI extends Application {
 		notesLabelBox.setAlignment(Pos.TOP_LEFT);
 		notesTextArea.setMaxSize(300, 100);
 		notesTextArea.setPromptText("Brief description of person...");
-		
+
 		// Name Text Field
 		nameTextField.setPromptText("ex. John Doe");
-		
+
 		// Nick Name Text Field
 		nicknameTextField.setPromptText("ex. Johny");
 
@@ -115,31 +114,18 @@ public class AddPersonGUI extends Application {
 		addPersonButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
-				int id = DataCollections.getPersonCollection().size() + 1;
+				int id = SearchResultGUI.getSelectedPerson().getID();
 				String name = nameTextField.getText();
-				String nickname = nicknameTextField.getText();
-				String gender = genderDropDown.getValue();
-				String culture = cultureDropDown.getValue();
-				String occupation = occupationDropDown.getValue();
-				String notes = notesTextArea.getText();
-				if (name.matches(".*[a-zA-Z]+.*")){
-					if (!nickname.matches(".*[a-zA-Z]+.*")) {
-						nickname = "No Nickname";
-					}
-					if (gender == null) {
-						gender = "Unknown";
-					}
-					if (culture == null) {
-						culture = "Unknown";
-					}
-					if (occupation == null) {
-						occupation = "Unknown";
-					}
-					if (!notes.matches(".*[a-zA-Z]+.*")) {
-						notes = "none";
-					}
-					Person person = new Person(id, name,nickname, gender, culture, occupation, notes);
-					if (person.checkForUnallowedInput(person.getName(),person.getNickname()) < 0) {
+
+				String nickname = (nicknameTextField.getText().matches(".*[a-zA-Z]+.*")) ? nicknameTextField.getText()
+						: "No Nickname";
+				String gender = (genderDropDown.getValue() != null) ? genderDropDown.getValue() : "Unknown";
+				String culture = (cultureDropDown.getValue() != null) ? cultureDropDown.getValue() : "Unknown";
+				String occupation = (occupationDropDown.getValue() != null) ? occupationDropDown.getValue() : "Unknown";
+				String notes = (notesTextArea.getText() != null) ? notesTextArea.getText() : "none";
+				if (name.matches(".*[a-zA-Z]+.*")) {
+					Person person = new Person(id, name, nickname, gender, culture, occupation, notes);
+					if (person.checkForUnallowedInput(person.getName(), person.getNickname()) < 0) {
 						DialogGUI.showError("Invalid Characters Entered",
 								"Make sure no numbers or special characters are entered in the Name, Culture or Occupation fields");
 					} else if (DataCollections.checkForPersonDuplicates(person) > 0) {
@@ -147,7 +133,6 @@ public class AddPersonGUI extends Application {
 					} else {
 						DataCollections.addPerson(person);
 						DialogGUI.showInfo("Person Added", "Person was added to list.");
-		
 						nameTextField.clear();
 						nicknameTextField.clear();
 						genderDropDown.setValue(null);
@@ -169,9 +154,8 @@ public class AddPersonGUI extends Application {
 				HomeGUI Homegui = new HomeGUI();
 				try {
 					Homegui.start(primaryStage);
-				} catch (Exception e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+				} catch (Exception error) {
+					DialogGUI.showError("Error Changing to the Home View", error.toString());
 				}
 			}
 		});
@@ -182,20 +166,20 @@ public class AddPersonGUI extends Application {
 
 		// Primary Stage Methods
 		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-		      public void handle(WindowEvent we) {
-		    	  try {
-						CSVUtil.savePerson("data/People.csv");
-					} catch (IOException error) {
-						DialogGUI.showError("Couldn't save Person object.", error.toString());
-					}
-		    	  try {
-		  			CSVUtil.saveInteractions("data/Interaction.csv");
-		  		} catch (IOException error) {
-		  			DialogGUI.showError("Couldn't Save Interaction to CSV", error.toString());
-		  			
-		  		}
-		      }
-		  }); 
+			public void handle(WindowEvent we) {
+				try {
+					CSVUtil.writePerson("data/People.csv");
+				} catch (IOException error) {
+					DialogGUI.showError("Couldn't save Person object.", error.toString());
+				}
+				try {
+					CSVUtil.writeInteractions("data/Interaction.csv");
+				} catch (IOException error) {
+					DialogGUI.showError("Couldn't Save Interaction to CSV", error.toString());
+
+				}
+			}
+		});
 		primaryStage.setTitle("Insert Person");
 		primaryStage.setScene(scene);
 		primaryStage.show();
