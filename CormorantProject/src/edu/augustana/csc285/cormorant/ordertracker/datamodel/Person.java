@@ -64,7 +64,6 @@ public class Person {
 	public Person(String[] csvRowData) {
 		this.id = Integer.parseInt(csvRowData[0]);
 		this.name = csvRowData[1];
-
 		this.nickname = csvRowData[2];
 		this.gender = csvRowData[3];
 		this.culture = csvRowData[4];
@@ -164,9 +163,7 @@ public class Person {
 		for (int i = 0; i < unallowedChars.length(); i++) {
 			for (int j = 0; j < name.length(); j++) {
 				if (name.charAt(j) == ((unallowedChars.charAt(i)))) {
-
 					return -1;
-
 				}
 			}
 			for (int j = 0; j < culture.length(); j++) {
@@ -213,10 +210,8 @@ public class Person {
 			return 1;
 		} else if (gender.toLowerCase().contains(searchLower)) {
 			return 2;
-		} else if (notes != null) {
-			if (notes.contains(searchLower)) {
-				return 2;
-			}
+		} else if (notes != null && notes.contains(searchLower)) {
+			return 2;
 		}
 		return -1;
 	}
