@@ -165,9 +165,7 @@ public class Person {
 		for (int i = 0; i < unallowedChars.length(); i++) {
 			for (int j = 0; j < name.length(); j++) {
 				if (name.charAt(j) == ((unallowedChars.charAt(i)))) {
-
 					return -1;
-
 				}
 			}
 			for (int j = 0; j < culture.length(); j++) {
@@ -208,17 +206,16 @@ public class Person {
 	// For searching
 	public int contains(String search) {
 		String searchLower = search.toLowerCase();
-		if (searchLower.equals(id) || name.toLowerCase().contains(searchLower)|| nickname.toLowerCase().contains(searchLower) || culture.toLowerCase().contains(searchLower)|| occupation.toLowerCase().contains(searchLower)) {
+		if (searchLower.equals(id) || name.toLowerCase().contains(searchLower)
+				|| nickname.toLowerCase().contains(searchLower) || culture.toLowerCase().contains(searchLower)
+				|| occupation.toLowerCase().contains(searchLower)) {
 			return 1;
 		} else if (gender.toLowerCase().contains(searchLower)) {
 			return 2;
-		} else if (notes != null) {
-			if (notes.contains(searchLower)) {
-				return 2;
-			}
+		} else if (notes != null && notes.contains(searchLower)) {
+			return 2;
 		}
 		return -1;
 	}
 
 }
-

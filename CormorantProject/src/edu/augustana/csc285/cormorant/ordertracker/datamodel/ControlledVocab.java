@@ -3,11 +3,7 @@ package edu.augustana.csc285.cormorant.ordertracker.datamodel;
 import java.util.ArrayList;
 import java.util.List;
 
-//Unimplemented class
-//The methods and fields of this class are currently in the DataCollections class
-
 /**
- * 
  * The Controlled Vocab class.
  */
 
@@ -56,18 +52,14 @@ public class ControlledVocab {
 
 	public static int checkForUnallowedInput(String vocab) {
 		String unallowedChars = "@#^-+=[]{}";
-
 		for (int i = 0; i < unallowedChars.length(); i++) {
 			for (int j = 0; j < vocab.length(); j++) {
 				if (vocab.charAt(j) == ((unallowedChars.charAt(i)))) {
 					return -1;
-
 				}
 			}
-
 		}
 		return 0;
-
 	}
 
 	public static int checkForVocabDuplicates(String vocab, String list) {
@@ -77,15 +69,13 @@ public class ControlledVocab {
 					return i;
 				}
 			}
-		}
-		if (list == "Interaction Type") {
+		}else if (list == "Interaction Type") {
 			for (int i = 0; i < interactionTypeVocab.size(); i++) {
 				if (vocab.toLowerCase().equals(interactionTypeVocab.get(i).toLowerCase())) {
 					return i;
 				}
 			}
-		}
-		if (list == "Culture") {
+		}else if (list == "Culture") {
 			for (int i = 0; i < cultureVocab.size(); i++) {
 				if (vocab.toLowerCase().equals(cultureVocab.get(i).toLowerCase())) {
 					return i;

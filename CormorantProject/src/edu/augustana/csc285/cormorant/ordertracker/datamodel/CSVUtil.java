@@ -21,7 +21,7 @@ public class CSVUtil {
 	private static CSVReader reader;
 	private static CSVWriter writer;
 
-	// Read Methods
+	// Load Methods
 	public static void loadPerson(String fileName) throws IOException {
 		reader = new CSVReader(new FileReader(fileName));
 		List<String[]> myRows = reader.readAll();
@@ -189,7 +189,7 @@ public class CSVUtil {
 		writer.close();
 	}
 
-	// Load Methods
+	// Save Methods
 	public static void savePerson() {
 		try {
 			CSVUtil.writePerson("data/People.csv");
