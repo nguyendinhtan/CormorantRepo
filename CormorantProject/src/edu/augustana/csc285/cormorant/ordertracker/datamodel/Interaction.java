@@ -84,7 +84,7 @@ public class Interaction {
 		StringBuilder idString = new StringBuilder();
 		if (!people.isEmpty()) {
 			idString.append(Integer.toString(people.get(0).getID()));
-			for (Person person : people.subList(1, people.size() - 1)) {
+			for (Person person : people.subList(1, people.size())) {
 				idString.append(":" + Integer.toString(person.getID()));
 			}
 		}
@@ -205,11 +205,12 @@ public class Interaction {
 
 	public String getNamesOfGroup(List<Person> peopleList) {
 		if (peopleList.size() > 0) {
-			String peopleGroup = peopleList.get(0).getName();
-			for (int i = 1; i < peopleList.size(); i++) {
-				peopleGroup += ", " + peopleList.get(i).getName();
+			StringBuilder peopleGroup = new StringBuilder();
+			peopleGroup.append(peopleList.get(0).getName());
+			for (Person person : peopleList) {
+				peopleGroup.append(", " + person.getName());
 			}
-			return peopleGroup;
+			return peopleGroup.toString();
 		}
 		return " ";
 	}
