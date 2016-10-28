@@ -146,7 +146,7 @@ public class SearchResultGUI extends Application {
 				public void handle(ActionEvent e) {
 					int selectedIndex = personResultsView.getSelectionModel().getSelectedIndex();
 					if (selectedIndex >= 0) {
-						if (DialogGUI.conformation("Deleting Person From List",
+						if (DialogGUI.confirmation("Deleting Person From List",
 								"Are you sure you want to delete this person?")) {
 							for (int i = 0; i < DataCollections.getInteractionCollection().size(); i++) {
 								for (int j = 0; j < DataCollections.getInteractionCollection().get(i).getPeople1()
@@ -245,7 +245,7 @@ public class SearchResultGUI extends Application {
 				public void handle(ActionEvent e) {
 					int selectedIndex = interactionResultsView.getSelectionModel().getSelectedIndex();
 					if (selectedIndex >= 0) {
-						if (DialogGUI.conformation("Deleteing Interaction",
+						if (DialogGUI.confirmation("Deleteing Interaction",
 								"Are you sure you want to delete this interaction?")) {
 							DataCollections.getInteractionCollection()
 									.remove(interactionResultsView.getSelectionModel().getSelectedItem());
