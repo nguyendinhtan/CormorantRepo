@@ -31,7 +31,7 @@ public class DialogGUI {
 		alert.showAndWait();
 	}
 
-	public static boolean conformation(String headerText, String confirmText) {
+	public static boolean confirmation(String headerText, String confirmText) {
 		Alert alert = new Alert(AlertType.CONFIRMATION);
 		alert.setTitle("Confirmation");
 		alert.setHeaderText(headerText);
