@@ -1,4 +1,11 @@
 ID,Name,Nickname,Gender,Culture,Occupation,Notes
+<<<<<<< HEAD
+1,A,A,Male,American,Students,Notes
+2,B,B,Female,Italian,Teachers,Notes
+3,C,C,Male,Italian,Students,Notes
+4,E,E,Female,Italian,Students,Notes
+=======
 4,dan,d,Male,American,Painter,
 1,Jared,J-rod,Male,American,Student,
 3,Jill,j,Female,French,Sculptor,
+>>>>>>> c2d111df97762851d94c85916f21f0e29954a780
