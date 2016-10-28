@@ -1,6 +1,7 @@
 package edu.augustana.csc285.cormorant.ordertracker.gui;
 
 import java.io.IOException;
+import java.util.Optional;
 
 import edu.augustana.csc285.cormorant.ordertracker.datamodel.CSVUtil;
 import edu.augustana.csc285.cormorant.ordertracker.datamodel.DataCollections;
@@ -15,7 +16,11 @@ import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar.ButtonData;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -228,16 +233,32 @@ public class SearchResultGUI extends Application {
 			exportButton.setOnAction(new EventHandler<ActionEvent>() {
 				@Override
 				public void handle(ActionEvent e) {
-					try {
-						CSVUtil.palladioExport("data/PalladioExport.csv", oListInteractionResults);
-					} catch (IOException error) {
-						DialogGUI.showError("Error Exporting Palladio CSV File", error.toString());
+					Alert alert = new Alert(AlertType.CONFIRMATION);
+					alert.setTitle("Export Chooser");
+					alert.setHeaderText("Choose the Export File");
+					alert.setContentText("Choose your option.");
+
+					ButtonType buttonTypePalladio = new ButtonType("Palladio");
+					ButtonType buttonTypeGephi = new ButtonType("Gephi");
+					ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
+
+					alert.getButtonTypes().setAll(buttonTypePalladio, buttonTypeGephi, buttonTypeCancel);
+
+					Optional<ButtonType> result = alert.showAndWait();
+					if (result.get() == buttonTypePalladio){
+						try {
+							CSVUtil.palladioExport("data/PalladioExport.csv", oListInteractionResults);
+						} catch (IOException error) {
+							DialogGUI.showError("Error Exporting Palladio CSV File", error.toString());
+						}
+					} else if (result.get() == buttonTypeGephi) {
+						try {
+							CSVUtil.gephiExportEdges("data/GephyExportEdges.csv", oListInteractionResults);
+						} catch (IOException error) {
+							DialogGUI.showError("Error Exporting to Gephi CSV File", error.toString());
+						}
 					}
-					try {
-						CSVUtil.gephiExportEdges("data/GephyExportEdges.csv", oListInteractionResults);
-					} catch (IOException error) {
-						DialogGUI.showError("Error Exporting to Gephi CSV File", error.toString());
-					}
+					
 				}
 			});
 
