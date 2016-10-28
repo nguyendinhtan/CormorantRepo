@@ -148,20 +148,12 @@ public class SearchResultGUI extends Application {
 					if (selectedIndex >= 0) {
 						if (DialogGUI.confirmation("Deleting Person From List",
 								"Are you sure you want to delete this person?")) {
-							for (int i = 0; i < DataCollections.getInteractionCollection().size(); i++) {
-								for (int j = 0; j < DataCollections.getInteractionCollection().get(i).getPeople1()
-										.size(); j++) {
-									if (DataCollections.getInteractionCollection().get(i).getPeople1().get(j)
-											.equals(personResultsView.getSelectionModel().getSelectedItem())) {
-										DataCollections.getInteractionCollection().get(i).getPeople1().remove(j);
-									}
+							for (Interaction interaction : DataCollections.getInteractionCollection()) {
+								for (Person person : interaction.getPeople1()) {
+										interaction.getPeople1().remove(person.equals(personResultsView.getSelectionModel().getSelectedItem()));
 								}
-								for (int j = 0; j < DataCollections.getInteractionCollection().get(i).getPeople2()
-										.size(); j++) {
-									if (DataCollections.getInteractionCollection().get(i).getPeople2().get(j)
-											.equals(personResultsView.getSelectionModel().getSelectedItem())) {
-										DataCollections.getInteractionCollection().get(i).getPeople2().remove(j);
-									}
+								for (Person person : interaction.getPeople2()) {
+									interaction.getPeople2().remove(person.equals(personResultsView.getSelectionModel().getSelectedItem()));
 								}
 							}
 							DataCollections.getPersonCollection()
@@ -277,7 +269,7 @@ public class SearchResultGUI extends Application {
 				CSVUtil.saveInteractions();
 			}
 		});
-		
+
 		primaryStage.setTitle("Search Results");
 		primaryStage.setScene(scene);
 		primaryStage.show();
@@ -292,4 +284,3 @@ public class SearchResultGUI extends Application {
 	}
 
 }
-
