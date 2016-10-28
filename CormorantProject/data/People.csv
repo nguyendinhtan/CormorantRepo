@@ -2,4 +2,8 @@ ID,Name,Nickname,Gender,Culture,Occupation,Notes
 1,A,A,Male,American,Students,Notes
 2,B,B,Female,Italian,Teachers,Notes
 3,C,C,Male,Italian,Students,Notes
+<<<<<<< HEAD
 4,E,E,Female,Italian,Students,Notes
+=======
+4,E,E,Female,Italian,Students,Notes
+>>>>>>> 171b9fc7e9f743aeffa0e3f0d2e434f1132c4953
