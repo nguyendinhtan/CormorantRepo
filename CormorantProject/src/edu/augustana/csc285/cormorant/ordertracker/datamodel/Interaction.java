@@ -81,14 +81,14 @@ public class Interaction {
 	}
 
 	public String toIdString(List<Person> people) {
-		String idString = "";
+		StringBuilder idString = new StringBuilder();
 		if (!people.isEmpty()) {
-			idString = Integer.toString(people.get(0).getID());
-			for (int i = 1; i < people.size(); i++) {
-				idString = idString + ":" + Integer.toString(people.get(i).getID());
+			idString.append(Integer.toString(people.get(0).getID()));
+			for (Person person : people.subList(1, people.size() - 1)) {
+				idString.append(":" + Integer.toString(person.getID()));
 			}
 		}
-		return idString;
+		return idString.toString();
 	}
 
 	/**
@@ -232,7 +232,9 @@ public class Interaction {
 				return 1;
 			}
 		}
-		if (location.toLowerCase().contains(searchLower) || date.contains(searchLower)|| interactionType.toLowerCase().contains(searchLower) || citation.toLowerCase().contains(searchLower)) {
+		if (location.toLowerCase().contains(searchLower) || date.contains(searchLower)
+				|| interactionType.toLowerCase().contains(searchLower)
+				|| citation.toLowerCase().contains(searchLower)) {
 			return 2;
 		} else if (notes != null) {
 			if (notes.toLowerCase().contains(searchLower)) {
