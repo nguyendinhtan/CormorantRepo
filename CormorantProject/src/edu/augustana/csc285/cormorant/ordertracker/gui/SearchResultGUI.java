@@ -133,6 +133,7 @@ public class SearchResultGUI extends Application {
 			exportButton.setOnAction(new EventHandler<ActionEvent>() {
 				@Override
 				public void handle(ActionEvent e) {
+					DialogGUI.confirmation("Export Confirmation" , "Do you want to export this people list to Gephi file?"); 
 					try {
 						CSVUtil.gephiExportNodes("data/GephiExportNodes.csv", oListPersonResults);
 					} catch (IOException error) {
