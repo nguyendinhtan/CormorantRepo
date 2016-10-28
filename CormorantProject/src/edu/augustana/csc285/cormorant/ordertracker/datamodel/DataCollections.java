@@ -136,4 +136,13 @@ public class DataCollections {
 		return -1;
 	}
 
+	public static int getMaxId(){
+		int max=-1;
+		for (int i=0; i<personCollection.size(); i++){
+			if (personCollection.get(i).getID()>max){
+				max=personCollection.get(i).getID();
+			}
+		}
+		return max;
+	}
 }

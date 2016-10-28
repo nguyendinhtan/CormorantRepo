@@ -114,7 +114,10 @@ public class AddPersonGUI extends Application {
 		addPersonButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
-				int id = SearchResultGUI.getSelectedPerson().getID();
+				int id=1;
+				if (!DataCollections.getPersonCollection().isEmpty()){
+					id = DataCollections.getMaxId()+1;
+				}	
 				String name = nameTextField.getText();
 
 				String nickname = (nicknameTextField.getText().matches(".*[a-zA-Z]+.*")) ? nicknameTextField.getText()

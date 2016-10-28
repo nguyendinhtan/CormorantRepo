@@ -57,7 +57,7 @@ public class HomeGUI extends Application {
 		imageEditView.setFitHeight(20);
 		imageEditView.setFitWidth(20);
 		HBox topRowBox = new HBox();
-		HBox bottomButtonRowBox = new HBox(10);
+		HBox bottomButtonRowBox = new HBox(30);
 
 		// Grid Methods
 		grid.setAlignment(Pos.CENTER);
