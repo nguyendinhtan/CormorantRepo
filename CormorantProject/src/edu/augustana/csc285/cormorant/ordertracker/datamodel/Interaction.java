@@ -84,7 +84,7 @@ public class Interaction {
 		StringBuilder idString = new StringBuilder();
 		if (!people.isEmpty()) {
 			idString.append(Integer.toString(people.get(0).getID()));
-			for (Person person : people.subList(1, people.size() - 1)) {
+			for (Person person : people.subList(1, people.size())) {
 				idString.append(":" + Integer.toString(person.getID()));
 			}
 		}
