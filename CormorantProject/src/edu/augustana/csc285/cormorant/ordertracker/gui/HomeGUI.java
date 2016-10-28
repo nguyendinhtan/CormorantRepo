@@ -1,8 +1,6 @@
 
 package edu.augustana.csc285.cormorant.ordertracker.gui;
 
-import java.io.IOException;
-
 import edu.augustana.csc285.cormorant.ordertracker.datamodel.CSVUtil;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -32,6 +30,7 @@ public class HomeGUI extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
+
 		// GUI Variables
 		GridPane grid = new GridPane();
 		Scene scene = new Scene(grid);
@@ -58,7 +57,7 @@ public class HomeGUI extends Application {
 		imageEditView.setFitHeight(20);
 		imageEditView.setFitWidth(20);
 		HBox topRowBox = new HBox();
-		HBox bottomButtonRowBox = new HBox(10);
+		HBox bottomButtonRowBox = new HBox(30);
 
 		// Grid Methods
 		grid.setAlignment(Pos.CENTER);
@@ -108,9 +107,8 @@ public class HomeGUI extends Application {
 				AddPersonGUI gui = new AddPersonGUI();
 				try {
 					gui.start(primaryStage);
-				} catch (Exception e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+				} catch (Exception error) {
+					DialogGUI.showError("Error Changing to Add Person View", error.toString());
 				}
 			}
 		});
@@ -123,9 +121,8 @@ public class HomeGUI extends Application {
 				AddInteractionGUI gui = new AddInteractionGUI();
 				try {
 					gui.start(primaryStage);
-				} catch (Exception e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+				} catch (Exception error) {
+					DialogGUI.showError("Error Changing to Add Interaction View", error.toString());
 				}
 			}
 		});
@@ -152,18 +149,10 @@ public class HomeGUI extends Application {
 
 		// Primary Stage Methods
 		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+			@Override
 			public void handle(WindowEvent we) {
-				try {
-					CSVUtil.savePerson("data/People.csv");
-				} catch (IOException error) {
-					DialogGUI.showError("Couldn't save Person object.", error.toString());
-				}
-				try {
-					CSVUtil.saveInteractions("data/Interaction.csv");
-				} catch (IOException error) {
-					DialogGUI.showError("Couldn't Save Interaction to CSV", error.toString());
-
-				}
+				CSVUtil.savePerson();
+				CSVUtil.saveInteractions();
 			}
 		});
 		primaryStage.setTitle("Home Screen");
@@ -180,3 +169,4 @@ public class HomeGUI extends Application {
 	}
 
 }
+

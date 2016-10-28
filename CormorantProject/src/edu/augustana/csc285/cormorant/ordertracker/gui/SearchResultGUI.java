@@ -28,7 +28,6 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
 /**
- * 
  * Search Result GUI view class.
  */
 public class SearchResultGUI extends Application {
@@ -37,7 +36,7 @@ public class SearchResultGUI extends Application {
 	private static Person selectedPerson;
 	private static Interaction selectedInteraction;
 
-	// @override
+	@Override
 	public void start(Stage primaryStage) {
 
 		// GUI Variables
@@ -80,26 +79,24 @@ public class SearchResultGUI extends Application {
 
 		// Action for back button to return program to the home screen
 		btnBack.setOnAction(new EventHandler<ActionEvent>() {
-
 			@Override
 			public void handle(ActionEvent e) {
 				HomeGUI homeGUI = new HomeGUI();
 				try {
 					homeGUI.start(primaryStage);
-				} catch (Exception e1) {
-					e1.printStackTrace();
+				} catch (Exception error) {
+					DialogGUI.showError("Error Changing to Home View", error.toString());
 				}
 			}
 		});
 
 		// adds buttons to box
-
 		hbBtn.getChildren().add(btnBack);
 		hbBtn.getChildren().add(btnDelete);
 		hbBtn.getChildren().add(btnEdit);
 		hbBtn.getChildren().add(exportButton);
-		// adds box and list view to grid for display
 
+		// adds box and list view to grid for display
 		grid.add(hbBtn, 1, 1);
 
 		if (HomeGUI.getType().equals("Person")) {
@@ -128,25 +125,23 @@ public class SearchResultGUI extends Application {
 			grid.add(personResultsView, 1, 0);
 			if (HomeGUI.getSearchKey().isEmpty() || HomeGUI.getSearchKey().equals(" ")) {
 				oListPersonResults = FXCollections.observableArrayList(DataCollections.getPersonCollection());
-
 			} else {
 				oListPersonResults = FXCollections.observableArrayList(SearchUtil.searchPeople(HomeGUI.getSearchKey()));
 			}
 			personResultsView.setItems(oListPersonResults);
-			exportButton.setOnAction(new EventHandler<ActionEvent>() {
 
+			exportButton.setOnAction(new EventHandler<ActionEvent>() {
 				@Override
 				public void handle(ActionEvent e) {
 					try {
 						CSVUtil.gephiExportNodes("data/GephiExportNodes.csv", oListPersonResults);
-					} catch (IOException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
+					} catch (IOException error) {
+						DialogGUI.showError("Error Exporting Nodes to Gephi", error.toString());
 					}
 				}
 			});
-			btnDelete.setOnAction(new EventHandler<ActionEvent>() {
 
+			btnDelete.setOnAction(new EventHandler<ActionEvent>() {
 				@Override
 				public void handle(ActionEvent e) {
 					int selectedIndex = personResultsView.getSelectionModel().getSelectedIndex();
@@ -244,6 +239,7 @@ public class SearchResultGUI extends Application {
 					}
 				}
 			});
+
 			btnDelete.setOnAction(new EventHandler<ActionEvent>() {
 				@Override
 				public void handle(ActionEvent e) {
@@ -258,6 +254,7 @@ public class SearchResultGUI extends Application {
 					}
 				}
 			});
+
 			btnEdit.setOnAction(new EventHandler<ActionEvent>() {
 				@Override
 				public void handle(ActionEvent e) {
@@ -271,23 +268,16 @@ public class SearchResultGUI extends Application {
 				}
 			});
 		}
+
 		// primaryStage methods
 		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+			@Override
 			public void handle(WindowEvent we) {
-				try {
-					CSVUtil.savePerson("data/People.csv");
-				} catch (IOException error) {
-					DialogGUI.showError("Couldn't save Person object.", error.toString());
-				}
-				try {
-					CSVUtil.saveInteractions("data/Interaction.csv");
-				} catch (IOException error) {
-					DialogGUI.showError("Couldn't Save Interaction to CSV", error.toString());
-
-				}
-
+				CSVUtil.savePerson();
+				CSVUtil.saveInteractions();
 			}
 		});
+		
 		primaryStage.setTitle("Search Results");
 		primaryStage.setScene(scene);
 		primaryStage.show();
@@ -302,3 +292,4 @@ public class SearchResultGUI extends Application {
 	}
 
 }
+

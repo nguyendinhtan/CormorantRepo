@@ -1,3 +1,4 @@
+
 package edu.augustana.csc285.cormorant.ordertracker.datamodel;
 
 import java.io.IOException;
@@ -9,12 +10,13 @@ public class TestDataStorage {
 		// DataCollections
 		// .addPerson(new Person(17, "FreddyTheTelescopeMan","Freddy", "Male",
 		// "Italian", "Telescope Man", "Good man"));
-		CSVUtil.savePerson("data/People.csv");
+		CSVUtil.writePerson("data/People.csv");
 		CSVUtil.loadInteractions("data/Interaction.csv");
-		CSVUtil.saveInteractions("data/Interaction.csv");
+		CSVUtil.writeInteractions("data/Interaction.csv");
 		// CSVUtil.palladioExport("data/PalladioExport.csv");
 		// CSVUtil.gephiExportNodes("data/GephiExportNodes.csv");
 		// CSVUtil.gephiExportEdges("data/GephyExportEdges.csv");
 	}
 
 }
+
