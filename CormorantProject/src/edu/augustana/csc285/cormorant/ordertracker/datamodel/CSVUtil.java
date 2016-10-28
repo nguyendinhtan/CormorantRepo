@@ -51,6 +51,7 @@ public class CSVUtil {
 			String[] idArrayPerson2 = idListTextPerson2.split(":");
 			List<Person> personList1 = new ArrayList<Person>();
 			List<Person> personList2 = new ArrayList<Person>();
+			
 			for (String idStr : idArrayPerson1) {
 				if (!idStr.isEmpty()) {
 					int id = Integer.parseInt(idStr);
@@ -70,9 +71,8 @@ public class CSVUtil {
 
 			// interactions.add(interaction);
 			DataCollections.addInteraction(interaction);
-			personMap.clear();
-
 		}
+		personMap.clear();
 	}
 
 	public static void loadInteractionType(String fileName) throws IOException {
