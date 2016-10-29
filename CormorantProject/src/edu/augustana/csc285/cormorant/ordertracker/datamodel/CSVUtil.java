@@ -36,7 +36,7 @@ public class CSVUtil {
 	public static void loadInteractions(String fileName) throws IOException {
 		reader = new CSVReader(new FileReader(fileName));
 		List<String[]> myRows = reader.readAll();
-		//myRows.remove(0);
+		myRows.remove(0);
 		// 0:1, 2:3,Old Main, 09/30/2016,Invite to Party, Citation from
 		// Augustana, No one comes
 		for (String[] row : myRows) {
