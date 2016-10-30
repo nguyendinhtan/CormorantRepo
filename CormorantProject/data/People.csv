@@ -1,1 +1,8 @@
 ID,Name,Nickname,Gender,Culture,Occupation,Notes
+<<<<<<< HEAD
+=======
+2,Brian,B,Male,American,Sculptor,
+1,Eric,E,Male,American,Painter,
+4,James,J,Female,German,Sculptor,
+3,Tan,T,Male,German,Professor,Notes
+>>>>>>> 4df060b762a6bb0edd5946bc91d85a5e30cfc895

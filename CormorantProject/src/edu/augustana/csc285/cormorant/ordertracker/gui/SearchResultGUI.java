@@ -1,6 +1,12 @@
 package edu.augustana.csc285.cormorant.ordertracker.gui;
 
+import java.awt.Desktop;
+import java.io.File;
 import java.io.IOException;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import java.util.Optional;
 
 import edu.augustana.csc285.cormorant.ordertracker.datamodel.CSVUtil;
@@ -29,6 +35,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
@@ -40,7 +47,7 @@ public class SearchResultGUI extends Application {
 	private ObservableList<Interaction> oListInteractionResults;
 	private static Person selectedPerson;
 	private static Interaction selectedInteraction;
-
+	private Desktop desktop = Desktop.getDesktop();
 	@Override
 	public void start(Stage primaryStage) {
 
@@ -139,11 +146,17 @@ public class SearchResultGUI extends Application {
 				@Override
 				public void handle(ActionEvent e) {
 					DialogGUI.confirmation("Export Confirmation" , "Do you want to export this people list to Gephi file?"); 
+					final FileChooser fileChooser = new FileChooser(); 
+					fileChooser.setTitle("Export");
+					fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Comma Delimited (*.csv)", "*.csv"));
+		            File file = fileChooser.showSaveDialog(primaryStage);
+		           if (file != null) {
 					try {
-						CSVUtil.gephiExportNodes("data/GephiExportNodes.csv", oListPersonResults);
+						CSVUtil.gephiExportNodes(file.getAbsolutePath()+".csv", oListPersonResults);
 					} catch (IOException error) {
 						DialogGUI.showError("Error Exporting Nodes to Gephi", error.toString());
 					}
+		           }
 				}
 			});
 
@@ -225,6 +238,9 @@ public class SearchResultGUI extends Application {
 			exportButton.setOnAction(new EventHandler<ActionEvent>() {
 				@Override
 				public void handle(ActionEvent e) {
+
+			
+
 					Alert alert = new Alert(AlertType.CONFIRMATION);
 					alert.setTitle("Export Chooser");
 					alert.setHeaderText("Choose the Export File");
@@ -238,19 +254,29 @@ public class SearchResultGUI extends Application {
 
 					Optional<ButtonType> result = alert.showAndWait();
 					if (result.get() == buttonTypePalladio){
-						try {
-							CSVUtil.palladioExport("data/PalladioExport.csv", oListInteractionResults);
+						final FileChooser fileChooser = new FileChooser(); 
+						fileChooser.setTitle("Export");
+						fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Comma Delimited (*.csv)", "*.csv"));
+						File file = fileChooser.showSaveDialog(primaryStage);
+			            if (file != null) {
+			            try {
+							CSVUtil.palladioExport(file.getAbsolutePath()+".csv", oListInteractionResults);
 						} catch (IOException error) {
 							DialogGUI.showError("Error Exporting Palladio CSV File", error.toString());
 						}
-					} else if (result.get() == buttonTypeGephi) {
-						try {
-							CSVUtil.gephiExportEdges("data/GephyExportEdges.csv", oListInteractionResults);
-						} catch (IOException error) {
-							DialogGUI.showError("Error Exporting to Gephi CSV File", error.toString());
-						}
+			         }else if (result.get()==buttonTypeGephi){
+							fileChooser.setTitle("Export");
+							fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Comma Delimited (*.csv)", "*.csv"));
+							file = fileChooser.showSaveDialog(primaryStage);
+				            if (file != null) {
+					try {
+						CSVUtil.gephiExportEdges(file.getAbsolutePath()+".csv", oListInteractionResults);
+					} catch (IOException error) {
+						DialogGUI.showError("Error Exporting to Gephi CSV File", error.toString());
 					}
-					
+		            }
+					}
+					}
 				}
 			});
 

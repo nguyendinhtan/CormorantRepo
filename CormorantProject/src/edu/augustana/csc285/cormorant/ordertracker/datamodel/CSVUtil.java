@@ -37,8 +37,8 @@ public class CSVUtil {
 		reader = new CSVReader(new FileReader(fileName));
 		List<String[]> myRows = reader.readAll();
 		myRows.remove(0);
-		// 0:1, 2:3,Old Main, 09/30/2016,Invite to Party, Citation from
-		// Augustana, No one comes
+		// 0:1,2:3,Old Main,09/30/2016,Invite to Party,Citation from
+		// Augustana,No one comes
 		for (String[] row : myRows) {
 			String idListTextPerson1 = row[0];
 			String idListTextPerson2 = row[1];
@@ -131,7 +131,7 @@ public class CSVUtil {
 
 	public static void writeInteractions(String fileName) throws IOException {
 		writer = new CSVWriter(new FileWriter(fileName), ',', CSVWriter.NO_QUOTE_CHARACTER);
-		String[] header = "IDList1,IDList2,Location,Date,Interaction Type, Citation,Notes".split(",");
+		String[] header = "IDList1,IDList2,Location,Date,Interaction Type,Citation,Notes".split(",");
 		writer.writeNext(header);
 		for (Interaction interaction : DataCollections.getInteractionCollection()) {
 			writer.writeNext(interaction.toCSVRowArray());
@@ -333,5 +333,6 @@ public class CSVUtil {
 		}
 		writer.close();
 	}
+
 }
 
