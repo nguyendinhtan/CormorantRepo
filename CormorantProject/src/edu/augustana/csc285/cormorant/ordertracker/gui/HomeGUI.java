@@ -37,6 +37,8 @@ public class HomeGUI extends Application {
 	private ComboBox<String> searchType;
 	private static String typeOfSearch;
 	private static String searchKey;
+	private static String pathFileOpen;
+	private static String pathFileSave;
 	private Desktop desktop = Desktop.getDesktop();
 	public static void main(String[] args) {
 		launch(args);
@@ -91,9 +93,9 @@ public class HomeGUI extends Application {
 				final FileChooser fileChooser = new FileChooser(); 
 				fileChooser.setTitle("Create New Project");
 	            File file = fileChooser.showSaveDialog(primaryStage);
-	           if (file != null) {
-	        	   
-	           }
+	            if (file != null) {
+	            	pathFileSave = file.getAbsolutePath();
+	            }
 			}
 		});
 		
@@ -104,9 +106,9 @@ public class HomeGUI extends Application {
 				final FileChooser fileChooser = new FileChooser(); 
 				fileChooser.setTitle("Open Existing Project");
 	            File file = fileChooser.showOpenDialog(primaryStage);
-	           if (file != null) {
-	        	   openFile(file);
-	           }
+	            if (file != null) {
+	            	pathFileOpen = file.getAbsolutePath();
+	            }
 			}
 		});
 
