@@ -69,13 +69,33 @@ public class HomeGUI extends Application {
 		MenuBar menuBar=new MenuBar();
 		Menu menuFile=new Menu("File");
 		Menu menuHelp=new Menu("Help");
-		MenuItem newprojectMenu=new MenuItem("New Project");
+		MenuItem newProjectMenu=new MenuItem("New Project");
 		MenuItem openProjectMenu=new MenuItem("Open Existing Project");
 		MenuItem aboutMenu=new MenuItem("About");
-		menuFile.getItems().addAll(newprojectMenu, openProjectMenu);
+		menuFile.getItems().addAll(newProjectMenu, openProjectMenu);
 		menuHelp.getItems().addAll(aboutMenu);
 		menuBar.getMenus().addAll(menuFile, menuHelp);
+		
+		newProjectMenu.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent e) {
+			
+			}
+		});
+		
+		openProjectMenu.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent e) {
+				
+			}
+		});
 
+		aboutMenu.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent e) {
+				
+			}
+		});
 		// Grid Methods
 
 		// DropDown list for choosing search type
@@ -167,6 +187,7 @@ public class HomeGUI extends Application {
 			@Override
 			public void handle(WindowEvent we) {
 				CSVUtil.savePerson();
+				CSVUtil.saveInteractions();
 			}
 		});
 		primaryStage.setTitle("Home Screen");
