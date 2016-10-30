@@ -12,7 +12,7 @@ public class ControlledVocab {
 	private static List<String> interactionTypeVocab = new ArrayList<String>();
 	private static List<String> cultureVocab = new ArrayList<String>();
 	private static List<String> occupationVocab = new ArrayList<String>();
-
+	
 	public static List<String> getInteractionTypeVocab() {
 		return interactionTypeVocab;
 	}
@@ -84,5 +84,12 @@ public class ControlledVocab {
 		}
 		return -1;
 	}
+	
+	public static void clearControlledVocab() {
+		interactionTypeVocab.clear();
+		cultureVocab.clear();
+		occupationVocab.clear();
+	}
+
 
 }

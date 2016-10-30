@@ -8,6 +8,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import edu.augustana.csc285.cormorant.ordertracker.datamodel.CSVUtil;
+import edu.augustana.csc285.cormorant.ordertracker.datamodel.ControlledVocab;
+import edu.augustana.csc285.cormorant.ordertracker.datamodel.DataCollections;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -34,8 +36,8 @@ public class HomeGUI extends Application {
 	private ComboBox<String> searchType;
 	private static String typeOfSearch;
 	private static String searchKey;
-	private static String pathFileOpen;
-	private static String pathFileSave;
+	private static File pathFileOpen;
+	private static File pathFileSave;
 	private Desktop desktop = Desktop.getDesktop();
 
 	public static void main(String[] args) {
@@ -102,23 +104,54 @@ public class HomeGUI extends Application {
 			public void handle(ActionEvent e) {
 				final FileChooser fileChooser = new FileChooser();
 				fileChooser.setTitle("Create New Project");
-				File file = fileChooser.showSaveDialog(primaryStage);
-				if (file != null) {
-					pathFileSave = file.getAbsolutePath();
-				}
+	            File file = fileChooser.showSaveDialog(primaryStage);
+	            if (file != null) {
+	            	pathFileOpen = file;
+	            	String pathOpen = file.getParent();
+	            	try {
+	            		savePerson();
+	        			saveInteractions();
+	        			saveInteractionsType();
+	        			saveCultureVocab();
+	        			saveOccupationVocab();
+	        			DataCollections.clearDataCollections();
+	        			ControlledVocab.clearControlledVocab();
+						CSVUtil.createPersonFile(pathOpen+"\\People.csv");
+						CSVUtil.createInteractionsFile(pathOpen+"\\Interaction.csv");
+		            	CSVUtil.createInteractionTypeFile(pathOpen + "\\InteractionType.csv");
+		            	CSVUtil.createCultureVocabFile(pathOpen + "\\CultureVocab.csv");
+		            	CSVUtil.createOccupationVocabFile(pathOpen + "\\OccupationVocab.csv");
+					} catch (IOException error) {
+						DialogGUI.showError("Error saving", error.toString());
+					}
+	            	
+	            	
+	            }
 			}
 		});
-
+		
+		
 		openProjectMenu.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
-
-				final FileChooser fileChooser = new FileChooser();
+				
+				final FileChooser fileChooser = new FileChooser(); 
 				fileChooser.setTitle("Open Existing Project");
-				File file = fileChooser.showOpenDialog(primaryStage);
-				if (file != null) {
-					pathFileOpen = file.getAbsolutePath();
-				}
+	            File file = fileChooser.showOpenDialog(primaryStage);
+	            if (file != null) {
+	            	pathFileOpen = file;
+	            	String pathOpen = file.getParent();
+	        		try {
+	        			
+						CSVUtil.loadPerson(pathOpen+"\\People.csv");
+						CSVUtil.loadInteractions(pathOpen+"\\Interaction.csv");
+		        		CSVUtil.loadInteractionType(pathOpen + "\\InteractionType.csv");
+		        		CSVUtil.loadCultureVocab(pathOpen + "\\CultureVocab.csv");
+		        		CSVUtil.loadOccupationVocab(pathOpen + "\\OccupationVocab.csv");
+					} catch (IOException error) {
+						DialogGUI.showError("Error loading", error.toString());
+					}
+	            }
 			}
 		});
 
@@ -212,15 +245,33 @@ public class HomeGUI extends Application {
 		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 			@Override
 			public void handle(WindowEvent we) {
-				CSVUtil.savePerson();
-				CSVUtil.saveInteractions();
+				savePerson();
+				saveInteractions();
 			}
 		});
 		primaryStage.setTitle("Home Screen");
 		primaryStage.setScene(scene);
 		primaryStage.show();
 	}
-
+	
+	public static File getPathFileOpen(){
+		return pathFileOpen;
+	}
+	public static void savePerson(){
+		CSVUtil.savePerson(pathFileOpen.getParent() + "\\People.csv");
+	}
+	public static void saveInteractions(){
+		CSVUtil.saveInteractions(pathFileOpen.getParent() + "\\Interaction.csv");
+	}
+	public static void saveInteractionsType(){
+		CSVUtil.saveInteractionsType(pathFileOpen.getParent() + "\\InteractionType.csv");
+	}
+	public static void saveCultureVocab(){
+		CSVUtil.saveCultureVocab(pathFileOpen.getParent() + "\\CultureVocab.csv");
+	}
+	public static void saveOccupationVocab(){
+		CSVUtil.saveOccupationVocab(pathFileOpen.getParent() + "\\OccupationVocab.csv");
+	}
 	public static String getType() {
 		return typeOfSearch;
 	}

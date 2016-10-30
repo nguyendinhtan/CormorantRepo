@@ -188,48 +188,85 @@ public class CSVUtil {
 		}
 		writer.close();
 	}
-
+	
 	// Save Methods
-	public static void savePerson() {
+	public static void savePerson(String filename) {
 		try {
-			CSVUtil.writePerson("data/People.csv");
+			CSVUtil.writePerson(filename);
 		} catch (IOException error) {
 			DialogGUI.showError("Couldn't save Person object.", error.toString());
 		}
 	}
 
-	public static void saveInteractions() {
+	public static void saveInteractions(String filename) {
 		try {
-			CSVUtil.writeInteractions("data/Interaction.csv");
+			CSVUtil.writeInteractions(filename);
 		} catch (IOException error) {
 			DialogGUI.showError("Couldn't Save Interaction to CSV", error.toString());
 		}
 	}
 
-	public static void saveInteractionsType() {
+	public static void saveInteractionsType(String filename) {
 		try {
-			CSVUtil.writeInteractionType("data/InteractionType.csv");
+			CSVUtil.writeInteractionType(filename);
 		} catch (IOException error) {
 			DialogGUI.showError("Couldn't save interaction type vocab.", error.toString());
 		}
 	}
 
-	public static void saveCultureVocab() {
+	public static void saveCultureVocab(String filename) {
 		try {
-			CSVUtil.writeCultureVocab("data/CultureVocab.csv");
+			CSVUtil.writeCultureVocab(filename);
 		} catch (IOException error) {
 			DialogGUI.showError("Couldn't save culture vocab.", error.toString());
 		}	
 	}
 	
-	public static void saveOccupationVocab() {
+	public static void saveOccupationVocab(String filename) {
 		try {
-			CSVUtil.writeOccupationVocab("data/OccupationVocab.csv");
+			CSVUtil.writeOccupationVocab(filename);
 		} catch (IOException error) {
 			DialogGUI.showError("Couldn't save occupation vocab.", error.toString());
 		}
 	}
 	
+	public static void createPersonFile(String fileName) throws IOException {
+		writer = new CSVWriter(new FileWriter(fileName), ',', CSVWriter.NO_QUOTE_CHARACTER);
+		String[] header = "ID,Name,Nickname,Gender,Culture,Occupation,Notes".split(",");
+		writer.writeNext(header);
+		writer.close();
+	}
+
+	public static void createInteractionsFile(String fileName) throws IOException {
+		writer = new CSVWriter(new FileWriter(fileName), ',', CSVWriter.NO_QUOTE_CHARACTER);
+		String[] header = "IDList1,IDList2,Location,Date,Interaction Type,Citation,Notes".split(",");
+		writer.writeNext(header);
+		writer.close();
+	}
+
+	public static void createInteractionTypeFile(String fileName) throws IOException {
+		writer = new CSVWriter(new FileWriter(fileName), ',', CSVWriter.NO_QUOTE_CHARACTER);
+		String[] header = new String[1];
+		header[0] = "Interaction Type Vocabulary";
+		writer.writeNext(header);
+		writer.close();
+	}
+
+	public static void createCultureVocabFile(String fileName) throws IOException {
+		writer = new CSVWriter(new FileWriter(fileName), ',', CSVWriter.NO_QUOTE_CHARACTER);
+		String[] header = new String[1];
+		header[0] = "Culture Vocabulary";
+		writer.writeNext(header);
+		writer.close();
+	}
+
+	public static void createOccupationVocabFile(String fileName) throws IOException {
+		writer = new CSVWriter(new FileWriter(fileName), ',', CSVWriter.NO_QUOTE_CHARACTER);
+		String[] header = new String[1];
+		header[0] = "Occupation Vocabulary";
+		writer.writeNext(header);
+		writer.close();
+	}
 	/**
 	 * This adds a person to a person map.
 	 * 
@@ -333,6 +370,7 @@ public class CSVUtil {
 		}
 		writer.close();
 	}
+	
 
 }
 
