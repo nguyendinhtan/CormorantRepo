@@ -297,8 +297,8 @@ public class EditInteractionGUI extends Application {
 		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 			@Override
 			public void handle(WindowEvent we) {
-				CSVUtil.saveInteractions();
-				CSVUtil.savePerson();
+				HomeGUI.savePerson();
+				HomeGUI.saveInteractions();
 			}
 		});
 		primaryStage.setTitle("Edit Interaction");

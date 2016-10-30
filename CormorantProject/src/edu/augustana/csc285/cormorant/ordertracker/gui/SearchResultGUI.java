@@ -313,8 +313,8 @@ public class SearchResultGUI extends Application {
 		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 			@Override
 			public void handle(WindowEvent we) {
-				CSVUtil.savePerson();
-				CSVUtil.saveInteractions();
+				HomeGUI.savePerson();
+				HomeGUI.saveInteractions();
 			}
 		});
 
