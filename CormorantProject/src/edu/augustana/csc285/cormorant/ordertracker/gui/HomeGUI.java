@@ -109,6 +109,13 @@ public class HomeGUI extends Application {
 	            	pathFileOpen = file;
 	            	String pathOpen = file.getParent();
 	            	try {
+	            		savePerson();
+	        			saveInteractions();
+	        			saveInteractionsType();
+	        			saveCultureVocab();
+	        			saveOccupationVocab();
+	        			DataCollections.clearDataCollections();
+	        			ControlledVocab.clearControlledVocab();
 						CSVUtil.createPersonFile(pathOpen+"\\People.csv");
 						CSVUtil.createInteractionsFile(pathOpen+"\\Interaction.csv");
 		            	CSVUtil.createInteractionTypeFile(pathOpen + "\\InteractionType.csv");
@@ -135,13 +142,7 @@ public class HomeGUI extends Application {
 	            	pathFileOpen = file;
 	            	String pathOpen = file.getParent();
 	        		try {
-	        			savePerson();
-	        			saveInteractions();
-	        			saveInteractionsType();
-	        			saveCultureVocab();
-	        			saveOccupationVocab();
-	        			DataCollections.clearDataCollections();
-	        			ControlledVocab.clearControlledVocab();
+	        			
 						CSVUtil.loadPerson(pathOpen+"\\People.csv");
 						CSVUtil.loadInteractions(pathOpen+"\\Interaction.csv");
 		        		CSVUtil.loadInteractionType(pathOpen + "\\InteractionType.csv");
