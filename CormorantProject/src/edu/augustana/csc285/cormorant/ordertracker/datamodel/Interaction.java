@@ -153,7 +153,7 @@ public class Interaction {
 	 * @return the LocalDate date
 	 */
 	public LocalDate getDate() {
-		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+		DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
 		Date d = null;
 		try {
 			d = df.parse(date);
@@ -205,11 +205,12 @@ public class Interaction {
 
 	public String getNamesOfGroup(List<Person> peopleList) {
 		if (peopleList.size() > 0) {
-			String peopleGroup = peopleList.get(0).getName();
-			for (int i = 1; i < peopleList.size(); i++) {
-				peopleGroup += ", " + peopleList.get(i).getName();
+			StringBuilder peopleGroup = new StringBuilder();
+			peopleGroup.append(peopleList.get(0).getName());
+			for (Person person : peopleList.subList(1, peopleList.size())) {
+				peopleGroup.append(", " + person.getName());
 			}
-			return peopleGroup;
+			return peopleGroup.toString();
 		}
 		return " ";
 	}
@@ -232,12 +233,12 @@ public class Interaction {
 				return 1;
 			}
 		}
-		if (location.toLowerCase().contains(searchLower) || date.contains(searchLower)|| interactionType.toLowerCase().contains(searchLower) || citation.toLowerCase().contains(searchLower)) {
+		if (location.toLowerCase().contains(searchLower) || date.contains(searchLower)
+				|| interactionType.toLowerCase().contains(searchLower)
+				|| citation.toLowerCase().contains(searchLower)) {
 			return 2;
-		} else if (notes != null) {
-			if (notes.toLowerCase().contains(searchLower)) {
-				return 2;
-			}
+		} else if (notes != null && notes.toLowerCase().contains(searchLower)) {
+			return 2;
 		}
 		return -1;
 	}

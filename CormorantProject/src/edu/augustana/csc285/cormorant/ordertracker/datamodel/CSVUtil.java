@@ -351,7 +351,7 @@ public class CSVUtil {
 	public static void gephiExportEdges(String fileName, List<Interaction> list) throws IOException {
 		writer = new CSVWriter(new FileWriter(fileName), ',', CSVWriter.NO_QUOTE_CHARACTER);
 		List<Interaction> interactionList = list;
-		String[] header = "Source,Target,Edge ID".split(",");
+		String[] header = "Source,Target,ID".split(",");
 		writer.writeNext(header);
 		for (Interaction interaction : interactionList) {
 			List<Person> people1 = interaction.getPeople1();

@@ -1,0 +1,7 @@
+Apache Artist Tracker
+Copyright 2016 The Apache Software Foundation
+
+This product bundles SuperWidget 1.2.3, which is available under an "Apache 2.0" license.
+
+This product includes software developed at Augustana College for Software Development (CSC 285).
+The Apache Software Foundation (http://www.apache.org/).

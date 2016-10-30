@@ -152,7 +152,7 @@ public class SearchResultGUI extends Application {
 		            File file = fileChooser.showSaveDialog(primaryStage);
 		           if (file != null) {
 					try {
-						CSVUtil.gephiExportNodes(file.getAbsolutePath()+".csv", oListPersonResults);
+						CSVUtil.gephiExportNodes(file.getParent()+"\\"+file.getName()+".csv", oListPersonResults);
 					} catch (IOException error) {
 						DialogGUI.showError("Error Exporting Nodes to Gephi", error.toString());
 					}
@@ -178,7 +178,6 @@ public class SearchResultGUI extends Application {
 							DataCollections.getPersonCollection()
 									.remove(personResultsView.getSelectionModel().getSelectedItem());
 							oListPersonResults.remove(selectedIndex);
-							System.out.println(DataCollections.getPersonCollection().size());
 						}
 					}
 				}
@@ -260,7 +259,7 @@ public class SearchResultGUI extends Application {
 						File file = fileChooser.showSaveDialog(primaryStage);
 			            if (file != null) {
 			            try {
-							CSVUtil.palladioExport(file.getAbsolutePath()+".csv", oListInteractionResults);
+							CSVUtil.palladioExport(file.getParent()+"\\"+file.getName()+".csv", oListInteractionResults);
 						} catch (IOException error) {
 							DialogGUI.showError("Error Exporting Palladio CSV File", error.toString());
 						}
@@ -270,7 +269,7 @@ public class SearchResultGUI extends Application {
 							file = fileChooser.showSaveDialog(primaryStage);
 				            if (file != null) {
 					try {
-						CSVUtil.gephiExportEdges(file.getAbsolutePath()+".csv", oListInteractionResults);
+						CSVUtil.gephiExportEdges(file.getParent()+"\\"+file.getName()+".csv", oListInteractionResults);
 					} catch (IOException error) {
 						DialogGUI.showError("Error Exporting to Gephi CSV File", error.toString());
 					}

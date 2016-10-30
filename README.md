@@ -1,5 +1,10 @@
 # CormorantRepo
 
+Authors: Jared, Brian, Tan, Eric
+Project Supervisor: Dr. Forest Stonedahl - CEO, ACES Consulting 
+CSC 285 - Augustana College
+Special thanks to OpenCSV!
+
 ## Instructions
 
 ### Adding People

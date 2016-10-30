@@ -2,6 +2,7 @@
 package edu.augustana.csc285.cormorant.ordertracker.gui;
 
 import java.io.IOException;
+import java.time.format.DateTimeFormatter;
 import java.util.Collections;
 
 import edu.augustana.csc285.cormorant.ordertracker.datamodel.CSVUtil;
@@ -41,12 +42,11 @@ public class AddInteractionGUI extends Application {
 	private ObservableList<Person> oListPerson2Selected;
 
 	public void start(Stage primaryStage) throws Exception {
-		System.setProperty("glass.accessible.force", "false"); // Fixes bug of
-																// combobox
-																// crashing when
-																// running on
-																// certain
-																// computers
+		/*
+		 * Fixes bug of combobox crashing when running on certain computers
+		 */
+		System.setProperty("glass.accessible.force", "false");
+
 		// GUI Variables
 		GridPane grid = new GridPane();
 		Scene scene = new Scene(grid);
@@ -147,7 +147,6 @@ public class AddInteractionGUI extends Application {
 					person1List.setItems(oListPerson1Selected);
 					oListPersonDropDown.remove(person1DropDown.getValue());
 					person1DropDown.setValue(null);
-
 				}
 			}
 		});
@@ -241,7 +240,7 @@ public class AddInteractionGUI extends Application {
 			public void handle(ActionEvent e) {
 				String location = (locationTextField.getText().matches(".*[a-zA-Z]+.*")) ? locationTextField.getText()
 						: "Unknown";
-				String date = (datePicker.getValue() != null) ? datePicker.getValue().toString() : "0001-01-01";
+				String date = (datePicker.getValue() != null) ? datePicker.getValue().format(DateTimeFormatter.ofPattern("MM/dd/yyyy")).toString() : "01/01/0001";
 				String citation = (citationTextField.getText().matches(".*[a-zA-Z]+.*")) ? citationTextField.getText()
 						: "none";
 				String interactionType = (interactionTypeDropDown.getValue() != null)
@@ -256,7 +255,6 @@ public class AddInteractionGUI extends Application {
 					} else {
 						DataCollections.addInteraction(interaction);
 						DialogGUI.showInfo("Interaction Added", "Interaction was added to list.");
-
 						oListPerson1Selected.clear();
 						oListPerson2Selected.clear();
 						locationTextField.clear();
@@ -307,4 +305,3 @@ public class AddInteractionGUI extends Application {
 	}
 
 }
-
