@@ -300,7 +300,7 @@ public class CSVUtil {
 	public static void gephiExportNodes(String fileName, List<Person> list) throws IOException {
 		writer = new CSVWriter(new FileWriter(fileName), ',', CSVWriter.NO_QUOTE_CHARACTER);
 		List<Person> personList = list;
-		String[] header = "Node ID,Label".split(",");
+		String[] header = "ID,Label".split(",");
 		writer.writeNext(header);
 		for (Person person : personList) {
 			String[] arrayNodes = new String[2];
@@ -314,7 +314,7 @@ public class CSVUtil {
 	public static void gephiExportEdges(String fileName, List<Interaction> list) throws IOException {
 		writer = new CSVWriter(new FileWriter(fileName), ',', CSVWriter.NO_QUOTE_CHARACTER);
 		List<Interaction> interactionList = list;
-		String[] header = "Source,Target,Edge ID".split(",");
+		String[] header = "Source,Target,ID".split(",");
 		writer.writeNext(header);
 		for (Interaction interaction : interactionList) {
 			List<Person> people1 = interaction.getPeople1();
