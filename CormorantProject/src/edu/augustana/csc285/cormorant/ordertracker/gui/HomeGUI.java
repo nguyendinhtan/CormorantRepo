@@ -13,8 +13,6 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Group;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -25,7 +23,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -40,6 +37,7 @@ public class HomeGUI extends Application {
 	private static String pathFileOpen;
 	private static String pathFileSave;
 	private Desktop desktop = Desktop.getDesktop();
+
 	public static void main(String[] args) {
 		launch(args);
 	}
@@ -48,8 +46,8 @@ public class HomeGUI extends Application {
 	public void start(Stage primaryStage) throws Exception {
 
 		// GUI Variables
-		
-		BorderPane layout=new BorderPane();
+
+		BorderPane layout = new BorderPane();
 		Scene scene = new Scene(layout);
 		searchType = new ComboBox<String>();
 		TextField searchTextField = new TextField();
@@ -75,47 +73,59 @@ public class HomeGUI extends Application {
 		imageEditView.setFitWidth(20);
 		HBox topRowBox = new HBox();
 		HBox bottomButtonRowBox = new HBox(30);
-		VBox centerBox=new VBox(10);
-		MenuBar menuBar=new MenuBar();
-		Menu menuFile=new Menu("File");
-		Menu menuHelp=new Menu("Help");
-		MenuItem newProjectMenu=new MenuItem("New Project");
-		MenuItem openProjectMenu=new MenuItem("Open Existing Project");
-		MenuItem aboutMenu=new MenuItem("About");
-		
+		VBox centerBox = new VBox(10);
+		MenuBar menuBar = new MenuBar();
+		Menu menuFile = new Menu("File");
+		Menu menuHelp = new Menu("Help");
+		MenuItem newProjectMenu = new MenuItem("New Project");
+		MenuItem openProjectMenu = new MenuItem("Open Existing Project");
+		MenuItem aboutMenu = new MenuItem("About");
+		aboutMenu.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent ae) {
+				DialogGUI.showInfo("Help File", "Here is help.");
+				if (Desktop.getDesktop().isSupported(Desktop.Action.OPEN)) {
+					try {
+						Desktop.getDesktop().open(new File("../Readme.md"));
+					} catch (IOException e) {
+						DialogGUI.showError("Error Opening README", e.toString());
+					}
+				}
+			}
+		});
 		menuFile.getItems().addAll(newProjectMenu, openProjectMenu);
 		menuHelp.getItems().addAll(aboutMenu);
 		menuBar.getMenus().addAll(menuFile, menuHelp);
-		
+
 		newProjectMenu.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
-				final FileChooser fileChooser = new FileChooser(); 
+				final FileChooser fileChooser = new FileChooser();
 				fileChooser.setTitle("Create New Project");
-	            File file = fileChooser.showSaveDialog(primaryStage);
-	            if (file != null) {
-	            	pathFileSave = file.getAbsolutePath();
-	            }
+				File file = fileChooser.showSaveDialog(primaryStage);
+				if (file != null) {
+					pathFileSave = file.getAbsolutePath();
+				}
 			}
 		});
-		
+
 		openProjectMenu.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
-				
-				final FileChooser fileChooser = new FileChooser(); 
+
+				final FileChooser fileChooser = new FileChooser();
 				fileChooser.setTitle("Open Existing Project");
-	            File file = fileChooser.showOpenDialog(primaryStage);
-	            if (file != null) {
-	            	pathFileOpen = file.getAbsolutePath();
-	            }
+				File file = fileChooser.showOpenDialog(primaryStage);
+				if (file != null) {
+					pathFileOpen = file.getAbsolutePath();
+				}
 			}
 		});
 
 		aboutMenu.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
-				
+
 			}
 		});
 		// Grid Methods
@@ -224,16 +234,12 @@ public class HomeGUI extends Application {
 	public static String getSearchKey() {
 		return searchKey;
 	}
-	
+
 	private void openFile(File file) {
-	    try {
-	    	desktop.open(file);
-	    } catch (IOException ex) {
-	        Logger.getLogger(
-	            FileChooser.class.getName()).log(
-	                Level.SEVERE, null, ex
-	            );
-	    }
+		try {
+			desktop.open(file);
+		} catch (IOException ex) {
+			Logger.getLogger(FileChooser.class.getName()).log(Level.SEVERE, null, ex);
+		}
 	}
 }
-

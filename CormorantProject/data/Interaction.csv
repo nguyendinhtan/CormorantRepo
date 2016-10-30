@@ -1,4 +1,7 @@
 IDList1,IDList2,Location,Date,Interaction Type,Citation,Notes
+<<<<<<< HEAD
 4,1:3,Unknown,0001-01-01,Unknown,none,none
 2,1,Unknown,0001-01-01,Unknown,none,none
 1:4,2,Unknown,0001-01-01,Unknown,none,none
+=======
+>>>>>>> 4c50c0f821c1a78d52d1cec26f27fd282ab01596
