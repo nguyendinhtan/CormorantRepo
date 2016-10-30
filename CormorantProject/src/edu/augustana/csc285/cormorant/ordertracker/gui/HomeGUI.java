@@ -1,6 +1,12 @@
 
 package edu.augustana.csc285.cormorant.ordertracker.gui;
 
+import java.awt.Desktop;
+import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import edu.augustana.csc285.cormorant.ordertracker.datamodel.CSVUtil;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -23,6 +29,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
@@ -30,7 +37,7 @@ public class HomeGUI extends Application {
 	private ComboBox<String> searchType;
 	private static String typeOfSearch;
 	private static String searchKey;
-
+	private Desktop desktop = Desktop.getDesktop();
 	public static void main(String[] args) {
 		launch(args);
 	}
@@ -39,6 +46,7 @@ public class HomeGUI extends Application {
 	public void start(Stage primaryStage) throws Exception {
 
 		// GUI Variables
+		
 		BorderPane layout=new BorderPane();
 		Scene scene = new Scene(layout);
 		searchType = new ComboBox<String>();
@@ -69,13 +77,45 @@ public class HomeGUI extends Application {
 		MenuBar menuBar=new MenuBar();
 		Menu menuFile=new Menu("File");
 		Menu menuHelp=new Menu("Help");
-		MenuItem newprojectMenu=new MenuItem("New Project");
+		MenuItem newProjectMenu=new MenuItem("New Project");
 		MenuItem openProjectMenu=new MenuItem("Open Existing Project");
 		MenuItem aboutMenu=new MenuItem("About");
-		menuFile.getItems().addAll(newprojectMenu, openProjectMenu);
+		
+		menuFile.getItems().addAll(newProjectMenu, openProjectMenu);
 		menuHelp.getItems().addAll(aboutMenu);
 		menuBar.getMenus().addAll(menuFile, menuHelp);
+		
+		newProjectMenu.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent e) {
+				final FileChooser fileChooser = new FileChooser(); 
+				fileChooser.setTitle("Create New Project");
+	            File file = fileChooser.showSaveDialog(primaryStage);
+	           if (file != null) {
+	        	   
+	           }
+			}
+		});
+		
+		openProjectMenu.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent e) {
+				
+				final FileChooser fileChooser = new FileChooser(); 
+				fileChooser.setTitle("Open Existing Project");
+	            File file = fileChooser.showOpenDialog(primaryStage);
+	           if (file != null) {
+	        	   openFile(file);
+	           }
+			}
+		});
 
+		aboutMenu.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent e) {
+				
+			}
+		});
 		// Grid Methods
 
 		// DropDown list for choosing search type
@@ -182,6 +222,16 @@ public class HomeGUI extends Application {
 	public static String getSearchKey() {
 		return searchKey;
 	}
-
+	
+	private void openFile(File file) {
+	    try {
+	    	desktop.open(file);
+	    } catch (IOException ex) {
+	        Logger.getLogger(
+	            FileChooser.class.getName()).log(
+	                Level.SEVERE, null, ex
+	            );
+	    }
+	}
 }
 
