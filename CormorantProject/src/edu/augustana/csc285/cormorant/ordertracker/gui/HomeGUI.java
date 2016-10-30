@@ -7,14 +7,21 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Group;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
@@ -32,8 +39,8 @@ public class HomeGUI extends Application {
 	public void start(Stage primaryStage) throws Exception {
 
 		// GUI Variables
-		GridPane grid = new GridPane();
-		Scene scene = new Scene(grid);
+		BorderPane layout=new BorderPane();
+		Scene scene = new Scene(layout);
 		searchType = new ComboBox<String>();
 		TextField searchTextField = new TextField();
 		Image imageSearch = new Image("search_icon.png");
@@ -58,12 +65,18 @@ public class HomeGUI extends Application {
 		imageEditView.setFitWidth(20);
 		HBox topRowBox = new HBox();
 		HBox bottomButtonRowBox = new HBox(30);
+		VBox centerBox=new VBox(10);
+		MenuBar menuBar=new MenuBar();
+		Menu menuFile=new Menu("File");
+		Menu menuHelp=new Menu("Help");
+		MenuItem newprojectMenu=new MenuItem("New Project");
+		MenuItem openProjectMenu=new MenuItem("Open Existing Project");
+		MenuItem aboutMenu=new MenuItem("About");
+		menuFile.getItems().addAll(newprojectMenu, openProjectMenu);
+		menuHelp.getItems().addAll(aboutMenu);
+		menuBar.getMenus().addAll(menuFile, menuHelp);
 
 		// Grid Methods
-		grid.setAlignment(Pos.CENTER);
-		grid.setHgap(10);
-		grid.setVgap(10);
-		grid.setPadding(new Insets(25, 25, 25, 25));
 
 		// DropDown list for choosing search type
 		searchType.getItems().addAll("Person", "Interaction");
@@ -144,8 +157,10 @@ public class HomeGUI extends Application {
 		bottomButtonRowBox.getChildren().add(editVocabButton);
 
 		// Adds Boxes to grid for display
-		grid.add(topRowBox, 1, 0);
-		grid.add(bottomButtonRowBox, 1, 1);
+		centerBox.setPadding(new Insets(10, 20, 10, 20));
+		centerBox.getChildren().addAll(topRowBox, bottomButtonRowBox);
+		layout.setTop(menuBar);
+		layout.setCenter(centerBox);
 
 		// Primary Stage Methods
 		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
