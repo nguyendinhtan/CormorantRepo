@@ -153,7 +153,7 @@ public class Interaction {
 	 * @return the LocalDate date
 	 */
 	public LocalDate getDate() {
-		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+		DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
 		Date d = null;
 		try {
 			d = df.parse(date);

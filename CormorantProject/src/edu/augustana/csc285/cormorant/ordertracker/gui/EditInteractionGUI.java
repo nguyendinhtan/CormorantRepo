@@ -1,5 +1,6 @@
 package edu.augustana.csc285.cormorant.ordertracker.gui;
 
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -42,12 +43,9 @@ public class EditInteractionGUI extends Application {
 	}
 
 	public void start(Stage primaryStage) {
-		System.setProperty("glass.accessible.force", "false"); // Fixes bug of
-																// combobox
-																// crashing when
-																// running on
-																// certain
-																// computers
+		// Fixes bug of combobox crashing when running on certain computers
+		System.setProperty("glass.accessible.force", "false");
+
 		DataCollections.getInteractionCollection().remove(SearchResultGUI.getSelectedInteraction());
 		// GUI Variables
 		GridPane grid = new GridPane();
@@ -256,7 +254,9 @@ public class EditInteractionGUI extends Application {
 			public void handle(ActionEvent e) {
 				String location = (locationTextField.getText().matches(".*[a-zA-Z]+.*")) ? locationTextField.getText()
 						: "Unknown";
-				String date = (datePicker.getValue() != null) ? datePicker.getValue().toString() : "0001-01-01";
+				String date = (datePicker.getValue() != null)
+						? datePicker.getValue().format(DateTimeFormatter.ofPattern("MM/dd/yyyy")).toString()
+						: "01/01/0001";
 				String citation = (citationTextField.getText().matches(".*[a-zA-Z]+.*")) ? citationTextField.getText()
 						: "none";
 				String interactionType = (interactionTypeDropDown.getValue() != null)
