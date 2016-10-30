@@ -122,12 +122,6 @@ public class HomeGUI extends Application {
 			}
 		});
 
-		aboutMenu.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent e) {
-
-			}
-		});
 		// Grid Methods
 
 		// DropDown list for choosing search type
