@@ -3,8 +3,11 @@ package edu.augustana.csc285.cormorant.ordertracker.gui;
 import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import java.util.Optional;
 
 import edu.augustana.csc285.cormorant.ordertracker.datamodel.CSVUtil;
 import edu.augustana.csc285.cormorant.ordertracker.datamodel.DataCollections;
@@ -19,7 +22,11 @@ import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar.ButtonData;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -138,6 +145,7 @@ public class SearchResultGUI extends Application {
 			exportButton.setOnAction(new EventHandler<ActionEvent>() {
 				@Override
 				public void handle(ActionEvent e) {
+					DialogGUI.confirmation("Export Confirmation" , "Do you want to export this people list to Gephi file?"); 
 					final FileChooser fileChooser = new FileChooser(); 
 					fileChooser.setTitle("Export");
 					fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Comma Delimited (*.csv)", "*.csv"));
@@ -157,22 +165,14 @@ public class SearchResultGUI extends Application {
 				public void handle(ActionEvent e) {
 					int selectedIndex = personResultsView.getSelectionModel().getSelectedIndex();
 					if (selectedIndex >= 0) {
-						if (DialogGUI.conformation("Deleting Person From List",
+						if (DialogGUI.confirmation("Deleting Person From List",
 								"Are you sure you want to delete this person?")) {
-							for (int i = 0; i < DataCollections.getInteractionCollection().size(); i++) {
-								for (int j = 0; j < DataCollections.getInteractionCollection().get(i).getPeople1()
-										.size(); j++) {
-									if (DataCollections.getInteractionCollection().get(i).getPeople1().get(j)
-											.equals(personResultsView.getSelectionModel().getSelectedItem())) {
-										DataCollections.getInteractionCollection().get(i).getPeople1().remove(j);
-									}
+							for (Interaction interaction : DataCollections.getInteractionCollection()) {
+								for (Person person : interaction.getPeople1()) {
+										interaction.getPeople1().remove(person.equals(personResultsView.getSelectionModel().getSelectedItem()));
 								}
-								for (int j = 0; j < DataCollections.getInteractionCollection().get(i).getPeople2()
-										.size(); j++) {
-									if (DataCollections.getInteractionCollection().get(i).getPeople2().get(j)
-											.equals(personResultsView.getSelectionModel().getSelectedItem())) {
-										DataCollections.getInteractionCollection().get(i).getPeople2().remove(j);
-									}
+								for (Person person : interaction.getPeople2()) {
+									interaction.getPeople2().remove(person.equals(personResultsView.getSelectionModel().getSelectedItem()));
 								}
 							}
 							DataCollections.getPersonCollection()
@@ -238,22 +238,45 @@ public class SearchResultGUI extends Application {
 			exportButton.setOnAction(new EventHandler<ActionEvent>() {
 				@Override
 				public void handle(ActionEvent e) {
-					final FileChooser fileChooser = new FileChooser(); 
-					fileChooser.setTitle("Export");
-					fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Comma Delimited (*.csv)", "*.csv"));
-					File file = fileChooser.showSaveDialog(primaryStage);
-		            if (file != null) {
-		            try {
-						CSVUtil.palladioExport(file.getAbsolutePath()+".csv", oListInteractionResults);
-					} catch (IOException error) {
-						DialogGUI.showError("Error Exporting Palladio CSV File", error.toString());
-					}
+
+			
+
+					Alert alert = new Alert(AlertType.CONFIRMATION);
+					alert.setTitle("Export Chooser");
+					alert.setHeaderText("Choose the Export File");
+					alert.setContentText("Choose your option.");
+
+					ButtonType buttonTypePalladio = new ButtonType("Palladio");
+					ButtonType buttonTypeGephi = new ButtonType("Gephi");
+					ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
+
+					alert.getButtonTypes().setAll(buttonTypePalladio, buttonTypeGephi, buttonTypeCancel);
+
+					Optional<ButtonType> result = alert.showAndWait();
+					if (result.get() == buttonTypePalladio){
+						final FileChooser fileChooser = new FileChooser(); 
+						fileChooser.setTitle("Export");
+						fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Comma Delimited (*.csv)", "*.csv"));
+						File file = fileChooser.showSaveDialog(primaryStage);
+			            if (file != null) {
+			            try {
+							CSVUtil.palladioExport(file.getAbsolutePath()+".csv", oListInteractionResults);
+						} catch (IOException error) {
+							DialogGUI.showError("Error Exporting Palladio CSV File", error.toString());
+						}
+			         }else if (result.get()==buttonTypeGephi){
+							fileChooser.setTitle("Export");
+							fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Comma Delimited (*.csv)", "*.csv"));
+							file = fileChooser.showSaveDialog(primaryStage);
+				            if (file != null) {
 					try {
 						CSVUtil.gephiExportEdges(file.getAbsolutePath()+".csv", oListInteractionResults);
 					} catch (IOException error) {
 						DialogGUI.showError("Error Exporting to Gephi CSV File", error.toString());
 					}
 		            }
+					}
+					}
 				}
 			});
 
@@ -262,7 +285,7 @@ public class SearchResultGUI extends Application {
 				public void handle(ActionEvent e) {
 					int selectedIndex = interactionResultsView.getSelectionModel().getSelectedIndex();
 					if (selectedIndex >= 0) {
-						if (DialogGUI.conformation("Deleteing Interaction",
+						if (DialogGUI.confirmation("Deleteing Interaction",
 								"Are you sure you want to delete this interaction?")) {
 							DataCollections.getInteractionCollection()
 									.remove(interactionResultsView.getSelectionModel().getSelectedItem());
@@ -294,7 +317,7 @@ public class SearchResultGUI extends Application {
 				CSVUtil.saveInteractions();
 			}
 		});
-		
+
 		primaryStage.setTitle("Search Results");
 		primaryStage.setScene(scene);
 		primaryStage.show();
@@ -309,4 +332,3 @@ public class SearchResultGUI extends Application {
 	}
 
 }
-

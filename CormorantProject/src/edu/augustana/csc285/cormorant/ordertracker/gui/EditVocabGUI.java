@@ -153,7 +153,7 @@ public class EditVocabGUI extends Application {
 			@Override
 			public void handle(ActionEvent e) {
 				if (listView.getSelectionModel().getSelectedItem() != null) {
-					if (DialogGUI.conformation("Delete Vocabulary",
+					if (DialogGUI.confirmation("Delete Vocabulary",
 							"Are you sure you want to delete this controlled vocabulary?")) {
 						int deletedIndex = listView.getSelectionModel().getSelectedIndex();
 						observableListVocab.remove(deletedIndex);
