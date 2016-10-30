@@ -178,7 +178,6 @@ public class SearchResultGUI extends Application {
 							DataCollections.getPersonCollection()
 									.remove(personResultsView.getSelectionModel().getSelectedItem());
 							oListPersonResults.remove(selectedIndex);
-							System.out.println(DataCollections.getPersonCollection().size());
 						}
 					}
 				}
