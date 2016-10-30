@@ -167,6 +167,7 @@ public class HomeGUI extends Application {
 			@Override
 			public void handle(WindowEvent we) {
 				CSVUtil.savePerson();
+				CSVUtil.saveInteractions();
 			}
 		});
 		primaryStage.setTitle("Home Screen");
