@@ -22,7 +22,7 @@ public class DataCollections {
 	public static List<Interaction> getInteractionCollection() {
 		return interactionCollection;
 	}
-	
+
 	/**
 	 * Adds a person to the personCollection list.
 	 *
@@ -108,10 +108,11 @@ public class DataCollections {
 	// checks for duplicates in person list and returns the id of the person if
 	// there is a duplicate and -1 if there isn't
 	public static int checkForPersonDuplicates(Person person) {
-		for (int i = 0; i < personCollection.size(); i++) {
-			if (person.getName().toLowerCase().equals(personCollection.get(i).getName().toLowerCase())
-					|| person.getNickname().toLowerCase().equals(personCollection.get(i).getNickname().toLowerCase())) {
-				return personCollection.get(i).getID();
+		for (Person otherPerson : personCollection) {
+			if (person.getName().toLowerCase().equals(otherPerson.getName().toLowerCase())
+					|| person.getNickname().toLowerCase().equals(otherPerson.getNickname().toLowerCase())
+							&& !person.getNickname().equals("No Nickname")) {
+				return otherPerson.getID();
 			}
 		}
 		return -1;
@@ -144,7 +145,8 @@ public class DataCollections {
 		}
 		return max;
 	}
-	public static void clearDataCollections(){
+
+	public static void clearDataCollections() {
 		personCollection.clear();
 		interactionCollection.clear();
 	}
