@@ -88,7 +88,12 @@ public class HomeGUI extends Application {
 		newProjectMenu.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
-				
+				final FileChooser fileChooser = new FileChooser(); 
+				fileChooser.setTitle("Create New Project");
+	            File file = fileChooser.showSaveDialog(primaryStage);
+	           if (file != null) {
+	        	   
+	           }
 			}
 		});
 		
@@ -100,7 +105,7 @@ public class HomeGUI extends Application {
 				fileChooser.setTitle("Open Existing Project");
 	            File file = fileChooser.showOpenDialog(primaryStage);
 	           if (file != null) {
-	        	   
+	        	   openFile(file);
 	           }
 			}
 		});
