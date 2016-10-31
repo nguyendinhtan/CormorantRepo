@@ -3,7 +3,10 @@ package edu.augustana.csc285.cormorant.ordertracker.gui;
 
 import java.awt.Desktop;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -27,6 +30,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
+import javafx.stage.Popup;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
@@ -83,14 +87,7 @@ public class HomeGUI extends Application {
 		aboutMenu.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent ae) {
-				DialogGUI.showInfo("Help File", "Here is help.");
-				if (Desktop.getDesktop().isSupported(Desktop.Action.OPEN)) {
-					try {
-						Desktop.getDesktop().open(new File("../Readme.md"));
-					} catch (IOException e) {
-						DialogGUI.showError("Error Opening README", e.toString());
-					}
-				}
+				new ReadMeGUI();
 			}
 		});
 		menuFile.getItems().addAll(newProjectMenu, openProjectMenu);
@@ -122,12 +119,6 @@ public class HomeGUI extends Application {
 			}
 		});
 
-		aboutMenu.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent e) {
-
-			}
-		});
 		// Grid Methods
 
 		// DropDown list for choosing search type
