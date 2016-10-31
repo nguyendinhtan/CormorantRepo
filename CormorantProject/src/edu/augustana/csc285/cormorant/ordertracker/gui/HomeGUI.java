@@ -133,7 +133,6 @@ public class HomeGUI extends Application {
 		openProjectMenu.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
-				
 				final FileChooser fileChooser = new FileChooser(); 
 				fileChooser.setTitle("Open Existing Project");
 	            File file = fileChooser.showOpenDialog(primaryStage);
@@ -141,7 +140,13 @@ public class HomeGUI extends Application {
 	            	pathFileOpen = file;
 	            	String pathOpen = file.getParent();
 	        		try {
-	        			
+	        			savePerson();
+	        			saveInteractions();
+	        			saveInteractionsType();
+	        			saveCultureVocab();
+	        			saveOccupationVocab();
+	        			DataCollections.clearDataCollections();
+	        			ControlledVocab.clearControlledVocab();
 						CSVUtil.loadPerson(pathOpen+"\\People.csv");
 						CSVUtil.loadInteractions(pathOpen+"\\Interaction.csv");
 		        		CSVUtil.loadInteractionType(pathOpen + "\\InteractionType.csv");
