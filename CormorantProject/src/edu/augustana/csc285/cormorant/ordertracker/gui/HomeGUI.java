@@ -125,7 +125,6 @@ public class HomeGUI extends Application {
 						DialogGUI.showError("Error saving", error.toString());
 					}
 	            	
-	            	
 	            }
 			}
 		});

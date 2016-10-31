@@ -13,6 +13,7 @@ public class Main extends Application {
 		HomeGUI homeGUI = new HomeGUI();
 		homeGUI.start(primaryStage);
 		
+		
 	}
 
 }
