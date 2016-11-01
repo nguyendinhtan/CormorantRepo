@@ -2,10 +2,12 @@
 
 package edu.augustana.csc285.cormorant.ordertracker.datamodel;
 
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +27,8 @@ public class CSVUtil {
 
 	// Load Methods
 	public static void loadPerson(String fileName) throws IOException {
-		reader = new CSVReader(new FileReader(fileName));
+		reader=new CSVReader(new InputStreamReader(
+				 new FileInputStream(fileName), "UTF-8"));
 		List<String[]> myRows = reader.readAll();
 		myRows.remove(0);
 		if (!myRows.isEmpty()) {
@@ -36,7 +39,8 @@ public class CSVUtil {
 	}
 
 	public static void loadInteractions(String fileName) throws IOException {
-		reader = new CSVReader(new FileReader(fileName));
+		reader=new CSVReader(new InputStreamReader(
+				 new FileInputStream(fileName), "UTF-8"));
 		List<String[]> myRows = reader.readAll();
 		myRows.remove(0);
 		// 0:1,2:3,Old Main,09/30/2016,Invite to Party,Citation from
@@ -78,7 +82,8 @@ public class CSVUtil {
 	}
 
 	public static void loadInteractionType(String fileName) throws IOException {
-		reader = new CSVReader(new FileReader(fileName));
+		reader=new CSVReader(new InputStreamReader(
+				 new FileInputStream(fileName), "UTF-8"));
 		List<String[]> myRows = reader.readAll();
 		myRows.remove(0);
 		if (!myRows.isEmpty()) {
@@ -89,7 +94,8 @@ public class CSVUtil {
 	}
 
 	public static void loadCultureVocab(String fileName) throws IOException {
-		reader = new CSVReader(new FileReader(fileName));
+		reader=new CSVReader(new InputStreamReader(
+				 new FileInputStream(fileName), "UTF-8"));
 		List<String[]> myRows = reader.readAll();
 		myRows.remove(0);
 		if (!myRows.isEmpty()) {
@@ -100,7 +106,8 @@ public class CSVUtil {
 	}
 
 	public static void loadOccupationVocab(String fileName) throws IOException {
-		reader = new CSVReader(new FileReader(fileName));
+		reader=new CSVReader(new InputStreamReader(
+				 new FileInputStream(fileName), "UTF-8"));
 		List<String[]> myRows = reader.readAll();
 		myRows.remove(0);
 		if (!myRows.isEmpty()) {
