@@ -148,25 +148,25 @@ public class SearchResultGUI extends Application {
 					DialogGUI.confirmation("Export Confirmation" , "Do you want to export this people list to Gephi file?"); 
 					final FileChooser fileChooser = new FileChooser(); 
 					fileChooser.setTitle("Export");
-					fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Comma Delimited (*.csv)", "*.csv"));
 		            File file = fileChooser.showSaveDialog(primaryStage);
 		            if (file != null) {
 					try {
+						oListInteractionResults=FXCollections.observableArrayList();
 						CSVUtil.gephiExportNodes(file.getParent()+"\\"+file.getName()+"-gephi-nodes.csv", oListPersonResults);
 						for (Person person: oListPersonResults){
-							for (int i=0; i<DataCollections.getInteractionCollection().size();i++){
-								if (DataCollections.getInteractionCollection().get(i).getPeople1()!=null){
-								if (DataCollections.getInteractionCollection().get(i).getPeople1().contains(person)){
-								oListInteractionResults.add(DataCollections.getInteractionCollection().get(i));
+							for (Interaction interaction: DataCollections.getInteractionCollection()){
+								if (interaction.getPeople1().contains(person)){
+									if (!oListInteractionResults.contains(interaction)){
+										oListInteractionResults.add(interaction);
+									}
+							}else if(interaction.getPeople2().contains(person)){
+								if (!oListInteractionResults.contains(interaction)){
+									oListInteractionResults.add(interaction);
 								}
 							}
-							if(DataCollections.getInteractionCollection().get(i).getPeople2()!=null){
-								if(DataCollections.getInteractionCollection().get(i).getPeople2().contains(person)){
-								oListInteractionResults.add(DataCollections.getInteractionCollection().get(i));
-								}
 							}
 						}
-						}
+						
 						CSVUtil.gephiExportEdges(file.getParent()+"\\"+file.getName()+"-gephi-edges.csv", oListInteractionResults);
 					} catch (IOException error) {
 						DialogGUI.showError("Error Exporting to Gephi", error.toString());
@@ -267,40 +267,41 @@ public class SearchResultGUI extends Application {
 					if (result.get() == buttonTypePalladio){
 						final FileChooser fileChooser = new FileChooser(); 
 						fileChooser.setTitle("Export");
-						fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Comma Delimited (*.csv)", "*.csv"));
 						File file = fileChooser.showSaveDialog(primaryStage);
-			            if (file != null) {
+			           if (file != null) {
 			            try {
 			            	CSVUtil.palladioExport(file.getParent()+"\\"+file.getName()+"-palladio.csv", oListInteractionResults);
 						} catch (IOException error) {
 							DialogGUI.showError("Error Exporting Palladio CSV File", error.toString());
 						}
+			           }
 			         }else if (result.get()==buttonTypeGephi){
-							fileChooser.setTitle("Export");
-							fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Comma Delimited (*.csv)", "*.csv"));
-							file = fileChooser.showSaveDialog(primaryStage);
-				            if (file != null) {
-					try {
-						CSVUtil.gephiExportEdges(file.getParent()+"\\"+file.getName()+"-gephi-edges.csv", oListInteractionResults);
-						for (int i=0; i<oListInteractionResults.size();i++){
-							for (Person person: oListInteractionResults.get(i).getPeople1()){
-							if (!oListPersonResults.contains(person)){
-							oListPersonResults.add(person);
+			        	 	final FileChooser fileChooser = new FileChooser();	
+			        	 	fileChooser.setTitle("Export");
+							File file = fileChooser.showSaveDialog(primaryStage);
+							if (file != null) {
+				            	try {
+				            		oListPersonResults=FXCollections.observableArrayList();
+				            		CSVUtil.gephiExportEdges(file.getParent()+"\\"+file.getName()+"-gephi-edges.csv", oListInteractionResults);
+				            		for (Interaction interaction : oListInteractionResults) {
+										for (Person person : interaction.getPeople1()) {
+											if (!oListPersonResults.contains(person)){	
+											oListPersonResults.add(person);
+											}
+										}
+										for (Person person : interaction.getPeople2()) {
+											if (!oListPersonResults.contains(person)){	
+												oListPersonResults.add(person);
+												}
+										}
+									}
+				            		CSVUtil.gephiExportNodes(file.getParent()+"\\"+file.getName()+"-gephi-nodes.csv", oListPersonResults);
+				            	} catch (IOException error) {
+				            		DialogGUI.showError("Error Exporting to Gephi CSV File", error.toString());
+				            	}
 							}
-						}
-						for (Person person: oListInteractionResults.get(i).getPeople2()){
-							if (!oListPersonResults.contains(person)){
-								oListPersonResults.add(person);
-								}
-						}
-						}
-						CSVUtil.gephiExportNodes(file.getParent()+"\\"+file.getName()+"-gephi-nodes.csv", oListPersonResults);
-					} catch (IOException error) {
-						DialogGUI.showError("Error Exporting to Gephi CSV File", error.toString());
-					}
-		            }
-					}
-					}
+			         }
+					
 				}
 			});
 
