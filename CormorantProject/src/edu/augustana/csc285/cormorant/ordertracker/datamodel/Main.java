@@ -12,8 +12,6 @@ public class Main extends Application {
 	public void start(Stage primaryStage) throws Exception {
 		HomeGUI homeGUI = new HomeGUI();
 		homeGUI.start(primaryStage);
-		
-		
 	}
 
 }

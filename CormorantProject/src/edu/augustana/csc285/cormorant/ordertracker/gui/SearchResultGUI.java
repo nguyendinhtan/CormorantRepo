@@ -150,11 +150,23 @@ public class SearchResultGUI extends Application {
 					fileChooser.setTitle("Export");
 					fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Comma Delimited (*.csv)", "*.csv"));
 		            File file = fileChooser.showSaveDialog(primaryStage);
-		           if (file != null) {
+		            if (file != null) {
 					try {
-						CSVUtil.gephiExportNodes(file.getParent()+"\\"+file.getName()+".csv", oListPersonResults);
+						CSVUtil.gephiExportNodes(file.getParent()+"\\"+file.getName()+"-gephi-nodes.csv", oListPersonResults);
+						for (Person person: oListPersonResults){
+							for (int i=0; i<DataCollections.getInteractionCollection().size();i++){
+							if (person!=null){
+								if (DataCollections.getInteractionCollection().get(i).getPeople1().contains(person)){
+								oListInteractionResults.add(DataCollections.getInteractionCollection().get(i));
+							}else if(DataCollections.getInteractionCollection().get(i).getPeople2().contains(person)){
+								oListInteractionResults.add(DataCollections.getInteractionCollection().get(i));
+							}
+							}
+						}
+						}
+						CSVUtil.gephiExportEdges(file.getParent()+"\\"+file.getName()+"-gephi-edges.csv", oListInteractionResults);
 					} catch (IOException error) {
-						DialogGUI.showError("Error Exporting Nodes to Gephi", error.toString());
+						DialogGUI.showError("Error Exporting to Gephi", error.toString());
 					}
 		           }
 				}
@@ -259,7 +271,7 @@ public class SearchResultGUI extends Application {
 						File file = fileChooser.showSaveDialog(primaryStage);
 			            if (file != null) {
 			            try {
-							CSVUtil.palladioExport(file.getParent()+"\\"+file.getName()+".csv", oListInteractionResults);
+			            	CSVUtil.palladioExport(file.getParent()+"\\"+file.getName()+"-palladio.csv", oListInteractionResults);
 						} catch (IOException error) {
 							DialogGUI.showError("Error Exporting Palladio CSV File", error.toString());
 						}
@@ -269,7 +281,20 @@ public class SearchResultGUI extends Application {
 							file = fileChooser.showSaveDialog(primaryStage);
 				            if (file != null) {
 					try {
-						CSVUtil.gephiExportEdges(file.getParent()+"\\"+file.getName()+".csv", oListInteractionResults);
+						CSVUtil.gephiExportEdges(file.getParent()+"\\"+file.getName()+"-gephi-edges.csv", oListInteractionResults);
+						for (int i=0; i<oListInteractionResults.size();i++){
+							for (Person person: oListInteractionResults.get(i).getPeople1()){
+							if (!oListPersonResults.contains(person)){
+							oListPersonResults.add(person);
+							}
+						}
+						for (Person person: oListInteractionResults.get(i).getPeople2()){
+							if (!oListPersonResults.contains(person)){
+								oListPersonResults.add(person);
+								}
+						}
+						}
+						CSVUtil.gephiExportNodes(file.getParent()+"\\"+file.getName()+"-gephi-nodes.csv", oListPersonResults);
 					} catch (IOException error) {
 						DialogGUI.showError("Error Exporting to Gephi CSV File", error.toString());
 					}

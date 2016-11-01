@@ -337,12 +337,23 @@ public class CSVUtil {
 	public static void gephiExportNodes(String fileName, List<Person> list) throws IOException {
 		writer = new CSVWriter(new FileWriter(fileName), ',', CSVWriter.NO_QUOTE_CHARACTER);
 		List<Person> personList = list;
-		String[] header = "ID,Label".split(",");
+		String[] header = "Id,Label,Gender,Occupation".split(",");
 		writer.writeNext(header);
 		for (Person person : personList) {
-			String[] arrayNodes = new String[2];
+			String[] arrayNodes = new String[4];
 			arrayNodes[0] = Integer.toString(person.getID());
-			arrayNodes[1] = person.getName();
+			if (!person.getNickname().equals("No Nickname")){
+			arrayNodes[1] = person.getNickname();
+			}else{
+				arrayNodes[1]=person.getName();
+			}
+			if (person.getGender().equals("Male")){
+				arrayNodes[2]="M";
+			}else if (person.getGender().equals("Female")){
+				arrayNodes[2]="F";
+			}
+			if (!person.getOccupation().equals("Unknown"))
+			arrayNodes[3]=	person.getOccupation();
 			writer.writeNext(arrayNodes);
 		}
 		writer.close();
@@ -351,7 +362,7 @@ public class CSVUtil {
 	public static void gephiExportEdges(String fileName, List<Interaction> list) throws IOException {
 		writer = new CSVWriter(new FileWriter(fileName), ',', CSVWriter.NO_QUOTE_CHARACTER);
 		List<Interaction> interactionList = list;
-		String[] header = "Source,Target,ID".split(",");
+		String[] header = "Source,Target,Id,Date,Location,Source type".split(",");
 		writer.writeNext(header);
 		for (Interaction interaction : interactionList) {
 			List<Person> people1 = interaction.getPeople1();
@@ -360,10 +371,13 @@ public class CSVUtil {
 			for (Person person1 : people1) {
 				for (Person person2 : people2) {
 					edgeId++;
-					String[] arrayName = new String[3];
+					String[] arrayName = new String[6];
 					arrayName[0] = Integer.toString(person1.getID());
 					arrayName[1] = Integer.toString(person2.getID());
 					arrayName[2] = Integer.toString(edgeId);
+					arrayName[3]=interaction.getDateString();
+					arrayName[4]=interaction.getLocation();
+					arrayName[5]=interaction.getInteractionType();
 					writer.writeNext(arrayName);
 				}
 			}
