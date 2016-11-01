@@ -138,9 +138,9 @@ public class DataCollections {
 
 	public static int getMaxId() {
 		int max = -1;
-		for (int i = 0; i < personCollection.size(); i++) {
-			if (personCollection.get(i).getID() > max) {
-				max = personCollection.get(i).getID();
+		for (Person person : personCollection) {
+			if (person.getID() > max) {
+				max = person.getID();
 			}
 		}
 		return max;
