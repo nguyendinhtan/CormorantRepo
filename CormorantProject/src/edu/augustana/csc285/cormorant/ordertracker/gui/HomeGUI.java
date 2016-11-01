@@ -3,10 +3,7 @@ package edu.augustana.csc285.cormorant.ordertracker.gui;
 
 import java.awt.Desktop;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
-import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -32,7 +29,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
-import javafx.stage.Popup;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
@@ -130,13 +126,15 @@ public class HomeGUI extends Application {
 					pathFileOpen = file;
 					String pathOpen = file.getParent();
 					try {
-						savePerson();
-						saveInteractions();
-						saveInteractionsType();
-						saveCultureVocab();
-						saveOccupationVocab();
-						DataCollections.clearDataCollections();
-						ControlledVocab.clearControlledVocab();
+						if (!DataCollections.isEmpty()) {
+							savePerson();
+							saveInteractions();
+							saveInteractionsType();
+							saveCultureVocab();
+							saveOccupationVocab();
+							DataCollections.clearDataCollections();
+							ControlledVocab.clearControlledVocab();
+						}
 						CSVUtil.loadPerson(pathOpen + "\\People.csv");
 						CSVUtil.loadInteractions(pathOpen + "\\Interaction.csv");
 						CSVUtil.loadInteractionType(pathOpen + "\\InteractionType.csv");
