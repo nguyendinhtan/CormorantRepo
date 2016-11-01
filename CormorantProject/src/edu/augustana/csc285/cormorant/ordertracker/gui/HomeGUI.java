@@ -255,8 +255,14 @@ public class HomeGUI extends Application {
 			@Override
 			public void handle(WindowEvent we) {
 				if (pathFileOpen != null) {
-					savePerson();
-					saveInteractions();
+					String saveDialog = DialogGUI.saveConfirmation();
+					if(saveDialog == "Save"){
+						savePerson();
+						saveInteractions();
+					}
+					else if(saveDialog=="Cancel"){
+						we.consume();
+					}
 				} else {
 					primaryStage.close();
 				}

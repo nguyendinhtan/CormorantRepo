@@ -182,8 +182,14 @@ public class EditPersonGUI extends Application {
 		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 			@Override
 			public void handle(WindowEvent we) {
-				HomeGUI.savePerson();
-				HomeGUI.saveInteractions();
+				String saveDialog = DialogGUI.saveConfirmation();
+				if(saveDialog == "Save"){
+					HomeGUI.savePerson();
+					HomeGUI.saveInteractions();
+				}
+				else if(saveDialog=="Cancel"){
+					we.consume();
+				}
 			}
 		});
 
