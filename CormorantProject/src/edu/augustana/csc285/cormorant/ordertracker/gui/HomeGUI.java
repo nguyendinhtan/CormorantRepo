@@ -25,7 +25,9 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
@@ -34,6 +36,7 @@ public class HomeGUI extends Application {
 	private static String typeOfSearch;
 	private static String searchKey;
 	private static File pathFileOpen;
+
 	public static void main(String[] args) {
 		launch(args);
 	}
@@ -83,30 +86,30 @@ public class HomeGUI extends Application {
 		newProjectMenu.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
-				final FileChooser fileChooser = new FileChooser();
-				fileChooser.setTitle("Create New Project");
-	            File file = fileChooser.showSaveDialog(primaryStage);
-	            if (file != null) {
-	            	pathFileOpen = file;
-	            	String pathOpen = file.getAbsolutePath();
-	            	try {
-	            		if(!DataCollections.isEmpty()){
-	        				savePerson();
-		        			saveInteractions();
-		        			saveInteractionsType();
-		        			saveCultureVocab();
-		        			saveOccupationVocab();
-		        			DataCollections.clearDataCollections();
-		        			ControlledVocab.clearControlledVocab();
-	        			}
-	        			new File(pathOpen).mkdir();
-	        			File cmrFile = new File(pathOpen + "\\" + file.getName() + ".cmr");
-	        			cmrFile.createNewFile();
-						CSVUtil.createPersonFile(pathOpen+"\\People.csv");
-						CSVUtil.createInteractionsFile(pathOpen+"\\Interaction.csv");
-		            	CSVUtil.createInteractionTypeFile(pathOpen + "\\InteractionType.csv");
-		            	CSVUtil.createCultureVocabFile(pathOpen + "\\CultureVocab.csv");
-		            	CSVUtil.createOccupationVocabFile(pathOpen + "\\OccupationVocab.csv");
+				final DirectoryChooser directoryChooser = new DirectoryChooser();
+				directoryChooser.setTitle("Create New Project");
+				File file = directoryChooser.showDialog(primaryStage);
+				if (file != null) {
+					pathFileOpen = file;
+					String pathOpen = file.getAbsolutePath();
+					try {
+						if (!DataCollections.isEmpty()) {
+							savePerson();
+							saveInteractions();
+							saveInteractionsType();
+							saveCultureVocab();
+							saveOccupationVocab();
+							DataCollections.clearDataCollections();
+							ControlledVocab.clearControlledVocab();
+						}
+						new File(pathOpen).mkdir();
+						File cmrFile = new File(pathOpen + "\\" + file.getName() + ".cmr");
+						cmrFile.createNewFile();
+						CSVUtil.createPersonFile(pathOpen + "\\People.csv");
+						CSVUtil.createInteractionsFile(pathOpen + "\\Interaction.csv");
+						CSVUtil.createInteractionTypeFile(pathOpen + "\\InteractionType.csv");
+						CSVUtil.createCultureVocabFile(pathOpen + "\\CultureVocab.csv");
+						CSVUtil.createOccupationVocabFile(pathOpen + "\\OccupationVocab.csv");
 					} catch (IOException error) {
 						DialogGUI.showError("Error saving", error.toString());
 					}
@@ -121,7 +124,7 @@ public class HomeGUI extends Application {
 				final FileChooser fileChooser = new FileChooser();
 				fileChooser.setTitle("Open Existing Project");
 				File file = fileChooser.showOpenDialog(primaryStage);
-				if (file != null && file.getName().contains(".cmr")) {
+				if (file != null && file.getName().endsWith(".cmr")) {
 					pathFileOpen = file;
 					String pathOpen = file.getParent();
 					try {
