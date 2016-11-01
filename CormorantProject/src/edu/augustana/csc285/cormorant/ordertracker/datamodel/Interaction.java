@@ -25,7 +25,7 @@ public class Interaction {
 	private String location;
 
 	/** The date. */
-	private String date;
+	private String dateString;
 
 	/** The interaction type. */
 	private String interactionType;
@@ -66,7 +66,7 @@ public class Interaction {
 		this.people1.addAll(persons1);
 		this.people2.addAll(persons2);
 		this.location = location;
-		this.date = date;
+		this.dateString = date;
 		this.interactionType = interactionType;
 		this.citation = citation;
 		this.notes = notes;
@@ -77,7 +77,7 @@ public class Interaction {
 	public String[] toCSVRowArray() {
 		String idString1 = toIdString(people1);
 		String idString2 = toIdString(people2);
-		return new String[] { idString1, idString2, location, date, interactionType, citation, notes };
+		return new String[] { idString1, idString2, location, dateString, interactionType, citation, notes };
 	}
 
 	public String toIdString(List<Person> people) {
@@ -144,7 +144,7 @@ public class Interaction {
 	 * @return the date string
 	 */
 	public String getDateString() {
-		return date;
+		return dateString;
 	}
 
 	/**
@@ -153,16 +153,21 @@ public class Interaction {
 	 * @return the LocalDate date
 	 */
 	public LocalDate getDate() {
-		DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
-		Date d = null;
+		if (dateString.equals("no date"))	{
+			return null;
+		}
+		
+		DateFormat df = new SimpleDateFormat("MM/dd/yyyy");		
 		try {
-			d = df.parse(date);
+			Date d = df.parse(dateString);
+			Instant i = d.toInstant();
+			LocalDate l = i.atZone(ZoneId.systemDefault()).toLocalDate();
+			return l;
 		} catch (ParseException e) {
 			DialogGUI.showError("Error Creating Date", e.toString());
+			return null;
 		}
-		Instant i = d.toInstant();
-		LocalDate l = i.atZone(ZoneId.systemDefault()).toLocalDate();
-		return l;
+		
 	}
 
 	/**
@@ -217,7 +222,7 @@ public class Interaction {
 
 	public String toString() {
 		return "Group 1=(" + getNamesOfGroup(people1) + ") interacted with Group 2=(" + getNamesOfGroup(people2)
-				+ ") {Location=" + location + ", Date=" + date + ", Interaction Type=" + interactionType
+				+ ") {Location=" + location + ", Date=" + dateString + ", Interaction Type=" + interactionType
 				+ ", Bibliographical Citation=" + citation + ", Notes=" + notes + "}";
 	}
 
@@ -233,7 +238,7 @@ public class Interaction {
 				return 1;
 			}
 		}
-		if (location.toLowerCase().contains(searchLower) || date.contains(searchLower)
+		if (location.toLowerCase().contains(searchLower) || dateString.contains(searchLower)
 				|| interactionType.toLowerCase().contains(searchLower)
 				|| citation.toLowerCase().contains(searchLower)) {
 			return 2;
