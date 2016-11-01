@@ -85,23 +85,26 @@ public class HomeGUI extends Application {
 			public void handle(ActionEvent e) {
 				final FileChooser fileChooser = new FileChooser();
 				fileChooser.setTitle("Create New Project");
-				File file = fileChooser.showSaveDialog(primaryStage);
-				if (file != null) {
-					pathFileOpen = file;
-					String pathOpen = file.getParent();
-					try {
-						savePerson();
-						saveInteractions();
-						saveInteractionsType();
-						saveCultureVocab();
-						saveOccupationVocab();
-						DataCollections.clearDataCollections();
-						ControlledVocab.clearControlledVocab();
-						CSVUtil.createPersonFile(pathOpen + "\\People.csv");
-						CSVUtil.createInteractionsFile(pathOpen + "\\Interaction.csv");
-						CSVUtil.createInteractionTypeFile(pathOpen + "\\InteractionType.csv");
-						CSVUtil.createCultureVocabFile(pathOpen + "\\CultureVocab.csv");
-						CSVUtil.createOccupationVocabFile(pathOpen + "\\OccupationVocab.csv");
+	            File file = fileChooser.showSaveDialog(primaryStage);
+	            if (file != null) {
+	            	pathFileOpen = file;
+	            	String pathOpen = file.getParent();
+	            	try {
+	            		if(!DataCollections.isEmpty()){
+	        				savePerson();
+		        			saveInteractions();
+		        			saveInteractionsType();
+		        			saveCultureVocab();
+		        			saveOccupationVocab();
+		        			DataCollections.clearDataCollections();
+		        			ControlledVocab.clearControlledVocab();
+	        			}
+	        			new File(pathOpen).mkdir();
+						CSVUtil.createPersonFile(pathOpen+"\\People.csv");
+						CSVUtil.createInteractionsFile(pathOpen+"\\Interaction.csv");
+		            	CSVUtil.createInteractionTypeFile(pathOpen + "\\InteractionType.csv");
+		            	CSVUtil.createCultureVocabFile(pathOpen + "\\CultureVocab.csv");
+		            	CSVUtil.createOccupationVocabFile(pathOpen + "\\OccupationVocab.csv");
 					} catch (IOException error) {
 						DialogGUI.showError("Error saving", error.toString());
 					}
