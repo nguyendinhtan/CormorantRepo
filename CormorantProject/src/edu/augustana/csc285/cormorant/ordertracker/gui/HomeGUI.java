@@ -253,6 +253,9 @@ public class HomeGUI extends Application {
 				if (pathFileOpen != null) {
 					savePerson();
 					saveInteractions();
+					saveInteractionsType();
+					saveCultureVocab();
+					saveOccupationVocab();
 				} else {
 					primaryStage.close();
 				}
@@ -267,24 +270,28 @@ public class HomeGUI extends Application {
 		return pathFileOpen;
 	}
 
+	public static File getTargetDirectory() {
+		return (pathFileOpen.isDirectory()) ? pathFileOpen : pathFileOpen.getParentFile();
+	}
+
 	public static void savePerson() {
-		CSVUtil.savePerson(pathFileOpen.getParent() + "\\People.csv");
+		CSVUtil.savePerson(getTargetDirectory() + "\\People.csv");
 	}
 
 	public static void saveInteractions() {
-		CSVUtil.saveInteractions(pathFileOpen.getParent() + "\\Interaction.csv");
+		CSVUtil.saveInteractions(getTargetDirectory() + "\\Interaction.csv");
 	}
 
 	public static void saveInteractionsType() {
-		CSVUtil.saveInteractionsType(pathFileOpen.getParent() + "\\InteractionType.csv");
+		CSVUtil.saveInteractionsType(getTargetDirectory() + "\\InteractionType.csv");
 	}
 
 	public static void saveCultureVocab() {
-		CSVUtil.saveCultureVocab(pathFileOpen.getParent() + "\\CultureVocab.csv");
+		CSVUtil.saveCultureVocab(getTargetDirectory() + "\\CultureVocab.csv");
 	}
 
 	public static void saveOccupationVocab() {
-		CSVUtil.saveOccupationVocab(pathFileOpen.getParent() + "\\OccupationVocab.csv");
+		CSVUtil.saveOccupationVocab(getTargetDirectory() + "\\OccupationVocab.csv");
 	}
 
 	public static String getType() {
