@@ -204,11 +204,18 @@ public class EditVocabGUI extends Application {
 		// Primary Stage Methods
 		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 			public void handle(WindowEvent we) {
-				HomeGUI.savePerson();
-				HomeGUI.saveInteractions();
-				HomeGUI.saveInteractionsType();
-				HomeGUI.saveCultureVocab();
-				HomeGUI.saveOccupationVocab();
+				String saveDialog = DialogGUI.saveConfirmation();
+				if(saveDialog == "Save"){
+					HomeGUI.savePerson();
+					HomeGUI.saveInteractions();
+					HomeGUI.saveInteractionsType();
+					HomeGUI.saveCultureVocab();
+					HomeGUI.saveOccupationVocab();
+				}
+				else if(saveDialog=="Cancel"){
+					we.consume();
+				}
+				
 			}
 		});
 		primaryStage.setTitle("Edit Controlled Vocabulary");
