@@ -251,11 +251,16 @@ public class HomeGUI extends Application {
 			@Override
 			public void handle(WindowEvent we) {
 				if (pathFileOpen != null) {
-					savePerson();
-					saveInteractions();
-					saveInteractionsType();
-					saveCultureVocab();
-					saveOccupationVocab();
+					String saveDialog = DialogGUI.saveConfirmation();
+					if (saveDialog == "Save") {
+						savePerson();
+						saveInteractions();
+						saveInteractionsType();
+						saveCultureVocab();
+						saveOccupationVocab();
+					} else if (saveDialog == "Cancel") {
+						we.consume();
+					}
 				} else {
 					primaryStage.close();
 				}
