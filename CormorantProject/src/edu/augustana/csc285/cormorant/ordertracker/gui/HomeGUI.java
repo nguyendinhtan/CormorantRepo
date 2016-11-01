@@ -3,11 +3,9 @@ package edu.augustana.csc285.cormorant.ordertracker.gui;
 
 import java.awt.Desktop;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
-import java.util.Scanner;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import edu.augustana.csc285.cormorant.ordertracker.datamodel.CSVUtil;
 import edu.augustana.csc285.cormorant.ordertracker.datamodel.ControlledVocab;
@@ -31,7 +29,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
-import javafx.stage.Popup;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
@@ -41,6 +38,7 @@ public class HomeGUI extends Application {
 	private static String searchKey;
 	private static File pathFileOpen;
 	private static File pathFileSave;
+	private Desktop desktop = Desktop.getDesktop();
 
 	public static void main(String[] args) {
 		launch(args);
@@ -84,12 +82,6 @@ public class HomeGUI extends Application {
 		MenuItem newProjectMenu = new MenuItem("New Project");
 		MenuItem openProjectMenu = new MenuItem("Open Existing Project");
 		MenuItem aboutMenu = new MenuItem("About");
-		aboutMenu.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent ae) {
-				new ReadMeGUI();
-			}
-		});
 		menuFile.getItems().addAll(newProjectMenu, openProjectMenu);
 		menuHelp.getItems().addAll(aboutMenu);
 		menuBar.getMenus().addAll(menuFile, menuHelp);
@@ -114,6 +106,8 @@ public class HomeGUI extends Application {
 		        			ControlledVocab.clearControlledVocab();
 	        			}
 	        			new File(pathOpen).mkdir();
+	        			File cmrFile = new File(pathOpen + "\\" + file.getName() + ".cmr");
+	        			cmrFile.createNewFile();
 						CSVUtil.createPersonFile(pathOpen+"\\People.csv");
 						CSVUtil.createInteractionsFile(pathOpen+"\\Interaction.csv");
 		            	CSVUtil.createInteractionTypeFile(pathOpen + "\\InteractionType.csv");
@@ -122,41 +116,50 @@ public class HomeGUI extends Application {
 					} catch (IOException error) {
 						DialogGUI.showError("Error saving", error.toString());
 					}
-	            	
-	            	
-	            }
+
+				}
 			}
 		});
-		
-		
+
 		openProjectMenu.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
-				final FileChooser fileChooser = new FileChooser(); 
+				final FileChooser fileChooser = new FileChooser();
 				fileChooser.setTitle("Open Existing Project");
-	            File file = fileChooser.showOpenDialog(primaryStage);
-	            if (file != null) {
-	            	pathFileOpen = file;
-	            	String pathOpen = file.getParent();
-	        		try {
-	        			if(!DataCollections.isEmpty()){
-	        				savePerson();
-		        			saveInteractions();
-		        			saveInteractionsType();
-		        			saveCultureVocab();
-		        			saveOccupationVocab();
-		        			DataCollections.clearDataCollections();
-		        			ControlledVocab.clearControlledVocab();
-	        			}
-						CSVUtil.loadPerson(pathOpen+"\\People.csv");
-						CSVUtil.loadInteractions(pathOpen+"\\Interaction.csv");
-		        		CSVUtil.loadInteractionType(pathOpen + "\\InteractionType.csv");
-		        		CSVUtil.loadCultureVocab(pathOpen + "\\CultureVocab.csv");
-		        		CSVUtil.loadOccupationVocab(pathOpen + "\\OccupationVocab.csv");
+				File file = fileChooser.showOpenDialog(primaryStage);
+				if (file != null && file.getName().contains(".cmr")) {
+					pathFileOpen = file;
+					String pathOpen = file.getParent();
+					try {
+						if (!DataCollections.isEmpty()) {
+							savePerson();
+							saveInteractions();
+							saveInteractionsType();
+							saveCultureVocab();
+							saveOccupationVocab();
+							DataCollections.clearDataCollections();
+							ControlledVocab.clearControlledVocab();
+						}
+						CSVUtil.loadPerson(pathOpen + "\\People.csv");
+						CSVUtil.loadInteractions(pathOpen + "\\Interaction.csv");
+						CSVUtil.loadInteractionType(pathOpen + "\\InteractionType.csv");
+						CSVUtil.loadCultureVocab(pathOpen + "\\CultureVocab.csv");
+						CSVUtil.loadOccupationVocab(pathOpen + "\\OccupationVocab.csv");
 					} catch (IOException error) {
 						DialogGUI.showError("Error loading", error.toString());
 					}
-	            }
+				}
+			}
+		});
+
+		menuHelp.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent arg0) {
+				try {
+					new ReadMeGUI().start(primaryStage);
+				} catch (Exception e) {
+					DialogGUI.showError("Error Displaying ReadMe", e.toString());
+				}
 			}
 		});
 
@@ -250,33 +253,43 @@ public class HomeGUI extends Application {
 		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 			@Override
 			public void handle(WindowEvent we) {
-				savePerson();
-				saveInteractions();
+				if (pathFileOpen != null) {
+					savePerson();
+					saveInteractions();
+				} else {
+					primaryStage.close();
+				}
 			}
 		});
 		primaryStage.setTitle("Home Screen");
 		primaryStage.setScene(scene);
 		primaryStage.show();
 	}
-	
-	public static File getPathFileOpen(){
+
+	public static File getPathFileOpen() {
 		return pathFileOpen;
 	}
-	public static void savePerson(){
+
+	public static void savePerson() {
 		CSVUtil.savePerson(pathFileOpen.getParent() + "\\People.csv");
 	}
-	public static void saveInteractions(){
+
+	public static void saveInteractions() {
 		CSVUtil.saveInteractions(pathFileOpen.getParent() + "\\Interaction.csv");
 	}
-	public static void saveInteractionsType(){
+
+	public static void saveInteractionsType() {
 		CSVUtil.saveInteractionsType(pathFileOpen.getParent() + "\\InteractionType.csv");
 	}
-	public static void saveCultureVocab(){
+
+	public static void saveCultureVocab() {
 		CSVUtil.saveCultureVocab(pathFileOpen.getParent() + "\\CultureVocab.csv");
 	}
-	public static void saveOccupationVocab(){
+
+	public static void saveOccupationVocab() {
 		CSVUtil.saveOccupationVocab(pathFileOpen.getParent() + "\\OccupationVocab.csv");
 	}
+
 	public static String getType() {
 		return typeOfSearch;
 	}
@@ -285,4 +298,11 @@ public class HomeGUI extends Application {
 		return searchKey;
 	}
 
+	private void openFile(File file) {
+		try {
+			desktop.open(file);
+		} catch (IOException ex) {
+			Logger.getLogger(FileChooser.class.getName()).log(Level.SEVERE, null, ex);
+		}
+	}
 }
