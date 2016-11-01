@@ -155,12 +155,15 @@ public class SearchResultGUI extends Application {
 						CSVUtil.gephiExportNodes(file.getParent()+"\\"+file.getName()+"-gephi-nodes.csv", oListPersonResults);
 						for (Person person: oListPersonResults){
 							for (int i=0; i<DataCollections.getInteractionCollection().size();i++){
-							if (person!=null){
+								if (DataCollections.getInteractionCollection().get(i).getPeople1()!=null){
 								if (DataCollections.getInteractionCollection().get(i).getPeople1().contains(person)){
 								oListInteractionResults.add(DataCollections.getInteractionCollection().get(i));
-							}else if(DataCollections.getInteractionCollection().get(i).getPeople2().contains(person)){
-								oListInteractionResults.add(DataCollections.getInteractionCollection().get(i));
+								}
 							}
+							if(DataCollections.getInteractionCollection().get(i).getPeople2()!=null){
+								if(DataCollections.getInteractionCollection().get(i).getPeople2().contains(person)){
+								oListInteractionResults.add(DataCollections.getInteractionCollection().get(i));
+								}
 							}
 						}
 						}
@@ -249,9 +252,6 @@ public class SearchResultGUI extends Application {
 			exportButton.setOnAction(new EventHandler<ActionEvent>() {
 				@Override
 				public void handle(ActionEvent e) {
-
-			
-
 					Alert alert = new Alert(AlertType.CONFIRMATION);
 					alert.setTitle("Export Chooser");
 					alert.setHeaderText("Choose the Export File");

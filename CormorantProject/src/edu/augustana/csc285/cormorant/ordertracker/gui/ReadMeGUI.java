@@ -8,7 +8,9 @@ import java.util.Scanner;
 import javax.swing.GroupLayout.Alignment;
 
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.layout.HBox;
@@ -18,6 +20,7 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 public class ReadMeGUI extends Application {
 	public static void main(String[] args) {
@@ -44,7 +47,7 @@ public class ReadMeGUI extends Application {
 		while (readme.hasNextLine()) {
 			readmeText.append(readme.nextLine() + "\n");
 		}
-		System.out.println(readmeText.toString());
+		//System.out.println(readmeText.toString());
 
 		// textfield
 		Text text = new Text(readmeText.toString());
@@ -60,8 +63,19 @@ public class ReadMeGUI extends Application {
 		sp.setContent(text);
 		sp.setHbarPolicy(ScrollBarPolicy.NEVER);
 		sp.setVbarPolicy(ScrollBarPolicy.ALWAYS);
-
 		HBox layout = new HBox();
+		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+			@Override
+			public void handle(WindowEvent we) {
+				HomeGUI home=new HomeGUI();
+				try {
+					home.start(primaryStage);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				we.consume();
+			}
+		});
 		layout.getChildren().add(sp);
 		primaryStage.setScene(new Scene(layout));
 		primaryStage.show();

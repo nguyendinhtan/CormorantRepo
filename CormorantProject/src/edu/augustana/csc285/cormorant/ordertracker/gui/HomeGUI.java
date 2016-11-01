@@ -275,30 +275,49 @@ public class HomeGUI extends Application {
 	public static File getPathFileOpen() {
 		return pathFileOpen;
 	}
-
 	public static File getTargetDirectory() {
 		return (pathFileOpen.isDirectory()) ? pathFileOpen : pathFileOpen.getParentFile();
 	}
 
 	public static void savePerson() {
+		if (pathFileOpen==null){
+			CSVUtil.savePerson("data\\People.csv");
+		}else{
 		CSVUtil.savePerson(getTargetDirectory() + "\\People.csv");
+		}
 	}
 
 	public static void saveInteractions() {
+		if (pathFileOpen==null){
+			CSVUtil.saveInteractions("data\\Interaction.csv");
+		}else{
 		CSVUtil.saveInteractions(getTargetDirectory() + "\\Interaction.csv");
+		}
 	}
 
 	public static void saveInteractionsType() {
+		if (pathFileOpen==null){
+			CSVUtil.saveInteractionsType("data\\InteractionType.csv");
+		}else{
 		CSVUtil.saveInteractionsType(getTargetDirectory() + "\\InteractionType.csv");
-	}
+		}
+		}
 
 	public static void saveCultureVocab() {
+		if (pathFileOpen==null){
+			CSVUtil.saveCultureVocab("data\\CultureVocab.csv");
+		}else{
 		CSVUtil.saveCultureVocab(getTargetDirectory() + "\\CultureVocab.csv");
-	}
+		}
+		}
 
 	public static void saveOccupationVocab() {
+		if (pathFileOpen==null){
+			CSVUtil.saveOccupationVocab("data\\OccupationVocab.csv");
+		}else{
 		CSVUtil.saveOccupationVocab(getTargetDirectory() + "\\OccupationVocab.csv");
-	}
+		}
+		}
 
 	public static String getType() {
 		return typeOfSearch;

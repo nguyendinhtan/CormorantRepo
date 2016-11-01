@@ -298,6 +298,9 @@ public class AddInteractionGUI extends Application {
 				if(saveDialog == "Save"){
 					HomeGUI.savePerson();
 					HomeGUI.saveInteractions();
+					HomeGUI.saveCultureVocab();
+					HomeGUI.saveOccupationVocab();
+					HomeGUI.saveInteractionsType();
 				}
 				else if(saveDialog=="Cancel"){
 					we.consume();
