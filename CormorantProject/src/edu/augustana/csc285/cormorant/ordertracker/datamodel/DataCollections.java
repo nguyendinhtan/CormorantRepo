@@ -150,4 +150,8 @@ public class DataCollections {
 		personCollection.clear();
 		interactionCollection.clear();
 	}
+	
+	public static boolean isEmpty(){
+		return (personCollection.isEmpty()&&interactionCollection.isEmpty());
+	}
 }

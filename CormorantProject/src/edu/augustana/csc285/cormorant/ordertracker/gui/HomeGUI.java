@@ -141,13 +141,15 @@ public class HomeGUI extends Application {
 	            	pathFileOpen = file;
 	            	String pathOpen = file.getParent();
 	        		try {
-	        			savePerson();
-	        			saveInteractions();
-	        			saveInteractionsType();
-	        			saveCultureVocab();
-	        			saveOccupationVocab();
-	        			DataCollections.clearDataCollections();
-	        			ControlledVocab.clearControlledVocab();
+	        			if(!DataCollections.isEmpty()){
+	        				savePerson();
+		        			saveInteractions();
+		        			saveInteractionsType();
+		        			saveCultureVocab();
+		        			saveOccupationVocab();
+		        			DataCollections.clearDataCollections();
+		        			ControlledVocab.clearControlledVocab();
+	        			}
 						CSVUtil.loadPerson(pathOpen+"\\People.csv");
 						CSVUtil.loadInteractions(pathOpen+"\\Interaction.csv");
 		        		CSVUtil.loadInteractionType(pathOpen + "\\InteractionType.csv");
