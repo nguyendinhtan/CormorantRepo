@@ -1,11 +1,8 @@
 
 package edu.augustana.csc285.cormorant.ordertracker.gui;
 
-import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import edu.augustana.csc285.cormorant.ordertracker.datamodel.CSVUtil;
 import edu.augustana.csc285.cormorant.ordertracker.datamodel.ControlledVocab;
@@ -37,9 +34,6 @@ public class HomeGUI extends Application {
 	private static String typeOfSearch;
 	private static String searchKey;
 	private static File pathFileOpen;
-	private static File pathFileSave;
-	private Desktop desktop = Desktop.getDesktop();
-
 	public static void main(String[] args) {
 		launch(args);
 	}
@@ -291,13 +285,5 @@ public class HomeGUI extends Application {
 
 	public static String getSearchKey() {
 		return searchKey;
-	}
-
-	private void openFile(File file) {
-		try {
-			desktop.open(file);
-		} catch (IOException ex) {
-			Logger.getLogger(FileChooser.class.getName()).log(Level.SEVERE, null, ex);
-		}
 	}
 }
