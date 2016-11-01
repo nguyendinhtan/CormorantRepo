@@ -1,11 +1,8 @@
 
 package edu.augustana.csc285.cormorant.ordertracker.gui;
 
-import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import edu.augustana.csc285.cormorant.ordertracker.datamodel.CSVUtil;
 import edu.augustana.csc285.cormorant.ordertracker.datamodel.ControlledVocab;
@@ -28,7 +25,9 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
@@ -37,8 +36,6 @@ public class HomeGUI extends Application {
 	private static String typeOfSearch;
 	private static String searchKey;
 	private static File pathFileOpen;
-	private static File pathFileSave;
-	private Desktop desktop = Desktop.getDesktop();
 
 	public static void main(String[] args) {
 		launch(args);
@@ -89,30 +86,30 @@ public class HomeGUI extends Application {
 		newProjectMenu.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
-				final FileChooser fileChooser = new FileChooser();
-				fileChooser.setTitle("Create New Project");
-	            File file = fileChooser.showSaveDialog(primaryStage);
-	            if (file != null) {
-	            	pathFileOpen = file;
-	            	String pathOpen = file.getAbsolutePath();
-	            	try {
-	            		if(!DataCollections.isEmpty()){
-	        				savePerson();
-		        			saveInteractions();
-		        			saveInteractionsType();
-		        			saveCultureVocab();
-		        			saveOccupationVocab();
-		        			DataCollections.clearDataCollections();
-		        			ControlledVocab.clearControlledVocab();
-	        			}
-	        			new File(pathOpen).mkdir();
-	        			File cmrFile = new File(pathOpen + "\\" + file.getName() + ".cmr");
-	        			cmrFile.createNewFile();
-						CSVUtil.createPersonFile(pathOpen+"\\People.csv");
-						CSVUtil.createInteractionsFile(pathOpen+"\\Interaction.csv");
-		            	CSVUtil.createInteractionTypeFile(pathOpen + "\\InteractionType.csv");
-		            	CSVUtil.createCultureVocabFile(pathOpen + "\\CultureVocab.csv");
-		            	CSVUtil.createOccupationVocabFile(pathOpen + "\\OccupationVocab.csv");
+				final DirectoryChooser directoryChooser = new DirectoryChooser();
+				directoryChooser.setTitle("Create New Project");
+				File file = directoryChooser.showDialog(primaryStage);
+				if (file != null) {
+					pathFileOpen = file;
+					String pathOpen = file.getAbsolutePath();
+					try {
+						if (!DataCollections.isEmpty()) {
+							savePerson();
+							saveInteractions();
+							saveInteractionsType();
+							saveCultureVocab();
+							saveOccupationVocab();
+							DataCollections.clearDataCollections();
+							ControlledVocab.clearControlledVocab();
+						}
+						new File(pathOpen).mkdir();
+						File cmrFile = new File(pathOpen + "\\" + file.getName() + ".cmr");
+						cmrFile.createNewFile();
+						CSVUtil.createPersonFile(pathOpen + "\\People.csv");
+						CSVUtil.createInteractionsFile(pathOpen + "\\Interaction.csv");
+						CSVUtil.createInteractionTypeFile(pathOpen + "\\InteractionType.csv");
+						CSVUtil.createCultureVocabFile(pathOpen + "\\CultureVocab.csv");
+						CSVUtil.createOccupationVocabFile(pathOpen + "\\OccupationVocab.csv");
 					} catch (IOException error) {
 						DialogGUI.showError("Error saving", error.toString());
 					}
@@ -128,7 +125,7 @@ public class HomeGUI extends Application {
 				final FileChooser fileChooser = new FileChooser();
 				fileChooser.setTitle("Open Existing Project");
 				File file = fileChooser.showOpenDialog(primaryStage);
-				if (file != null && file.getName().contains(".cmr")) {
+				if (file != null && file.getName().endsWith(".cmr")) {
 					pathFileOpen = file;
 					String pathOpen = file.getParent();
 					try {
@@ -256,11 +253,13 @@ public class HomeGUI extends Application {
 			public void handle(WindowEvent we) {
 				if (pathFileOpen != null) {
 					String saveDialog = DialogGUI.saveConfirmation();
-					if(saveDialog == "Save"){
+					if (saveDialog == "Save") {
 						savePerson();
 						saveInteractions();
-					}
-					else if(saveDialog=="Cancel"){
+						saveInteractionsType();
+						saveCultureVocab();
+						saveOccupationVocab();
+					} else if (saveDialog == "Cancel") {
 						we.consume();
 					}
 				} else {
@@ -277,24 +276,28 @@ public class HomeGUI extends Application {
 		return pathFileOpen;
 	}
 
+	public static File getTargetDirectory() {
+		return (pathFileOpen.isDirectory()) ? pathFileOpen : pathFileOpen.getParentFile();
+	}
+
 	public static void savePerson() {
-		CSVUtil.savePerson(pathFileOpen.getParent() + "\\People.csv");
+		CSVUtil.savePerson(getTargetDirectory() + "\\People.csv");
 	}
 
 	public static void saveInteractions() {
-		CSVUtil.saveInteractions(pathFileOpen.getParent() + "\\Interaction.csv");
+		CSVUtil.saveInteractions(getTargetDirectory() + "\\Interaction.csv");
 	}
 
 	public static void saveInteractionsType() {
-		CSVUtil.saveInteractionsType(pathFileOpen.getParent() + "\\InteractionType.csv");
+		CSVUtil.saveInteractionsType(getTargetDirectory() + "\\InteractionType.csv");
 	}
 
 	public static void saveCultureVocab() {
-		CSVUtil.saveCultureVocab(pathFileOpen.getParent() + "\\CultureVocab.csv");
+		CSVUtil.saveCultureVocab(getTargetDirectory() + "\\CultureVocab.csv");
 	}
 
 	public static void saveOccupationVocab() {
-		CSVUtil.saveOccupationVocab(pathFileOpen.getParent() + "\\OccupationVocab.csv");
+		CSVUtil.saveOccupationVocab(getTargetDirectory() + "\\OccupationVocab.csv");
 	}
 
 	public static String getType() {
@@ -303,13 +306,5 @@ public class HomeGUI extends Application {
 
 	public static String getSearchKey() {
 		return searchKey;
-	}
-
-	private void openFile(File file) {
-		try {
-			desktop.open(file);
-		} catch (IOException ex) {
-			Logger.getLogger(FileChooser.class.getName()).log(Level.SEVERE, null, ex);
-		}
 	}
 }
