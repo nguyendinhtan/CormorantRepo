@@ -10,13 +10,9 @@ public class Main extends Application {
 		launch(args);
 	}
 	public void start(Stage primaryStage) throws Exception {
-		CSVUtil.loadPerson("data/People.csv");
-		CSVUtil.loadInteractions("data/Interaction.csv");
-		CSVUtil.loadInteractionType("data/InteractionType.csv");
-		CSVUtil.loadCultureVocab("data/CultureVocab.csv");
-		CSVUtil.loadOccupationVocab("data/OccupationVocab.csv");
 		HomeGUI homeGUI = new HomeGUI();
 		homeGUI.start(primaryStage);
+		
 	}
 
 }

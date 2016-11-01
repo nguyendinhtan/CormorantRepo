@@ -294,17 +294,8 @@ public class AddInteractionGUI extends Application {
 		// Primary Stage Methods
 		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 			public void handle(WindowEvent we) {
-				try {
-					CSVUtil.writePerson("data/People.csv");
-				} catch (IOException error) {
-					DialogGUI.showError("Couldn't save Person object.", error.toString());
-				}
-				try {
-					CSVUtil.writeInteractions("data/Interaction.csv");
-				} catch (IOException error) {
-					DialogGUI.showError("Couldn't Save Interaction to CSV", error.toString());
-
-				}
+				HomeGUI.savePerson();
+				HomeGUI.saveInteractions();
 			}
 		});
 
