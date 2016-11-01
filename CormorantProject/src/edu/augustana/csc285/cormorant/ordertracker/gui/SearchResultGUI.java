@@ -226,7 +226,7 @@ public class SearchResultGUI extends Application {
 			locationCol.setCellValueFactory(new PropertyValueFactory<Interaction, String>("location"));
 			TableColumn<Interaction, String> dateCol = new TableColumn<Interaction, String>("Date");
 			dateCol.setMinWidth(75);
-			dateCol.setCellValueFactory(new PropertyValueFactory<Interaction, String>("date"));
+			dateCol.setCellValueFactory(new PropertyValueFactory<Interaction, String>("dateString"));
 			TableColumn<Interaction, String> interactionTypeCol = new TableColumn<Interaction, String>(
 					"Interaction Type");
 			interactionTypeCol.setMinWidth(75);

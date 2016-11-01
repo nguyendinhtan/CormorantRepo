@@ -256,7 +256,7 @@ public class EditInteractionGUI extends Application {
 						: "Unknown";
 				String date = (datePicker.getValue() != null)
 						? datePicker.getValue().format(DateTimeFormatter.ofPattern("MM/dd/yyyy")).toString()
-						: "01/01/0001";
+						: "no date";
 				String citation = (citationTextField.getText().matches(".*[a-zA-Z]+.*")) ? citationTextField.getText()
 						: "none";
 				String interactionType = (interactionTypeDropDown.getValue() != null)

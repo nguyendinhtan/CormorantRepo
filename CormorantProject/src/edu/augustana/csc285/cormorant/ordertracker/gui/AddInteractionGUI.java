@@ -240,7 +240,7 @@ public class AddInteractionGUI extends Application {
 			public void handle(ActionEvent e) {
 				String location = (locationTextField.getText().matches(".*[a-zA-Z]+.*")) ? locationTextField.getText()
 						: "Unknown";
-				String date = (datePicker.getValue() != null) ? datePicker.getValue().format(DateTimeFormatter.ofPattern("MM/dd/yyyy")).toString() : "01/01/0001";
+				String date = (datePicker.getValue() != null) ? datePicker.getValue().format(DateTimeFormatter.ofPattern("MM/dd/yyyy")).toString() : "no date";
 				String citation = (citationTextField.getText().matches(".*[a-zA-Z]+.*")) ? citationTextField.getText()
 						: "none";
 				String interactionType = (interactionTypeDropDown.getValue() != null)
@@ -268,7 +268,9 @@ public class AddInteractionGUI extends Application {
 						person1DropDown.setItems(oListPersonDropDown);
 						person2DropDown.setItems(oListPersonDropDown);
 					}
+					
 				}
+				
 			}
 		});
 

@@ -77,12 +77,13 @@ public class HomeGUI extends Application {
 		Menu menuFile = new Menu("File");
 		Menu menuHelp = new Menu("Help");
 		MenuItem newProjectMenu = new MenuItem("New Project");
+		MenuItem saveProjectMenu = new MenuItem("Save Project");
 		MenuItem openProjectMenu = new MenuItem("Open Existing Project");
 		MenuItem aboutMenu = new MenuItem("About");
-		menuFile.getItems().addAll(newProjectMenu, openProjectMenu);
+		menuFile.getItems().addAll(newProjectMenu, saveProjectMenu, openProjectMenu);
 		menuHelp.getItems().addAll(aboutMenu);
 		menuBar.getMenus().addAll(menuFile, menuHelp);
-
+		
 		newProjectMenu.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
@@ -118,10 +119,29 @@ public class HomeGUI extends Application {
 
 			}
 		});
-
+		
+		saveProjectMenu.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent e) {
+				if (!DataCollections.isEmpty()){
+					savePerson();
+					saveInteractions();
+					saveInteractionsType();
+					saveCultureVocab();
+					saveOccupationVocab();
+				}
+			}
+		});
 		openProjectMenu.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
+				if (!DataCollections.isEmpty()) {
+					savePerson();
+					saveInteractions();
+					saveInteractionsType();
+					saveCultureVocab();
+					saveOccupationVocab();
+				}
 				final FileChooser fileChooser = new FileChooser();
 				fileChooser.setTitle("Open Existing Project");
 				File file = fileChooser.showOpenDialog(primaryStage);
@@ -129,15 +149,8 @@ public class HomeGUI extends Application {
 					pathFileOpen = file;
 					String pathOpen = file.getParent();
 					try {
-						if (!DataCollections.isEmpty()) {
-							savePerson();
-							saveInteractions();
-							saveInteractionsType();
-							saveCultureVocab();
-							saveOccupationVocab();
-							DataCollections.clearDataCollections();
-							ControlledVocab.clearControlledVocab();
-						}
+						DataCollections.clearDataCollections();
+						ControlledVocab.clearControlledVocab();
 						CSVUtil.loadPerson(pathOpen + "\\People.csv");
 						CSVUtil.loadInteractions(pathOpen + "\\Interaction.csv");
 						CSVUtil.loadInteractionType(pathOpen + "\\InteractionType.csv");
@@ -251,7 +264,7 @@ public class HomeGUI extends Application {
 		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 			@Override
 			public void handle(WindowEvent we) {
-				if (pathFileOpen != null) {
+				
 					String saveDialog = DialogGUI.saveConfirmation();
 					if (saveDialog == "Save") {
 						savePerson();
@@ -262,10 +275,7 @@ public class HomeGUI extends Application {
 					} else if (saveDialog == "Cancel") {
 						we.consume();
 					}
-				} else {
-					primaryStage.close();
-				}
-			}
+				} 
 		});
 		primaryStage.setTitle("Home Screen");
 		primaryStage.setScene(scene);

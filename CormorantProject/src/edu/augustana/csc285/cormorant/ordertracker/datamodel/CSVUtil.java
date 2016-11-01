@@ -300,7 +300,12 @@ public class CSVUtil {
 		}
 
 	}
-
+	/**
+	 * Exports the selected data to Palladio.
+	 * @param fileName
+	 * @param list
+	 * @throws IOException
+	 */
 	public static void palladioExport(String fileName1, String fileName2) throws IOException {
 		reader = new CSVReader(new FileReader(fileName1));
 		writer = new CSVWriter(new FileWriter(fileName2), ',', CSVWriter.NO_QUOTE_CHARACTER);
@@ -313,7 +318,7 @@ public class CSVUtil {
 		reader.close();
 		writer.close();
 	}
-
+	
 	public static void palladioExport(String fileName, List<Interaction> list) throws IOException {
 		writer = new CSVWriter(new FileWriter(fileName), ',', CSVWriter.NO_QUOTE_CHARACTER);
 		List<Interaction> interactionList = list;
@@ -333,7 +338,7 @@ public class CSVUtil {
 		}
 		writer.close();
 	}
-
+	
 	public static void gephiExportNodes(String fileName, List<Person> list) throws IOException {
 		writer = new CSVWriter(new FileWriter(fileName), ',', CSVWriter.NO_QUOTE_CHARACTER);
 		List<Person> personList = list;
