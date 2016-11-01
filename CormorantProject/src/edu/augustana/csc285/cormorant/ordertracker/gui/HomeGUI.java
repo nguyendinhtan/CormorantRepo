@@ -77,12 +77,13 @@ public class HomeGUI extends Application {
 		Menu menuFile = new Menu("File");
 		Menu menuHelp = new Menu("Help");
 		MenuItem newProjectMenu = new MenuItem("New Project");
+		MenuItem saveProjectMenu = new MenuItem("Save Project");
 		MenuItem openProjectMenu = new MenuItem("Open Existing Project");
 		MenuItem aboutMenu = new MenuItem("About");
-		menuFile.getItems().addAll(newProjectMenu, openProjectMenu);
+		menuFile.getItems().addAll(newProjectMenu, saveProjectMenu, openProjectMenu);
 		menuHelp.getItems().addAll(aboutMenu);
 		menuBar.getMenus().addAll(menuFile, menuHelp);
-
+		
 		newProjectMenu.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
@@ -117,7 +118,19 @@ public class HomeGUI extends Application {
 				}
 			}
 		});
-
+		
+		saveProjectMenu.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent e) {
+				if (!DataCollections.isEmpty()){
+					savePerson();
+					saveInteractions();
+					saveInteractionsType();
+					saveCultureVocab();
+					saveOccupationVocab();
+				}
+			}
+		});
 		openProjectMenu.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
