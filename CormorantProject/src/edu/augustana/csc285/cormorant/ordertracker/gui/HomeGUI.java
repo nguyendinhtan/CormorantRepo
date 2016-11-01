@@ -106,13 +106,16 @@ public class HomeGUI extends Application {
 	            	pathFileOpen = file;
 	            	String pathOpen = file.getParent();
 	            	try {
-	            		savePerson();
-	        			saveInteractions();
-	        			saveInteractionsType();
-	        			saveCultureVocab();
-	        			saveOccupationVocab();
-	        			DataCollections.clearDataCollections();
-	        			ControlledVocab.clearControlledVocab();
+	            		if(!DataCollections.isEmpty()){
+	        				savePerson();
+		        			saveInteractions();
+		        			saveInteractionsType();
+		        			saveCultureVocab();
+		        			saveOccupationVocab();
+		        			DataCollections.clearDataCollections();
+		        			ControlledVocab.clearControlledVocab();
+	        			}
+	        			new File(pathOpen).mkdir();
 						CSVUtil.createPersonFile(pathOpen+"\\People.csv");
 						CSVUtil.createInteractionsFile(pathOpen+"\\Interaction.csv");
 		            	CSVUtil.createInteractionTypeFile(pathOpen + "\\InteractionType.csv");
