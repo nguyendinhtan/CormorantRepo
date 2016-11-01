@@ -2,9 +2,11 @@
 
 package edu.augustana.csc285.cormorant.ordertracker.datamodel;
 
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -117,7 +119,8 @@ public class CSVUtil {
 	 * @throws IOException
 	 */
 	public static void writePerson(String fileName) throws IOException {
-		writer = new CSVWriter(new FileWriter(fileName), ',', CSVWriter.NO_QUOTE_CHARACTER);
+		writer = new CSVWriter(new OutputStreamWriter(
+				new FileOutputStream(fileName), "UTF-8"), ',', CSVWriter.NO_QUOTE_CHARACTER);
 		String[] header = "ID,Name,Nickname,Gender,Culture,Occupation,Notes".split(",");
 		writer.writeNext(header);
 		for (Person person : DataCollections.getPersonCollection()) {
@@ -130,7 +133,8 @@ public class CSVUtil {
 	}
 
 	public static void writeInteractions(String fileName) throws IOException {
-		writer = new CSVWriter(new FileWriter(fileName), ',', CSVWriter.NO_QUOTE_CHARACTER);
+		writer = new CSVWriter(new OutputStreamWriter(
+				new FileOutputStream(fileName), "UTF-8"), ',', CSVWriter.NO_QUOTE_CHARACTER);
 		String[] header = "IDList1,IDList2,Location,Date,Interaction Type,Citation,Notes".split(",");
 		writer.writeNext(header);
 		for (Interaction interaction : DataCollections.getInteractionCollection()) {
@@ -141,7 +145,8 @@ public class CSVUtil {
 	}
 
 	public static void writeInteractionType(String fileName) throws IOException {
-		writer = new CSVWriter(new FileWriter(fileName), ',', CSVWriter.NO_QUOTE_CHARACTER);
+		writer = new CSVWriter(new OutputStreamWriter(
+				new FileOutputStream(fileName), "UTF-8"), ',', CSVWriter.NO_QUOTE_CHARACTER);
 		int sizeList = ControlledVocab.getInteractionTypeVocab().size();
 		String[] interactionTypeArray = new String[sizeList];
 		String[] header = new String[1];
@@ -157,7 +162,8 @@ public class CSVUtil {
 	}
 
 	public static void writeCultureVocab(String fileName) throws IOException {
-		writer = new CSVWriter(new FileWriter(fileName), ',', CSVWriter.NO_QUOTE_CHARACTER);
+		writer = new CSVWriter(new OutputStreamWriter(
+				new FileOutputStream(fileName), "UTF-8"), ',', CSVWriter.NO_QUOTE_CHARACTER);
 		int sizeList = ControlledVocab.getCultureVocab().size();
 		String[] header = new String[1];
 		header[0] = "Culture Vocabulary";
@@ -173,7 +179,8 @@ public class CSVUtil {
 	}
 
 	public static void writeOccupationVocab(String fileName) throws IOException {
-		writer = new CSVWriter(new FileWriter(fileName), ',', CSVWriter.NO_QUOTE_CHARACTER);
+		writer = new CSVWriter(new OutputStreamWriter(
+				new FileOutputStream(fileName), "UTF-8"), ',', CSVWriter.NO_QUOTE_CHARACTER);
 		int sizeList = ControlledVocab.getOccupationVocab().size();
 		String[] header = new String[1];
 		header[0] = "Occupation Vocabulary";
