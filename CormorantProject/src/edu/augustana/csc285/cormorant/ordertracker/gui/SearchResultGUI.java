@@ -3,6 +3,10 @@ package edu.augustana.csc285.cormorant.ordertracker.gui;
 import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import java.util.Optional;
 
 import edu.augustana.csc285.cormorant.ordertracker.datamodel.CSVUtil;

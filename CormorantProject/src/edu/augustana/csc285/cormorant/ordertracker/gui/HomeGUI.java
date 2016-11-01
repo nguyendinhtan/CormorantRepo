@@ -88,7 +88,7 @@ public class HomeGUI extends Application {
 	            File file = fileChooser.showSaveDialog(primaryStage);
 	            if (file != null) {
 	            	pathFileOpen = file;
-	            	String pathOpen = file.getParent();
+	            	String pathOpen = file.getAbsolutePath();
 	            	try {
 	            		if(!DataCollections.isEmpty()){
 	        				savePerson();
@@ -100,6 +100,8 @@ public class HomeGUI extends Application {
 		        			ControlledVocab.clearControlledVocab();
 	        			}
 	        			new File(pathOpen).mkdir();
+	        			File cmrFile = new File(pathOpen + "\\" + file.getName() + ".cmr");
+	        			cmrFile.createNewFile();
 						CSVUtil.createPersonFile(pathOpen+"\\People.csv");
 						CSVUtil.createInteractionsFile(pathOpen+"\\Interaction.csv");
 		            	CSVUtil.createInteractionTypeFile(pathOpen + "\\InteractionType.csv");
@@ -119,7 +121,7 @@ public class HomeGUI extends Application {
 				final FileChooser fileChooser = new FileChooser();
 				fileChooser.setTitle("Open Existing Project");
 				File file = fileChooser.showOpenDialog(primaryStage);
-				if (file != null) {
+				if (file != null && file.getName().contains(".cmr")) {
 					pathFileOpen = file;
 					String pathOpen = file.getParent();
 					try {
