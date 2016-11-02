@@ -1,5 +1,9 @@
 package edu.augustana.csc285.cormorant.ordertracker.gui;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -26,7 +30,7 @@ public class LoginGUI extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        primaryStage.setTitle("JavaFX Welcome");
+        primaryStage.setTitle("Cormorant Welcome");
         GridPane grid = new GridPane();
         grid.setAlignment(Pos.CENTER);
         grid.setHgap(10);
@@ -56,11 +60,46 @@ public class LoginGUI extends Application {
         hbBtn.getChildren().add(btnLog);
         grid.add(hbBtn, 1, 4);
         
+        btnRegis.setOnAction(new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent e) {
+                RegisterGUI register = new RegisterGUI();
+                register.start(primaryStage);
+            }
+        });
 
         btnLog.setOnAction(new EventHandler<ActionEvent>() {
 
             @Override
             public void handle(ActionEvent e) {
+            	File data = new File("data\\Data.txt");
+				try {
+					Scanner scan = new Scanner(data);
+					boolean registered = false;
+					while(scan.hasNextLine()){
+	                	String text = scan.nextLine();
+	                	if(text.equals(userTextField.getText())){
+	                		String passwordCheck = scan.nextLine();
+	                		if(passwordCheck.equals(pwBox.getText())){
+	                			registered = true;
+	                		}
+	                	}
+	                }
+	                if(registered){
+	                	HomeGUI homeGUI = new HomeGUI();
+	            		try {
+							homeGUI.start(primaryStage);
+						} catch (Exception error) {
+							DialogGUI.showError("Error to load the Home stage", error.toString());
+						}
+	                }
+	                else{
+	                	DialogGUI.showError("Error", "You must register before logging in");
+	                }
+				} catch (FileNotFoundException error) {
+					DialogGUI.showError("Error to load the Home stage", error.toString());
+				}
                 
             }
         });

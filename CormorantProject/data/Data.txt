@@ -1,5 +1,6 @@
-People.csv
-Interaction.csv
-InteractionType.csv
-CultureVocab.csv
-OccupationVocab.csv
+tannguyen
+sieunhan
+tannguyen16
+sieunhan123
+loras
+lord123
