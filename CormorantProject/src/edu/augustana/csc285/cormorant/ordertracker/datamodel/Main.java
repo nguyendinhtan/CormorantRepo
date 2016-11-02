@@ -18,5 +18,4 @@ public class Main extends Application {
 		CSVUtil.loadCultureVocab("data\\CultureVocab.csv");
 		CSVUtil.loadOccupationVocab("data\\OccupationVocab.csv");
 	}
-
 }
