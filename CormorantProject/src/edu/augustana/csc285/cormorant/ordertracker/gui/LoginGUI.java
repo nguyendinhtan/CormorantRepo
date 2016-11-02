@@ -91,13 +91,13 @@ public class LoginGUI extends Application {
 						try {
 							homeGUI.start(primaryStage);
 						} catch (Exception error) {
-							DialogGUI.showError("Error to load the Home stage", error.toString());
+							DialogGUI.showError("You must register before logging in", error.toString());
 						}
 					} else {
 						DialogGUI.showError("Error", "You must register before logging in");
 					}
 				} catch (FileNotFoundException error) {
-					DialogGUI.showError("Error to load the Home stage", error.toString());
+					DialogGUI.showError("You must register before logging in", error.toString());
 				}
 
 			}
