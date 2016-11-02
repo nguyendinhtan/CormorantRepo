@@ -60,7 +60,8 @@ public class EditInteractionGUI extends Application {
 		Label person1Label = new Label("Person(s):");
 		Label person2Label = new Label("Person(s) Interacted With:");
 		Label locactionLabel = new Label("Location:");
-		Label dateLabel = new Label("Date:");
+		Label dateFromLabel = new Label("Date From:");
+		Label dateToLabel = new Label("Date To:");
 		Label interactionTypeLabel = new Label("Interaction Type:");
 		Label citationLabel = new Label("Bibliographical Citation:");
 		Label notesLabel = new Label("Notes:");
@@ -78,7 +79,9 @@ public class EditInteractionGUI extends Application {
 		ListView<Person> person1List = new ListView<Person>();
 		ListView<Person> person2List = new ListView<Person>();
 		TextArea notesTextArea = new TextArea();
-		DatePicker datePicker = new DatePicker();
+		DatePicker datePickerFrom = new DatePicker();
+		DatePicker datePickerTo = new DatePicker();
+
 		editedPersonDropDown.addAll(DataCollections.getPersonCollection());
 		editedPersonDropDown.removeAll(SearchResultGUI.getSelectedInteraction().getPeople1());
 		editedPersonDropDown.removeAll(SearchResultGUI.getSelectedInteraction().getPeople2());
@@ -88,7 +91,10 @@ public class EditInteractionGUI extends Application {
 		oListPerson2Selected = FXCollections.observableArrayList(SearchResultGUI.getSelectedInteraction().getPeople2());
 		person1List.setItems(oListPerson1Selected);
 		person2List.setItems(oListPerson2Selected);
-		datePicker.setValue(SearchResultGUI.getSelectedInteraction().getDate());
+		datePickerFrom.setValue(SearchResultGUI.getSelectedInteraction()
+				.getDate(SearchResultGUI.getSelectedInteraction().getDateFrom()));
+		datePickerTo.setValue(
+				SearchResultGUI.getSelectedInteraction().getDate(SearchResultGUI.getSelectedInteraction().getDateTo()));
 		notesTextArea.setText(SearchResultGUI.getSelectedInteraction().getNotes());
 		locationTextField.setText(SearchResultGUI.getSelectedInteraction().getLocation());
 		citationTextField.setText(SearchResultGUI.getSelectedInteraction().getCitation());
@@ -108,16 +114,18 @@ public class EditInteractionGUI extends Application {
 		grid.add(removeButtonsBox, 1, 3);
 		grid.add(locactionLabel, 0, 4);
 		grid.add(locationTextField, 1, 4);
-		grid.add(dateLabel, 0, 5);
-		grid.add(datePicker, 1, 5);
-		grid.add(interactionTypeLabel, 0, 6);
-		grid.add(interactionTypeDropDown, 1, 6);
-		grid.add(citationLabel, 0, 7);
-		grid.add(citationTextField, 1, 7);
-		grid.add(notesLabelBox, 0, 8);
-		grid.add(notesTextArea, 1, 8);
-		grid.add(backButton, 0, 9);
-		grid.add(buttonBox, 1, 9);
+		grid.add(dateFromLabel, 0, 5);
+		grid.add(datePickerFrom, 1, 5);
+		grid.add(dateToLabel, 0, 6);
+		grid.add(datePickerTo, 1, 6);
+		grid.add(interactionTypeLabel, 0, 7);
+		grid.add(interactionTypeDropDown, 1, 7);
+		grid.add(citationLabel, 0, 8);
+		grid.add(citationTextField, 1, 8);
+		grid.add(notesLabelBox, 0, 9);
+		grid.add(notesTextArea, 1, 9);
+		grid.add(backButton, 0, 10);
+		grid.add(buttonBox, 1, 10);
 
 		// Person Label Box Methods
 		personLabelBox.getChildren().add(person1Label);
@@ -217,9 +225,13 @@ public class EditInteractionGUI extends Application {
 		personAreaBox.getChildren().add(person1List);
 		personAreaBox.getChildren().add(person2List);
 
-		// Date Text Field Methods
-		datePicker.setMaxSize(450, 20);
-		datePicker.setPromptText("MM/dd/yyyy");
+		// Date Picker To Field Methods
+		datePickerTo.setMaxSize(450, 20);
+		datePickerTo.setPromptText("MM/dd/yyyy");
+
+		// Date Picker From Field Methods
+		datePickerFrom.setMaxSize(450, 20);
+		datePickerFrom.setPromptText("MM/dd/yyyy");
 
 		// Remove Buttons Box Methods
 		removeButtonsBox.getChildren().add(removePerson1Button);
@@ -253,9 +265,13 @@ public class EditInteractionGUI extends Application {
 			public void handle(ActionEvent e) {
 				String location = (locationTextField.getText().matches(".*[a-zA-Z]+.*")) ? locationTextField.getText()
 						: "Unknown";
-				String date = (datePicker.getValue() != null)
-						? datePicker.getValue().format(DateTimeFormatter.ofPattern("MM/dd/yyyy")).toString()
+				String dateFrom = (datePickerFrom.getValue() != null)
+						? datePickerFrom.getValue().format(DateTimeFormatter.ofPattern("MM/dd/yyyy")).toString()
 						: "No Date";
+				String dateTo = (datePickerTo.getValue() != null)
+						? datePickerTo.getValue().format(DateTimeFormatter.ofPattern("MM/dd/yyyy")).toString()
+						: "No Date";
+				String dateString = (datePickerTo.getValue() != null) ? dateFrom + "-" + dateTo : dateFrom;
 				String citation = (citationTextField.getText().matches(".*[a-zA-Z]+.*")) ? citationTextField.getText()
 						: "none";
 				String interactionType = (interactionTypeDropDown.getValue() != null)
@@ -263,7 +279,7 @@ public class EditInteractionGUI extends Application {
 				String notes = (notesTextArea.getText().matches(".*[a-zA-Z]+.*")) ? notesTextArea.getText() : "none";
 				if (!(oListPerson1Selected.isEmpty() && oListPerson2Selected.isEmpty())) {
 					Interaction interaction = new Interaction(oListPerson1Selected, oListPerson2Selected, location,
-							date, interactionType, citation, notes, false);
+							dateString, interactionType, citation, notes, false);
 					if (DataCollections.checkForInteractionDuplicates(interaction) >= 0) {
 						DialogGUI.showError("Duplicate Interaction Entered",
 								"Interaction already exists." + interaction.toString());
@@ -297,14 +313,13 @@ public class EditInteractionGUI extends Application {
 			@Override
 			public void handle(WindowEvent we) {
 				String saveDialog = DialogGUI.saveConfirmation();
-				if(saveDialog == "Save"){
+				if (saveDialog == "Save") {
 					HomeGUI.savePerson();
 					HomeGUI.saveInteractions();
 					HomeGUI.saveCultureVocab();
 					HomeGUI.saveOccupationVocab();
 					HomeGUI.saveInteractionsType();
-				}
-				else if(saveDialog=="Cancel"){
+				} else if (saveDialog == "Cancel") {
 					we.consume();
 				}
 			}
