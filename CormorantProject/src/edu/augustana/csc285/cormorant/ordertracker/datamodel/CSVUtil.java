@@ -245,21 +245,24 @@ public class CSVUtil {
 	}
 	
 	public static void createPersonFile(String fileName) throws IOException {
-		writer = new CSVWriter(new FileWriter(fileName), ',', CSVWriter.NO_QUOTE_CHARACTER);
+		writer = new CSVWriter(new OutputStreamWriter(
+				new FileOutputStream(fileName), "UTF-8"), ',', CSVWriter.NO_QUOTE_CHARACTER);
 		String[] header = "ID,Name,Nickname,Gender,Culture,Occupation,Notes".split(",");
 		writer.writeNext(header);
 		writer.close();
 	}
 
 	public static void createInteractionsFile(String fileName) throws IOException {
-		writer = new CSVWriter(new FileWriter(fileName), ',', CSVWriter.NO_QUOTE_CHARACTER);
+		writer = new CSVWriter(new OutputStreamWriter(
+				new FileOutputStream(fileName), "UTF-8"), ',', CSVWriter.NO_QUOTE_CHARACTER);
 		String[] header = "IDList1,IDList2,Location,Date,Interaction Type,Citation,Notes".split(",");
 		writer.writeNext(header);
 		writer.close();
 	}
 
 	public static void createInteractionTypeFile(String fileName) throws IOException {
-		writer = new CSVWriter(new FileWriter(fileName), ',', CSVWriter.NO_QUOTE_CHARACTER);
+		writer = new CSVWriter(new OutputStreamWriter(
+				new FileOutputStream(fileName), "UTF-8"), ',', CSVWriter.NO_QUOTE_CHARACTER);
 		String[] header = new String[1];
 		header[0] = "Interaction Type Vocabulary";
 		writer.writeNext(header);
@@ -267,7 +270,8 @@ public class CSVUtil {
 	}
 
 	public static void createCultureVocabFile(String fileName) throws IOException {
-		writer = new CSVWriter(new FileWriter(fileName), ',', CSVWriter.NO_QUOTE_CHARACTER);
+		writer = new CSVWriter(new OutputStreamWriter(
+				new FileOutputStream(fileName), "UTF-8"), ',', CSVWriter.NO_QUOTE_CHARACTER);
 		String[] header = new String[1];
 		header[0] = "Culture Vocabulary";
 		writer.writeNext(header);
@@ -275,7 +279,8 @@ public class CSVUtil {
 	}
 
 	public static void createOccupationVocabFile(String fileName) throws IOException {
-		writer = new CSVWriter(new FileWriter(fileName), ',', CSVWriter.NO_QUOTE_CHARACTER);
+		writer = new CSVWriter(new OutputStreamWriter(
+				new FileOutputStream(fileName), "UTF-8"), ',', CSVWriter.NO_QUOTE_CHARACTER);
 		String[] header = new String[1];
 		header[0] = "Occupation Vocabulary";
 		writer.writeNext(header);
@@ -321,8 +326,10 @@ public class CSVUtil {
 	 * @throws IOException
 	 */
 	public static void palladioExport(String fileName1, String fileName2) throws IOException {
-		reader = new CSVReader(new FileReader(fileName1));
-		writer = new CSVWriter(new FileWriter(fileName2), ',', CSVWriter.NO_QUOTE_CHARACTER);
+		reader=new CSVReader(new InputStreamReader(
+				 new FileInputStream(fileName1)));
+		writer = new CSVWriter(new OutputStreamWriter(
+				new FileOutputStream(fileName2), "UTF-8"), ',', CSVWriter.NO_QUOTE_CHARACTER);
 		for (Interaction interaction : DataCollections.getInteractionCollection()) {
 			writer.writeNext(interaction.toCSVRowArray());
 		}
@@ -334,7 +341,8 @@ public class CSVUtil {
 	}
 	
 	public static void palladioExport(String fileName, List<Interaction> list) throws IOException {
-		writer = new CSVWriter(new FileWriter(fileName), ',', CSVWriter.NO_QUOTE_CHARACTER);
+		writer = new CSVWriter(new OutputStreamWriter(
+				new FileOutputStream(fileName), "UTF-8"), ',', CSVWriter.NO_QUOTE_CHARACTER);
 		List<Interaction> interactionList = list;
 		String[] header = "Source,Target".split(",");
 		writer.writeNext(header);
@@ -354,7 +362,8 @@ public class CSVUtil {
 	}
 	
 	public static void gephiExportNodes(String fileName, List<Person> list) throws IOException {
-		writer = new CSVWriter(new FileWriter(fileName), ',', CSVWriter.NO_QUOTE_CHARACTER);
+		writer = new CSVWriter(new OutputStreamWriter(
+				new FileOutputStream(fileName), "UTF-8"), ',', CSVWriter.NO_QUOTE_CHARACTER);
 		List<Person> personList = list;
 		String[] header = "Id,Label,Gender,Occupation".split(",");
 		writer.writeNext(header);
@@ -379,7 +388,8 @@ public class CSVUtil {
 	}
 
 	public static void gephiExportEdges(String fileName, List<Interaction> list) throws IOException {
-		writer = new CSVWriter(new FileWriter(fileName), ',', CSVWriter.NO_QUOTE_CHARACTER);
+		writer = new CSVWriter(new OutputStreamWriter(
+				new FileOutputStream(fileName), "UTF-8"), ',', CSVWriter.NO_QUOTE_CHARACTER);
 		List<Interaction> interactionList = list;
 		String[] header = "Source,Target,Id,Date,Location,Source type".split(",");
 		writer.writeNext(header);
