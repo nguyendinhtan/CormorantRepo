@@ -142,8 +142,15 @@ public class SearchResultGUI extends Application {
 			exportButton.setOnAction(new EventHandler<ActionEvent>() {
 				@Override
 				public void handle(ActionEvent e) {
-					DialogGUI.confirmation("Export Confirmation",
-							"Do you want to export this people list to Gephi file?");
+					Alert alert = new Alert(AlertType.CONFIRMATION);
+					alert.setTitle("Export Confirmation");
+					alert.setHeaderText("Export Confirmation");
+					alert.setContentText("Do you want to export this people list to Gephi file?");
+					ButtonType buttonOK = new ButtonType("Ok");
+					ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
+					alert.getButtonTypes().setAll(buttonOK, buttonTypeCancel);
+					Optional<ButtonType> result = alert.showAndWait();
+				if (result.get()==buttonOK){
 					final FileChooser fileChooser = new FileChooser();
 					fileChooser.setTitle("Export");
 					File file = fileChooser.showSaveDialog(primaryStage);
@@ -172,6 +179,8 @@ public class SearchResultGUI extends Application {
 							DialogGUI.showError("Error Exporting to Gephi", error.toString());
 						}
 					}
+				
+				}
 				}
 			});
 

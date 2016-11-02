@@ -57,7 +57,6 @@ public class SearchUtil {
 				if (DataCollections.getPersonCollection().get(i).exactSearch(search) == 1) {
 					personResults.add(0, DataCollections.getPersonCollection().get(i));
 				} else if (DataCollections.getPersonCollection().get(i).exactSearch(search) == 2) {
-					System.out.println("exact Match");
 					personResults.add(DataCollections.getPersonCollection().get(i));
 				}
 			}
