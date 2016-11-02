@@ -16,7 +16,6 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
@@ -71,11 +70,13 @@ public class LoginGUI extends Application {
 
 		btnLog.setOnAction(new EventHandler<ActionEvent>() {
 
+			private Scanner scan;
+
 			@Override
 			public void handle(ActionEvent e) {
 				File data = new File("data\\Data.txt");
 				try {
-					Scanner scan = new Scanner(data);
+					scan = new Scanner(data);
 					boolean registered = false;
 					while (scan.hasNextLine()) {
 						String text = scan.nextLine();
