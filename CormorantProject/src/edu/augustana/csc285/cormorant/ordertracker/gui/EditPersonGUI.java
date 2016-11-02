@@ -27,6 +27,7 @@ public class EditPersonGUI extends Application {
 	private ObservableList<String> oListCulture;
 	private ObservableList<String> oListOccupation;
 
+	@Override
 	public void start(Stage primaryStage) {
 		System.setProperty("glass.accessible.force", "false"); // Fixes bug of
 																// combobox

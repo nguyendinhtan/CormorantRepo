@@ -41,6 +41,7 @@ public class EditInteractionGUI extends Application {
 		editedPersonDropDown = new ArrayList<Person>();
 	}
 
+	@Override
 	public void start(Stage primaryStage) {
 		// Fixes bug of combobox crashing when running on certain computers
 		System.setProperty("glass.accessible.force", "false");

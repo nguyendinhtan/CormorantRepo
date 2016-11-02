@@ -39,6 +39,7 @@ public class AddInteractionGUI extends Application {
 	private ObservableList<Person> oListPerson1Selected;
 	private ObservableList<Person> oListPerson2Selected;
 
+	@Override
 	public void start(Stage primaryStage) throws Exception {
 		/*
 		 * Fixes bug of combobox crashing when running on certain computers
@@ -308,6 +309,7 @@ public class AddInteractionGUI extends Application {
 
 		// Primary Stage Methods
 		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+			@Override
 			public void handle(WindowEvent we) {
 				String saveDialog = DialogGUI.saveConfirmation();
 				if (saveDialog == "Save") {
@@ -319,7 +321,6 @@ public class AddInteractionGUI extends Application {
 				} else if (saveDialog == "Cancel") {
 					we.consume();
 				}
-
 			}
 		});
 

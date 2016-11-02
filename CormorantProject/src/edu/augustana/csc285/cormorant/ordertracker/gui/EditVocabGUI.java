@@ -31,6 +31,7 @@ public class EditVocabGUI extends Application {
 
 	ObservableList<String> observableListVocab;
 
+	@Override
 	public void start(Stage primaryStage) {
 
 		System.setProperty("glass.accessible.force", "false"); // Fixes bug of
@@ -203,6 +204,7 @@ public class EditVocabGUI extends Application {
 
 		// Primary Stage Methods
 		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+			@Override
 			public void handle(WindowEvent we) {
 				String saveDialog = DialogGUI.saveConfirmation();
 				if(saveDialog == "Save"){

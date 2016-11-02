@@ -31,6 +31,7 @@ public class AddPersonGUI extends Application {
 	private ObservableList<String> oListCulture;
 	private ObservableList<String> oListOccupation;
 
+	@Override
 	public void start(Stage primaryStage) throws Exception {
 		System.setProperty("glass.accessible.force", "false"); // Fixes bug of
 																// combobox
@@ -166,6 +167,7 @@ public class AddPersonGUI extends Application {
 
 		// Primary Stage Methods
 		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+			@Override
 			public void handle(WindowEvent we) {
 				String saveDialog = DialogGUI.saveConfirmation();
 				if(saveDialog == "Save"){

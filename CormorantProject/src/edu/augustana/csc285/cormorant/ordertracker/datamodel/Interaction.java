@@ -162,7 +162,7 @@ public class Interaction {
 		int toSeperator = dateString.lastIndexOf("-");
 		String dateTo;
 		if (toSeperator > 0) {
-			dateTo = dateString.substring(toSeperator+1, dateString.length());
+			dateTo = dateString.substring(toSeperator + 1, dateString.length());
 		} else {
 			dateTo = "No Date";
 		}
@@ -243,6 +243,7 @@ public class Interaction {
 		return " ";
 	}
 
+	@Override
 	public String toString() {
 		return "Group 1=(" + getNamesOfGroup(people1) + ") interacted with Group 2=(" + getNamesOfGroup(people2)
 				+ ") {Location=" + location + ", Date=" + dateString + ", Interaction Type=" + interactionType
@@ -270,6 +271,7 @@ public class Interaction {
 		}
 		return -1;
 	}
+
 	public int exactSearch(String search) {
 		String searchLower = search.toLowerCase();
 		for (int i = 0; i < people1.size(); i++) {
@@ -283,8 +285,7 @@ public class Interaction {
 			}
 		}
 		if (location.toLowerCase().equals(searchLower) || dateString.equals(searchLower)
-				|| interactionType.toLowerCase().equals(searchLower)
-				|| citation.toLowerCase().equals(searchLower)) {
+				|| interactionType.toLowerCase().equals(searchLower) || citation.toLowerCase().equals(searchLower)) {
 			return 2;
 		} else if (notes != null && notes.toLowerCase().equals(searchLower)) {
 			return 2;
