@@ -1,8 +1,6 @@
 
 package edu.augustana.csc285.cormorant.ordertracker.datamodel;
 
-import edu.augustana.csc285.cormorant.ordertracker.gui.DialogGUI;
-import edu.augustana.csc285.cormorant.ordertracker.gui.HomeGUI;
 import edu.augustana.csc285.cormorant.ordertracker.gui.LoginGUI;
 import javafx.application.Application;
 import javafx.stage.Stage;

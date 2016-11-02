@@ -1,6 +1,5 @@
 package edu.augustana.csc285.cormorant.ordertracker.gui;
 
-import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
 import java.util.Optional;
@@ -43,7 +42,6 @@ public class SearchResultGUI extends Application {
 	private ObservableList<Interaction> oListInteractionResults;
 	private static Person selectedPerson;
 	private static Interaction selectedInteraction;
-	private Desktop desktop = Desktop.getDesktop();
 
 	@Override
 	public void start(Stage primaryStage) {
