@@ -44,6 +44,7 @@ public class SearchResultGUI extends Application {
 	private static Person selectedPerson;
 	private static Interaction selectedInteraction;
 	private Desktop desktop = Desktop.getDesktop();
+
 	@Override
 	public void start(Stage primaryStage) {
 
@@ -141,33 +142,36 @@ public class SearchResultGUI extends Application {
 			exportButton.setOnAction(new EventHandler<ActionEvent>() {
 				@Override
 				public void handle(ActionEvent e) {
-					DialogGUI.confirmation("Export Confirmation" , "Do you want to export this people list to Gephi file?"); 
-					final FileChooser fileChooser = new FileChooser(); 
+					DialogGUI.confirmation("Export Confirmation",
+							"Do you want to export this people list to Gephi file?");
+					final FileChooser fileChooser = new FileChooser();
 					fileChooser.setTitle("Export");
-		            File file = fileChooser.showSaveDialog(primaryStage);
-		            if (file != null) {
-					try {
-						oListInteractionResults=FXCollections.observableArrayList();
-						CSVUtil.gephiExportNodes(file.getParent()+"\\"+file.getName()+"-gephi-nodes.csv", oListPersonResults);
-						for (Person person: oListPersonResults){
-							for (Interaction interaction: DataCollections.getInteractionCollection()){
-								if (interaction.getPeople1().contains(person)){
-									if (!oListInteractionResults.contains(interaction)){
-										oListInteractionResults.add(interaction);
+					File file = fileChooser.showSaveDialog(primaryStage);
+					if (file != null) {
+						try {
+							oListInteractionResults = FXCollections.observableArrayList();
+							CSVUtil.gephiExportNodes(file.getParent() + "\\" + file.getName() + "-gephi-nodes.csv",
+									oListPersonResults);
+							for (Person person : oListPersonResults) {
+								for (Interaction interaction : DataCollections.getInteractionCollection()) {
+									if (interaction.getPeople1().contains(person)) {
+										if (!oListInteractionResults.contains(interaction)) {
+											oListInteractionResults.add(interaction);
+										}
+									} else if (interaction.getPeople2().contains(person)) {
+										if (!oListInteractionResults.contains(interaction)) {
+											oListInteractionResults.add(interaction);
+										}
 									}
-							}else if(interaction.getPeople2().contains(person)){
-								if (!oListInteractionResults.contains(interaction)){
-									oListInteractionResults.add(interaction);
 								}
 							}
-							}
+
+							CSVUtil.gephiExportEdges(file.getParent() + "\\" + file.getName() + "-gephi-edges.csv",
+									oListInteractionResults);
+						} catch (IOException error) {
+							DialogGUI.showError("Error Exporting to Gephi", error.toString());
 						}
-						
-						CSVUtil.gephiExportEdges(file.getParent()+"\\"+file.getName()+"-gephi-edges.csv", oListInteractionResults);
-					} catch (IOException error) {
-						DialogGUI.showError("Error Exporting to Gephi", error.toString());
 					}
-		           }
 				}
 			});
 
@@ -180,10 +184,12 @@ public class SearchResultGUI extends Application {
 								"Are you sure you want to delete this person?")) {
 							for (Interaction interaction : DataCollections.getInteractionCollection()) {
 								for (Person person : interaction.getPeople1()) {
-										interaction.getPeople1().remove(person.equals(personResultsView.getSelectionModel().getSelectedItem()));
+									interaction.getPeople1().remove(
+											person.equals(personResultsView.getSelectionModel().getSelectedItem()));
 								}
 								for (Person person : interaction.getPeople2()) {
-									interaction.getPeople2().remove(person.equals(personResultsView.getSelectionModel().getSelectedItem()));
+									interaction.getPeople2().remove(
+											person.equals(personResultsView.getSelectionModel().getSelectedItem()));
 								}
 							}
 							DataCollections.getPersonCollection()
@@ -260,44 +266,47 @@ public class SearchResultGUI extends Application {
 					alert.getButtonTypes().setAll(buttonTypePalladio, buttonTypeGephi, buttonTypeCancel);
 
 					Optional<ButtonType> result = alert.showAndWait();
-					if (result.get() == buttonTypePalladio){
-						final FileChooser fileChooser = new FileChooser(); 
+					if (result.get() == buttonTypePalladio) {
+						final FileChooser fileChooser = new FileChooser();
 						fileChooser.setTitle("Export");
 						File file = fileChooser.showSaveDialog(primaryStage);
-			           if (file != null) {
-			            try {
-			            	CSVUtil.palladioExport(file.getParent()+"\\"+file.getName()+"-palladio.csv", oListInteractionResults);
-						} catch (IOException error) {
-							DialogGUI.showError("Error Exporting Palladio CSV File", error.toString());
+						if (file != null) {
+							try {
+								CSVUtil.palladioExport(file.getParent() + "\\" + file.getName() + "-palladio.csv",
+										oListInteractionResults);
+							} catch (IOException error) {
+								DialogGUI.showError("Error Exporting Palladio CSV File", error.toString());
+							}
 						}
-			           }
-			         }else if (result.get()==buttonTypeGephi){
-			        	 	final FileChooser fileChooser = new FileChooser();	
-			        	 	fileChooser.setTitle("Export");
-							File file = fileChooser.showSaveDialog(primaryStage);
-							if (file != null) {
-				            	try {
-				            		oListPersonResults=FXCollections.observableArrayList();
-				            		CSVUtil.gephiExportEdges(file.getParent()+"\\"+file.getName()+"-gephi-edges.csv", oListInteractionResults);
-				            		for (Interaction interaction : oListInteractionResults) {
-										for (Person person : interaction.getPeople1()) {
-											if (!oListPersonResults.contains(person)){	
+					} else if (result.get() == buttonTypeGephi) {
+						final FileChooser fileChooser = new FileChooser();
+						fileChooser.setTitle("Export");
+						File file = fileChooser.showSaveDialog(primaryStage);
+						if (file != null) {
+							try {
+								oListPersonResults = FXCollections.observableArrayList();
+								CSVUtil.gephiExportEdges(file.getParent() + "\\" + file.getName() + "-gephi-edges.csv",
+										oListInteractionResults);
+								for (Interaction interaction : oListInteractionResults) {
+									for (Person person : interaction.getPeople1()) {
+										if (!oListPersonResults.contains(person)) {
 											oListPersonResults.add(person);
-											}
-										}
-										for (Person person : interaction.getPeople2()) {
-											if (!oListPersonResults.contains(person)){	
-												oListPersonResults.add(person);
-												}
 										}
 									}
-				            		CSVUtil.gephiExportNodes(file.getParent()+"\\"+file.getName()+"-gephi-nodes.csv", oListPersonResults);
-				            	} catch (IOException error) {
-				            		DialogGUI.showError("Error Exporting to Gephi CSV File", error.toString());
-				            	}
+									for (Person person : interaction.getPeople2()) {
+										if (!oListPersonResults.contains(person)) {
+											oListPersonResults.add(person);
+										}
+									}
+								}
+								CSVUtil.gephiExportNodes(file.getParent() + "\\" + file.getName() + "-gephi-nodes.csv",
+										oListPersonResults);
+							} catch (IOException error) {
+								DialogGUI.showError("Error Exporting to Gephi CSV File", error.toString());
 							}
-			         }
-					
+						}
+					}
+
 				}
 			});
 
@@ -335,11 +344,10 @@ public class SearchResultGUI extends Application {
 			@Override
 			public void handle(WindowEvent we) {
 				String saveDialog = DialogGUI.saveConfirmation();
-				if(saveDialog == "Save"){
+				if (saveDialog == "Save") {
 					HomeGUI.savePerson();
 					HomeGUI.saveInteractions();
-				}
-				else if(saveDialog=="Cancel"){
+				} else if (saveDialog == "Cancel") {
 					we.consume();
 				}
 			}

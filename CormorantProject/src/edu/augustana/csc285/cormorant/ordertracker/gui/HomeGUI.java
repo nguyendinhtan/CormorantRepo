@@ -61,7 +61,7 @@ public class HomeGUI extends Application {
 		ImageView imageEditView = new ImageView(imageEdit);
 		Button searchButton = new Button("Search", imageSearchView);
 		searchExactCB = new CheckBox("Exact Search");
-		searchExactCB.setPadding(new Insets(10,10,10,10));
+		searchExactCB.setPadding(new Insets(10, 10, 10, 10));
 		imageSearchView.setFitHeight(15);
 		imageSearchView.setFitWidth(15);
 		Button insertPersonButton = new Button("Insert Person", imagePersonView);
@@ -86,7 +86,7 @@ public class HomeGUI extends Application {
 		menuFile.getItems().addAll(newProjectMenu, saveProjectMenu, openProjectMenu);
 		menuHelp.getItems().addAll(aboutMenu);
 		menuBar.getMenus().addAll(menuFile, menuHelp);
-		
+
 		newProjectMenu.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
@@ -117,16 +117,15 @@ public class HomeGUI extends Application {
 					} catch (IOException error) {
 						DialogGUI.showError("Error saving", error.toString());
 					}
-	            }
-
+				}
 
 			}
 		});
-		
+
 		saveProjectMenu.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
-				if (!DataCollections.isEmpty()){
+				if (!DataCollections.isEmpty()) {
 					savePerson();
 					saveInteractions();
 					saveInteractionsType();
@@ -268,18 +267,18 @@ public class HomeGUI extends Application {
 		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 			@Override
 			public void handle(WindowEvent we) {
-				
-					String saveDialog = DialogGUI.saveConfirmation();
-					if (saveDialog == "Save") {
-						savePerson();
-						saveInteractions();
-						saveInteractionsType();
-						saveCultureVocab();
-						saveOccupationVocab();
-					} else if (saveDialog == "Cancel") {
-						we.consume();
-					}
-				} 
+
+				String saveDialog = DialogGUI.saveConfirmation();
+				if (saveDialog == "Save") {
+					savePerson();
+					saveInteractions();
+					saveInteractionsType();
+					saveCultureVocab();
+					saveOccupationVocab();
+				} else if (saveDialog == "Cancel") {
+					we.consume();
+				}
+			}
 		});
 		primaryStage.setTitle("Home Screen");
 		primaryStage.setScene(scene);
@@ -289,49 +288,50 @@ public class HomeGUI extends Application {
 	public static File getPathFileOpen() {
 		return pathFileOpen;
 	}
+
 	public static File getTargetDirectory() {
 		return (pathFileOpen.isDirectory()) ? pathFileOpen : pathFileOpen.getParentFile();
 	}
 
 	public static void savePerson() {
-		if (pathFileOpen==null){
+		if (pathFileOpen == null) {
 			CSVUtil.savePerson("data\\People.csv");
-		}else{
-		CSVUtil.savePerson(getTargetDirectory() + "\\People.csv");
+		} else {
+			CSVUtil.savePerson(getTargetDirectory() + "\\People.csv");
 		}
 	}
 
 	public static void saveInteractions() {
-		if (pathFileOpen==null){
+		if (pathFileOpen == null) {
 			CSVUtil.saveInteractions("data\\Interaction.csv");
-		}else{
-		CSVUtil.saveInteractions(getTargetDirectory() + "\\Interaction.csv");
+		} else {
+			CSVUtil.saveInteractions(getTargetDirectory() + "\\Interaction.csv");
 		}
 	}
 
 	public static void saveInteractionsType() {
-		if (pathFileOpen==null){
+		if (pathFileOpen == null) {
 			CSVUtil.saveInteractionsType("data\\InteractionType.csv");
-		}else{
-		CSVUtil.saveInteractionsType(getTargetDirectory() + "\\InteractionType.csv");
+		} else {
+			CSVUtil.saveInteractionsType(getTargetDirectory() + "\\InteractionType.csv");
 		}
-		}
+	}
 
 	public static void saveCultureVocab() {
-		if (pathFileOpen==null){
+		if (pathFileOpen == null) {
 			CSVUtil.saveCultureVocab("data\\CultureVocab.csv");
-		}else{
-		CSVUtil.saveCultureVocab(getTargetDirectory() + "\\CultureVocab.csv");
+		} else {
+			CSVUtil.saveCultureVocab(getTargetDirectory() + "\\CultureVocab.csv");
 		}
-		}
+	}
 
 	public static void saveOccupationVocab() {
-		if (pathFileOpen==null){
+		if (pathFileOpen == null) {
 			CSVUtil.saveOccupationVocab("data\\OccupationVocab.csv");
-		}else{
-		CSVUtil.saveOccupationVocab(getTargetDirectory() + "\\OccupationVocab.csv");
+		} else {
+			CSVUtil.saveOccupationVocab(getTargetDirectory() + "\\OccupationVocab.csv");
 		}
-		}
+	}
 
 	public static String getType() {
 		return typeOfSearch;
@@ -340,8 +340,8 @@ public class HomeGUI extends Application {
 	public static String getSearchKey() {
 		return searchKey;
 	}
-	
-	public static boolean getCheckBox(){
+
+	public static boolean getCheckBox() {
 		return searchExactCB.isSelected();
 	}
 }

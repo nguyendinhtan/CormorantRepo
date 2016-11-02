@@ -61,7 +61,7 @@ public class ReadMeGUI extends Application {
 		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 			@Override
 			public void handle(WindowEvent we) {
-				HomeGUI home=new HomeGUI();
+				HomeGUI home = new HomeGUI();
 				try {
 					home.start(primaryStage);
 				} catch (Exception e) {

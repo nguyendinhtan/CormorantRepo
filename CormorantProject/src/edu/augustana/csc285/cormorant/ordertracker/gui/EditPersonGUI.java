@@ -183,14 +183,13 @@ public class EditPersonGUI extends Application {
 			@Override
 			public void handle(WindowEvent we) {
 				String saveDialog = DialogGUI.saveConfirmation();
-				if(saveDialog == "Save"){
+				if (saveDialog == "Save") {
 					HomeGUI.savePerson();
 					HomeGUI.saveInteractions();
 					HomeGUI.saveCultureVocab();
 					HomeGUI.saveOccupationVocab();
 					HomeGUI.saveInteractionsType();
-				}
-				else if(saveDialog=="Cancel"){
+				} else if (saveDialog == "Cancel") {
 					we.consume();
 				}
 			}
@@ -202,4 +201,3 @@ public class EditPersonGUI extends Application {
 	}
 
 }
-

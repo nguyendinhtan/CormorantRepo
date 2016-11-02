@@ -45,8 +45,8 @@ public class DialogGUI {
 			return false;
 		}
 	}
-	
-	public static String saveConfirmation(){
+
+	public static String saveConfirmation() {
 		Alert alert = new Alert(AlertType.CONFIRMATION);
 		alert.setTitle("Save Confirmation");
 		alert.setHeaderText("Save Confirmation");
@@ -59,15 +59,15 @@ public class DialogGUI {
 		alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo, buttonTypeCancel);
 
 		Optional<ButtonType> result = alert.showAndWait();
-		if (result.get() == buttonTypeOne){
+		if (result.get() == buttonTypeOne) {
 			return "Save";
 		} else if (result.get() == buttonTypeTwo) {
 			return "Don't Save";
 		}
 		return "Cancel";
 	}
-	
-	public static String loginConfirmation(){
+
+	public static String loginConfirmation() {
 		Alert alert = new Alert(AlertType.CONFIRMATION);
 		alert.setTitle("Log In");
 		alert.setHeaderText("Save Confirmation");
@@ -80,7 +80,7 @@ public class DialogGUI {
 		alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo, buttonTypeCancel);
 
 		Optional<ButtonType> result = alert.showAndWait();
-		if (result.get() == buttonTypeOne){
+		if (result.get() == buttonTypeOne) {
 			return "Save";
 		} else if (result.get() == buttonTypeTwo) {
 			return "Don't Save";

@@ -207,17 +207,16 @@ public class EditVocabGUI extends Application {
 			@Override
 			public void handle(WindowEvent we) {
 				String saveDialog = DialogGUI.saveConfirmation();
-				if(saveDialog == "Save"){
+				if (saveDialog == "Save") {
 					HomeGUI.savePerson();
 					HomeGUI.saveInteractions();
 					HomeGUI.saveInteractionsType();
 					HomeGUI.saveCultureVocab();
 					HomeGUI.saveOccupationVocab();
-				}
-				else if(saveDialog=="Cancel"){
+				} else if (saveDialog == "Cancel") {
 					we.consume();
 				}
-				
+
 			}
 		});
 		primaryStage.setTitle("Edit Controlled Vocabulary");
@@ -226,4 +225,3 @@ public class EditVocabGUI extends Application {
 	}
 
 }
-

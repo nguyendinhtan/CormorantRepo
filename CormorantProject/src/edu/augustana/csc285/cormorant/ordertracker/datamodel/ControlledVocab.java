@@ -12,7 +12,7 @@ public class ControlledVocab {
 	private static List<String> interactionTypeVocab = new ArrayList<String>();
 	private static List<String> cultureVocab = new ArrayList<String>();
 	private static List<String> occupationVocab = new ArrayList<String>();
-	
+
 	public static List<String> getInteractionTypeVocab() {
 		return interactionTypeVocab;
 	}
@@ -69,13 +69,13 @@ public class ControlledVocab {
 					return i;
 				}
 			}
-		}else if (list == "Interaction Type") {
+		} else if (list == "Interaction Type") {
 			for (int i = 0; i < interactionTypeVocab.size(); i++) {
 				if (vocab.toLowerCase().equals(interactionTypeVocab.get(i).toLowerCase())) {
 					return i;
 				}
 			}
-		}else if (list == "Culture") {
+		} else if (list == "Culture") {
 			for (int i = 0; i < cultureVocab.size(); i++) {
 				if (vocab.toLowerCase().equals(cultureVocab.get(i).toLowerCase())) {
 					return i;
@@ -84,12 +84,11 @@ public class ControlledVocab {
 		}
 		return -1;
 	}
-	
+
 	public static void clearControlledVocab() {
 		interactionTypeVocab.clear();
 		cultureVocab.clear();
 		occupationVocab.clear();
 	}
-
 
 }

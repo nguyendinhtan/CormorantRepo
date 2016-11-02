@@ -217,7 +217,8 @@ public class Person {
 		}
 		return -1;
 	}
-	public int exactSearch(String search){
+
+	public int exactSearch(String search) {
 		String searchLower = search.toLowerCase();
 		if (searchLower.equals(id) || name.toLowerCase().equals(searchLower)
 				|| nickname.toLowerCase().equals(searchLower) || culture.toLowerCase().equals(searchLower)
