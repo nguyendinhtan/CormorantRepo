@@ -247,4 +247,25 @@ public class Interaction {
 		}
 		return -1;
 	}
+	public int exactSearch(String search) {
+		String searchLower = search.toLowerCase();
+		for (int i = 0; i < people1.size(); i++) {
+			if (people1.get(i).exactSearch(searchLower) == 1) {
+				return 1;
+			}
+		}
+		for (int i = 0; i < people2.size(); i++) {
+			if (people2.get(i).exactSearch(searchLower) == 1) {
+				return 1;
+			}
+		}
+		if (location.toLowerCase().equals(searchLower) || dateString.equals(searchLower)
+				|| interactionType.toLowerCase().equals(searchLower)
+				|| citation.toLowerCase().equals(searchLower)) {
+			return 2;
+		} else if (notes != null && notes.toLowerCase().equals(searchLower)) {
+			return 2;
+		}
+		return -1;
+	}
 }

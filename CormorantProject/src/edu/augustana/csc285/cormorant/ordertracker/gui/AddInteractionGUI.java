@@ -1,11 +1,9 @@
 
 package edu.augustana.csc285.cormorant.ordertracker.gui;
 
-import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 import java.util.Collections;
 
-import edu.augustana.csc285.cormorant.ordertracker.datamodel.CSVUtil;
 import edu.augustana.csc285.cormorant.ordertracker.datamodel.ControlledVocab;
 import edu.augustana.csc285.cormorant.ordertracker.datamodel.DataCollections;
 import edu.augustana.csc285.cormorant.ordertracker.datamodel.Interaction;
@@ -240,7 +238,7 @@ public class AddInteractionGUI extends Application {
 			public void handle(ActionEvent e) {
 				String location = (locationTextField.getText().matches(".*[a-zA-Z]+.*")) ? locationTextField.getText()
 						: "Unknown";
-				String date = (datePicker.getValue() != null) ? datePicker.getValue().format(DateTimeFormatter.ofPattern("MM/dd/yyyy")).toString() : "no date";
+				String date = (datePicker.getValue() != null) ? datePicker.getValue().format(DateTimeFormatter.ofPattern("MM/dd/yyyy")).toString() : "No Date";
 				String citation = (citationTextField.getText().matches(".*[a-zA-Z]+.*")) ? citationTextField.getText()
 						: "none";
 				String interactionType = (interactionTypeDropDown.getValue() != null)

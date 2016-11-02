@@ -217,5 +217,18 @@ public class Person {
 		}
 		return -1;
 	}
+	public int exactSearch(String search){
+		String searchLower = search.toLowerCase();
+		if (searchLower.equals(id) || name.toLowerCase().equals(searchLower)
+				|| nickname.toLowerCase().equals(searchLower) || culture.toLowerCase().equals(searchLower)
+				|| occupation.toLowerCase().equals(searchLower)) {
+			return 1;
+		} else if (gender.toLowerCase().equals(searchLower)) {
+			return 2;
+		} else if (notes != null && notes.equals(searchLower)) {
+			return 2;
+		}
+		return -1;
+	}
 
 }
