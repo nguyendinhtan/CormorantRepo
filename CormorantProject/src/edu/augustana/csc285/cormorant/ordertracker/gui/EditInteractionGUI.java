@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import edu.augustana.csc285.cormorant.ordertracker.datamodel.CSVUtil;
 import edu.augustana.csc285.cormorant.ordertracker.datamodel.ControlledVocab;
 import edu.augustana.csc285.cormorant.ordertracker.datamodel.DataCollections;
 import edu.augustana.csc285.cormorant.ordertracker.datamodel.Interaction;
@@ -256,7 +255,7 @@ public class EditInteractionGUI extends Application {
 						: "Unknown";
 				String date = (datePicker.getValue() != null)
 						? datePicker.getValue().format(DateTimeFormatter.ofPattern("MM/dd/yyyy")).toString()
-						: "no date";
+						: "No Date";
 				String citation = (citationTextField.getText().matches(".*[a-zA-Z]+.*")) ? citationTextField.getText()
 						: "none";
 				String interactionType = (interactionTypeDropDown.getValue() != null)
