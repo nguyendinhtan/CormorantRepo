@@ -14,6 +14,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
@@ -35,6 +36,7 @@ public class HomeGUI extends Application {
 	private static String typeOfSearch;
 	private static String searchKey;
 	private static File pathFileOpen;
+	private static CheckBox searchExactCB;
 
 	public static void main(String[] args) {
 		launch(args);
@@ -58,6 +60,8 @@ public class HomeGUI extends Application {
 		ImageView imageInteractionView = new ImageView(imageInteraction);
 		ImageView imageEditView = new ImageView(imageEdit);
 		Button searchButton = new Button("Search", imageSearchView);
+		searchExactCB = new CheckBox("Exact Search");
+		searchExactCB.setPadding(new Insets(10,10,10,10));
 		imageSearchView.setFitHeight(15);
 		imageSearchView.setFitWidth(15);
 		Button insertPersonButton = new Button("Insert Person", imagePersonView);
@@ -184,7 +188,7 @@ public class HomeGUI extends Application {
 
 		// Search Text Field Methods
 		searchTextField.setMinSize(325, 10);
-		searchTextField.setMaxSize(325, 50);
+		searchTextField.setMaxSize(325, 32);
 		searchTextField.setPromptText("Search Query");
 
 		// Search Button Methods
@@ -207,6 +211,7 @@ public class HomeGUI extends Application {
 		topRowBox.getChildren().add(searchType);
 		topRowBox.getChildren().add(searchTextField);
 		topRowBox.getChildren().add(searchButton);
+		topRowBox.getChildren().add(searchExactCB);
 
 		// Insert Person Button Methods
 		insertPersonButton.setTextFill(Color.BLACK);
@@ -334,5 +339,9 @@ public class HomeGUI extends Application {
 
 	public static String getSearchKey() {
 		return searchKey;
+	}
+	
+	public static boolean getCheckBox(){
+		return searchExactCB.isSelected();
 	}
 }

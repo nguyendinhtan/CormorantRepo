@@ -3,6 +3,8 @@ package edu.augustana.csc285.cormorant.ordertracker.datamodel;
 
 import java.util.*;
 
+import edu.augustana.csc285.cormorant.ordertracker.gui.HomeGUI;
+
 /**
  * This class contains all methods for searching through collections, persons,
  * and interactions.
@@ -21,6 +23,7 @@ public class SearchUtil {
 
 	public static List<Interaction> searchInteractions(String search) {
 		List<Interaction> interactionResults = new ArrayList<>();
+		if (HomeGUI.getCheckBox()){
 		for (int i = 0; i < DataCollections.getInteractionCollection().size(); i++) {
 			if (DataCollections.getInteractionCollection().get(i).exactSearch(search) == 1){
 				interactionResults.add(0, DataCollections.getInteractionCollection().get(i));
@@ -28,7 +31,7 @@ public class SearchUtil {
 				interactionResults.add(DataCollections.getInteractionCollection().get(i));
 			}
 		}
-		if (interactionResults.size()==0){
+		}else{
 			for (int i = 0; i < DataCollections.getInteractionCollection().size(); i++) {
 				if (DataCollections.getInteractionCollection().get(i).contains(search) == 1) {
 					interactionResults.add(0, DataCollections.getInteractionCollection().get(i));
@@ -49,6 +52,7 @@ public class SearchUtil {
 
 	public static List<Person> searchPeople(String search) {
 		List<Person> personResults = new ArrayList<>();
+		if (HomeGUI.getCheckBox()){
 		for (int i = 0; i < DataCollections.getPersonCollection().size(); i++) {
 			if (DataCollections.getPersonCollection().get(i).exactSearch(search)==1){
 				personResults.add(0, DataCollections.getPersonCollection().get(i));
@@ -57,7 +61,7 @@ public class SearchUtil {
 				personResults.add(DataCollections.getPersonCollection().get(i));
 			}
 		}
-		if (personResults.size()==0){
+		}else{
 			for (int i = 0; i < DataCollections.getPersonCollection().size(); i++) {
 			if (DataCollections.getPersonCollection().get(i).contains(search)==1){
 				personResults.add(0, DataCollections.getPersonCollection().get(i));
