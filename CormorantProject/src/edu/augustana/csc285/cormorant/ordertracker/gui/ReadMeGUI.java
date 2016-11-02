@@ -27,11 +27,11 @@ public class ReadMeGUI extends Application {
 
 		primaryStage.setTitle("README");
 
-		// popup methods
+		// Popup methods
 		Popup popup = new Popup();
 		popup.setHeight(500);
 
-		// readme scanner
+		// README scanner
 		Scanner readme = null;
 		try {
 			readme = new Scanner(new File("../Readme.md"));
@@ -42,16 +42,15 @@ public class ReadMeGUI extends Application {
 		while (readme.hasNextLine()) {
 			readmeText.append(readme.nextLine() + "\n");
 		}
-		//System.out.println(readmeText.toString());
 
-		// textfield
+		// Textfield
 		Text text = new Text(readmeText.toString());
 		text.setFont(new Font(16));
 		text.setWrappingWidth(680);
 		text.maxWidth(700);
 		text.setTextAlignment(TextAlignment.CENTER);
 
-		// scrollpane
+		// Scrollpane
 		ScrollPane sp = new ScrollPane();
 		sp.setMaxHeight(500);
 		sp.setMaxWidth(700);

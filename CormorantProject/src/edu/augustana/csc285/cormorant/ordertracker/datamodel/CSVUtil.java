@@ -4,8 +4,6 @@ package edu.augustana.csc285.cormorant.ordertracker.datamodel;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
